@@ -1,0 +1,53 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="ir.berimbasket.app.activity.ActivitySetMarker">
+
+    <fragment
+        android:id="@+id/mapFrag"
+        android:name="ir.berimbasket.app.activity.fragment.FragmentSetMarker"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.2dp"
+        android:background="#66939393" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/btnSendMarker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_gravity="left|center_vertical"
+            android:background="@drawable/vector_btn_click"
+            android:clickable="true"
+            android:padding="16dp"
+            app:srcCompat="@drawable/ic_check_24dp" />
+
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/edtLocationName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_toRightOf="@id/btnSendMarker"
+            android:background="@android:color/white"
+            android:hint="نام ورزشگاه"
+            android:padding="16dp"
+            android:paddingRight="16dp"
+            android:textColor="@android:color/black" />
+
+
+    </RelativeLayout>
+
+
+</LinearLayout>

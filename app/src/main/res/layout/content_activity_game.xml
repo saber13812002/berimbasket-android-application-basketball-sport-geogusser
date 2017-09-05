@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="ir.berimbasket.app.activity.ActivityGame"
+    tools:showIn="@layout/activity_game">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/txtStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="پایان" />
+
+        <TextView
+            android:id="@+id/txtHomeScore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginEnd="10dp"
+            android:layout_toStartOf="@id/txtStatus"
+            android:text="2" />
+
+        <TextView
+            android:id="@+id/txtAwayScore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@id/txtStatus"
+            android:text="1" />
+
+        <ImageView
+            android:id="@+id/imgHomeLogo"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="5dp"
+            android:layout_toStartOf="@id/txtHomeScore"
+            android:src="@mipmap/ic_launcher" />
+
+        <ImageView
+            android:id="@+id/imgAwayLogo"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="5dp"
+            android:layout_toEndOf="@id/txtAwayScore"
+            android:src="@mipmap/ic_launcher" />
+
+        <TextView
+            android:id="@+id/txtHomeName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="15dp"
+            android:layout_toStartOf="@id/imgHomeLogo"
+            android:text="پرسپولیس" />
+
+        <TextView
+            android:id="@+id/txtَAwayName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="15dp"
+            android:layout_toEndOf="@id/imgAwayLogo"
+            android:text="استقلال" />
+
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_marginTop="24dp" />
+
+    <TextView
+        android:id="@+id/txtGameDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="24dp"
+        android:text="توضیحات کامل بازی که در این قسمت قرار میگیرد و گلزنان بازی به همراه خلاصه ای از بازی یا هر توضیح دیگری میتواند باشد" />
+
+</LinearLayout>

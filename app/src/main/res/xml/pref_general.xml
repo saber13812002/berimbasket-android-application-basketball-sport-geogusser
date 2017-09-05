@@ -1,0 +1,84 @@
+<android.support.v7.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ir.berimbasket.app.view.preference.CustomPreferenceCategory android:title="تنظیمات اعلان">
+
+        <ir.berimbasket.app.view.preference.CustomSwitchPreferenceCompat
+            android:defaultValue="true"
+            android:key="notifications_new_message"
+
+            android:summary="با فعالسازی این قسمت شما میتوانید از آخرین اخبار و پیشنهادا ویژه برنامه آگاه شوید"
+            android:title="نمایش اعلان های برنامه" />
+
+        <Preference android:layout="@layout/item_preference_divider" />
+
+        <ir.berimbasket.app.view.preference.CustomSwitchPreferenceCompat
+            android:defaultValue="true"
+            android:dependency="notifications_new_message"
+            android:key="notifications_new_message_vibrate"
+            android:title="ویبره" />
+
+        <Preference android:layout="@layout/item_preference_divider" />
+
+        <ir.berimbasket.app.view.preference.CustomSwitchPreferenceCompat
+            android:defaultValue="true"
+            android:key="update_switch"
+            android:summary="با فعالسازی این قسمت بروزرسانی های برنامه به شما اعلا داده میشود تا بتوانید از آخرین نسخه برنامه استفاده کنید"
+            android:textColor="#ab6789"
+            android:title="فعالسازی اعلان آپدیت برنامه" />
+
+        <Preference android:layout="@layout/item_preference_space" />
+
+    </ir.berimbasket.app.view.preference.CustomPreferenceCategory>
+
+    <ir.berimbasket.app.view.preference.CustomPreferenceCategory android:title="تنظیمات شهر">
+
+        <ir.berimbasket.app.view.preference.CustomListPreference
+            android:defaultValue="0"
+            android:entries="@array/pref_state_list_names"
+            android:entryValues="@array/pref_state_list_names"
+            android:key="country_list"
+            android:negativeButtonText="@null"
+            android:positiveButtonText="@null"
+            android:title="انتخاب استان نمایش داده شده در نقشه" />
+        <Preference android:layout="@layout/item_preference_divider" />
+
+        <!--<ir.berimbasket.app.view.preference.CustomListPreference
+            android:defaultValue="-1"
+            android:entries="@array/pref_city_list_names"
+            android:entryValues="@array/pref_city_list_names"
+            android:key="city_list"
+            android:negativeButtonText="@null"
+            android:positiveButtonText="@null"
+            android:title="انتخاب شهر" />-->
+
+        <Preference android:layout="@layout/item_preference_space" />
+
+    </ir.berimbasket.app.view.preference.CustomPreferenceCategory>
+
+    <ir.berimbasket.app.view.preference.CustomPreferenceCategory android:title="پشتیبانی">
+
+        <ir.berimbasket.app.view.preference.CustomPreference
+            android:layout="@layout/item_preference_intent"
+            android:title="شرایط استفاده" />
+        <Preference android:layout="@layout/item_preference_divider" />
+
+        <ir.berimbasket.app.view.preference.CustomPreference
+            android:layout="@layout/item_preference_intent"
+            android:title="تغییرات اخیر" />
+
+        <Preference android:layout="@layout/item_preference_divider" />
+
+        <ir.berimbasket.app.view.preference.CustomPreference
+            android:layout="@layout/item_preference_intent"
+            android:title="درباره ما">
+
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:targetClass="ir.berimbasket.app.activity.ActivityLogin"
+                android:targetPackage="ir.berimbasket.app" />
+
+        </ir.berimbasket.app.view.preference.CustomPreference>
+
+    </ir.berimbasket.app.view.preference.CustomPreferenceCategory>
+
+</android.support.v7.preference.PreferenceScreen>

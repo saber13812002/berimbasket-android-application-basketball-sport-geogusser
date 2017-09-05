@@ -1,0 +1,159 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="ir.berimbasket.app.activity.ActivityRegister">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bk_login" />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#eeeaeaea" />
+    <!-- Login progress -->
+    <ProgressBar
+        android:id="@+id/login_progress"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:visibility="gone" />
+
+    <ScrollView
+        android:id="@+id/register_form"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:id="@+id/email_login_form"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/inputVerifyCode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingEnd="32dp"
+                android:paddingStart="32dp"
+                android:paddingTop="30dp">
+
+                <EditText
+                    android:id="@+id/edtVerifyCode"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="کد ثبت نام"
+                    android:inputType="textEmailAddress"
+                    android:maxLines="1" />
+
+            </android.support.design.widget.TextInputLayout>
+
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/inputUsername"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingEnd="32dp"
+                android:paddingStart="32dp"
+                android:paddingTop="16dp">
+
+                <EditText
+                    android:id="@+id/edtUsername"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="نام کاربری"
+                    android:imeActionId="@+id/login"
+                    android:imeActionLabel="@string/action_sign_in_short"
+                    android:imeOptions="actionUnspecified"
+                    android:inputType="text"
+                    android:maxLines="1" />
+
+            </android.support.design.widget.TextInputLayout>
+
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/inputPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingEnd="32dp"
+                android:paddingStart="32dp"
+                android:paddingTop="16dp">
+
+                <EditText
+                    android:id="@+id/edtPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/prompt_password"
+                    android:imeActionId="@+id/login"
+                    android:imeActionLabel="@string/action_sign_in_short"
+                    android:imeOptions="actionUnspecified"
+                    android:inputType="textPassword"
+                    android:maxLines="1" />
+
+            </android.support.design.widget.TextInputLayout>
+
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/inputPasswordRepeat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingEnd="32dp"
+                android:paddingStart="32dp"
+                android:paddingTop="16dp">
+
+                <EditText
+                    android:id="@+id/edtPasswordRepeat"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="تکرار رمز عبور"
+                    android:imeActionId="@+id/login"
+                    android:imeActionLabel="@string/action_sign_in_short"
+                    android:imeOptions="actionUnspecified"
+                    android:inputType="textPassword"
+                    android:maxLines="1" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/btnRegister"
+                style="@style/BrandButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/action_sign_up"
+                android:textStyle="bold"
+                android:theme="@style/BrandButtonStyle" />
+
+            <!--<com.google.android.gms.common.SignInButton
+                android:id="@+id/sign_in_button"
+                android:layout_width="match_parent"
+                app:colorScheme="dark"
+                android:layout_height="64dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginEnd="32dp" />-->
+
+            <TextView
+                android:id="@+id/btnLoginActivity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="32dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="24dp"
+                android:gravity="center_horizontal"
+                android:text="حساب کاربری دارید؟ وارد شوید !!!"
+                android:textColor="@color/colorPrimary"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+    </ScrollView>
+</FrameLayout>

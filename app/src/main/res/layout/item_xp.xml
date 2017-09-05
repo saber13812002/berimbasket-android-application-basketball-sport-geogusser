@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginBottom="10dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    app:cardCornerRadius="5dp"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:padding="12dp">
+
+        <FrameLayout
+            android:id="@+id/badgeFrame"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                app:srcCompat="@drawable/ic_hexagon_24dp"/>
+
+            <TextView
+                android:id="@+id/txtXpBadge"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="1"
+                android:textColor="@android:color/white"
+                android:textSize="18sp" />
+
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/txtXpScore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:text="100 امتیاز" />
+
+        <TextView
+            android:id="@+id/txtXpTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_toRightOf="@id/txtXpScore"
+            android:layout_centerVertical="true"
+            android:textColor="@android:color/black"
+            android:layout_toLeftOf="@id/badgeFrame"
+            android:text="اضافه شدن به کانال تلگرام" />
+
+
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>

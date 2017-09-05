@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/txtStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="پایان" />
+
+    <TextView
+        android:id="@+id/txtHomeScore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginEnd="10dp"
+        android:layout_toStartOf="@id/txtStatus"
+        android:text="2" />
+
+    <TextView
+        android:id="@+id/txtAwayScore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="10dp"
+        android:layout_toEndOf="@id/txtStatus"
+        android:fontFamily=""
+        android:text="1" />
+
+    <ImageView
+        android:id="@+id/imgHomeLogo"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="16dp"
+        android:layout_toStartOf="@id/txtHomeScore"
+        android:src="@drawable/manchester" />
+
+    <ImageView
+        android:id="@+id/imgAwayLogo"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="16dp"
+        android:layout_toEndOf="@id/txtAwayScore"
+        android:src="@drawable/chelsea" />
+
+    <TextView
+        android:id="@+id/txtHomeName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="15dp"
+        android:layout_toStartOf="@id/imgHomeLogo"
+        android:text="پرسپولیس" />
+
+    <TextView
+        android:id="@+id/txtَAwayName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="15dp"
+        android:layout_toEndOf="@id/imgAwayLogo"
+        android:text="استقلال" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:layout_alignParentBottom="true"
+        android:background="#aaaaaa" />
+
+</RelativeLayout>

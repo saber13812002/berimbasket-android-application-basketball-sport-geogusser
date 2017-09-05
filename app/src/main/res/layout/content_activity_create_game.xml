@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:context="ir.berimbasket.app.activity.ActivityCreateGame"
+        tools:showIn="@layout/activity_create_game">
+
+        <DatePicker
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            >
+
+        </DatePicker>
+
+        <TimePicker
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </TimePicker>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingEnd="24dp"
+            android:paddingStart="24dp"
+            android:paddingTop="30dp">
+
+            <AutoCompleteTextView
+                android:id="@+id/edtHomeTeam"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="نام تیم خانه"
+                android:maxLines="1"
+                android:singleLine="true" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <TextView
+            android:id="@+id/btnCreateTeam"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="برای ایجاد تیم جدید کلیک کنید" />
+
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingEnd="24dp"
+            android:paddingStart="24dp"
+            android:paddingTop="30dp">
+
+            <AutoCompleteTextView
+                android:id="@+id/edtAwayTeam"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="نام تیم میهمان"
+                android:maxLines="1"
+                android:singleLine="true" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <TextView
+            android:id="@id/btnCreateTeam"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="برای ایجاد تیم جدید کلیک کنید" />
+
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ثبت بازی" />
+
+
+    </LinearLayout>
+
+</ScrollView>

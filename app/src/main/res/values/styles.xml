@@ -1,0 +1,73 @@
+<resources>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+    </style>
+
+
+    <style name="PreferenceThemeOverlay">
+        <item name="preferenceScreenStyle">@style/Preference.PreferenceScreen</item>
+        <item name="preferenceFragmentStyle">@style/PreferenceFragment</item>
+        <item name="preferenceCategoryStyle">@style/Preference.Category</item>
+        <item name="preferenceStyle">@style/Preference</item>
+        <item name="preferenceInformationStyle">@style/Preference.Information</item>
+        <item name="checkBoxPreferenceStyle">@style/Preference.CheckBoxPreference</item>
+        <item name="switchPreferenceCompatStyle">@style/Preference.SwitchPreferenceCompat</item>
+        <item name="dialogPreferenceStyle">@style/MyPreferenceDialogListStyle</item>
+        <item name="editTextPreferenceStyle">@style/Preference.DialogPreference.EditTextPreference
+        </item>
+        <item name="preferenceFragmentListStyle">@style/MyPreferenceFragmentListStyle</item>
+    </style>
+
+    <style name="MyPreferenceFragmentListStyle" parent="@style/Preference.SwitchPreferenceCompat">
+        <item name="android:paddingLeft">0dp</item>
+        <item name="android:paddingRight">0dp</item>
+        <item name="android:background">@android:color/white</item>
+        <item name="android:dividerHeight">5dp</item>
+        <item name="android:divider">#4567ff</item>
+    </style>
+
+    <style name="MyPreferenceDialogListStyle" parent="@style/Preference.DialogPreference">
+        <item name="android:padding">45dp</item>
+        <item name="android:background">@color/colorAccent</item>
+        <item name="android:dividerHeight">5dp</item>
+        <item name="android:divider">#4567ff</item>
+    </style>
+
+    <style name="MyPreferenceCategoryStyle" parent="@style/Preference.Category">
+        <item name="android:padding">45dp</item>
+        <item name="android:background">@color/colorAccent</item>
+        <item name="android:dividerHeight">5dp</item>
+        <item name="android:divider">#4567ff</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="BrandButtonStyle" parent="Widget.AppCompat.Button.Colored">
+        <item name="colorButtonNormal">@color/colorPrimary</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Dark" />
+
+    <style name="RatingBar" parent="Theme.AppCompat">
+        <item name="colorControlNormal">@color/colorLightGrey</item>
+        <item name="colorControlActivated">@color/colorGold</item>
+    </style>
+
+    <style name="StatusTransparent" parent="AppTheme">
+        <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
+
+</resources>

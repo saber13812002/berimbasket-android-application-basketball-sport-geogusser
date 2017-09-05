@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "642362267038",
+    "firebase_url": "https://berimbasket-a3ffd.firebaseio.com",
+    "project_id": "berimbasket-a3ffd",
+    "storage_bucket": "berimbasket-a3ffd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:642362267038:android:20a3dc1eb4e154a4",
+        "android_client_info": {
+          "package_name": "ir.berimbasket.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "642362267038-rop3g8j2alvm2sm1m0nfpk7gjlsdoo0n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ir.berimbasket.app",
+            "certificate_hash": "8f8f5882169d041f206408a998b1e3be9a7f43b7"
+          }
+        },
+        {
+          "client_id": "642362267038-n2j93l2po594dbdtaq9db2o3fmkjioet.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD4_tRFWEpZz7QJF6tZ2eloor0f7jxsFuY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "642362267038-n2j93l2po594dbdtaq9db2o3fmkjioet.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

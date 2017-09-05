@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="150dp"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    android:clickable="true"
+    app:cardCornerRadius="5dp">
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ru.egslava.blurredview.BlurredImageView
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:src="@drawable/acc_wallpaper2"
+                app:downSampling="2"
+                android:scaleType="centerCrop"
+                app:keepOriginal="true"
+                app:radius="0.9" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imgPlayerProfile"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_margin="15dp"
+                android:src="@drawable/profile_default"
+                app:civ_border_color="@android:color/white"
+                app:civ_border_width="1dp" />
+
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/txtPlayerName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="10dp"
+            android:background="@android:color/white"
+            android:textSize="16sp"/>
+
+        <RatingBar
+            android:id="@+id/rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="?android:attr/ratingBarStyleSmall"
+            android:max="5"
+            android:numStars="5"
+            android:progress="5"
+            android:progressTint="@color/colorGold"
+            android:layout_marginBottom="10dp"
+            android:isIndicator="false" />
+
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>
