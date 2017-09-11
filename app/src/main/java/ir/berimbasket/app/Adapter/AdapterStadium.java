@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import ir.berimbasket.app.R;
-import ir.berimbasket.app.bundle.BundleStadium;
+import ir.berimbasket.app.Entity.EntityStadium;
 
 /**
  * Created by mohammad hosein on 7/21/2017.
@@ -21,10 +21,10 @@ import ir.berimbasket.app.bundle.BundleStadium;
 public class AdapterStadium extends RecyclerView.Adapter<AdapterStadium.StadiumViewHolder> {
 
     private final Context context;
-    private final ArrayList<BundleStadium> stadiumList;
+    private final ArrayList<EntityStadium> stadiumList;
     private Typeface typeface;
 
-    public AdapterStadium(ArrayList<BundleStadium> stadiumList, Context context) {
+    public AdapterStadium(ArrayList<EntityStadium> stadiumList, Context context) {
         this.stadiumList = stadiumList;
         this.context = context;
         typeface = Typeface.createFromAsset(context.getAssets(), "fonts/yekan.ttf");

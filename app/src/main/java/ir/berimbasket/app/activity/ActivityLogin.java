@@ -25,9 +25,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import ir.berimbasket.app.R;
-import ir.berimbasket.app.json.HttpHandler;
-
-import static java.security.AccessController.getContext;
+import ir.berimbasket.app.json.HttpFunctions;
 
 /**
  * A login screen that offers login via email/password.
@@ -70,11 +68,11 @@ public class ActivityLogin extends AppCompatActivity {
         btnRegisterPage = (TextView) findViewById(R.id.btnRegActivity);
         pDialog = new ProgressDialog(ActivityLogin.this);
 
-        Drawable imgUser = getResources().getDrawable( R.drawable.ic_user_accent_24dp);
+        Drawable imgUser = getResources().getDrawable( R.drawable.ic_login_user);
         imgUser.setBounds( 0, 0, 60, 60 );
         edtUsername.setCompoundDrawables( imgUser, null, null, null );
 
-        Drawable imgPassword = getResources().getDrawable( R.drawable.ic_lock_accent_24dp);
+        Drawable imgPassword = getResources().getDrawable( R.drawable.ic_login_lock);
         imgPassword.setBounds( 0, 0, 60, 60 );
         edtPassword.setCompoundDrawables( imgPassword, null, null, null );
     }
@@ -142,8 +140,8 @@ public class ActivityLogin extends AppCompatActivity {
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            HttpHandler httpHandler = new HttpHandler(HttpHandler.RequestType.GET);
-            String jsonLogin = httpHandler.makeServiceCall(completeLoginUrl(LOGIN_URL));
+            HttpFunctions httpFunctions = new HttpFunctions(HttpFunctions.RequestType.GET);
+            String jsonLogin = httpFunctions.makeServiceCall(completeLoginUrl(LOGIN_URL));
             try {
                 JSONArray arrayLogin = new JSONArray(jsonLogin);
                 JSONObject loginObj = arrayLogin.getJSONObject(0);

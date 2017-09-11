@@ -39,12 +39,12 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import ir.berimbasket.app.GPSTracker;
-import ir.berimbasket.app.MainActivity;
+import ir.berimbasket.app.util.GPSTracker;
 import ir.berimbasket.app.R;
 import ir.berimbasket.app.activity.ActivityCreateStadium;
+import ir.berimbasket.app.activity.ActivityHome;
 import ir.berimbasket.app.activity.ActivitySetMarker;
-import ir.berimbasket.app.json.HttpHandler;
+import ir.berimbasket.app.json.HttpFunctions;
 
 public class FragmentMap extends Fragment implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
     private static String _URL = "http://imenservice.com/bball/get.php?id=0";
@@ -54,7 +54,7 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback, GoogleM
     private MapView mapView;
     private LocationManager locationManager;
     private ArrayList<HashMap<String, String>> locationList;
-    private String TAG = MainActivity.class.getSimpleName();
+    private String TAG = ActivityHome.class.getSimpleName();
     private ProgressDialog pDialog;
 
     @Override
@@ -176,7 +176,7 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback, GoogleM
 
         @Override
         protected Void doInBackground(Void... arg0) {
-            HttpHandler sh = new HttpHandler(HttpHandler.RequestType.GET);
+            HttpFunctions sh = new HttpFunctions(HttpFunctions.RequestType.GET);
 
             // Making a request to _URL and getting response
             String jsonStr = sh.makeServiceCall(_URL);

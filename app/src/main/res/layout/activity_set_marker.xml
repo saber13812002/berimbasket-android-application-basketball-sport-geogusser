@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_gravity="left|center_vertical"
-            android:background="@drawable/vector_btn_click"
+            android:background="@drawable/bg_btn_set_marker"
             android:clickable="true"
             android:padding="16dp"
             app:srcCompat="@drawable/ic_check_24dp" />

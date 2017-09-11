@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Build;
-import android.os.Parcelable;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.util.Pair;
 import android.support.v7.widget.RecyclerView;
@@ -14,13 +13,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import ir.berimbasket.app.ActivityPlayer;
+import ir.berimbasket.app.Entity.EntityPlayer;
+import ir.berimbasket.app.activity.ActivityPlayer;
 import ir.berimbasket.app.R;
-import ir.berimbasket.app.bundle.BundlePlayer;
 
 /**
  * Created by mohammad hosein on 7/21/2017.
@@ -29,11 +27,11 @@ import ir.berimbasket.app.bundle.BundlePlayer;
 public class AdapterPlayer extends RecyclerView.Adapter<AdapterPlayer.PlayerViewHolder> {
 
     private final Context context;
-    private final ArrayList<BundlePlayer> playerList;
+    private final ArrayList<EntityPlayer> playerList;
     private Typeface typeface;
     Activity activity;
 
-    public AdapterPlayer(ArrayList<BundlePlayer> playerList, Context context, Activity activity) {
+    public AdapterPlayer(ArrayList<EntityPlayer> playerList, Context context, Activity activity) {
         this.playerList = playerList;
         this.context = context;
         this.activity = activity;

@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import ir.berimbasket.app.R;
 import ir.berimbasket.app.activity.fragment.FragmentSetMarker;
-import ir.berimbasket.app.json.HttpHandler;
+import ir.berimbasket.app.json.HttpFunctions;
 
 public class ActivitySetMarker extends AppCompatActivity {
 
@@ -71,7 +71,7 @@ public class ActivitySetMarker extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... strings) {
-            HttpHandler sh = new HttpHandler(HttpHandler.RequestType.POST);
+            HttpFunctions sh = new HttpFunctions(HttpFunctions.RequestType.POST);
             // Making a request to url and getting response
             String hg = sh.makeServiceCall(strings[0]);
             return null;

@@ -10,9 +10,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import de.hdodenhof.circleimageview.CircleImageView;
 import ir.berimbasket.app.R;
-import ir.berimbasket.app.bundle.BundlePlayer;
 
 /**
  * Created by mohammad hosein on 7/21/2017.

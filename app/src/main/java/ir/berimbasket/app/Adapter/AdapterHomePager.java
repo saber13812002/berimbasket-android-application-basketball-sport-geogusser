@@ -4,9 +4,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import ir.berimbasket.app.activity.fragment.FragmentAccount;
+import ir.berimbasket.app.activity.fragment.FragmentHome;
 import ir.berimbasket.app.activity.fragment.FragmentMap;
-import ir.berimbasket.app.activity.fragment.FragmentMatchBoard;
+import ir.berimbasket.app.activity.fragment.FragmentProfile;
 
 public class AdapterHomePager extends FragmentPagerAdapter {
 
@@ -25,14 +25,11 @@ public class AdapterHomePager extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                FragmentMap fragmentMap = new FragmentMap();
-                return fragmentMap;
+                return new FragmentHome();
             case 1:
-                FragmentMatchBoard FragmentMatchBoard = new FragmentMatchBoard();
-                return FragmentMatchBoard;
+                return new FragmentMap();
             case 2:
-                FragmentAccount fragmentAccount = new FragmentAccount();
-                return fragmentAccount;
+                return new FragmentProfile();
             default:
                 return null;
         }

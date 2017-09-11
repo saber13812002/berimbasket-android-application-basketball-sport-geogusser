@@ -18,7 +18,7 @@
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:layout_marginTop="5dp"
-        android:src="@drawable/basket_location" />
+        android:src="@drawable/marker_basket_location" />
 
 
 </LinearLayout>

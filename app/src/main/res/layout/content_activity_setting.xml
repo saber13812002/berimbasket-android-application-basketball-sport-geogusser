@@ -10,7 +10,7 @@
     tools:showIn="@layout/activity_setting">
 
     <fragment
-        android:name="ir.berimbasket.app.SettingsFragment"
+        android:name="ir.berimbasket.app.activity.fragment.FragmentSettings"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:tag=".SettingsFragment" />

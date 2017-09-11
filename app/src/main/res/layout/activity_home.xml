@@ -29,7 +29,7 @@
                 android:layout_alignParentEnd="true"
                 android:clickable="true"
                 android:padding="12dp"
-                app:srcCompat="@drawable/ic_user_white_24dp" />
+                app:srcCompat="@drawable/ic_home_toolbar_user" />
 
             <ImageView
                 android:id="@+id/btnSetting"
@@ -58,7 +58,7 @@
         android:layout_gravity="bottom"
         android:background="?android:attr/windowBackground"
         app:elevation="24dp"
-        app:menu="@menu/navigation" />
+        app:menu="@menu/home_bottom_navigation" />
 
 
 </LinearLayout>

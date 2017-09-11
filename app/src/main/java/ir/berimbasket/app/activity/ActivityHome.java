@@ -48,10 +48,10 @@ public class ActivityHome extends AppCompatActivity implements View.OnClickListe
                 case R.id.navigation_home:
                     homePager.setCurrentItem(0);
                     return true;
-                case R.id.navigation_dashboard:
+                case R.id.navigation_map:
                     homePager.setCurrentItem(1);
                     return true;
-                case R.id.navigation_notifications:
+                case R.id.navigation_profile:
                     homePager.setCurrentItem(2);
                     return true;
             }
@@ -154,7 +154,7 @@ public class ActivityHome extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btnSetting:
-                Intent goToSetting = new Intent(this, ir.berimbasket.app.ActivitySetting.class);
+                Intent goToSetting = new Intent(this, ActivitySetting.class);
                 startActivity(goToSetting);
                 break;
 

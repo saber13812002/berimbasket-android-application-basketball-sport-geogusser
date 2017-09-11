@@ -238,4 +238,6 @@
     </string-array>
     <string name="name_activity_scrolling">ScrollingActivity</string>
     <string name="name_activity_player">ActivityPlayer</string>
+    <string name="home_navigation_profile">پروفایل</string>
+    <string name="home_navigation_map">نقشه</string>
 </resources>

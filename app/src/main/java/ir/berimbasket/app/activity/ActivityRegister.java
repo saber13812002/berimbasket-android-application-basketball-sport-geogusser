@@ -27,7 +27,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import ir.berimbasket.app.R;
-import ir.berimbasket.app.json.HttpHandler;
+import ir.berimbasket.app.json.HttpFunctions;
 
 
 public class ActivityRegister extends AppCompatActivity {
@@ -73,20 +73,20 @@ public class ActivityRegister extends AppCompatActivity {
         edtVerifyCode.requestFocus();
 
 
-        Drawable imgUser = getResources().getDrawable( R.drawable.ic_user_accent_24dp);
+        Drawable imgUser = getResources().getDrawable( R.drawable.ic_login_user);
         imgUser.setBounds( 0, 0, 60, 60 );
         edtUsername.setCompoundDrawables( imgUser, null, null, null );
 
-        Drawable imgPassword = getResources().getDrawable( R.drawable.ic_lock_accent_24dp);
+        Drawable imgPassword = getResources().getDrawable( R.drawable.ic_login_lock);
         imgPassword.setBounds( 0, 0, 60, 60 );
         edtPassword.setCompoundDrawables( imgPassword, null, null, null );
 
 
-        Drawable imgPasswordRepeat = getResources().getDrawable( R.drawable.ic_lock_open_accent_24dp);
+        Drawable imgPasswordRepeat = getResources().getDrawable( R.drawable.ic_login_open_lock);
         imgPasswordRepeat.setBounds( 0, 0, 60, 60 );
         edtPasswordRepeat.setCompoundDrawables( imgPasswordRepeat, null, null, null );
 
-        Drawable imgVerify = getResources().getDrawable( R.drawable.ic_zero_accent_24dp);
+        Drawable imgVerify = getResources().getDrawable( R.drawable.ic_login_zero);
         imgVerify.setBounds( 0, 0, 60, 60 );
         edtVerifyCode.setCompoundDrawables( imgVerify, null, null, null );
     }
@@ -200,8 +200,8 @@ public class ActivityRegister extends AppCompatActivity {
         @Override
         protected Bundle doInBackground(Void... voids) {
             String userUrl = completeUserUrl(USER_URL);
-            HttpHandler httpHandler = new HttpHandler(HttpHandler.RequestType.GET);
-            String userJson = httpHandler.makeServiceCall(userUrl);
+            HttpFunctions httpFunctions = new HttpFunctions(HttpFunctions.RequestType.GET);
+            String userJson = httpFunctions.makeServiceCall(userUrl);
             Bundle errorBundle = new Bundle();
             try {
                 JSONArray arrayUser = new JSONArray(userJson);
@@ -211,7 +211,7 @@ public class ActivityRegister extends AppCompatActivity {
                     errorBundle.putBoolean(USER_ERROR, true);
                 } else {
                     String verifyUrl = completeVerifyUrl(VERIFY_URL);
-                    String verifyJson = httpHandler.makeServiceCall(verifyUrl);
+                    String verifyJson = httpFunctions.makeServiceCall(verifyUrl);
                     JSONArray arrayVerify = new JSONArray(verifyJson);
                     JSONObject verifyObj = arrayVerify.getJSONObject(0);
                     boolean verifyState = (boolean) verifyObj.get("SignupStatus");
@@ -219,7 +219,7 @@ public class ActivityRegister extends AppCompatActivity {
                         errorBundle.putBoolean(VERIFY_ERROR, true);
                     } else {
                         String registerUrl = completeRegisterUrl(REGISTER_URL);
-                        String registerJson = httpHandler.makeServiceCall(registerUrl);
+                        String registerJson = httpFunctions.makeServiceCall(registerUrl);
                         JSONArray arrayRegister = new JSONArray(registerJson);
                         JSONObject registerObj = arrayRegister.getJSONObject(0);
                         boolean registerState = (boolean) registerObj.get("passwordset");
