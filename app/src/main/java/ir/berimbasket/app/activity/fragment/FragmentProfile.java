@@ -33,7 +33,7 @@ import ir.berimbasket.app.json.HttpFunctions;
 public class FragmentProfile extends Fragment {
 
     TextView txtAccName, txtAccBadge, txtAccLevel, txtAccXp;
-    private String _URL = "http://imenservice.com/bball/getMission.php";
+    private String _URL = "http://berimbasket.ir/bball/getMission.php";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

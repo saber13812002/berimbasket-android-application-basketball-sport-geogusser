@@ -45,8 +45,8 @@ public class FragmentHome extends Fragment {
     private SliderLayout sliderMatch;
     private TextView txtMorePlayer, txtMoreStadium;
     private AppCompatButton btnMorePlayer, btnMoreStadium;
-    private static String _URL = "http://imenservice.com/bball/getPlayers.php?id=0";
-    private static String _URL_STADIUM = "http://imenservice.com/bball/getPlayGroundJson.php?id=0";
+    private static String _URL = "http://berimbasket.ir/bball/getPlayers.php?id=0";
+    private static String _URL_STADIUM = "http://berimbasket.ir/bball/getPlayGroundJson.php?id=0";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
