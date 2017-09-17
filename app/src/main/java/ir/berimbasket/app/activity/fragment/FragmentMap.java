@@ -47,7 +47,7 @@ import ir.berimbasket.app.activity.ActivitySetMarker;
 import ir.berimbasket.app.json.HttpFunctions;
 
 public class FragmentMap extends Fragment implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
-    private static String _URL = "http://imenservice.com/bball/get.php?id=0";
+    private static String _URL = "http://berimbasket.ir/bball/get.php?id=0";
     double latitude = 35.723284;
     double longitude = 51.441968;
     GoogleMap map;

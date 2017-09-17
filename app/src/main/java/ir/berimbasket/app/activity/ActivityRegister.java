@@ -32,9 +32,9 @@ import ir.berimbasket.app.json.HttpFunctions;
 
 public class ActivityRegister extends AppCompatActivity {
 
-    private final String VERIFY_URL = "http://imenservice.com/bball/getSignupStatusByVerificationCodeAndMAC.php?mac=";
-    private final String USER_URL = "http://imenservice.com/bball/getExistOrNotThisNewRequestedUsername.php?mac=";
-    private final String REGISTER_URL = "http://imenservice.com/bball/setPasswordForThisUsername.php?mac=1a2b3c4d5e6f&username=allstar33&password=@ll$tar33";
+    private final String VERIFY_URL = "http://berimbasket.ir/bball/getSignupStatusByVerificationCodeAndMAC.php?mac=";
+    private final String USER_URL = "http://berimbasket.ir/bball/getExistOrNotThisNewRequestedUsername.php?mac=";
+    private final String REGISTER_URL = "http://berimbasket.ir/bball/setPasswordForThisUsername.php?mac=1a2b3c4d5e6f&username=allstar33&password=@ll$tar33";
     private final String USER_ERROR = "userError";
     private final String VERIFY_ERROR = "verifyError";
     private final String REGISTER_ERROR = "registerError";

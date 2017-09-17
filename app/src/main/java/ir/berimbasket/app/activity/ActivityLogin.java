@@ -32,7 +32,7 @@ import ir.berimbasket.app.json.HttpFunctions;
  */
 public class ActivityLogin extends AppCompatActivity {
 
-    private final String LOGIN_URL = "http://imenservice.com/bball/getStatusLoginByUsernamePassword.php?mac=";
+    private final String LOGIN_URL = "http://berimbasket.ir/bball/getStatusLoginByUsernamePassword.php?mac=";
     AppCompatButton btnLogin;
     TextView btnRegisterPage;
     ProgressDialog pDialog;
