@@ -46,7 +46,7 @@ public class ActivitySetMarker extends AppCompatActivity {
                 double longitude = fragmentSetMarker.getLongitude();
                 Log.i("message", String.valueOf(latitude));
                 if (!edtLocationName.getText().toString().equals("")) {
-                    String Url = "http://imenservice.com/bball/set.php?token=jkhfgkljhasfdlkh&lat=" + latitude + "&long=" + longitude + "&title=" + edtLocationName.getText();
+                    String Url = "http://berimbasket.ir/bball/set.php?token=jkhfgkljhasfdlkh&lat=" + latitude + "&long=" + longitude + "&title=" + edtLocationName.getText();
                     Url.replace(" ", "%20");
                     new PostLocation().execute(Url);
 
