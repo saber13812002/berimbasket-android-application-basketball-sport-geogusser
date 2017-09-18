@@ -18,8 +18,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import ir.berimbasket.app.Adapter.AdapterPlayerSpecification;
-import ir.berimbasket.app.Entity.EntityPlayer;
+import ir.berimbasket.app.adapter.AdapterPlayerSpecification;
+import ir.berimbasket.app.entity.EntityPlayer;
 import ir.berimbasket.app.R;
 
 public class ActivityPlayer extends AppCompatActivity {

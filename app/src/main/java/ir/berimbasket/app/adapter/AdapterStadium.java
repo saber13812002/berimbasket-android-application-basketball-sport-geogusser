@@ -1,4 +1,4 @@
-package ir.berimbasket.app.Adapter;
+package ir.berimbasket.app.adapter;
 
 import android.content.Context;
 import android.graphics.Typeface;
@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import ir.berimbasket.app.R;
-import ir.berimbasket.app.Entity.EntityStadium;
+import ir.berimbasket.app.entity.EntityStadium;
 
 /**
  * Created by mohammad hosein on 7/21/2017.

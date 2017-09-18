@@ -21,9 +21,9 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import ir.berimbasket.app.Adapter.AdapterMission;
+import ir.berimbasket.app.adapter.AdapterMission;
 import ir.berimbasket.app.R;
-import ir.berimbasket.app.Entity.EntityMission;
+import ir.berimbasket.app.entity.EntityMission;
 import ir.berimbasket.app.json.HttpFunctions;
 
 /**

@@ -1,4 +1,4 @@
-package ir.berimbasket.app.Adapter;
+package ir.berimbasket.app.adapter;
 
 import android.content.Context;
 import android.graphics.Typeface;

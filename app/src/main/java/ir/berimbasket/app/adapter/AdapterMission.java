@@ -1,4 +1,4 @@
-package ir.berimbasket.app.Adapter;
+package ir.berimbasket.app.adapter;
 
 import android.content.Context;
 import android.graphics.Typeface;
@@ -14,7 +14,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import ir.berimbasket.app.R;
-import ir.berimbasket.app.Entity.EntityMission;
+import ir.berimbasket.app.entity.EntityMission;
 
 /**
  * Created by mohammad hosein on 7/22/2017.
