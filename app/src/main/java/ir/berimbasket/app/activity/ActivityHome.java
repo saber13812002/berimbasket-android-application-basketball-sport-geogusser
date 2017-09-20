@@ -22,10 +22,12 @@ import android.view.SubMenu;
 import android.view.View;
 import android.widget.ImageView;
 
-
 import co.ronash.pushe.Pushe;
-import ir.berimbasket.app.adapter.AdapterHomePager;
 import ir.berimbasket.app.R;
+import ir.berimbasket.app.adapter.AdapterHomePager;
+import ir.berimbasket.app.entity.EntityLocation;
+import ir.berimbasket.app.network.SendLocationTask;
+import ir.berimbasket.app.util.GPSTracker;
 import ir.berimbasket.app.view.CustomTypefaceSpan;
 
 public class ActivityHome extends AppCompatActivity implements View.OnClickListener {
@@ -70,6 +72,7 @@ public class ActivityHome extends AppCompatActivity implements View.OnClickListe
         initViews();
         initListeners();
         checkPermissions();
+        sendUserLocationToServer();
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -132,6 +135,26 @@ public class ActivityHome extends AppCompatActivity implements View.OnClickListe
             // app-defined int constant. The callback method gets the
             // result of the request.
 //            }
+        }
+    }
+
+    private void sendUserLocationToServer() {
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+
+            GPSTracker gps = new GPSTracker(this);
+            // Check if GPS enabled
+            if (gps.canGetLocation()) {
+                double latitude = gps.getLatitude();
+                double longitude = gps.getLongitude();
+                new SendLocationTask().execute(new EntityLocation(latitude, longitude));
+            } else {
+                // Can't get location.
+                // GPS or network is not enabled.
+                // Ask user to enable GPS/network in settings.
+                gps.showSettingsAlert();
+            }
         }
     }
 
