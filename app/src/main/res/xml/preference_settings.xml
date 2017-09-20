@@ -2,6 +2,7 @@
 
     <ir.berimbasket.app.view.preference.CustomPreferenceCategory android:title="تنظیمات اعلان">
 
+        <!-- fixme : move key's to strings.xml -->
         <ir.berimbasket.app.view.preference.CustomSwitchPreferenceCompat
             android:defaultValue="true"
             android:key="notifications_new_message"
@@ -58,24 +59,22 @@
     <ir.berimbasket.app.view.preference.CustomPreferenceCategory android:title="پشتیبانی">
 
         <ir.berimbasket.app.view.preference.CustomPreference
+            android:key="terms_and_services"
             android:layout="@layout/item_preference_intent"
             android:title="شرایط استفاده" />
         <Preference android:layout="@layout/item_preference_divider" />
 
         <ir.berimbasket.app.view.preference.CustomPreference
+            android:key="change_log"
             android:layout="@layout/item_preference_intent"
             android:title="تغییرات اخیر" />
 
         <Preference android:layout="@layout/item_preference_divider" />
 
         <ir.berimbasket.app.view.preference.CustomPreference
+            android:key="about_us"
             android:layout="@layout/item_preference_intent"
             android:title="درباره ما">
-
-            <intent
-                android:action="android.intent.action.VIEW"
-                android:targetClass="ir.berimbasket.app.activity.ActivityLogin"
-                android:targetPackage="ir.berimbasket.app" />
 
         </ir.berimbasket.app.view.preference.CustomPreference>
 
