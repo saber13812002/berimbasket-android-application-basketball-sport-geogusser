@@ -24,7 +24,7 @@ import android.widget.ImageView;
 
 
 import co.ronash.pushe.Pushe;
-import ir.berimbasket.app.Adapter.AdapterHomePager;
+import ir.berimbasket.app.adapter.AdapterHomePager;
 import ir.berimbasket.app.R;
 import ir.berimbasket.app.view.CustomTypefaceSpan;
 
