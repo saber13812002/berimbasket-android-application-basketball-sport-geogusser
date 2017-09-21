@@ -1,14 +1,11 @@
 package ir.berimbasket.app.activity;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.net.wifi.WifiInfo;
-import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -28,6 +25,7 @@ import org.json.JSONObject;
 
 import ir.berimbasket.app.R;
 import ir.berimbasket.app.json.HttpFunctions;
+import ir.berimbasket.app.util.PrefManager;
 
 
 public class ActivityRegister extends AppCompatActivity {
@@ -166,24 +164,21 @@ public class ActivityRegister extends AppCompatActivity {
                 .show();
     }
 
-    private String getMacAddress() {
-        WifiManager manager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-        WifiInfo info = manager.getConnectionInfo();
-        return info.getMacAddress();
-    }
-
     private String completeUserUrl(String userUrl) {
-        userUrl = userUrl + getMacAddress() + "&username=" + edtUsername.getText().toString();
+        PrefManager pref = new PrefManager(getApplicationContext());
+        userUrl = userUrl + pref.getDeviceID() + "&username=" + edtUsername.getText().toString();
         return userUrl;
     }
 
     private String completeVerifyUrl(String verifyUrl) {
-        verifyUrl = verifyUrl + getMacAddress() + "&code=" + edtVerifyCode.getText().toString();
+        PrefManager pref = new PrefManager(getApplicationContext());
+        verifyUrl = verifyUrl + pref.getDeviceID() + "&code=" + edtVerifyCode.getText().toString();
         return verifyUrl;
     }
 
     private String completeRegisterUrl(String registerUrl) {
-        registerUrl = registerUrl + getMacAddress() + "&username=" + edtUsername.getText().toString() + "&password=" + edtPassword.getText().toString();
+        PrefManager pref = new PrefManager(getApplicationContext());
+        registerUrl = registerUrl + pref.getDeviceID() + "&username=" + edtUsername.getText().toString() + "&password=" + edtPassword.getText().toString();
         return registerUrl;
     }
 

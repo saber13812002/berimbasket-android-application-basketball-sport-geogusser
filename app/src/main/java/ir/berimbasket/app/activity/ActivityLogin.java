@@ -1,13 +1,10 @@
 package ir.berimbasket.app.activity;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
-import android.net.wifi.WifiInfo;
-import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
@@ -26,6 +23,7 @@ import org.json.JSONObject;
 
 import ir.berimbasket.app.R;
 import ir.berimbasket.app.json.HttpFunctions;
+import ir.berimbasket.app.util.PrefManager;
 
 /**
  * A login screen that offers login via email/password.
@@ -113,14 +111,9 @@ public class ActivityLogin extends AppCompatActivity {
         inputPassword.setTypeface(typeface);
     }
 
-    private String getMacAddress() {
-        WifiManager manager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-        WifiInfo info = manager.getConnectionInfo();
-        return info.getMacAddress();
-    }
-
     private String completeLoginUrl(String loginUrl) {
-        loginUrl = loginUrl + getMacAddress() + "&username=" + edtUsername.getText().toString() + "&password=" + edtPassword.getText().toString();
+        PrefManager pref = new PrefManager(getApplicationContext());
+        loginUrl = loginUrl + pref.getDeviceID() + "&username=" + edtUsername.getText().toString() + "&password=" + edtPassword.getText().toString();
         return loginUrl;
     }
 
