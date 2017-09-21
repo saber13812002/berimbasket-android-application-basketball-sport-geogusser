@@ -59,6 +59,12 @@
     <ir.berimbasket.app.view.preference.CustomPreferenceCategory android:title="پشتیبانی">
 
         <ir.berimbasket.app.view.preference.CustomPreference
+            android:key="help"
+            android:layout="@layout/item_preference_intent"
+            android:title="راهنمای برنامه" />
+        <Preference android:layout="@layout/item_preference_divider" />
+
+        <ir.berimbasket.app.view.preference.CustomPreference
             android:key="terms_and_services"
             android:layout="@layout/item_preference_intent"
             android:title="شرایط استفاده" />
