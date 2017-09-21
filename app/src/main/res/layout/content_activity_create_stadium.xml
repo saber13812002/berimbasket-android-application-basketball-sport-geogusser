@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         tools:context="ir.berimbasket.app.activity.ActivityCreateGame"
-        tools:showIn="@layout/activity_create_game">
+        tools:showIn="@layout/activity_create_stadium">
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"

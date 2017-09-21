@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="ir.berimbasket.app.activity.ActivityStadium"
+    tools:ignore="RtlHardcoded"
+    tools:showIn="@layout/activity_stadium">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:padding="15dp">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/txtStadiumLogo"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="15dp"
+                android:src="@drawable/stadium1" />
+
+            <TextView
+                android:id="@+id/txtStadiumName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/txtStadiumLogo"
+                android:text="ورزشگاه شهید آوینی"
+                android:textColor="@android:color/black"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/txtStadiumTel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txtStadiumName"
+                android:layout_marginTop="4dp"
+                android:layout_toLeftOf="@id/txtStadiumLogo"
+                android:text="تلفن : 8943264 98+"
+                android:textSize="14sp" />
+
+
+            <RatingBar
+                android:id="@+id/ratingStadiumRate"
+                style="?android:attr/ratingBarStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txtStadiumTel"
+                android:layout_marginTop="6dp"
+                android:layout_toLeftOf="@id/txtStadiumLogo"
+                android:isIndicator="false"
+                android:max="5"
+                android:numStars="5"
+                android:progress="4"
+                android:progressTint="@color/colorGold" />
+
+            <TextView
+                android:id="@+id/txtRateNo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ratingStadiumRate"
+                android:layout_marginTop="5dp"
+                android:layout_toLeftOf="@id/txtStadiumLogo"
+                android:text="10 نظر"
+                android:textSize="12sp" />
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/btnCompleteStadiumDetail"
+                style="@style/BrandButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/txtRateNo"
+                android:layout_alignParentLeft="true"
+                android:text="تکمیل اطلاعات" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/colorLightGrey" />
+
+        <RelativeLayout
+            android:id="@+id/mapContainer"
+            android:layout_width="match_parent"
+            android:layout_height="150dp">
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_margin="10dp"
+            android:background="@color/colorLightGrey" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerStadiumGallery"
+            android:layout_width="wrap_content"
+            android:layout_height="150dp"
+            android:layout_marginTop="10dp"
+            android:clipToPadding="false" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_margin="10dp"
+            android:background="@color/colorLightGrey" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="15dp">
+
+            <TextView
+                android:id="@+id/txtDetailSection"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimary"
+                android:text="جزئیات ورزشگاه"/>
+
+            <TextView
+                android:id="@+id/txtStadiumAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="آدرس : تهران - کیلومتر 5 آزاد راه تهران کرج مجموعه ورزشی آزادی" />
+
+            <TextView
+                android:id="@+id/txtStadiumRound"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="ساعت کاری : 8 صبح تا 10 شب" />
+
+            <TextView
+                android:id="@+id/txtTelegramChannel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="کانال تلگرام : @berimbasket" />
+
+            <TextView
+                android:id="@+id/txtInstagramId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="اینستاگرام : @berimbasket" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>
+
+

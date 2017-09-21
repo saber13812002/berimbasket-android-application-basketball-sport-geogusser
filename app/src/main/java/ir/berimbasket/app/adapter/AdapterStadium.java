@@ -1,7 +1,9 @@
 package ir.berimbasket.app.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +14,7 @@ import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import ir.berimbasket.app.R;
+import ir.berimbasket.app.activity.ActivityStadium;
 import ir.berimbasket.app.entity.EntityStadium;
 
 /**
@@ -54,11 +57,14 @@ public class AdapterStadium extends RecyclerView.Adapter<AdapterStadium.StadiumV
 
         TextView txtStadiumName;
         CircleImageView imgStadiumImage;
+        CardView cardStadiumItem;
 
         public StadiumViewHolder(View itemView) {
             super(itemView);
             this.txtStadiumName = (TextView) itemView.findViewById(R.id.txtStadiumName);
             this.imgStadiumImage = (CircleImageView) itemView.findViewById(R.id.imgStadiumImage);
+            cardStadiumItem = (CardView) itemView.findViewById(R.id.cardStadiumItem);
+            cardStadiumItem.setOnClickListener(this);
         }
 
         public void setData(int pos) {
@@ -70,6 +76,10 @@ public class AdapterStadium extends RecyclerView.Adapter<AdapterStadium.StadiumV
         public void onClick(View view) {
 
             switch (view.getId()) {
+                case R.id.cardStadiumItem:
+                    Intent intent = new Intent(context, ActivityStadium.class);
+                    context.startActivity(intent);
+                    break;
             }
 
         }

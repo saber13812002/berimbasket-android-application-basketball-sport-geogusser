@@ -16,6 +16,7 @@
         android:minHeight="48dp"
         app:contentInsetStart="0dp"
         app:elevation="8dp"
+        android:theme="@style/ToolbarStyle"
         app:titleTextColor="@android:color/white">
 
         <RelativeLayout
