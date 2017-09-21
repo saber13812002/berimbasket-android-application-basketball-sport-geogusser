@@ -22,7 +22,10 @@ import android.view.SubMenu;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.crashlytics.android.Crashlytics;
+
 import co.ronash.pushe.Pushe;
+import io.fabric.sdk.android.Fabric;
 import ir.berimbasket.app.R;
 import ir.berimbasket.app.adapter.AdapterHomePager;
 import ir.berimbasket.app.entity.EntityLocation;
@@ -65,6 +68,7 @@ public class ActivityHome extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_home);
         //Register for Push Notifications
         Pushe.initialize(this,true);
