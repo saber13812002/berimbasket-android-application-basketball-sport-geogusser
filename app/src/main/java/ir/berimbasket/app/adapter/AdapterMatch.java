@@ -1,4 +1,4 @@
-package ir.berimbasket.app.Adapter;
+package ir.berimbasket.app.adapter;
 
 import android.content.Context;
 import android.graphics.Typeface;
@@ -12,7 +12,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import ir.berimbasket.app.R;
-import ir.berimbasket.app.Entity.EntityMatchScore;
+import ir.berimbasket.app.entity.EntityMatchScore;
 
 public class AdapterMatch extends RecyclerView.Adapter<AdapterMatch.MatchViewHolder> {
 

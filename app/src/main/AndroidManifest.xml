@@ -88,7 +88,7 @@
         <activity
             android:name=".activity.ActivityPlayer"
             android:label="@string/name_activity_player"
-            android:theme="@style/StatusTransparent"></activity>
+            android:theme="@style/StatusTransparent" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -101,6 +101,10 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
+        <activity
+            android:name=".activity.ActivityStadium"
+            android:label="@string/title_activity_stadium"
+            android:theme="@style/AppTheme" />
     </application>
 
 </manifest>

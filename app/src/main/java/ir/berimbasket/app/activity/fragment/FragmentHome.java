@@ -28,12 +28,12 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import ir.berimbasket.app.Adapter.AdapterMatch;
-import ir.berimbasket.app.Adapter.AdapterPlayer;
-import ir.berimbasket.app.Adapter.AdapterStadium;
-import ir.berimbasket.app.Entity.EntityPlayer;
+import ir.berimbasket.app.adapter.AdapterMatch;
+import ir.berimbasket.app.adapter.AdapterPlayer;
+import ir.berimbasket.app.adapter.AdapterStadium;
+import ir.berimbasket.app.entity.EntityPlayer;
 import ir.berimbasket.app.R;
-import ir.berimbasket.app.Entity.EntityStadium;
+import ir.berimbasket.app.entity.EntityStadium;
 import ir.berimbasket.app.json.HttpFunctions;
 
 /**

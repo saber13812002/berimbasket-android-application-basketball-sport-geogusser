@@ -1,4 +1,4 @@
-package ir.berimbasket.app.Entity;
+package ir.berimbasket.app.entity;
 
 import java.io.Serializable;
 

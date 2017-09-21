@@ -12,15 +12,16 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.transition.Explode;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import ir.berimbasket.app.Adapter.AdapterPlayerSpecification;
-import ir.berimbasket.app.Entity.EntityPlayer;
 import ir.berimbasket.app.R;
+import ir.berimbasket.app.adapter.AdapterPlayerSpecification;
+import ir.berimbasket.app.entity.EntityPlayer;
 
 public class ActivityPlayer extends AppCompatActivity {
 
@@ -42,7 +43,7 @@ public class ActivityPlayer extends AppCompatActivity {
 
         View imgProfileImageView = findViewById(R.id.imgPlayerProfile);
         View txtPlayerNameView = findViewById(R.id.txtPlayerName);
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             imgProfileImageView.setTransitionName("image");
             txtPlayerNameView.setTransitionName("name");
         }
@@ -52,10 +53,18 @@ public class ActivityPlayer extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        changeCollapsingToolbar();
+        changeCollapsingToolbar(entityPlayer.getName());
 
         ArrayList<String> playerSpecList = getPlayerSpec(entityPlayer);
         setupMatchRecyclerView(playerSpecList);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private ArrayList<String> getPlayerSpec(EntityPlayer entityPlayer) {
@@ -79,7 +88,7 @@ public class ActivityPlayer extends AppCompatActivity {
         return playerSpecList;
     }
 
-    private void initViews(){
+    private void initViews() {
         txtPlayerName = (TextView) findViewById(R.id.txtPlayerName);
         txtPlayerLevel = (TextView) findViewById(R.id.txtPlayerLevel);
         typeface = Typeface.createFromAsset(getAssets(), "fonts/yekan.ttf");
@@ -103,9 +112,9 @@ public class ActivityPlayer extends AppCompatActivity {
 
     }
 
-    public void changeCollapsingToolbar() {
+    public void changeCollapsingToolbar(String name) {
         CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
-        collapsingToolbarLayout.setTitle("جردن باروز");
+        collapsingToolbarLayout.setTitle(name);
         collapsingToolbarLayout.setExpandedTitleColor(getResources().getColor(android.R.color.transparent));
         collapsingToolbarLayout.setCollapsedTitleTextColor(Color.rgb(250, 250, 250));
         collapsingToolbarLayout.setExpandedTitleTypeface(typeface);

@@ -83,6 +83,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:fitsSystemWindows="false"
+                android:theme="@style/ToolbarStyle"
                 style="@style/AppTheme.PopupOverlay"
                 app:layout_collapseMode="pin" />
 

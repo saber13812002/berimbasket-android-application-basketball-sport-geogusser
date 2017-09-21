@@ -1,4 +1,4 @@
-package ir.berimbasket.app.Entity;
+package ir.berimbasket.app.entity;
 
 /**
  * Created by mohammad hosein on 7/24/2017.
