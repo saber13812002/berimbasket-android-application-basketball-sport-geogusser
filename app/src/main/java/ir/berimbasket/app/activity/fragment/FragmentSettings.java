@@ -6,6 +6,7 @@ import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
 
 import ir.berimbasket.app.R;
+import ir.berimbasket.app.util.ApplicationLoader;
 import ir.berimbasket.app.util.SendTo;
 
 public class FragmentSettings extends PreferenceFragmentCompat implements Preference.OnPreferenceClickListener {
@@ -36,15 +37,23 @@ public class FragmentSettings extends PreferenceFragmentCompat implements Prefer
         // FIXME: 9/20/2017 read keys from strings.xml
         switch (key) {
             case "help" :
+                // Tracking Event (Analytics)
+                ApplicationLoader.getInstance().trackEvent("Settings", "Click Help", "");
                 SendTo.sendToCustomTab(getActivity(), URL_PREFERENCE_HELP);
                 return true;
             case "about_us" :
+                // Tracking Event (Analytics)
+                ApplicationLoader.getInstance().trackEvent("Settings", "Click About", "");
                 SendTo.sendToCustomTab(getActivity(), URL_PREFERENCE_ABOUT_US);
                 return true;
             case "terms_and_services" :
+                // Tracking Event (Analytics)
+                ApplicationLoader.getInstance().trackEvent("Settings", "Click TermsAndServices", "");
                 SendTo.sendToCustomTab(getActivity(), URL_PREFERENCE_TERMS_AND_SERVICES);
                 return true;
             case "change_log" :
+                // Tracking Event (Analytics)
+                ApplicationLoader.getInstance().trackEvent("Settings", "Click ChangeLog", "");
                 SendTo.sendToCustomTab(getActivity(), URL_PREFERENCE_CHANGE_LOG);
                 return true;
         }

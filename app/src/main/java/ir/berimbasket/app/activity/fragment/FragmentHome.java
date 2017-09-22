@@ -28,13 +28,14 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import ir.berimbasket.app.R;
 import ir.berimbasket.app.adapter.AdapterMatch;
 import ir.berimbasket.app.adapter.AdapterPlayer;
 import ir.berimbasket.app.adapter.AdapterStadium;
 import ir.berimbasket.app.entity.EntityPlayer;
-import ir.berimbasket.app.R;
 import ir.berimbasket.app.entity.EntityStadium;
 import ir.berimbasket.app.json.HttpFunctions;
+import ir.berimbasket.app.util.ApplicationLoader;
 
 /**
  * Created by mohammad hosein on 5/1/2017.
@@ -97,6 +98,13 @@ public class FragmentHome extends Fragment {
         new GetStadium().execute();
 
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Tracking the screen view (Analytics)
+        ApplicationLoader.getInstance().trackScreenView("Home Fragment");
     }
 
     private void setupMatchRecyclerView(View view) {

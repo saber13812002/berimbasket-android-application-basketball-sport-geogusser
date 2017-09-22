@@ -14,6 +14,7 @@ import android.widget.Toast;
 import ir.berimbasket.app.R;
 import ir.berimbasket.app.activity.fragment.FragmentSetMarker;
 import ir.berimbasket.app.json.HttpFunctions;
+import ir.berimbasket.app.util.ApplicationLoader;
 
 public class ActivitySetMarker extends AppCompatActivity {
 
@@ -48,6 +49,9 @@ public class ActivitySetMarker extends AppCompatActivity {
                 if (!edtLocationName.getText().toString().equals("")) {
                     String Url = "http://berimbasket.ir/bball/set.php?token=jkhfgkljhasfdlkh&lat=" + latitude + "&long=" + longitude + "&title=" + edtLocationName.getText();
                     Url.replace(" ", "%20");
+                    // Tracking Event (Analytics)
+                    ApplicationLoader.getInstance().trackEvent("Map", "SetNewMarker",
+                            String.format("Location : lat=%s , long=%s", latitude, longitude));
                     new PostLocation().execute(Url);
 
                 } else {

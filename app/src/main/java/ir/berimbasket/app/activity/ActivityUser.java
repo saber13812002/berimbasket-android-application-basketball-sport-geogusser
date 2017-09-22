@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import ir.berimbasket.app.R;
+import ir.berimbasket.app.util.ApplicationLoader;
 
 
 public class ActivityUser extends AppCompatActivity {
@@ -63,6 +64,8 @@ public class ActivityUser extends AppCompatActivity {
                                 editor.putString(USERNAME, null);
                                 editor.putString(PASSWORD, null);
                                 editor.apply();
+                                // Tracking Event (Analytics)
+                                ApplicationLoader.getInstance().trackEvent("Login", "Log out", "");
                                 ActivityUser.this.finish();
                             }
                         })

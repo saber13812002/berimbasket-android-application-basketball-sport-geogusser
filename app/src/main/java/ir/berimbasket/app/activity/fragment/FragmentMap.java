@@ -39,12 +39,13 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import ir.berimbasket.app.util.GPSTracker;
 import ir.berimbasket.app.R;
 import ir.berimbasket.app.activity.ActivityCreateStadium;
 import ir.berimbasket.app.activity.ActivityHome;
 import ir.berimbasket.app.activity.ActivitySetMarker;
 import ir.berimbasket.app.json.HttpFunctions;
+import ir.berimbasket.app.util.ApplicationLoader;
+import ir.berimbasket.app.util.GPSTracker;
 
 public class FragmentMap extends Fragment implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
     private static String _URL = "http://berimbasket.ir/bball/get.php?id=0";
@@ -88,6 +89,8 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback, GoogleM
     public void onResume() {
         super.onResume();
         mapView.onResume();
+        // Tracking the screen view (Analytics)
+        ApplicationLoader.getInstance().trackScreenView("Map Fragment");
     }
 
     @Override

@@ -23,6 +23,7 @@ import org.json.JSONObject;
 
 import ir.berimbasket.app.R;
 import ir.berimbasket.app.json.HttpFunctions;
+import ir.berimbasket.app.util.ApplicationLoader;
 import ir.berimbasket.app.util.PrefManager;
 
 /**
@@ -159,6 +160,8 @@ public class ActivityLogin extends AppCompatActivity {
                 editor.putString(PASSWORD, edtPassword.getText().toString());
                 editor.putBoolean(ATTEMPT_LOGIN, true);
                 editor.apply();
+                // Tracking Event (Analytics)
+                ApplicationLoader.getInstance().trackEvent("Login", "Log on", "");
                 startActivity(intent);
                 ActivityLogin.this.finish();
             } else {

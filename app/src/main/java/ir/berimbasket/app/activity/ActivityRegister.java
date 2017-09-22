@@ -25,6 +25,7 @@ import org.json.JSONObject;
 
 import ir.berimbasket.app.R;
 import ir.berimbasket.app.json.HttpFunctions;
+import ir.berimbasket.app.util.ApplicationLoader;
 import ir.berimbasket.app.util.PrefManager;
 
 
@@ -152,6 +153,8 @@ public class ActivityRegister extends AppCompatActivity {
                 .setPositiveButton("لینک ربات", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         Intent telegram = new Intent(Intent.ACTION_VIEW, Uri.parse("https://telegram.me/berimbasketbot"));
+                        // Tracking Event (Analytics)
+                        ApplicationLoader.getInstance().trackEvent("Registration", "Go to TelegramBot", "");
                         startActivity(telegram);
                     }
                 })
@@ -246,6 +249,8 @@ public class ActivityRegister extends AppCompatActivity {
             }
             if (!registerError) {
                 Toast.makeText(getApplicationContext(), "ثبت نام شما با موفقیت انجام شد، حالا میتوانید وارد شوید", Toast.LENGTH_LONG).show();
+                // Tracking Event (Analytics)
+                ApplicationLoader.getInstance().trackEvent("Registration", "New User Register", "");
                 ActivityRegister.this.finish();
             }
             pDialog.cancel();
