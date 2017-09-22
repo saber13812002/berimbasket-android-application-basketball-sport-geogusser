@@ -26,8 +26,8 @@ import com.crashlytics.android.Crashlytics;
 
 import co.ronash.pushe.Pushe;
 import io.fabric.sdk.android.Fabric;
-import ir.berimbasket.app.R;
 import ir.berimbasket.app.adapter.AdapterHomePager;
+import ir.berimbasket.app.R;
 import ir.berimbasket.app.entity.EntityLocation;
 import ir.berimbasket.app.network.SendLocationTask;
 import ir.berimbasket.app.util.GPSTracker;
@@ -88,6 +88,12 @@ public class ActivityHome extends AppCompatActivity implements View.OnClickListe
         homePager.setCurrentItem(0);
         homePager.setOffscreenPageLimit(3);
 
+        changeBottomNavFont(navigation);
+
+
+    }
+
+    private void changeBottomNavFont(BottomNavigationView navigation) {
         Menu m = navigation.getMenu();
         for (int i=0;i<m.size();i++) {
             MenuItem mi = m.getItem(i);
@@ -104,7 +110,6 @@ public class ActivityHome extends AppCompatActivity implements View.OnClickListe
             //the method we have create in activity
             applyFontToMenuItem(mi);
         }
-
     }
 
     private void applyFontToMenuItem(MenuItem mi) {

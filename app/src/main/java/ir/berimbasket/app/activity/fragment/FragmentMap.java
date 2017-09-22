@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
@@ -15,6 +16,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v7.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,12 +41,12 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import ir.berimbasket.app.util.GPSTracker;
 import ir.berimbasket.app.R;
 import ir.berimbasket.app.activity.ActivityCreateStadium;
 import ir.berimbasket.app.activity.ActivityHome;
 import ir.berimbasket.app.activity.ActivitySetMarker;
 import ir.berimbasket.app.json.HttpFunctions;
+import ir.berimbasket.app.util.GPSTracker;
 
 public class FragmentMap extends Fragment implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
     private static String _URL = "http://berimbasket.ir/bball/get.php?id=0";
@@ -285,9 +287,23 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback, GoogleM
             }
 
             map.setOnMarkerClickListener(FragmentMap.this);
-            map.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(FragmentMap.this.latitude, FragmentMap.this.longitude), 13.0f));
+            getCityLatLong();
 
         }
 
+    }
+
+    /**
+     * Change map location based on city that selected in setting
+     */
+    private void getCityLatLong() {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+        String latLong = prefs.getString("state_list", "35.111111a54545");
+
+        if (Double.parseDouble(latLong.split("a")[0]) == 0) {
+            FragmentMap.this.latitude = Double.parseDouble(latLong.split("a")[0]);
+            FragmentMap.this.longitude = Double.parseDouble(latLong.split("a")[1]);
+        }
+        map.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(FragmentMap.this.latitude, FragmentMap.this.longitude), 14.0f));
     }
 }
