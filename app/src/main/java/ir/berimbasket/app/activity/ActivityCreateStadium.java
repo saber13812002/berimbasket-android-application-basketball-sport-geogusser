@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import ir.berimbasket.app.R;
+import ir.berimbasket.app.util.ApplicationLoader;
 
 
 public class ActivityCreateStadium extends AppCompatActivity {
@@ -18,4 +19,10 @@ public class ActivityCreateStadium extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Tracking the screen view (Analytics)
+        ApplicationLoader.getInstance().trackScreenView("CreateStadium Screen");
+    }
 }

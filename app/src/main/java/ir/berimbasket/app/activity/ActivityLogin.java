@@ -59,6 +59,13 @@ public class ActivityLogin extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Tracking the screen view (Analytics)
+        ApplicationLoader.getInstance().trackScreenView("Login Screen");
+    }
+
     private void initViews() {
         edtUsername = (EditText) findViewById(R.id.edtUsername);
         edtPassword = (EditText) findViewById(R.id.edtPassword);

@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import ir.berimbasket.app.R;
 import ir.berimbasket.app.adapter.AdapterPlayerSpecification;
 import ir.berimbasket.app.entity.EntityPlayer;
+import ir.berimbasket.app.util.ApplicationLoader;
 
 public class ActivityPlayer extends AppCompatActivity {
 
@@ -57,6 +58,14 @@ public class ActivityPlayer extends AppCompatActivity {
 
         ArrayList<String> playerSpecList = getPlayerSpec(entityPlayer);
         setupMatchRecyclerView(playerSpecList);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Tracking the screen view (Analytics)
+        ApplicationLoader.getInstance().trackScreenView("Player Screen");
+
     }
 
     @Override

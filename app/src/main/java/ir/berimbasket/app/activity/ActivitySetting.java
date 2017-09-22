@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import ir.berimbasket.app.R;
+import ir.berimbasket.app.util.ApplicationLoader;
 import ir.berimbasket.app.view.AppBarStateChangeListener;
 
 public class ActivitySetting extends AppCompatActivity {
@@ -77,6 +78,8 @@ public class ActivitySetting extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        // Tracking the screen view (Analytics)
+        ApplicationLoader.getInstance().trackScreenView("Settings Screen");
     }
 
     @Override

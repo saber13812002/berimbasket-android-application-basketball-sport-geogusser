@@ -57,6 +57,13 @@ public class ActivityRegister extends AppCompatActivity {
         showRobotDialog();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Tracking the screen view (Analytics)
+        ApplicationLoader.getInstance().trackScreenView("Register Screen");
+    }
+
     private void initViews() {
         btnRegister = (AppCompatButton) findViewById(R.id.btnRegister);
         btnLoginActivity = (TextView) findViewById(R.id.btnLoginActivity);

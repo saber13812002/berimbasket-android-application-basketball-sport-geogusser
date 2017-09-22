@@ -4,15 +4,7 @@
     <integer name="ga_sessionTimeout">300</integer>
 
     <!-- Enable automatic Activity measurement -->
-    <bool name="ga_autoActivityTracking">true</bool>
-    <screenName name="ir.berimbasket.app.activity.ActivityHome">Home Screen</screenName>
-    <screenName name="ir.berimbasket.app.activity.ActivityLogin">Login Screen</screenName>
-    <screenName name="ir.berimbasket.app.activity.ActivityPlayer">Player Screen</screenName>
-    <screenName name="ir.berimbasket.app.activity.ActivityRegister">Register Screen</screenName>
-    <screenName name="ir.berimbasket.app.activity.ActivitySetMarker">Set marker Screen</screenName>
-    <screenName name="ir.berimbasket.app.activity.ActivitySetting">Settings Screen</screenName>
-    <screenName name="ir.berimbasket.app.activity.ActivityStadium">Stadium Screen</screenName>
-    <screenName name="ir.berimbasket.app.activity.ActivityUser">User Screen</screenName>
+    <bool name="ga_autoActivityTracking">false</bool>
 
     <!--  The property id associated with this analytics tracker -->
     <string name="ga_trackingId">UA-106908290-1</string>

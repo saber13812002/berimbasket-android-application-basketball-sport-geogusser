@@ -30,6 +30,7 @@ import ir.berimbasket.app.R;
 import ir.berimbasket.app.adapter.AdapterHomePager;
 import ir.berimbasket.app.entity.EntityLocation;
 import ir.berimbasket.app.network.SendLocationTask;
+import ir.berimbasket.app.util.ApplicationLoader;
 import ir.berimbasket.app.util.GPSTracker;
 import ir.berimbasket.app.view.CustomTypefaceSpan;
 
@@ -106,6 +107,13 @@ public class ActivityHome extends AppCompatActivity implements View.OnClickListe
             applyFontToMenuItem(mi);
         }
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Tracking the screen view (Analytics)
+        ApplicationLoader.getInstance().trackScreenView("Home Screen");
     }
 
     private void applyFontToMenuItem(MenuItem mi) {

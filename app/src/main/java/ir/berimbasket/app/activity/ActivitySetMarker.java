@@ -32,6 +32,13 @@ public class ActivitySetMarker extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Tracking the screen view (Analytics)
+        ApplicationLoader.getInstance().trackScreenView("SetMarker Screen");
+    }
+
     private void initViews() {
         btnSendLocation = (ImageView) findViewById(R.id.btnSendMarker);
         edtLocationName = (AppCompatEditText) findViewById(R.id.edtLocationName);

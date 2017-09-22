@@ -31,6 +31,13 @@ public class ActivityUser extends AppCompatActivity {
         iniTexts();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Tracking the screen view (Analytics)
+        ApplicationLoader.getInstance().trackScreenView("User Screen");
+    }
+
     private void initViews() {
         txtUsername = (TextView) findViewById(R.id.txtUsername);
         txtAccountBalance = (TextView) findViewById(R.id.txtAccCharge);
