@@ -15,6 +15,7 @@ import ir.berimbasket.app.R;
 public class ActivityUser extends AppCompatActivity {
 
     TextView txtUsername, txtAccountBalance, btnChangePass, btnLogout;
+    // FIXME: 9/22/2017 ship all SharedPreference to centralized PrefManager class (for ease and security reasons)
     private String PREFS_NAME = "BERIM_BASKET_PREF";
     private String USERNAME = "PREF_USERNAME";
     private String PASSWORD = "PREF_PASSWORD";

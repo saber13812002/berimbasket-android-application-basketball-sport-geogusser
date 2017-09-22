@@ -37,6 +37,7 @@ public class ActivityLogin extends AppCompatActivity {
     // UI references.
     private EditText edtUsername, edtPassword;
     TextInputLayout inputUsername, inputPassword;
+    // FIXME: 9/22/2017 ship all SharedPreference to centralized PrefManager class (for ease and security reasons)
     private String PREFS_NAME = "BERIM_BASKET_PREF";
     private String USERNAME = "PREF_USERNAME";
     private String PASSWORD = "PREF_PASSWORD";

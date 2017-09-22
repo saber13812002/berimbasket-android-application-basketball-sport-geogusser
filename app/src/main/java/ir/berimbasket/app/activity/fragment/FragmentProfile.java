@@ -1,5 +1,8 @@
 package ir.berimbasket.app.activity.fragment;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -12,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,10 +25,13 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import ir.berimbasket.app.adapter.AdapterMission;
 import ir.berimbasket.app.R;
+import ir.berimbasket.app.activity.ActivityLogin;
+import ir.berimbasket.app.adapter.AdapterMission;
 import ir.berimbasket.app.entity.EntityMission;
 import ir.berimbasket.app.json.HttpFunctions;
+
+import static android.content.Context.MODE_PRIVATE;
 
 /**
  * Created by mohammad hosein on 5/1/2017.
@@ -34,6 +41,9 @@ public class FragmentProfile extends Fragment {
 
     TextView txtAccName, txtAccBadge, txtAccLevel, txtAccXp;
     private String _URL = "http://berimbasket.ir/bball/getMission.php";
+    // FIXME: 9/22/2017 ship all SharedPreference to centralized PrefManager class (for ease and security reasons)
+    private String PREFS_NAME = "BERIM_BASKET_PREF";
+    private String ATTEMPT_LOGIN = "PREF_ATTEMPT_LOGIN";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -42,22 +52,43 @@ public class FragmentProfile extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_profile, container, false);
+        final Context context = inflater.getContext();
+        SharedPreferences preferences = context.getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        boolean attemptLogin = preferences.getBoolean(ATTEMPT_LOGIN, false);
         Typeface typeface = Typeface.createFromAsset(getActivity().getAssets(), "fonts/yekan.ttf");
+        View rootView;
+        if (attemptLogin) {
+            // user registered
+            rootView = inflater.inflate(R.layout.fragment_profile, container, false);
+            txtAccName = (TextView) rootView.findViewById(R.id.txtAccName);
+            txtAccLevel = (TextView) rootView.findViewById(R.id.txtAccLevel);
+            txtAccBadge = (TextView) rootView.findViewById(R.id.txtAccBadge);
+            txtAccXp = (TextView) rootView.findViewById(R.id.txtAccXp);
 
-        txtAccName = (TextView) view.findViewById(R.id.txtAccName);
-        txtAccLevel = (TextView) view.findViewById(R.id.txtAccLevel);
-        txtAccBadge = (TextView) view.findViewById(R.id.txtAccBadge);
-        txtAccXp = (TextView) view.findViewById(R.id.txtAccXp);
+            txtAccName.setTypeface(typeface);
+            txtAccLevel.setTypeface(typeface);
+            txtAccBadge.setTypeface(typeface);
+            txtAccXp.setTypeface(typeface);
 
-        txtAccName.setTypeface(typeface);
-        txtAccLevel.setTypeface(typeface);
-        txtAccBadge.setTypeface(typeface);
-        txtAccXp.setTypeface(typeface);
+            new GetMissions().execute();
+        } else {
+            // user not registered
+            rootView = inflater.inflate(R.layout.fragment_profile_not_registered, container, false);
+            TextView txtNotRegisteredMsg = (TextView) rootView.findViewById(R.id.txtFragmentProfile_userNotRegMsg);
+            Button btnGoToLogin = (Button) rootView.findViewById(R.id.btnFragmentProfile_goToLogin);
 
-        new GetMissions().execute();
+            txtNotRegisteredMsg.setTypeface(typeface);
+            btnGoToLogin.setTypeface(typeface);
+            btnGoToLogin.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, ActivityLogin.class);
+                    context.startActivity(intent);
+                }
+            });
+        }
 
-        return view;
+        return rootView;
     }
 
     private void setupXpRecycler(View view, ArrayList<EntityMission> missionList){

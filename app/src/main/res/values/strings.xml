@@ -247,4 +247,6 @@
     <string name="no">خیر</string>
     <string name="no_google_play_found">سرویس گوگل پلی در دستگاه شما موجود نیست</string>
     <string name="title_activity_stadium">ActivityStadium</string>
+    <string name="fragment_profile_user_not_reg_message">برای مشاهده ی این قسمت وارد شوید</string>
+    <string name="fragment_profile_user_not_reg_button">ورود به حساب کاربری</string>
 </resources>

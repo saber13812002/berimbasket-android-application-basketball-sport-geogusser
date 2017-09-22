@@ -42,6 +42,7 @@ public class ActivityHome extends AppCompatActivity implements View.OnClickListe
     private static final int MY_PERMISSIONS_REQUEST_INTERNET = 1000;
     private ViewPager homePager;
     private ImageView btnUser, btnSetting;
+    // FIXME: 9/22/2017 ship all SharedPreference to centralized PrefManager class (for ease and security reasons)
     private String PREFS_NAME = "BERIM_BASKET_PREF";
     private String ATTEMPT_LOGIN = "PREF_ATTEMPT_LOGIN";
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
