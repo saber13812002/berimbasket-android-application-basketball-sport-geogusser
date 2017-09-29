@@ -45,6 +45,7 @@ public class FragmentProfile extends Fragment {
     // FIXME: 9/22/2017 ship all SharedPreference to centralized PrefManager class (for ease and security reasons)
     private String PREFS_NAME = "BERIM_BASKET_PREF";
     private String ATTEMPT_LOGIN = "PREF_ATTEMPT_LOGIN";
+    private static boolean isLoggedIn;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -55,11 +56,11 @@ public class FragmentProfile extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, @Nullable Bundle savedInstanceState) {
         final Context context = inflater.getContext();
         SharedPreferences preferences = context.getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-        boolean attemptLogin = preferences.getBoolean(ATTEMPT_LOGIN, false);
+        isLoggedIn = preferences.getBoolean(ATTEMPT_LOGIN, false);
         Typeface typeface = Typeface.createFromAsset(getActivity().getAssets(), "fonts/yekan.ttf");
         View rootView;
-        if (attemptLogin) {
-            // user registered
+        if (isLoggedIn) {
+            // user logged in
             rootView = inflater.inflate(R.layout.fragment_profile, container, false);
             txtAccName = (TextView) rootView.findViewById(R.id.txtAccName);
             txtAccLevel = (TextView) rootView.findViewById(R.id.txtAccLevel);
@@ -73,7 +74,7 @@ public class FragmentProfile extends Fragment {
 
             new GetMissions().execute();
         } else {
-            // user not registered
+            // user not logged in
             rootView = inflater.inflate(R.layout.fragment_profile_not_registered, container, false);
             TextView txtNotRegisteredMsg = (TextView) rootView.findViewById(R.id.txtFragmentProfile_userNotRegMsg);
             Button btnGoToLogin = (Button) rootView.findViewById(R.id.btnFragmentProfile_goToLogin);
@@ -97,6 +98,12 @@ public class FragmentProfile extends Fragment {
         super.onResume();
         // Tracking the screen view (Analytics)
         ApplicationLoader.getInstance().trackScreenView("Profile Fragment");
+        // invalidate fragment when login status changes (eg. return from login activity)
+        SharedPreferences preferences = getActivity().getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        boolean loginStatus = preferences.getBoolean(ATTEMPT_LOGIN, false);
+        if (loginStatus != isLoggedIn) {
+            getFragmentManager().beginTransaction().detach(this).attach(this).commit();
+        }
     }
 
     private void setupXpRecycler(View view, ArrayList<EntityMission> missionList){
