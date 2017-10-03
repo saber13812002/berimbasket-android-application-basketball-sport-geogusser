@@ -1,5 +1,7 @@
 package ir.berimbasket.app.activity.fragment;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -21,8 +23,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import ir.berimbasket.app.adapter.AdapterMission;
 import ir.berimbasket.app.R;
+import ir.berimbasket.app.adapter.AdapterMission;
 import ir.berimbasket.app.entity.EntityMission;
 import ir.berimbasket.app.json.HttpFunctions;
 
@@ -33,7 +35,7 @@ import ir.berimbasket.app.json.HttpFunctions;
 public class FragmentProfile extends Fragment {
 
     TextView txtAccName, txtAccBadge, txtAccLevel, txtAccXp;
-    private String _URL = "http://berimbasket.ir/bball/getMission.php";
+    private String MISSION_URL = "http://berimbasket.ir/bball/getMission.php";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -60,7 +62,19 @@ public class FragmentProfile extends Fragment {
         return view;
     }
 
-    private void setupXpRecycler(View view, ArrayList<EntityMission> missionList){
+    private String completeMissionUrl() {
+        return MISSION_URL + "?user=" + getActiveUsername();
+    }
+
+    private String PREFS_NAME = "BERIM_BASKET_PREF";
+    private String USERNAME = "PREF_USERNAME";
+
+    private String getActiveUsername() {
+        SharedPreferences prefs = getActivity().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        return prefs.getString(USERNAME, "");
+    }
+
+    private void setupXpRecycler(View view, ArrayList<EntityMission> missionList) {
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recyclerXp);
         recyclerView.setNestedScrollingEnabled(false);
         AdapterMission adapterPlayer = new AdapterMission(missionList, view.getContext());
@@ -89,7 +103,7 @@ public class FragmentProfile extends Fragment {
             HttpFunctions sh = new HttpFunctions(HttpFunctions.RequestType.GET);
 
             // Making a request to url and getting response
-            String jsonStr = sh.makeServiceCall(_URL);
+            String jsonStr = sh.makeServiceCall(completeMissionUrl());
             if (jsonStr != null) {
                 try {
                     // Getting JSON Array node
@@ -109,16 +123,14 @@ public class FragmentProfile extends Fragment {
                         Log.i("name", String.valueOf(Integer.parseInt(level)));
 
                         EntityMission entityMission = new EntityMission();
-                        // adding each child node to HashMap key => value
 
                         entityMission.setId(id != "null" ? Integer.parseInt(id) : -1);
                         entityMission.setTitle(title);
                         entityMission.setLink(link);
                         entityMission.setScore(score != "null" ? Integer.parseInt(score) : -1);
                         entityMission.setLevel(level != "null" ? Integer.parseInt(level) : -1);
-                        entityMission.setLock(lock != "null" ? Integer.parseInt(lock) : -1);
+                        entityMission.setIsLock(lock != "null" ? Integer.parseInt(lock) : -1);
 
-                        // adding contact to contact list
                         missionList.add(entityMission);
 
 
@@ -153,4 +165,6 @@ public class FragmentProfile extends Fragment {
             setupXpRecycler(getView(), missionList);
         }
     }
+
+
 }
