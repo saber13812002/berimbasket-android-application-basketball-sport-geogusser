@@ -3,9 +3,6 @@ package ir.berimbasket.app.activity.fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -29,8 +26,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import ir.berimbasket.app.R;
+import ir.berimbasket.app.activity.ActivityLogin;
 import ir.berimbasket.app.adapter.AdapterMission;
-import ir.berimbasket.app.activity.ActivityLogin
 import ir.berimbasket.app.entity.EntityMission;
 import ir.berimbasket.app.json.HttpFunctions;
 import ir.berimbasket.app.util.ApplicationLoader;
@@ -48,6 +45,7 @@ public class FragmentProfile extends Fragment {
     // FIXME: 9/22/2017 ship all SharedPreference to centralized PrefManager class (for ease and security reasons)
     private String PREFS_NAME = "BERIM_BASKET_PREF";
     private String ATTEMPT_LOGIN = "PREF_ATTEMPT_LOGIN";
+    private String USERNAME = "PREF_USERNAME";
     private static boolean isLoggedIn;
 
     @Override
@@ -112,9 +110,6 @@ public class FragmentProfile extends Fragment {
     private String completeMissionUrl() {
         return MISSION_URL + "?user=" + getActiveUsername();
     }
-
-    private String PREFS_NAME = "BERIM_BASKET_PREF";
-    private String USERNAME = "PREF_USERNAME";
 
     private String getActiveUsername() {
         SharedPreferences prefs = getActivity().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);

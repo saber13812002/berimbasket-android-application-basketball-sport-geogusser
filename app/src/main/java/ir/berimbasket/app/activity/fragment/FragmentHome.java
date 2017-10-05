@@ -16,22 +16,21 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
+import ir.berimbasket.app.R;
 import ir.berimbasket.app.adapter.AdapterMatch;
 import ir.berimbasket.app.adapter.AdapterPlayer;
 import ir.berimbasket.app.adapter.AdapterStadium;
 import ir.berimbasket.app.entity.EntityMatchScore;
 import ir.berimbasket.app.entity.EntityPlayer;
-import ir.berimbasket.app.R;
 import ir.berimbasket.app.entity.EntityStadium;
 import ir.berimbasket.app.json.HttpFunctions;
+import ir.berimbasket.app.util.ApplicationLoader;
 
 /**
  * Created by mohammad hosein on 5/1/2017.
