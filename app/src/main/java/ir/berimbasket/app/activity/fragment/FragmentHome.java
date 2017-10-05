@@ -16,10 +16,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.daimajia.slider.library.Animations.DescriptionAnimation;
-import com.daimajia.slider.library.SliderLayout;
-import com.daimajia.slider.library.SliderTypes.BaseSliderView;
-import com.daimajia.slider.library.SliderTypes.TextSliderView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -28,14 +24,14 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import ir.berimbasket.app.R;
 import ir.berimbasket.app.adapter.AdapterMatch;
 import ir.berimbasket.app.adapter.AdapterPlayer;
 import ir.berimbasket.app.adapter.AdapterStadium;
+import ir.berimbasket.app.entity.EntityMatchScore;
 import ir.berimbasket.app.entity.EntityPlayer;
+import ir.berimbasket.app.R;
 import ir.berimbasket.app.entity.EntityStadium;
 import ir.berimbasket.app.json.HttpFunctions;
-import ir.berimbasket.app.util.ApplicationLoader;
 
 /**
  * Created by mohammad hosein on 5/1/2017.
@@ -43,11 +39,11 @@ import ir.berimbasket.app.util.ApplicationLoader;
 
 public class FragmentHome extends Fragment {
 
-    private SliderLayout sliderMatch;
-    private TextView txtMorePlayer, txtMoreStadium;
-    private AppCompatButton btnMorePlayer, btnMoreStadium;
-    private static String _URL = "http://berimbasket.ir/bball/getPlayers.php?id=0";
-    private static String _URL_STADIUM = "http://berimbasket.ir/bball/getPlayGroundJson.php?id=0";
+    private TextView txtMorePlayer, txtMoreStadium, txtMoreMatch;
+    private AppCompatButton btnMorePlayer, btnMoreStadium, btnMoreMatch;
+    private static String PLAYER_URL = "http://berimbasket.ir/bball/getPlayers.php?id=0";
+    private static String STADIUM_URL = "http://berimbasket.ir/bball/getPlayGroundJson.php?id=0";
+    private static String MATCH_URL = "http://berimbasket.ir/bball/getScore.php";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -59,43 +55,26 @@ public class FragmentHome extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         setupPlayerRecycler(view, playerList);
-        sliderMatch = (SliderLayout) view.findViewById(R.id.sliderMatch);
         btnMoreStadium = (AppCompatButton) view.findViewById(R.id.btnMoreStadium);
-        btnMorePlayer = (AppCompatButton) view.findViewById(R.id.btnMorePlayer);
+        btnMoreMatch = (AppCompatButton) view.findViewById(R.id.btnMorePlayer);
+        btnMorePlayer = (AppCompatButton) view.findViewById(R.id.btnMoreMatch);
         txtMoreStadium = (TextView) view.findViewById(R.id.txtMoreStadium);
         txtMorePlayer = (TextView) view.findViewById(R.id.txtMorePlayer);
+        txtMoreMatch = (TextView) view.findViewById(R.id.txtMoreMatch);
 
         Typeface typeface = Typeface.createFromAsset(getContext().getAssets(), "fonts/yekan.ttf");
 
         btnMorePlayer.setTypeface(typeface);
         txtMorePlayer.setTypeface(typeface);
+        txtMoreMatch.setTypeface(typeface);
         btnMoreStadium.setTypeface(typeface);
         txtMoreStadium.setTypeface(typeface);
+        btnMoreMatch.setTypeface(typeface);
 
-        HashMap<String, Integer> url_maps = new HashMap<String, Integer>();
-        url_maps.put("Hannibal", R.drawable.slider1);
-        url_maps.put("House of Cards", R.drawable.slider2);
-        url_maps.put("Game of Thrones", R.drawable.slider3);
-
-        for (String name : url_maps.keySet()) {
-            TextSliderView textSliderView = new TextSliderView(getActivity());
-            textSliderView
-                    .image(url_maps.get(name))
-                    .setScaleType(BaseSliderView.ScaleType.CenterCrop);
-
-            textSliderView.bundle(new Bundle());
-            textSliderView.getBundle().putString("extra", name);
-
-            sliderMatch.addSlider(textSliderView);
-        }
-
-        sliderMatch.setPresetTransformer(SliderLayout.Transformer.Default);
-        sliderMatch.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
-        sliderMatch.setCustomAnimation(new DescriptionAnimation());
-        sliderMatch.setDuration(4000);
 
         new GetPlayers().execute();
         new GetStadium().execute();
+        new GetMatch().execute();
 
         return view;
     }
@@ -107,14 +86,14 @@ public class FragmentHome extends Fragment {
         ApplicationLoader.getInstance().trackScreenView("Home Fragment");
     }
 
-    private void setupMatchRecyclerView(View view) {
+    private void setupMatchRecyclerView(View view, ArrayList<EntityMatchScore> matchList) {
 
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recyclerMatchBoard);
-        AdapterMatch adapterMatch = new AdapterMatch(view.getContext());
+        AdapterMatch adapterMatch = new AdapterMatch(view.getContext(), matchList);
         recyclerView.setAdapter(adapterMatch);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext());
-        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         recyclerView.setLayoutManager(linearLayoutManager);
 
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -164,14 +143,11 @@ public class FragmentHome extends Fragment {
 
             HttpFunctions sh = new HttpFunctions(HttpFunctions.RequestType.GET);
 
-            // Making a request to url and getting response
-            String jsonStr = sh.makeServiceCall(_URL);
+            String jsonStr = sh.makeServiceCall(PLAYER_URL);
             if (jsonStr != null) {
                 try {
-                    // Getting JSON Array node
                     JSONArray locations = new JSONArray(jsonStr);
 
-                    // looping through All Contacts
                     for (int i = 0; i < locations.length(); i++) {
                         JSONObject c = locations.getJSONObject(i);
 
@@ -211,10 +187,8 @@ public class FragmentHome extends Fragment {
                         entityPlayer.setCoachName(coach);
                         entityPlayer.setTeamName(teamname);
                         entityPlayer.setExperience(experience);
-//                        entityPlayer.setPost(post != "" ? Integer.parseInt(post) : -1);
                         entityPlayer.setPhone(telegramPhone);
 
-                        // adding contact to contact list
                         playerList.add(entityPlayer);
 
 
@@ -252,6 +226,7 @@ public class FragmentHome extends Fragment {
     }
 
     ArrayList<EntityStadium> stadiumList = new ArrayList<>();
+
     private class GetStadium extends AsyncTask<Void, Void, Void> {
 
         @Override
@@ -263,14 +238,11 @@ public class FragmentHome extends Fragment {
         protected Void doInBackground(Void... voids) {
             HttpFunctions sh = new HttpFunctions(HttpFunctions.RequestType.GET);
 
-            // Making a request to url and getting response
-            String jsonStr = sh.makeServiceCall(_URL_STADIUM);
+            String jsonStr = sh.makeServiceCall(STADIUM_URL);
             if (jsonStr != null) {
                 try {
-                    // Getting JSON Array node
                     JSONArray locations = new JSONArray(jsonStr);
 
-                    // looping through All Contacts
                     for (int i = 0; i < locations.length(); i++) {
                         JSONObject c = locations.getJSONObject(i);
 
@@ -288,7 +260,6 @@ public class FragmentHome extends Fragment {
                         String telegramAdminId = c.getString("PgTlgrmGroupAdminId");
 
                         EntityStadium entityStadium = new EntityStadium();
-                        // adding each child node to HashMap key => value
 
                         entityStadium.setId(id != "null" ? Integer.parseInt(id) : -1);
                         entityStadium.setTitle(title);
@@ -303,7 +274,6 @@ public class FragmentHome extends Fragment {
                         entityStadium.setType(type);
                         entityStadium.setZoomLevel(zoomLevel != "null" ? Integer.parseInt(zoomLevel) : -1);
 
-                        // adding contact to contact list
                         stadiumList.add(entityStadium);
 
 
@@ -329,6 +299,78 @@ public class FragmentHome extends Fragment {
             super.onPostExecute(aVoid);
 
             setupStadiumRecycler(getView(), stadiumList);
+        }
+    }
+
+
+    ArrayList<EntityMatchScore> matchList = new ArrayList<>();
+
+    private class GetMatch extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            HttpFunctions sh = new HttpFunctions(HttpFunctions.RequestType.GET);
+
+            String jsonStr = sh.makeServiceCall(MATCH_URL);
+            if (jsonStr != null) {
+                try {
+                    JSONArray locations = new JSONArray(jsonStr);
+
+                    for (int i = 0; i < locations.length(); i++) {
+                        JSONObject c = locations.getJSONObject(i);
+
+                        String id = c.getString("id");
+                        String homeName = c.getString("teamTitleA");
+                        String awayName = c.getString("teamTitleB");
+                        String homeLogo = c.getString("logoTitleA");
+                        String awayLogo = c.getString("logoTitleB");
+                        String homeScore = c.getString("scoreA");
+                        String awayScore = c.getString("scoreB");
+                        String date = c.getString("date");
+
+                        EntityMatchScore entityMatchScore = new EntityMatchScore();
+
+                        entityMatchScore.setId(Integer.parseInt(id));
+                        entityMatchScore.setHomeName(homeName);
+                        entityMatchScore.setAwayName(awayName);
+                        entityMatchScore.setHomeLogo(homeLogo);
+                        entityMatchScore.setAwayLogo(awayLogo);
+                        entityMatchScore.setHomeScore(Integer.parseInt(homeScore));
+                        entityMatchScore.setAwayScore(Integer.parseInt(awayScore));
+                        entityMatchScore.setDate(date);
+
+
+
+                        matchList.add(entityMatchScore);
+
+
+                    }
+                } catch (final JSONException e) {
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(getActivity(),
+                                    "Json parsing error: " + e.getMessage(),
+                                    Toast.LENGTH_LONG)
+                                    .show();
+                        }
+                    });
+
+                }
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            setupMatchRecyclerView(getView(), matchList);
         }
     }
 }

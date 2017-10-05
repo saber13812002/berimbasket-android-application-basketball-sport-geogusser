@@ -10,7 +10,7 @@ public class EntityMission {
     private String link;
     private int score;
     private int level;
-    private int lock;
+    private int isLock;
 
     public int getId() {
         return id;
@@ -52,11 +52,11 @@ public class EntityMission {
         this.level = level;
     }
 
-    public int getLock() {
-        return lock;
+    public int getIsLock() {
+        return isLock;
     }
 
-    public void setLock(int lock) {
-        this.lock = lock;
+    public void setIsLock(int isLock) {
+        this.isLock = isLock;
     }
 }

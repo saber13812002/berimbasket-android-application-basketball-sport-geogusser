@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 import ir.berimbasket.app.R;
@@ -16,60 +18,45 @@ import ir.berimbasket.app.entity.EntityMatchScore;
 
 public class AdapterMatch extends RecyclerView.Adapter<AdapterMatch.MatchViewHolder> {
 
-    ArrayList<EntityMatchScore> matchScores;
-    Typeface typeface;
+    private ArrayList<EntityMatchScore> matchList;
+    private Typeface typeface;
     private Context context;
     private LayoutInflater inflater;
 
-    // Provide a suitable constructor (depends on the kind of dataset)
-    public AdapterMatch(Context context) {
+    public AdapterMatch(Context context, ArrayList<EntityMatchScore> matchList) {
         this.context = context;
+        this.matchList = matchList;
         this.inflater = LayoutInflater.from(context);
-
-        matchScores = new ArrayList<>();
-        for (int i = 0; i < 33; i++) {
-            EntityMatchScore matchScore = new EntityMatchScore();
-            matchScore.setAwayName("استقلال");
-            matchScore.setHomeName("پرسپولیس");
-            matchScore.setAwayScore(1);
-            matchScore.setHomeScore(3);
-            matchScore.setScoreStatus("پایان");
-            matchScores.add(matchScore);
-        }
-
         typeface = Typeface.createFromAsset(context.getAssets(), "fonts/yekan.ttf");
     }
 
-    // Create new views (invoked by the layout manager)
     @Override
     public MatchViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = inflater.inflate(R.layout.item_match_score, parent, false);
-        MatchViewHolder matchViewHolder = new MatchViewHolder(view);
-        return matchViewHolder;
+        return new MatchViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(MatchViewHolder holder, int position) {
         holder.setData();
         holder.txtAwayName.setTypeface(typeface);
-        holder.txtStatus.setTypeface(typeface);
+        holder.txtDate.setTypeface(typeface);
         holder.txtHomeScore.setTypeface(typeface);
         holder.txtAwayScore.setTypeface(typeface);
         holder.txtHomeName.setTypeface(typeface);
     }
 
-    // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return matchScores.size();
+        return matchList.size();
     }
 
-    class MatchViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    class MatchViewHolder extends RecyclerView.ViewHolder {
 
-        TextView txtHomeName, txtAwayName, txtHomeScore, txtAwayScore, txtStatus;
+        TextView txtHomeName, txtAwayName, txtHomeScore, txtAwayScore, txtDate;
         ImageView imgHomeLogo, imgAwayLogo;
 
-        public MatchViewHolder(View itemView) {
+        MatchViewHolder(View itemView) {
             super(itemView);
 
             this.imgAwayLogo = (ImageView) itemView.findViewById(R.id.imgAwayLogo);
@@ -78,25 +65,27 @@ public class AdapterMatch extends RecyclerView.Adapter<AdapterMatch.MatchViewHol
             this.txtAwayName = (TextView) itemView.findViewById(R.id.txtَAwayName);
             this.txtHomeScore = (TextView) itemView.findViewById(R.id.txtHomeScore);
             this.txtAwayScore = (TextView) itemView.findViewById(R.id.txtAwayScore);
-            this.txtStatus = (TextView) itemView.findViewById(R.id.txtStatus);
+            this.txtDate = (TextView) itemView.findViewById(R.id.txtDate);
 
         }
 
-        public void setData() {
-            imgAwayLogo.setImageResource(R.drawable.manchester);
-            imgHomeLogo.setImageResource(R.drawable.chelsea);
-            txtHomeName.setText("پرسپولیس");
-            txtAwayName.setText("استقلال");
-            txtHomeScore.setText("3");
-            txtAwayScore.setText("1");
-        }
+        void setData() {
+            EntityMatchScore entityMatchScore = matchList.get(getLayoutPosition());
+            this.txtHomeName.setText(entityMatchScore.getHomeName());
+            this.txtAwayName.setText(entityMatchScore.getAwayName());
+            this.txtHomeScore.setText(String.valueOf(entityMatchScore.getHomeScore()));
+            this.txtAwayScore.setText(String.valueOf(entityMatchScore.getAwayScore()));
+            Picasso.with(context)
+                    .load("https://berimbasket.ir/" + entityMatchScore.getAwayLogo())
+                    .resize(50, 50)
+                    .centerInside()
+                    .into(imgAwayLogo);
 
-        @Override
-        public void onClick(View view) {
-
-            switch (view.getId()) {
-            }
-
+            Picasso.with(context)
+                    .load("https://berimbasket.ir/" + entityMatchScore.getHomeLogo())
+                    .resize(50, 50)
+                    .centerInside()
+                    .into(imgHomeLogo);
         }
     }
 }

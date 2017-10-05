@@ -8,7 +8,8 @@ import java.util.ArrayList;
 
 public class EntityMatchScore {
 
-    private String scoreStatus;
+    private int id;
+    private String date;
     private int homeScore;
     private int awayScore;
     private String homeLogo;
@@ -25,7 +26,7 @@ public class EntityMatchScore {
             matchScore.setHomeName("پرسپولیس");
             matchScore.setAwayScore(1);
             matchScore.setHomeScore(3);
-            matchScore.setScoreStatus("پایان");
+            matchScore.setDate("پایان");
             matchScores.add(matchScore);
         }
 
@@ -80,11 +81,19 @@ public class EntityMatchScore {
         this.homeScore = homeScore;
     }
 
-    public String getScoreStatus() {
-        return scoreStatus;
+    public String getDate() {
+        return date;
     }
 
-    public void setScoreStatus(String scoreStatus) {
-        this.scoreStatus = scoreStatus;
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

@@ -16,8 +16,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import ir.berimbasket.app.entity.EntityPlayer;
 import ir.berimbasket.app.activity.ActivityPlayer;
+import ir.berimbasket.app.entity.EntityPlayer;
 import ir.berimbasket.app.R;
 
 /**
@@ -29,7 +29,7 @@ public class AdapterPlayer extends RecyclerView.Adapter<AdapterPlayer.PlayerView
     private final Context context;
     private final ArrayList<EntityPlayer> playerList;
     private Typeface typeface;
-    Activity activity;
+    private Activity activity;
 
     public AdapterPlayer(ArrayList<EntityPlayer> playerList, Context context, Activity activity) {
         this.playerList = playerList;
@@ -42,8 +42,7 @@ public class AdapterPlayer extends RecyclerView.Adapter<AdapterPlayer.PlayerView
     public PlayerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.item_player, parent, false);
-        PlayerViewHolder holder = new PlayerViewHolder(view);
-        return holder;
+        return new PlayerViewHolder(view);
     }
 
     @Override

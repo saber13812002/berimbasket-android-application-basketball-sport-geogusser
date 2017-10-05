@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import ir.berimbasket.app.R;
 import ir.berimbasket.app.activity.fragment.FragmentStadiumMap;
 import ir.berimbasket.app.adapter.AdapterStadiumGallery;
+import ir.berimbasket.app.entity.EntityStadium;
 import ir.berimbasket.app.entity.EntityStadiumGallery;
 import ir.berimbasket.app.util.ApplicationLoader;
 
@@ -26,15 +27,18 @@ public class ActivityStadium extends AppCompatActivity {
     TextView txtStadiumName, txtStadiumTel, txtRateNo, txtStadiumAddress, txtStadiumRound, txtTelegramChannel, txtInstagramId, txtDetailSection;
     AppCompatButton btnCompleteStadiumDetail;
     Typeface typeface;
+    EntityStadium entityStadium;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stadium);
+        entityStadium = (EntityStadium) getIntent().getSerializableExtra("stadiumDetail");
         initToolbar();
         initViewsAndListeners();
         initStadiumMap();
         initGalleryRecycler();
+        getStadiumInfo(entityStadium);
     }
 
     @Override
@@ -51,6 +55,15 @@ public class ActivityStadium extends AppCompatActivity {
         // FIXME: 21/09/2017  setDisplayHomeAsUp show warning for nullpointer exception cause
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+    }
+
+    private void getStadiumInfo(EntityStadium entityStadium) {
+        txtStadiumName.setText(entityStadium.getTitle());
+        txtStadiumTel.setText("-");
+        txtStadiumAddress.setText(entityStadium.getAddress());
+        txtStadiumRound.setText("-");
+        txtTelegramChannel.setText(entityStadium.getTelegramChannelId());
+        txtInstagramId.setText(entityStadium.getInstagramId());
     }
 
     private void initViewsAndListeners() {
@@ -83,7 +96,11 @@ public class ActivityStadium extends AppCompatActivity {
     private void initStadiumMap() {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.mapContainer, new FragmentStadiumMap());
+        FragmentStadiumMap fragmentStadiumMap = new FragmentStadiumMap();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("stadiumDetail", entityStadium);
+        fragmentStadiumMap.setArguments(bundle);
+        fragmentTransaction.replace(R.id.mapContainer, fragmentStadiumMap);
         fragmentTransaction.commit();
     }
 

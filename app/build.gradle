@@ -83,6 +83,7 @@ dependencies {
     compile 'com.nineoldandroids:library:2.4.0'
     compile 'com.daimajia.slider:library:1.1.5@aar'
     compile 'jp.wasabeef:blurry:2.1.1'
+    compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'ru.egslava:blurredview:1.0'
     testCompile 'junit:junit:4.12'
     compile 'co.ronash.android:pushe-base:1.2.0'

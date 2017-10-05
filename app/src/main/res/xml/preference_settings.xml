@@ -5,8 +5,7 @@
         <!-- fixme : move key's to strings.xml -->
         <ir.berimbasket.app.view.preference.CustomSwitchPreferenceCompat
             android:defaultValue="true"
-            android:key="notifications_new_message"
-
+            android:key="message_notification"
             android:summary="با فعالسازی این قسمت شما میتوانید از آخرین اخبار و پیشنهادا ویژه برنامه آگاه شوید"
             android:title="نمایش اعلان های برنامه" />
 
@@ -14,15 +13,7 @@
 
         <ir.berimbasket.app.view.preference.CustomSwitchPreferenceCompat
             android:defaultValue="true"
-            android:dependency="notifications_new_message"
-            android:key="notifications_new_message_vibrate"
-            android:title="ویبره" />
-
-        <Preference android:layout="@layout/item_preference_divider" />
-
-        <ir.berimbasket.app.view.preference.CustomSwitchPreferenceCompat
-            android:defaultValue="true"
-            android:key="update_switch"
+            android:key="update_notification"
             android:summary="با فعالسازی این قسمت بروزرسانی های برنامه به شما اعلا داده میشود تا بتوانید از آخرین نسخه برنامه استفاده کنید"
             android:textColor="#ab6789"
             android:title="فعالسازی اعلان آپدیت برنامه" />
@@ -35,9 +26,9 @@
 
         <ir.berimbasket.app.view.preference.CustomListPreference
             android:defaultValue="0"
+            android:entryValues="@array/pref_state_list_values"
             android:entries="@array/pref_state_list_names"
-            android:entryValues="@array/pref_state_list_names"
-            android:key="country_list"
+            android:key="state_list"
             android:negativeButtonText="@null"
             android:positiveButtonText="@null"
             android:title="انتخاب استان نمایش داده شده در نقشه" />

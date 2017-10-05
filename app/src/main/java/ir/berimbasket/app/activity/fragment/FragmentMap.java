@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
@@ -15,6 +16,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v7.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,6 +45,8 @@ import ir.berimbasket.app.R;
 import ir.berimbasket.app.activity.ActivityCreateStadium;
 import ir.berimbasket.app.activity.ActivityHome;
 import ir.berimbasket.app.activity.ActivitySetMarker;
+import ir.berimbasket.app.activity.ActivityStadium;
+import ir.berimbasket.app.entity.EntityStadium;
 import ir.berimbasket.app.json.HttpFunctions;
 import ir.berimbasket.app.util.ApplicationLoader;
 import ir.berimbasket.app.util.GPSTracker;
@@ -54,7 +58,7 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback, GoogleM
     GoogleMap map;
     private MapView mapView;
     private LocationManager locationManager;
-    private ArrayList<HashMap<String, String>> locationList;
+    private ArrayList<EntityStadium> locationList;
     private String TAG = ActivityHome.class.getSimpleName();
     private ProgressDialog pDialog;
 
@@ -117,7 +121,6 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback, GoogleM
 
             this.map = map;
             if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                // TODO: Consider calling
                 //    ActivityCompat#requestPermissions
                 // here to request the missing permissions, and then overriding
                 //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
@@ -140,7 +143,9 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback, GoogleM
 
         // Check if a click count was set, then display the click count.
         try {
-            Intent intent = new Intent(getActivity(), ActivityCreateStadium.class);
+            Intent intent = new Intent(getActivity(), ActivityStadium.class);
+            marker.getTag();
+            intent.putExtra("stadiumDetail", "");
             startActivity(intent);
         } catch (Exception e) {
             e.printStackTrace();
@@ -201,20 +206,17 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback, GoogleM
                         String type = c.getString("PlaygroundType");
 
                         // tmp hash map for single contact
-                        HashMap<String, String> loaction = new HashMap<>();
+                        EntityStadium entityStadium = new EntityStadium();
 
                         // adding each child node to HashMap key => value
-                        loaction.put("id", id);
-                        loaction.put("title", title);
-                        loaction.put("latitude", latitude);
-                        loaction.put("longitude", longitude);
-                        loaction.put("type", type);
-                        Log.i("objTitle", title);
-                        Log.i("objLat", latitude);
-                        Log.i("objLong", longitude);
+                        entityStadium.setId(Integer.parseInt(id));
+                        entityStadium.setTitle(title);
+                        entityStadium.setLatitude(latitude);
+                        entityStadium.setLongitude(longitude);
+                        entityStadium.setType(type);
 
                         // adding contact to contact list
-                        locationList.add(loaction);
+                        locationList.add(entityStadium);
                     }
                 } catch (final JSONException e) {
                     Log.e(TAG, "Json parsing error: " + e.getMessage());
@@ -258,11 +260,11 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback, GoogleM
 
             Typeface typeface = Typeface.createFromAsset(getActivity().getAssets(), "fonts/yekan.ttf");
             for (int i = 0; i < locationList.size(); i++) {
-                HashMap<String, String> location = locationList.get(i);
-                String id = location.get("id");
-                String title = location.get("title");
-                String latitude = location.get("latitude");
-                String longitude = location.get("longitude");
+                EntityStadium entityStadium = locationList.get(i);
+                String id = String.valueOf(entityStadium.getId());
+                String title = entityStadium.getTitle();
+                String latitude = entityStadium.getLatitude();
+                String longitude = entityStadium.getLongitude();
 
                 View customMarkerView = ((LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.custom_map_marker, null);
                 TextView txtMarkerTitle = (TextView) customMarkerView.findViewById(R.id.markerTitle);
@@ -288,9 +290,23 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback, GoogleM
             }
 
             map.setOnMarkerClickListener(FragmentMap.this);
-            map.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(FragmentMap.this.latitude, FragmentMap.this.longitude), 13.0f));
+            getCityLatLong();
 
         }
 
+    }
+
+    /**
+     * Change map location based on city that selected in setting
+     */
+    private void getCityLatLong() {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+        String latLong = prefs.getString("state_list", "35.111111a54545");
+
+        if (Double.parseDouble(latLong.split("a")[0]) != 0) {
+            FragmentMap.this.latitude = Double.parseDouble(latLong.split("a")[0]);
+            FragmentMap.this.longitude = Double.parseDouble(latLong.split("a")[1]);
+        }
+        map.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(FragmentMap.this.latitude, FragmentMap.this.longitude), 14.0f));
     }
 }
