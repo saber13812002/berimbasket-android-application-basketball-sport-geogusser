@@ -6,7 +6,6 @@
         <ir.berimbasket.app.view.preference.CustomSwitchPreferenceCompat
             android:defaultValue="true"
             android:key="message_notification"
-
             android:summary="با فعالسازی این قسمت شما میتوانید از آخرین اخبار و پیشنهادا ویژه برنامه آگاه شوید"
             android:title="نمایش اعلان های برنامه" />
 

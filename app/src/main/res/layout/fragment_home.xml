@@ -16,21 +16,37 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <FrameLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="220dp">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:padding="10dp">
 
-                <com.daimajia.slider.library.SliderLayout
-                    android:id="@+id/sliderMatch"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-
-                <com.daimajia.slider.library.Indicators.PagerIndicator
-                    android:id="@+id/custom_indicator"
+                <TextView
+                    android:id="@+id/txtMoreMatch"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="bottom|center" />
-            </FrameLayout>
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="5dp"
+                    android:textSize="16sp"
+                    android:textColor="@android:color/black"
+                    android:text="بازی ها"/>
+
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/btnMoreMatch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    style="@style/BrandButtonStyle"
+                    android:text="بیشتر"/>
+            </RelativeLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerMatchBoard"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbars="vertical" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -99,11 +115,6 @@
                 android:layout_marginTop="5dp"
                 android:scrollbars="horizontal" />
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recyclerMatchBoard"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scrollbars="vertical" />
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 

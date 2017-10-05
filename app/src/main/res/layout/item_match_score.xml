@@ -1,75 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="70dp"
-    android:orientation="vertical">
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardMatchItem"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    app:cardCornerRadius="5dp">
 
-    <TextView
-        android:id="@+id/txtStatus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="پایان" />
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="300dp"
+        android:layout_height="120dp"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/txtHomeScore"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_marginEnd="10dp"
-        android:layout_toStartOf="@id/txtStatus"
-        android:text="2" />
+        <TextView
+            android:id="@+id/txtDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_centerInParent="true"
+            android:text=" - " />
 
-    <TextView
-        android:id="@+id/txtAwayScore"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_marginStart="10dp"
-        android:layout_toEndOf="@id/txtStatus"
-        android:fontFamily=""
-        android:text="1" />
+        <TextView
+            android:id="@+id/txtHomeScore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginEnd="10dp"
+            android:textSize="18sp"
+            android:layout_toStartOf="@id/txtDate"
+            android:text="2" />
 
-    <ImageView
-        android:id="@+id/imgHomeLogo"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_centerVertical="true"
-        android:layout_marginEnd="16dp"
-        android:layout_toStartOf="@id/txtHomeScore"
-        android:src="@drawable/manchester" />
+        <TextView
+            android:id="@+id/txtAwayScore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginStart="10dp"
+            android:textSize="18sp"
+            android:layout_toEndOf="@id/txtDate"
+            android:fontFamily=""
+            android:text="1" />
 
-    <ImageView
-        android:id="@+id/imgAwayLogo"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_centerVertical="true"
-        android:layout_marginStart="16dp"
-        android:layout_toEndOf="@id/txtAwayScore"
-        android:src="@drawable/chelsea" />
 
-    <TextView
-        android:id="@+id/txtHomeName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginEnd="15dp"
-        android:layout_toStartOf="@id/imgHomeLogo"
-        android:text="پرسپولیس" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="16dp"
+            android:layout_toStartOf="@id/txtHomeScore"
+            android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/txtَAwayName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginStart="15dp"
-        android:layout_toEndOf="@id/imgAwayLogo"
-        android:text="استقلال" />
+            <ImageView
+                android:id="@+id/imgHomeLogo"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/manchester" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.1dp"
-        android:layout_alignParentBottom="true"
-        android:background="#aaaaaa" />
+            <TextView
+                android:id="@+id/txtHomeName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="پرسپولیس" />
 
-</RelativeLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="16dp"
+            android:layout_toEndOf="@id/txtAwayScore"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/imgAwayLogo"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/chelsea" />
+
+            <TextView
+                android:id="@+id/txtَAwayName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="استقلال" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>
