@@ -78,6 +78,7 @@ public class AdapterStadium extends RecyclerView.Adapter<AdapterStadium.StadiumV
             switch (view.getId()) {
                 case R.id.cardStadiumItem:
                     Intent intent = new Intent(context, ActivityStadium.class);
+                    intent.putExtra("stadiumDetail", stadiumList.get(getLayoutPosition()));
                     context.startActivity(intent);
                     break;
             }

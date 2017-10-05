@@ -1,10 +1,12 @@
 package ir.berimbasket.app.entity;
 
+import java.io.Serializable;
+
 /**
  * Created by mohammad hosein on 7/21/2017.
  */
 
-public class EntityStadium {
+public class EntityStadium implements Serializable{
 
     private int id;
     private String title;

@@ -27,6 +27,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.maps.android.ui.IconGenerator;
 
 import ir.berimbasket.app.R;
+import ir.berimbasket.app.entity.EntityStadium;
 
 /**
  * Created by mohammad hosein on 21/09/2017.
@@ -36,9 +37,21 @@ public class FragmentStadiumMap extends Fragment implements OnMapReadyCallback {
 
     double latitude = 35.723284;
     double longitude = 51.441968;
+    String title;
     GoogleMap map;
     private MapView mapView;
     private LocationManager locationManager;
+    EntityStadium entityStadium;
+
+
+    @Override
+    public void setArguments(Bundle args) {
+        super.setArguments(args);
+        entityStadium = (EntityStadium) args.getSerializable("stadiumDetail");
+        latitude = Double.parseDouble(entityStadium.getLatitude());
+        longitude = Double.parseDouble(entityStadium.getLongitude());
+        title = entityStadium.getTitle();
+    }
 
     public FragmentStadiumMap() { }
 
@@ -88,7 +101,7 @@ public class FragmentStadiumMap extends Fragment implements OnMapReadyCallback {
         Typeface typeface = Typeface.createFromAsset(getActivity().getAssets(), "fonts/yekan.ttf");
         View customMarkerView = ((LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.custom_map_marker, null);
         TextView txtMarkerTitle = (TextView) customMarkerView.findViewById(R.id.markerTitle);
-        txtMarkerTitle.setText("ورزشگاه شهید آوینی");
+        txtMarkerTitle.setText(title);
         txtMarkerTitle.setTypeface(typeface);
         IconGenerator generator = new IconGenerator(getActivity());
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -103,7 +116,7 @@ public class FragmentStadiumMap extends Fragment implements OnMapReadyCallback {
         Marker marker = map.addMarker(new MarkerOptions()
                 .position(new LatLng(latitude, longitude))
                 .icon(BitmapDescriptorFactory.fromBitmap(icon))
-                .title("ورزشگاه شهید آوینی"));
+                .title(title));
 
         marker.setTag(10);
 
