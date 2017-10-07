@@ -6,7 +6,10 @@ import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.provider.Settings;
 import android.support.customtabs.CustomTabsIntent;
+
+import java.util.Locale;
 
 import ir.berimbasket.app.R;
 import ir.berimbasket.app.util.customtabs.CustomTabActivityHelper;
@@ -67,5 +70,42 @@ public class SendTo {
                 })
                 .show();
         customAlertDialog.setDialogStyle(dialog);
+    }
+
+    public static void sendToEnableDownloadManager(final Activity activity){
+
+        CustomAlertDialog customAlertDialog = new CustomAlertDialog(activity);
+        AlertDialog dialog = new AlertDialog.Builder(activity)
+                .setCustomTitle(customAlertDialog.getTitleText(activity.getString(R.string.guide)))
+                .setMessage(activity.getString(R.string.enable_download_manager_guide) + " و " + "\n" +
+                        (SendTo.isRtlLanguage()? activity.getString(R.string.enable_download_manager_persian)
+                                :activity.getString(R.string.enable_download_manager_english))
+                        + "\n" + activity.getString(R.string.restart_your_device))
+                .setCancelable(false)
+                .setPositiveButton(activity.getString(R.string.settings), new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                        String packageName = "com.android.providers.downloads";
+                        try {
+                            //Open the specific App Info page:
+                            Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                            intent.setData(Uri.parse("package:" + packageName));
+                            activity.startActivity(intent);
+
+                        } catch ( ActivityNotFoundException e ) {
+                            new CustomToast(activity.getString(R.string.download_manager_not_found),activity).showToast(true);
+                        }
+                    }
+                })
+                .show();
+        customAlertDialog.setDialogStyle(dialog);
+    }
+
+    private static boolean isRtlLanguage(){
+        return (Locale.getDefault().getISO3Language().equals("fas")
+                || Locale.getDefault().getISO3Language().equals("per")
+                || Locale.getDefault().getISO3Language().equals("fa")
+                || Locale.getDefault().getISO3Language().equals("ar")
+                || Locale.getDefault().getISO3Language().equals("ara"));
     }
 }
