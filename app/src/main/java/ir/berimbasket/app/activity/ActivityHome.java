@@ -26,8 +26,8 @@ import com.crashlytics.android.Crashlytics;
 
 import co.ronash.pushe.Pushe;
 import io.fabric.sdk.android.Fabric;
-import ir.berimbasket.app.adapter.AdapterHomePager;
 import ir.berimbasket.app.R;
+import ir.berimbasket.app.adapter.AdapterHomePager;
 import ir.berimbasket.app.entity.EntityLocation;
 import ir.berimbasket.app.network.SendLocationTask;
 import ir.berimbasket.app.util.ApplicationLoader;
@@ -46,6 +46,9 @@ public class ActivityHome extends AppCompatActivity implements View.OnClickListe
     // FIXME: 9/22/2017 ship all SharedPreference to centralized PrefManager class (for ease and security reasons)
     private String PREFS_NAME = "BERIM_BASKET_PREF";
     private String ATTEMPT_LOGIN = "PREF_ATTEMPT_LOGIN";
+    private BottomNavigationView navigation;
+    private MenuItem prevMenuItem;
+
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -67,6 +70,33 @@ public class ActivityHome extends AppCompatActivity implements View.OnClickListe
 
     };
 
+    ViewPager.OnPageChangeListener pageChangeListener = new ViewPager.OnPageChangeListener() {
+        @Override
+        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+        }
+
+        @Override
+        public void onPageSelected(int position) {
+            if (prevMenuItem != null) {
+                prevMenuItem.setChecked(false);  // unCheck previous item
+            }
+            else
+            {
+                // no previous item yet
+                navigation.getMenu().getItem(0).setChecked(false);
+            }
+
+            navigation.getMenu().getItem(position).setChecked(true);
+            prevMenuItem = navigation.getMenu().getItem(position);
+        }
+
+        @Override
+        public void onPageScrollStateChanged(int state) {
+
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,7 +110,7 @@ public class ActivityHome extends AppCompatActivity implements View.OnClickListe
         checkPermissions();
         sendUserLocationToServer();
 
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         homePager = (ViewPager) findViewById(R.id.vpPager);
@@ -89,6 +119,7 @@ public class ActivityHome extends AppCompatActivity implements View.OnClickListe
         homePager.setAdapter(adapterHomePager);
         homePager.setCurrentItem(0);
         homePager.setOffscreenPageLimit(3);
+        homePager.addOnPageChangeListener(pageChangeListener);
 
         changeBottomNavFont(navigation);
 
