@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.DownloadManager;
 import android.app.DownloadManager.Request;
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
@@ -151,14 +150,8 @@ public class DownloadApkUpdate {
         }
     }
 	
-	private void promptInstallApk()
-	{
-		Intent intent = new Intent(Intent.ACTION_VIEW);
-		intent.setDataAndType(Uri.fromFile
-				(new File(Environment.getExternalStorageDirectory() + fileDir +"/" + fileName))
-				, "application/vnd.android.package-archive");
-		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-		activity.startActivity(intent);
+	private void promptInstallApk() {
+        SendTo.sendToInstallApk(context, new File(Environment.getExternalStorageDirectory() + fileDir +"/" + fileName));
 	}
 	
 	private void makeDir()

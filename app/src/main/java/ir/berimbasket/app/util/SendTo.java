@@ -3,12 +3,16 @@ package ir.berimbasket.app.util;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.provider.Settings;
 import android.support.customtabs.CustomTabsIntent;
+import android.support.v4.content.FileProvider;
 
+import java.io.File;
 import java.util.Locale;
 
 import ir.berimbasket.app.R;
@@ -23,24 +27,40 @@ import ir.berimbasket.app.view.CustomToast;
 
 public class SendTo {
 
-    public static void sendToCustomTab(Activity activity, String url){
+    public static void sendToInstallApk(Context context, File apk) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            Intent intent = new Intent(Intent.ACTION_INSTALL_PACKAGE);
+            Uri apkUri = FileProvider.getUriForFile(context, context.getApplicationContext().getPackageName() + ".provider", apk);
+            intent.setData(apkUri);
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            context.startActivity(intent);
+        } else {
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            Uri apkUri = Uri.fromFile(apk);
+            intent.setDataAndType(apkUri, "application/vnd.android.package-archive");
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(intent);
+        }
+    }
+
+    public static void sendToCustomTab(Activity activity, String url) {
         CustomTabsIntent customTabsIntent = new CustomTabsIntent.Builder().build();
         CustomTabActivityHelper.openCustomTab(activity, customTabsIntent, Uri.parse(url),
                 new CustomTabActivityHelper.CustomTabFallback() {
                     @Override
                     public void openUri(Activity activity, Uri uri) {
-                        try{
+                        try {
                             Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                             activity.startActivity(intent);
-                        }catch (ActivityNotFoundException e){
+                        } catch (ActivityNotFoundException e) {
                             sendToMarketToInstallApp("com.android.chrome",
-                                    activity.getString(R.string.browser_not_found_install_now),activity);
+                                    activity.getString(R.string.browser_not_found_install_now), activity);
                         }
                     }
                 });
     }
 
-    public static void sendToMarketToInstallApp(final String packageName,final String message,final Activity activity){
+    public static void sendToMarketToInstallApp(final String packageName, final String message, final Activity activity) {
         CustomAlertDialog customAlertDialog = new CustomAlertDialog(activity);
 
         AlertDialog dialog = new AlertDialog.Builder(activity)
@@ -49,16 +69,16 @@ public class SendTo {
                 .setCancelable(false)
                 .setPositiveButton(activity.getString(R.string.yes), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        try{
+                        try {
 
                             Uri marketUri = Uri.parse("market://details?id=" + packageName);
                             activity.startActivity(new Intent(Intent.ACTION_VIEW, marketUri));
                         } catch (ActivityNotFoundException e) {
-                            try{
+                            try {
                                 activity.startActivity(new Intent(Intent.ACTION_VIEW,
                                         Uri.parse("http://play.google.com/store/apps/details?id=" + packageName)));
-                            }catch (ActivityNotFoundException e2){
-                                new CustomToast(activity.getString(R.string.no_google_play_found),activity).showToast(true);
+                            } catch (ActivityNotFoundException e2) {
+                                new CustomToast(activity.getString(R.string.no_google_play_found), activity).showToast(true);
                             }
                         }
                     }
@@ -72,14 +92,14 @@ public class SendTo {
         customAlertDialog.setDialogStyle(dialog);
     }
 
-    public static void sendToEnableDownloadManager(final Activity activity){
+    public static void sendToEnableDownloadManager(final Activity activity) {
 
         CustomAlertDialog customAlertDialog = new CustomAlertDialog(activity);
         AlertDialog dialog = new AlertDialog.Builder(activity)
                 .setCustomTitle(customAlertDialog.getTitleText(activity.getString(R.string.guide)))
                 .setMessage(activity.getString(R.string.enable_download_manager_guide) + " و " + "\n" +
-                        (SendTo.isRtlLanguage()? activity.getString(R.string.enable_download_manager_persian)
-                                :activity.getString(R.string.enable_download_manager_english))
+                        (SendTo.isRtlLanguage() ? activity.getString(R.string.enable_download_manager_persian)
+                                : activity.getString(R.string.enable_download_manager_english))
                         + "\n" + activity.getString(R.string.restart_your_device))
                 .setCancelable(false)
                 .setPositiveButton(activity.getString(R.string.settings), new DialogInterface.OnClickListener() {
@@ -92,8 +112,8 @@ public class SendTo {
                             intent.setData(Uri.parse("package:" + packageName));
                             activity.startActivity(intent);
 
-                        } catch ( ActivityNotFoundException e ) {
-                            new CustomToast(activity.getString(R.string.download_manager_not_found),activity).showToast(true);
+                        } catch (ActivityNotFoundException e) {
+                            new CustomToast(activity.getString(R.string.download_manager_not_found), activity).showToast(true);
                         }
                     }
                 })
@@ -101,7 +121,7 @@ public class SendTo {
         customAlertDialog.setDialogStyle(dialog);
     }
 
-    private static boolean isRtlLanguage(){
+    private static boolean isRtlLanguage() {
         return (Locale.getDefault().getISO3Language().equals("fas")
                 || Locale.getDefault().getISO3Language().equals("per")
                 || Locale.getDefault().getISO3Language().equals("fa")
