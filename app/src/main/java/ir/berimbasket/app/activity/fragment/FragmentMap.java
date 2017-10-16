@@ -39,10 +39,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import ir.berimbasket.app.R;
-import ir.berimbasket.app.activity.ActivityCreateStadium;
 import ir.berimbasket.app.activity.ActivityHome;
 import ir.berimbasket.app.activity.ActivitySetMarker;
 import ir.berimbasket.app.activity.ActivityStadium;
@@ -95,6 +93,9 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback, GoogleM
         mapView.onResume();
         // Tracking the screen view (Analytics)
         ApplicationLoader.getInstance().trackScreenView("Map Fragment");
+        if (map != null) {
+            setCameraLocation();
+        }
     }
 
     @Override
@@ -290,7 +291,7 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback, GoogleM
             }
 
             map.setOnMarkerClickListener(FragmentMap.this);
-            getCityLatLong();
+            setCameraLocation();
 
         }
 
@@ -299,9 +300,9 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback, GoogleM
     /**
      * Change map location based on city that selected in setting
      */
-    private void getCityLatLong() {
+    private void setCameraLocation() {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-        String latLong = prefs.getString("state_list", "35.111111a54545");
+        String latLong = prefs.getString("state_list", "0a0");  // 0a0 means based on phone location
 
         if (Double.parseDouble(latLong.split("a")[0]) != 0) {
             FragmentMap.this.latitude = Double.parseDouble(latLong.split("a")[0]);

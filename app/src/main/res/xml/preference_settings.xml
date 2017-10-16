@@ -25,7 +25,7 @@
     <ir.berimbasket.app.view.preference.CustomPreferenceCategory android:title="تنظیمات شهر">
 
         <ir.berimbasket.app.view.preference.CustomListPreference
-            android:defaultValue="0"
+            android:defaultValue="0a0"
             android:entryValues="@array/pref_state_list_values"
             android:entries="@array/pref_state_list_names"
             android:key="state_list"
