@@ -6,11 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.Typeface;
 import android.location.LocationManager;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -21,18 +18,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.maps.android.ui.IconGenerator;
+import com.google.maps.android.clustering.ClusterManager;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -45,9 +39,11 @@ import ir.berimbasket.app.activity.ActivityHome;
 import ir.berimbasket.app.activity.ActivitySetMarker;
 import ir.berimbasket.app.activity.ActivityStadium;
 import ir.berimbasket.app.entity.EntityStadium;
-import ir.berimbasket.app.json.HttpFunctions;
+import ir.berimbasket.app.map.GPSTracker;
+import ir.berimbasket.app.map.MarkerIconRenderer;
+import ir.berimbasket.app.map.MyClusterItem;
+import ir.berimbasket.app.network.HttpFunctions;
 import ir.berimbasket.app.util.ApplicationLoader;
-import ir.berimbasket.app.util.GPSTracker;
 
 public class FragmentMap extends Fragment implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
     private static String _URL = "http://berimbasket.ir/bball/get.php?id=0";
@@ -59,6 +55,7 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback, GoogleM
     private ArrayList<EntityStadium> locationList;
     private String TAG = ActivityHome.class.getSimpleName();
     private ProgressDialog pDialog;
+    private ClusterManager<MyClusterItem> clusterManager;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -131,6 +128,9 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback, GoogleM
                 return;
             }
             map.setMyLocationEnabled(true);
+            clusterManager = new ClusterManager<>(getContext(), map);
+            clusterManager.setRenderer(new MarkerIconRenderer(getContext(), map, clusterManager));
+            map.setOnCameraIdleListener(clusterManager);
             new GetLocations().execute();
 
         } catch (Exception e) {
@@ -259,7 +259,6 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback, GoogleM
             if (pDialog.isShowing())
                 pDialog.cancel();
 
-            Typeface typeface = Typeface.createFromAsset(getActivity().getAssets(), "fonts/yekan.ttf");
             for (int i = 0; i < locationList.size(); i++) {
                 EntityStadium entityStadium = locationList.get(i);
                 String id = String.valueOf(entityStadium.getId());
@@ -267,27 +266,8 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback, GoogleM
                 String latitude = entityStadium.getLatitude();
                 String longitude = entityStadium.getLongitude();
 
-                View customMarkerView = ((LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.custom_map_marker, null);
-                TextView txtMarkerTitle = (TextView) customMarkerView.findViewById(R.id.markerTitle);
-                txtMarkerTitle.setText(title);
-                txtMarkerTitle.setTypeface(typeface);
-                IconGenerator generator = new IconGenerator(getActivity());
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    generator.setBackground(null);
-                } else {
-                    generator.setBackground(null);
-                }
-                generator.setContentView(customMarkerView);
-                Bitmap icon = generator.makeIcon();
-
-
-                Marker marker = map.addMarker(new MarkerOptions()
-                        .position(new LatLng(Double.parseDouble(latitude), Double.parseDouble(longitude)))
-                        .icon(BitmapDescriptorFactory.fromBitmap(icon))
-                        .title(title));
-
-                marker.setTag(id);
-
+                MyClusterItem item = new MyClusterItem(Double.parseDouble(latitude), Double.parseDouble(longitude), id, title);
+                clusterManager.addItem(item);
             }
 
             map.setOnMarkerClickListener(FragmentMap.this);
