@@ -3,7 +3,6 @@ package ir.berimbasket.app.network;
 import android.os.AsyncTask;
 
 import ir.berimbasket.app.entity.EntityLocation;
-import ir.berimbasket.app.json.HttpFunctions;
 
 /**
  * Created by Mahdi on 9/20/2017.

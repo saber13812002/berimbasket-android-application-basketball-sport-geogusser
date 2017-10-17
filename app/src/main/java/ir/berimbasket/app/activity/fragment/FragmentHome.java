@@ -29,7 +29,7 @@ import ir.berimbasket.app.adapter.AdapterStadium;
 import ir.berimbasket.app.entity.EntityMatchScore;
 import ir.berimbasket.app.entity.EntityPlayer;
 import ir.berimbasket.app.entity.EntityStadium;
-import ir.berimbasket.app.json.HttpFunctions;
+import ir.berimbasket.app.network.HttpFunctions;
 import ir.berimbasket.app.util.ApplicationLoader;
 
 /**

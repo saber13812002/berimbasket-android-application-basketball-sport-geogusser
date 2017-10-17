@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import ir.berimbasket.app.R;
 import ir.berimbasket.app.activity.fragment.FragmentSetMarker;
-import ir.berimbasket.app.json.HttpFunctions;
+import ir.berimbasket.app.network.HttpFunctions;
 import ir.berimbasket.app.util.ApplicationLoader;
 
 public class ActivitySetMarker extends AppCompatActivity {

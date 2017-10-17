@@ -20,7 +20,7 @@ import java.util.ArrayList;
 
 import ir.berimbasket.app.R;
 import ir.berimbasket.app.entity.EntityMission;
-import ir.berimbasket.app.json.HttpFunctions;
+import ir.berimbasket.app.network.HttpFunctions;
 
 /**
  * Created by mohammad hosein on 7/22/2017.

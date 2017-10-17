@@ -1,4 +1,4 @@
-package ir.berimbasket.app.json;
+package ir.berimbasket.app.network;
 
 import android.util.Log;
 

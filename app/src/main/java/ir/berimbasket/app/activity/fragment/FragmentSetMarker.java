@@ -23,8 +23,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.maps.android.ui.IconGenerator;
 
-import ir.berimbasket.app.util.GPSTracker;
 import ir.berimbasket.app.R;
+import ir.berimbasket.app.map.GPSTracker;
 
 /**
  * Created by mohammad hosein on 6/26/2017.

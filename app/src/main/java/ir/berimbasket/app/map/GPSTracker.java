@@ -1,4 +1,4 @@
-package ir.berimbasket.app.util;
+package ir.berimbasket.app.map;
 
 import android.Manifest;
 import android.app.Activity;

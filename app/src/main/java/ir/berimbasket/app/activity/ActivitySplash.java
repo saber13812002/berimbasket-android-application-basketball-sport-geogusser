@@ -30,8 +30,8 @@ import java.util.Locale;
 
 import ir.berimbasket.app.R;
 import ir.berimbasket.app.downloadmanager.DownloadApkUpdate;
-import ir.berimbasket.app.json.HttpFunctions;
 import ir.berimbasket.app.network.Connectivity;
+import ir.berimbasket.app.network.HttpFunctions;
 import ir.berimbasket.app.util.PrefManager;
 import ir.berimbasket.app.view.CustomAlertDialog;
 
