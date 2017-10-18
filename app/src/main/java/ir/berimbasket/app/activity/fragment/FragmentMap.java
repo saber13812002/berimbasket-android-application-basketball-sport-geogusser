@@ -25,7 +25,6 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.maps.android.clustering.ClusterManager;
 
 import org.json.JSONArray;
@@ -45,7 +44,7 @@ import ir.berimbasket.app.map.MyClusterItem;
 import ir.berimbasket.app.network.HttpFunctions;
 import ir.berimbasket.app.util.ApplicationLoader;
 
-public class FragmentMap extends Fragment implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
+public class FragmentMap extends Fragment implements OnMapReadyCallback {
     private static String _URL = "http://berimbasket.ir/bball/get.php?id=0";
     double latitude = 35.723284;
     double longitude = 51.441968;
@@ -56,6 +55,7 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback, GoogleM
     private String TAG = ActivityHome.class.getSimpleName();
     private ProgressDialog pDialog;
     private ClusterManager<MyClusterItem> clusterManager;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -131,6 +131,8 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback, GoogleM
             clusterManager = new ClusterManager<>(getContext(), map);
             clusterManager.setRenderer(new MarkerIconRenderer(getContext(), map, clusterManager));
             map.setOnCameraIdleListener(clusterManager);
+            map.setOnMarkerClickListener(clusterManager);
+            clusterManager.setOnClusterItemClickListener(clusterItemClickListener);
             new GetLocations().execute();
 
         } catch (Exception e) {
@@ -139,21 +141,25 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback, GoogleM
 
     }
 
-    @Override
-    public boolean onMarkerClick(Marker marker) {
-
-        // Check if a click count was set, then display the click count.
-        try {
-            Intent intent = new Intent(getActivity(), ActivityStadium.class);
-            marker.getTag();
-            intent.putExtra("stadiumDetail", "");
-            startActivity(intent);
-        } catch (Exception e) {
-            e.printStackTrace();
+    private ClusterManager.OnClusterItemClickListener<MyClusterItem> clusterItemClickListener =
+            new ClusterManager.OnClusterItemClickListener<MyClusterItem>() {
+        @Override
+        public boolean onClusterItemClick(MyClusterItem myClusterItem) {
+            try {
+                EntityStadium stadium = new EntityStadium();
+                LatLng latLng = myClusterItem.getPosition();
+                stadium.setLatitude(String.valueOf(latLng.latitude));
+                stadium.setLongitude(String.valueOf(latLng.longitude));
+                stadium.setTitle(myClusterItem.getTitle());
+                Intent intent = new Intent(getActivity(), ActivityStadium.class);
+                intent.putExtra("stadiumDetail", stadium);
+                startActivity(intent);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return true;
         }
-        return false;
-    }
-
+    };
 
     private class GetLocations extends AsyncTask<Void, Void, Void> {
 
@@ -270,7 +276,6 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback, GoogleM
                 clusterManager.addItem(item);
             }
 
-            map.setOnMarkerClickListener(FragmentMap.this);
             setCameraLocation();
 
         }
