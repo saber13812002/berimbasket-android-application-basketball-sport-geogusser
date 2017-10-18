@@ -119,7 +119,7 @@ public class FragmentStadiumMap extends Fragment implements OnMapReadyCallback {
 
         marker.setTag(10);
 
-        map.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(FragmentStadiumMap.this.latitude, FragmentStadiumMap.this.longitude), 15.0f));
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(FragmentStadiumMap.this.latitude, FragmentStadiumMap.this.longitude), 15.0f));
     }
 
 

@@ -69,8 +69,14 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback {
                 CameraPosition position = map.getCameraPosition();
                 double cameraLat = position.target.latitude;
                 double cameraLong = position.target.longitude;
+                float cameraZoom = position.zoom;
+                float cameraBearing = position.bearing;
+                float cameraTilt = position.tilt;
                 intent.putExtra("camera_latitude", cameraLat);
                 intent.putExtra("camera_longitude", cameraLong);
+                intent.putExtra("camera_zoom", cameraZoom);
+                intent.putExtra("camera_bearing", cameraBearing);
+                intent.putExtra("camera_tilt", cameraTilt);
                 getActivity().startActivity(intent);
             }
         });

@@ -11,6 +11,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.LatLng;
+
 import ir.berimbasket.app.R;
 import ir.berimbasket.app.activity.fragment.FragmentSetMarker;
 import ir.berimbasket.app.network.HttpFunctions;
@@ -21,23 +24,22 @@ public class ActivitySetMarker extends AppCompatActivity {
     private ImageView btnSendLocation;
     private AppCompatEditText edtLocationName;
     private ProgressDialog pDialog;
-    private double cameraLat;
-    private double cameraLong;
+    private CameraPosition cameraPosition;
 
-    public double getCameraLat() {
-        return cameraLat;
-    }
-
-    public double getCameraLong() {
-        return cameraLong;
+    public CameraPosition getCameraPosition() {
+        return cameraPosition;
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set_marker);
-        cameraLat = getIntent().getDoubleExtra("camera_latitude", 35.723284);
-        cameraLong = getIntent().getDoubleExtra("camera_longitude", 51.441968);
+        double latitude = getIntent().getDoubleExtra("camera_latitude", 35.723284);
+        double longitude = getIntent().getDoubleExtra("camera_longitude", 51.441968);
+        float zoom = getIntent().getFloatExtra("camera_zoom", 14.0f);
+        float bearing = getIntent().getFloatExtra("camera_bearing", 0);
+        float tilt = getIntent().getFloatExtra("camera_tilt", 0);
+        cameraPosition = new CameraPosition(new LatLng(latitude, longitude), zoom, tilt, bearing);
 
         initViews();
         initListeners();

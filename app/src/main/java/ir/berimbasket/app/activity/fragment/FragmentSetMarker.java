@@ -19,6 +19,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.maps.android.ui.IconGenerator;
@@ -118,9 +119,8 @@ public class FragmentSetMarker extends Fragment implements OnMapReadyCallback {
         }
 
         // FIXME: 10/18/2017 use better oop compatible way to approach this
-        double lat = ((ActivitySetMarker) getActivity()).getCameraLat();
-        double lng = ((ActivitySetMarker) getActivity()).getCameraLong();
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat, lng), 14.0f));
+        CameraPosition cameraPosition = ((ActivitySetMarker) getActivity()).getCameraPosition();
+        googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 
         googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
