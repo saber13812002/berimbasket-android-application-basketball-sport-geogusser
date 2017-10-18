@@ -24,6 +24,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.maps.android.ui.IconGenerator;
 
 import ir.berimbasket.app.R;
+import ir.berimbasket.app.activity.ActivitySetMarker;
 import ir.berimbasket.app.map.GPSTracker;
 
 /**
@@ -116,7 +117,10 @@ public class FragmentSetMarker extends Fragment implements OnMapReadyCallback {
             gps.showSettingsAlert();
         }
 
-        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(FragmentSetMarker.this.latitude, FragmentSetMarker.this.longitude), 16.0f));
+        // FIXME: 10/18/2017 use better oop compatible way to approach this
+        double lat = ((ActivitySetMarker) getActivity()).getCameraLat();
+        double lng = ((ActivitySetMarker) getActivity()).getCameraLong();
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat, lng), 14.0f));
 
         googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override

@@ -24,6 +24,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.maps.android.clustering.ClusterManager;
 
@@ -56,9 +57,8 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback {
     private ProgressDialog pDialog;
     private ClusterManager<MyClusterItem> clusterManager;
 
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_map, container, false);
 
         FloatingActionButton fab = (FloatingActionButton) v.findViewById(R.id.fabAddLocation);
@@ -66,10 +66,16 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), ActivitySetMarker.class);
+                CameraPosition position = map.getCameraPosition();
+                double cameraLat = position.target.latitude;
+                double cameraLong = position.target.longitude;
+                intent.putExtra("camera_latitude", cameraLat);
+                intent.putExtra("camera_longitude", cameraLong);
                 getActivity().startActivity(intent);
             }
         });
 
+        updateHomeLocation();
         locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
         locationList = new ArrayList<>();
         return v;
@@ -91,7 +97,13 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback {
         // Tracking the screen view (Analytics)
         ApplicationLoader.getInstance().trackScreenView("Map Fragment");
         if (map != null) {
-            setCameraLocation();
+            // change camera location only when city filter is changed
+            LatLng pre = new LatLng(this.latitude, this.longitude);
+            updateHomeLocation();
+            LatLng after = new LatLng(this.latitude, this.longitude);
+            if (!pre.equals(after)) {
+                setCameraLocation();
+            }
         }
     }
 
@@ -286,6 +298,11 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback {
      * Change map location based on city that selected in setting
      */
     private void setCameraLocation() {
+        updateHomeLocation();
+        map.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(FragmentMap.this.latitude, FragmentMap.this.longitude), 14.0f));
+    }
+
+    private void updateHomeLocation() {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
         String latLong = prefs.getString("state_list", "0a0");  // 0a0 means based on phone location
 
@@ -293,6 +310,5 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback {
             FragmentMap.this.latitude = Double.parseDouble(latLong.split("a")[0]);
             FragmentMap.this.longitude = Double.parseDouble(latLong.split("a")[1]);
         }
-        map.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(FragmentMap.this.latitude, FragmentMap.this.longitude), 14.0f));
     }
 }

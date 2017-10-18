@@ -21,11 +21,23 @@ public class ActivitySetMarker extends AppCompatActivity {
     private ImageView btnSendLocation;
     private AppCompatEditText edtLocationName;
     private ProgressDialog pDialog;
+    private double cameraLat;
+    private double cameraLong;
+
+    public double getCameraLat() {
+        return cameraLat;
+    }
+
+    public double getCameraLong() {
+        return cameraLong;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set_marker);
+        cameraLat = getIntent().getDoubleExtra("camera_latitude", 35.723284);
+        cameraLong = getIntent().getDoubleExtra("camera_longitude", 51.441968);
 
         initViews();
         initListeners();
