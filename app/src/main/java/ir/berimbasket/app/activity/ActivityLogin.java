@@ -25,6 +25,7 @@ import ir.berimbasket.app.R;
 import ir.berimbasket.app.network.HttpFunctions;
 import ir.berimbasket.app.util.ApplicationLoader;
 import ir.berimbasket.app.util.PrefManager;
+import ir.berimbasket.app.util.SendTo;
 
 /**
  * A login screen that offers login via email/password.
@@ -33,7 +34,7 @@ public class ActivityLogin extends AppCompatActivity {
 
     private final String LOGIN_URL = "http://berimbasket.ir/bball/getStatusLoginByUsernamePassword.php?mac=";
     AppCompatButton btnLogin;
-    TextView btnRegisterPage;
+    TextView btnRegisterPage, btnTelegramTut;
     ProgressDialog pDialog;
     // UI references.
     private EditText edtUsername, edtPassword;
@@ -73,6 +74,7 @@ public class ActivityLogin extends AppCompatActivity {
         inputPassword = (TextInputLayout) findViewById(R.id.inputPassword);
         btnLogin = (AppCompatButton) findViewById(R.id.btnLogin);
         btnRegisterPage = (TextView) findViewById(R.id.btnRegActivity);
+        btnTelegramTut = (TextView) findViewById(R.id.btnTelegramTut);
         pDialog = new ProgressDialog(ActivityLogin.this);
 
         Drawable imgUser = getResources().getDrawable( R.drawable.ic_login_user);
@@ -105,6 +107,12 @@ public class ActivityLogin extends AppCompatActivity {
                 Intent intent = new Intent(ActivityLogin.this, ActivityRegister.class);
                 startActivity(intent);
                 ActivityLogin.this.finish();
+            }
+        });
+        btnTelegramTut.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SendTo.sendToTelegramChat(ActivityLogin.this, "https://t.me/berimbasket/263");
             }
         });
         edtUsername.requestFocus();

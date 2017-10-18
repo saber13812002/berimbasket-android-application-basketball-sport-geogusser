@@ -108,7 +108,19 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="24dp"
                 android:gravity="center_horizontal"
-                android:text="حساب کاربری ندارید؟ یکی بسازید !!!"
+                android:text="حساب کاربری نداری؟ یکی بساز !!!"
+                android:textColor="@color/colorPrimary"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/btnTelegramTut"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="24dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="24dp"
+                android:gravity="center_horizontal"
+                android:text="چجور حساب بسازی؟ ویدیو رو ببین"
                 android:textColor="@color/colorPrimary"
                 android:textSize="16sp" />
 

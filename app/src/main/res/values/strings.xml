@@ -300,6 +300,7 @@
     <string name="restart_your_device">دستگاه خود را خاموش کرده و دوباره روشن کنید</string>
     <string name="settings">تنظیمات</string>
     <string name="download_manager_not_found">امکان دانلود وجود ندارد ، برنامه ی Download Manager وجود ندارد</string>
+    <string name="telegram_not_found">تلگرام در دستگاه شما نصب نشده !\nاکنون نصب میکنید ؟</string>
 
 
 </resources>

@@ -6,6 +6,7 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.Settings;
@@ -26,6 +27,22 @@ import ir.berimbasket.app.view.CustomToast;
  */
 
 public class SendTo {
+
+    public static void sendToTelegramChat(Context context, String chatUrl){
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.setData(Uri.parse(chatUrl));
+        final String packageName = "org.telegram.messenger";
+        if (SendTo.isAppAvailable(context, packageName)){
+            try {
+                i.setPackage(packageName);
+                context.startActivity(i);
+            }catch (ActivityNotFoundException e){
+                // do nothing
+            }
+        } else {
+            sendToMarketToInstallApp(packageName,context.getString(R.string.telegram_not_found), context);
+        }
+    }
 
     public static void sendToInstallApk(Context context, File apk) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -54,36 +71,36 @@ public class SendTo {
                             activity.startActivity(intent);
                         } catch (ActivityNotFoundException e) {
                             sendToMarketToInstallApp("com.android.chrome",
-                                    activity.getString(R.string.browser_not_found_install_now), activity);
+                                    activity.getString(R.string.browser_not_found_install_now), activity.getApplicationContext());
                         }
                     }
                 });
     }
 
-    public static void sendToMarketToInstallApp(final String packageName, final String message, final Activity activity) {
-        CustomAlertDialog customAlertDialog = new CustomAlertDialog(activity);
+    public static void sendToMarketToInstallApp(final String packageName, final String message, final Context context) {
+        CustomAlertDialog customAlertDialog = new CustomAlertDialog(context);
 
-        AlertDialog dialog = new AlertDialog.Builder(activity)
-                .setCustomTitle(customAlertDialog.getTitleText(activity.getString(R.string.install_app)))
+        AlertDialog dialog = new AlertDialog.Builder(context)
+                .setCustomTitle(customAlertDialog.getTitleText(context.getString(R.string.install_app)))
                 .setMessage(message)
                 .setCancelable(false)
-                .setPositiveButton(activity.getString(R.string.yes), new DialogInterface.OnClickListener() {
+                .setPositiveButton(context.getString(R.string.yes), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         try {
 
                             Uri marketUri = Uri.parse("market://details?id=" + packageName);
-                            activity.startActivity(new Intent(Intent.ACTION_VIEW, marketUri));
+                            context.startActivity(new Intent(Intent.ACTION_VIEW, marketUri));
                         } catch (ActivityNotFoundException e) {
                             try {
-                                activity.startActivity(new Intent(Intent.ACTION_VIEW,
+                                context.startActivity(new Intent(Intent.ACTION_VIEW,
                                         Uri.parse("http://play.google.com/store/apps/details?id=" + packageName)));
                             } catch (ActivityNotFoundException e2) {
-                                new CustomToast(activity.getString(R.string.no_google_play_found), activity).showToast(true);
+                                new CustomToast(context.getString(R.string.no_google_play_found), context).showToast(true);
                             }
                         }
                     }
                 })
-                .setNegativeButton(activity.getString(R.string.no), new DialogInterface.OnClickListener() {
+                .setNegativeButton(context.getString(R.string.no), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.dismiss();
                     }
@@ -127,5 +144,19 @@ public class SendTo {
                 || Locale.getDefault().getISO3Language().equals("fa")
                 || Locale.getDefault().getISO3Language().equals("ar")
                 || Locale.getDefault().getISO3Language().equals("ara"));
+    }
+
+    private static boolean isAppAvailable(Context context, String appName)
+    {
+        PackageManager pm = context.getPackageManager();
+        try
+        {
+            pm.getPackageInfo(appName, PackageManager.GET_ACTIVITIES);
+            return true;
+        }
+        catch (PackageManager.NameNotFoundException e)
+        {
+            return false;
+        }
     }
 }
