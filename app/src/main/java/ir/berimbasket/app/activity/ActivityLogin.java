@@ -2,7 +2,6 @@ package ir.berimbasket.app.activity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
@@ -39,12 +38,6 @@ public class ActivityLogin extends AppCompatActivity {
     // UI references.
     private EditText edtUsername, edtPassword;
     TextInputLayout inputUsername, inputPassword;
-    // FIXME: 9/22/2017 ship all SharedPreference to centralized PrefManager class (for ease and security reasons)
-    private String PREFS_NAME = "BERIM_BASKET_PREF";
-    private String USERNAME = "PREF_USERNAME";
-    private String PASSWORD = "PREF_PASSWORD";
-    private String ATTEMPT_LOGIN = "PREF_ATTEMPT_LOGIN";
-
 
     static {
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
@@ -170,11 +163,10 @@ public class ActivityLogin extends AppCompatActivity {
             if (success) {
                 Toast.makeText(ActivityLogin.this, "ورود شما با موفقیت انجام شد", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(ActivityLogin.this, ActivityUser.class);
-                SharedPreferences.Editor editor = getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit();
-                editor.putString(USERNAME, edtUsername.getText().toString());
-                editor.putString(PASSWORD, edtPassword.getText().toString());
-                editor.putBoolean(ATTEMPT_LOGIN, true);
-                editor.apply();
+                PrefManager pref = new PrefManager(getApplicationContext());
+                pref.putUserName(edtUsername.getText().toString());
+                pref.putPassword(edtPassword.getText().toString());
+                pref.putIsLoggedIn(true);
                 // Tracking Event (Analytics)
                 ApplicationLoader.getInstance().trackEvent("Login", "Log on", "");
                 startActivity(intent);

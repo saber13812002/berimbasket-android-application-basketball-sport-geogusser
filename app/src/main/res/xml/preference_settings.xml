@@ -13,7 +13,7 @@
 
         <ir.berimbasket.app.view.preference.CustomSwitchPreferenceCompat
             android:defaultValue="true"
-            android:key="update_notification"
+            android:key="@string/key_pref_update_notification"
             android:summary="با فعالسازی این قسمت بروزرسانی های برنامه به شما اعلا داده میشود تا بتوانید از آخرین نسخه برنامه استفاده کنید"
             android:textColor="#ab6789"
             android:title="فعالسازی اعلان آپدیت برنامه" />
@@ -28,7 +28,7 @@
             android:defaultValue="0a0"
             android:entryValues="@array/pref_state_list_values"
             android:entries="@array/pref_state_list_names"
-            android:key="state_list"
+            android:key="@string/key_pref_state_list"
             android:negativeButtonText="@null"
             android:positiveButtonText="@null"
             android:title="انتخاب استان نمایش داده شده در نقشه" />

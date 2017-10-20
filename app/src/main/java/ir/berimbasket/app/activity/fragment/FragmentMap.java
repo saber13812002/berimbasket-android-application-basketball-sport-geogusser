@@ -4,7 +4,6 @@ import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.LocationManager;
 import android.os.AsyncTask;
@@ -13,7 +12,6 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v7.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,6 +42,7 @@ import ir.berimbasket.app.map.MarkerIconRenderer;
 import ir.berimbasket.app.map.MyClusterItem;
 import ir.berimbasket.app.network.HttpFunctions;
 import ir.berimbasket.app.util.ApplicationLoader;
+import ir.berimbasket.app.util.PrefManager;
 
 public class FragmentMap extends Fragment implements OnMapReadyCallback {
     private static String _URL = "http://berimbasket.ir/bball/get.php?id=0";
@@ -309,8 +308,8 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback {
     }
 
     private void updateHomeLocation() {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-        String latLong = prefs.getString("state_list", "0a0");  // 0a0 means based on phone location
+        PrefManager pref = new PrefManager(getContext());
+        String latLong = pref.getSettingsPrefStateList();
 
         if (Double.parseDouble(latLong.split("a")[0]) != 0) {
             FragmentMap.this.latitude = Double.parseDouble(latLong.split("a")[0]);

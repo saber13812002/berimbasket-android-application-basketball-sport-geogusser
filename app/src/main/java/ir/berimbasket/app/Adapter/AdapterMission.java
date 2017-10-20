@@ -1,7 +1,6 @@
 package ir.berimbasket.app.adapter;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -21,6 +20,7 @@ import java.util.ArrayList;
 import ir.berimbasket.app.R;
 import ir.berimbasket.app.entity.EntityMission;
 import ir.berimbasket.app.network.HttpFunctions;
+import ir.berimbasket.app.util.PrefManager;
 
 /**
  * Created by mohammad hosein on 7/22/2017.
@@ -110,8 +110,6 @@ public class AdapterMission extends RecyclerView.Adapter<AdapterMission.MissionV
 
 
     private final String MISSION_DONE_URL = "berimbasket.ir/bball/www/setMissionDone.php?";
-    private String PREFS_NAME = "BERIM_BASKET_PREF";
-    private String USERNAME = "PREF_USERNAME";
 
     private class RegisterMissionToUser extends AsyncTask<EntityMission, Void, String> {
 
@@ -154,8 +152,8 @@ public class AdapterMission extends RecyclerView.Adapter<AdapterMission.MissionV
         }
 
         private String getActiveUsername() {
-            SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-            return prefs.getString(USERNAME, "");
+            PrefManager pref = new PrefManager(context);
+            return pref.getUserName();
         }
 
         private void setMissionDone(String missionLink) {

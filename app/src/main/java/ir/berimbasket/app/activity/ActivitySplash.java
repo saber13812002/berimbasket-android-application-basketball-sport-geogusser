@@ -4,7 +4,6 @@ import android.Manifest;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
@@ -17,7 +16,6 @@ import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.preference.PreferenceManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -55,8 +53,8 @@ public class ActivitySplash extends AppCompatActivity {
         TextView txtSplashLoading = (TextView) findViewById(R.id.txtSplash_loading);
         txtSplashLoading.setTypeface(typeface);
 
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        boolean needForUpdate = prefs.getBoolean("update_notification", true);
+        PrefManager pref = new PrefManager(getApplicationContext());
+        boolean needForUpdate = pref.getSettingsPrefNotification();
         if (needForUpdate) {
             if (Connectivity.isConnected(this)) {
                 new UpdateTask().execute();

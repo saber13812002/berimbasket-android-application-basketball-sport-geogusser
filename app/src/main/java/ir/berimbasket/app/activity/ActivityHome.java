@@ -2,7 +2,6 @@ package ir.berimbasket.app.activity;
 
 import android.Manifest;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -32,6 +31,7 @@ import ir.berimbasket.app.entity.EntityLocation;
 import ir.berimbasket.app.map.GPSTracker;
 import ir.berimbasket.app.network.SendLocationTask;
 import ir.berimbasket.app.util.ApplicationLoader;
+import ir.berimbasket.app.util.PrefManager;
 import ir.berimbasket.app.view.CustomTypefaceSpan;
 
 public class ActivityHome extends AppCompatActivity implements View.OnClickListener {
@@ -43,9 +43,6 @@ public class ActivityHome extends AppCompatActivity implements View.OnClickListe
     private static final int MY_PERMISSIONS_REQUEST_INTERNET = 1000;
     private ViewPager homePager;
     private ImageView btnUser, btnSetting;
-    // FIXME: 9/22/2017 ship all SharedPreference to centralized PrefManager class (for ease and security reasons)
-    private String PREFS_NAME = "BERIM_BASKET_PREF";
-    private String ATTEMPT_LOGIN = "PREF_ATTEMPT_LOGIN";
     private BottomNavigationView navigation;
     private MenuItem prevMenuItem;
 
@@ -231,10 +228,10 @@ public class ActivityHome extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.btnUser:
-                SharedPreferences preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-                boolean attemptLogin = preferences.getBoolean(ATTEMPT_LOGIN, false);
+                PrefManager prefManager = new PrefManager(getApplicationContext());
+                boolean isLoggedIn = prefManager.getIsLoggedIn();
                 Intent intent;
-                if (attemptLogin) {
+                if (isLoggedIn) {
                     intent = new Intent(this, ActivityUser.class);
                 } else {
                     intent = new Intent(this, ActivityLogin.class);

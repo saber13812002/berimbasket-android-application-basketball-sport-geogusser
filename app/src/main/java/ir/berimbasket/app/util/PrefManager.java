@@ -2,8 +2,11 @@ package ir.berimbasket.app.util;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.provider.Settings;
+import android.support.v7.preference.PreferenceManager;
 
+import ir.berimbasket.app.R;
 
 public class PrefManager extends SecureSharedPreferences {
 
@@ -12,6 +15,9 @@ public class PrefManager extends SecureSharedPreferences {
     private static final String KEY_UPDATE_VERSION = "updateVersion";
     private static final String KEY_DOWNLOAD_APK_ID = "downloadApkID";
     private static final String KEY_DOWNLOAD_APK_FILE_NAME = "downloadApkFileName";
+    private static final String KEY_IS_LOGGED_IN = "isLoggedIn";
+    private static final String KEY_USER_NAME = "userName";
+    private static final String KEY_PASSWORD = "password";
     private Context context;
 
     public PrefManager(Context context) {
@@ -58,5 +64,53 @@ public class PrefManager extends SecureSharedPreferences {
 
     public String getDownloadApkFileName() {
         return getString(KEY_DOWNLOAD_APK_FILE_NAME, "");
+    }
+
+    public void putIsLoggedIn(boolean isLoggedIn) {
+        edit().putBoolean(KEY_IS_LOGGED_IN, isLoggedIn).apply();
+    }
+
+    public boolean getIsLoggedIn() {
+        return getBoolean(KEY_IS_LOGGED_IN, false);
+    }
+
+    public void putUserName(String userName) {
+        edit().putString(KEY_USER_NAME, userName).apply();
+    }
+
+    public String getUserName() {
+        return getString(KEY_USER_NAME, "");
+    }
+
+    public void putPassword(String password) {
+        edit().putString(KEY_PASSWORD, password).apply();
+    }
+
+    public String getPassword() {
+        return getString(KEY_PASSWORD, "");
+    }
+
+    public boolean getSettingsPrefNotification() {
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
+        return pref.getBoolean(context.getString(R.string.key_pref_update_notification), true);
+    }
+
+    public void putSettingsPrefNotification(boolean value) {
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putBoolean(context.getString(R.string.key_pref_update_notification), value);
+        editor.apply();
+    }
+
+    public String getSettingsPrefStateList() {
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
+        return pref.getString(context.getString(R.string.key_pref_state_list), "0a0");  // 0a0 means based on phone location
+    }
+
+    public void putSettingsPrefStateList(String value) {
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putString(context.getString(R.string.key_pref_state_list), value);
+        editor.apply();
     }
 }
