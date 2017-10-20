@@ -107,7 +107,7 @@ public class ActivitySplash extends AppCompatActivity {
                         JsonArray chLog = root.get("change_log").getAsJsonArray();
                         if (chLog != null && chLog.size() > 0) {
                             for (int i = 0; i < chLog.size(); i++) {
-                                changeLog += "* " + chLog.get(0).getAsString() + "\n";
+                                changeLog += "* " + chLog.get(i).getAsString() + "\n";
                             }
                         }
                         return 300;  // update
