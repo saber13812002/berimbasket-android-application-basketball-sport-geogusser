@@ -25,6 +25,7 @@ import ir.berimbasket.app.network.HttpFunctions;
 import ir.berimbasket.app.util.ApplicationLoader;
 import ir.berimbasket.app.util.PrefManager;
 import ir.berimbasket.app.util.SendTo;
+import ir.berimbasket.app.util.TypefaceManager;
 
 /**
  * A login screen that offers login via email/password.
@@ -112,7 +113,7 @@ public class ActivityLogin extends AppCompatActivity {
     }
 
     private void initFonts() {
-        Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/yekan.ttf");
+        Typeface typeface = TypefaceManager.get(getApplicationContext(), getString(R.string.font_yekan));
         edtUsername.setTypeface(typeface);
         edtPassword.setTypeface(typeface);
         btnLogin.setTypeface(typeface);

@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import ir.berimbasket.app.R;
+import ir.berimbasket.app.util.TypefaceManager;
 
 /**
  * Created by mohammad on 5/17/2016.
@@ -22,7 +23,7 @@ public class CustomAlertDialog {
 
     public CustomAlertDialog(Context context){
         this.context = context;
-        tfSans = Typeface.createFromAsset(context.getAssets(), context.getString(R.string.font_iran_sans));
+        tfSans = TypefaceManager.get(context, context.getString(R.string.font_iran_sans));
     }
 
     public AlertDialog MaterialAlert(String title){

@@ -8,33 +8,42 @@ import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.widget.TextView;
 
+import ir.berimbasket.app.R;
+import ir.berimbasket.app.util.TypefaceManager;
+
 /**
  * Created by mohammad hosein on 7/4/2017.
  */
 
 public class CustomPreference extends Preference {
 
+    private Context context;
+
     public CustomPreference(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
+        this.context = context;
     }
 
     public CustomPreference(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        this.context = context;
     }
 
     public CustomPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
+        this.context = context;
     }
 
     public CustomPreference(Context context) {
         super(context);
+        this.context = context;
     }
 
     @Override
     public void onBindViewHolder(PreferenceViewHolder holder) {
         super.onBindViewHolder(holder);
         TextView titleView = (TextView) holder.findViewById(android.R.id.title);
-        Typeface typeface = Typeface.createFromAsset(getContext().getAssets(), "fonts/yekan.ttf");
+        Typeface typeface = TypefaceManager.get(context, context.getString(R.string.font_yekan));
         titleView.setTypeface(typeface);
         titleView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
     }

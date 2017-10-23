@@ -21,6 +21,7 @@ import ir.berimbasket.app.adapter.AdapterStadiumGallery;
 import ir.berimbasket.app.entity.EntityStadium;
 import ir.berimbasket.app.entity.EntityStadiumGallery;
 import ir.berimbasket.app.util.ApplicationLoader;
+import ir.berimbasket.app.util.TypefaceManager;
 
 public class ActivityStadium extends AppCompatActivity {
 
@@ -68,7 +69,7 @@ public class ActivityStadium extends AppCompatActivity {
 
     private void initViewsAndListeners() {
 
-        typeface = Typeface.createFromAsset(getAssets(), "fonts/yekan.ttf");
+        typeface = TypefaceManager.get(getApplicationContext(), getString(R.string.font_yekan));
 
         txtStadiumName = (TextView) findViewById(R.id.txtStadiumName);
         txtStadiumTel = (TextView) findViewById(R.id.txtStadiumTel);

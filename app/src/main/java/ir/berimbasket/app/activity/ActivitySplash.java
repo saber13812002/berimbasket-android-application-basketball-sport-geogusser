@@ -31,6 +31,7 @@ import ir.berimbasket.app.downloadmanager.DownloadApkUpdate;
 import ir.berimbasket.app.network.Connectivity;
 import ir.berimbasket.app.network.HttpFunctions;
 import ir.berimbasket.app.util.PrefManager;
+import ir.berimbasket.app.util.TypefaceManager;
 import ir.berimbasket.app.view.CustomAlertDialog;
 
 public class ActivitySplash extends AppCompatActivity {
@@ -49,7 +50,7 @@ public class ActivitySplash extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/yekan.ttf");
+        Typeface typeface = TypefaceManager.get(getApplicationContext(), getString(R.string.font_yekan));
         TextView txtSplashLoading = (TextView) findViewById(R.id.txtSplash_loading);
         txtSplashLoading.setTypeface(typeface);
 

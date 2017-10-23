@@ -187,6 +187,7 @@
     <string name="home_navigation_profile">پروفایل</string>
     <string name="home_navigation_map">نقشه</string>
     <string name="font_iran_sans">fonts/iraniansansregular.ttf</string>
+    <string name="font_yekan">fonts/yekan.ttf</string>
     <string name="browser_not_found_install_now">برنامه ی مرورگر در دستگاه شما نصب نشده ! \n اکنون نصب میکنید ؟</string>
     <string name="install_app">نصب برنامه</string>
     <string name="yes">بله</string>

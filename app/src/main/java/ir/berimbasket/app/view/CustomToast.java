@@ -9,6 +9,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import ir.berimbasket.app.R;
+import ir.berimbasket.app.util.TypefaceManager;
 
 @SuppressLint("InflateParams")
 public class CustomToast {
@@ -38,7 +39,7 @@ public class CustomToast {
 		//LinearLayout toastLay = (LinearLayout) view.findViewById(R.id.toast_lay);
 		//toastLay.setBackgroundColor(Color.parseColor("#"+toastBackColorHex));
 		TextView toastTextView = (TextView) view.findViewById(R.id.toast_text);
-        Typeface tfsans = Typeface.createFromAsset(context.getAssets(),context.getString(R.string.font_iran_sans));
+        Typeface tfsans = TypefaceManager.get(context, context.getString(R.string.font_iran_sans));
 //		toastTextView.setTextColor(Color.parseColor("#"+toastTextColorHex));
 		toastTextView.setTypeface(tfsans);
         toastTextView.setText(toastText);

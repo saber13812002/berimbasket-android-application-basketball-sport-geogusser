@@ -31,6 +31,7 @@ import ir.berimbasket.app.entity.EntityMission;
 import ir.berimbasket.app.network.HttpFunctions;
 import ir.berimbasket.app.util.ApplicationLoader;
 import ir.berimbasket.app.util.PrefManager;
+import ir.berimbasket.app.util.TypefaceManager;
 
 /**
  * Created by mohammad hosein on 5/1/2017.
@@ -52,7 +53,7 @@ public class FragmentProfile extends Fragment {
         final Context context = inflater.getContext();
         PrefManager pref = new PrefManager(getContext());
         isLoggedIn = pref.getIsLoggedIn();
-        Typeface typeface = Typeface.createFromAsset(getActivity().getAssets(), "fonts/yekan.ttf");
+        Typeface typeface = TypefaceManager.get(getContext(), getString(R.string.font_yekan));
         View rootView;
         if (isLoggedIn) {
             // user logged in

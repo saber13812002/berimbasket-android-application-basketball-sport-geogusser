@@ -28,6 +28,7 @@ import com.google.maps.android.ui.IconGenerator;
 
 import ir.berimbasket.app.R;
 import ir.berimbasket.app.entity.EntityStadium;
+import ir.berimbasket.app.util.TypefaceManager;
 
 /**
  * Created by mohammad hosein on 21/09/2017.
@@ -97,7 +98,7 @@ public class FragmentStadiumMap extends Fragment implements OnMapReadyCallback {
 
 
     private void setStadiumMarker() {
-        Typeface typeface = Typeface.createFromAsset(getActivity().getAssets(), "fonts/yekan.ttf");
+        Typeface typeface = TypefaceManager.get(getContext(), getString(R.string.font_yekan));
         View customMarkerView = ((LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.custom_map_marker, null);
         TextView txtMarkerTitle = (TextView) customMarkerView.findViewById(R.id.markerTitle);
         txtMarkerTitle.setText(title);

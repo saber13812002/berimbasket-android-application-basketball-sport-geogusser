@@ -15,6 +15,7 @@ import java.util.ArrayList;
 
 import ir.berimbasket.app.R;
 import ir.berimbasket.app.entity.EntityMatchScore;
+import ir.berimbasket.app.util.TypefaceManager;
 
 public class AdapterMatch extends RecyclerView.Adapter<AdapterMatch.MatchViewHolder> {
 
@@ -27,7 +28,7 @@ public class AdapterMatch extends RecyclerView.Adapter<AdapterMatch.MatchViewHol
         this.context = context;
         this.matchList = matchList;
         this.inflater = LayoutInflater.from(context);
-        typeface = Typeface.createFromAsset(context.getAssets(), "fonts/yekan.ttf");
+        typeface = TypefaceManager.get(context, context.getString(R.string.font_yekan));
     }
 
     @Override

@@ -21,6 +21,7 @@ import ir.berimbasket.app.R;
 import ir.berimbasket.app.entity.EntityMission;
 import ir.berimbasket.app.network.HttpFunctions;
 import ir.berimbasket.app.util.PrefManager;
+import ir.berimbasket.app.util.TypefaceManager;
 
 /**
  * Created by mohammad hosein on 7/22/2017.
@@ -35,7 +36,7 @@ public class AdapterMission extends RecyclerView.Adapter<AdapterMission.MissionV
     public AdapterMission(ArrayList<EntityMission> xpList, Context context) {
         this.missionList = xpList;
         this.context = context;
-        typeface = Typeface.createFromAsset(context.getAssets(), "fonts/yekan.ttf");
+        typeface = TypefaceManager.get(context, context.getString(R.string.font_yekan));
     }
 
     @Override

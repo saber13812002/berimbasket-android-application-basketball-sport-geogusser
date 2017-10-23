@@ -16,9 +16,10 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import ir.berimbasket.app.R;
 import ir.berimbasket.app.activity.ActivityPlayer;
 import ir.berimbasket.app.entity.EntityPlayer;
-import ir.berimbasket.app.R;
+import ir.berimbasket.app.util.TypefaceManager;
 
 /**
  * Created by mohammad hosein on 7/21/2017.
@@ -35,7 +36,7 @@ public class AdapterPlayer extends RecyclerView.Adapter<AdapterPlayer.PlayerView
         this.playerList = playerList;
         this.context = context;
         this.activity = activity;
-        typeface = Typeface.createFromAsset(context.getAssets(), "fonts/yekan.ttf");
+        typeface = TypefaceManager.get(context, context.getString(R.string.font_yekan));
     }
 
     @Override

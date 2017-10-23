@@ -9,17 +9,22 @@ import android.util.AttributeSet;
 import android.widget.TextView;
 
 import ir.berimbasket.app.R;
+import ir.berimbasket.app.util.TypefaceManager;
 
 public class CustomPreferenceCategory extends PreferenceCategory {
+
+    private Context context;
 
     public CustomPreferenceCategory(Context context) {
         super(context);
         setLayoutResource(R.layout.item_preference_category);
+        this.context = context;
     }
 
     public CustomPreferenceCategory(Context context, AttributeSet attrs) {
         super(context, attrs);
         setLayoutResource(R.layout.item_preference_category);
+        this.context = context;
     }
 
     @Override
@@ -27,7 +32,7 @@ public class CustomPreferenceCategory extends PreferenceCategory {
         super.onBindViewHolder(holder);
         TextView titleView = (TextView) holder.findViewById(android.R.id.title);
         titleView.setTextColor(Color.RED);
-        Typeface typeface = Typeface.createFromAsset(getContext().getAssets(), "fonts/yekan.ttf");
+        Typeface typeface = TypefaceManager.get(context, context.getString(R.string.font_yekan));
         titleView.setTypeface(typeface);
     }
 }

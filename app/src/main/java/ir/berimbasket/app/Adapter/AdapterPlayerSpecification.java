@@ -11,6 +11,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import ir.berimbasket.app.R;
+import ir.berimbasket.app.util.TypefaceManager;
 
 /**
  * Created by mohammad hosein on 7/21/2017.
@@ -25,7 +26,7 @@ public class AdapterPlayerSpecification extends RecyclerView.Adapter<AdapterPlay
     public AdapterPlayerSpecification(ArrayList<String> playerList, Context context) {
         this.playerSpecList = playerList;
         this.context = context;
-        typeface = Typeface.createFromAsset(context.getAssets(), "fonts/yekan.ttf");
+        typeface = TypefaceManager.get(context, context.getString(R.string.font_yekan));
     }
 
     @Override

@@ -23,6 +23,7 @@ import ir.berimbasket.app.R;
 import ir.berimbasket.app.adapter.AdapterPlayerSpecification;
 import ir.berimbasket.app.entity.EntityPlayer;
 import ir.berimbasket.app.util.ApplicationLoader;
+import ir.berimbasket.app.util.TypefaceManager;
 
 public class ActivityPlayer extends AppCompatActivity {
 
@@ -100,7 +101,7 @@ public class ActivityPlayer extends AppCompatActivity {
     private void initViews() {
         txtPlayerName = (TextView) findViewById(R.id.txtPlayerName);
         txtPlayerLevel = (TextView) findViewById(R.id.txtPlayerLevel);
-        typeface = Typeface.createFromAsset(getAssets(), "fonts/yekan.ttf");
+        typeface = TypefaceManager.get(getApplicationContext(), getString(R.string.font_yekan));
 
         txtPlayerName.setTypeface(typeface);
         txtPlayerLevel.setTypeface(typeface);

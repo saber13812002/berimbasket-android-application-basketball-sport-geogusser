@@ -32,6 +32,7 @@ import ir.berimbasket.app.map.GPSTracker;
 import ir.berimbasket.app.network.SendLocationTask;
 import ir.berimbasket.app.util.ApplicationLoader;
 import ir.berimbasket.app.util.PrefManager;
+import ir.berimbasket.app.util.TypefaceManager;
 import ir.berimbasket.app.view.CustomTypefaceSpan;
 
 public class ActivityHome extends AppCompatActivity implements View.OnClickListener {
@@ -150,7 +151,7 @@ public class ActivityHome extends AppCompatActivity implements View.OnClickListe
     }
 
     private void applyFontToMenuItem(MenuItem mi) {
-        Typeface font = Typeface.createFromAsset(getAssets(), "fonts/yekan.ttf");
+        Typeface font = TypefaceManager.get(getApplicationContext(), getString(R.string.font_yekan));
         SpannableString mNewTitle = new SpannableString(mi.getTitle());
         mNewTitle.setSpan(new CustomTypefaceSpan("" , font), 0 , mNewTitle.length(),  Spannable.SPAN_INCLUSIVE_INCLUSIVE);
         mi.setTitle(mNewTitle);

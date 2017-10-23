@@ -27,6 +27,7 @@ import ir.berimbasket.app.R;
 import ir.berimbasket.app.network.HttpFunctions;
 import ir.berimbasket.app.util.ApplicationLoader;
 import ir.berimbasket.app.util.PrefManager;
+import ir.berimbasket.app.util.TypefaceManager;
 
 
 public class ActivityRegister extends AppCompatActivity {
@@ -98,7 +99,7 @@ public class ActivityRegister extends AppCompatActivity {
     }
 
     private void initFonts(){
-        Typeface typeface = Typeface.createFromAsset(getAssets(),"fonts/yekan.ttf");
+        Typeface typeface = TypefaceManager.get(getApplicationContext(), getString(R.string.font_yekan));
         btnLoginActivity.setTypeface(typeface);
         btnRegister.setTypeface(typeface);
         edtVerifyCode.setTypeface(typeface);

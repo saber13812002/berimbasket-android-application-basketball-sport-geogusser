@@ -31,6 +31,7 @@ import ir.berimbasket.app.entity.EntityPlayer;
 import ir.berimbasket.app.entity.EntityStadium;
 import ir.berimbasket.app.network.HttpFunctions;
 import ir.berimbasket.app.util.ApplicationLoader;
+import ir.berimbasket.app.util.TypefaceManager;
 
 /**
  * Created by mohammad hosein on 5/1/2017.
@@ -61,7 +62,7 @@ public class FragmentHome extends Fragment {
         txtMorePlayer = (TextView) view.findViewById(R.id.txtMorePlayer);
         txtMoreMatch = (TextView) view.findViewById(R.id.txtMoreMatch);
 
-        Typeface typeface = Typeface.createFromAsset(getContext().getAssets(), "fonts/yekan.ttf");
+        Typeface typeface = TypefaceManager.get(getContext(), getString(R.string.font_yekan));
 
         btnMorePlayer.setTypeface(typeface);
         txtMorePlayer.setTypeface(typeface);

@@ -17,6 +17,7 @@ import android.widget.TextView;
 import de.hdodenhof.circleimageview.CircleImageView;
 import ir.berimbasket.app.R;
 import ir.berimbasket.app.util.ApplicationLoader;
+import ir.berimbasket.app.util.TypefaceManager;
 import ir.berimbasket.app.view.AppBarStateChangeListener;
 
 public class ActivitySetting extends AppCompatActivity {
@@ -40,7 +41,7 @@ public class ActivitySetting extends AppCompatActivity {
         CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         collapsingToolbarLayout.setTitleEnabled(false);
-        Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/yekan.ttf");
+        Typeface typeface = TypefaceManager.get(getApplicationContext(), getString(R.string.font_yekan));
         title = (TextView) findViewById(R.id.title);
         subTitle = (TextView) findViewById(R.id.subTitle);
 

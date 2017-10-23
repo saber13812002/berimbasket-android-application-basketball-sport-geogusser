@@ -15,6 +15,7 @@ import com.google.maps.android.clustering.view.DefaultClusterRenderer;
 import com.google.maps.android.ui.IconGenerator;
 
 import ir.berimbasket.app.R;
+import ir.berimbasket.app.util.TypefaceManager;
 
 /**
  * Created by Mahdi on 10/17/2017.
@@ -33,7 +34,7 @@ public class MarkerIconRenderer extends DefaultClusterRenderer<MyClusterItem> {
     @Override
     protected void onBeforeClusterItemRendered(MyClusterItem item, MarkerOptions markerOptions) {
         // create custom icon
-        Typeface typeface = Typeface.createFromAsset(context.getAssets(), "fonts/yekan.ttf");
+        Typeface typeface = TypefaceManager.get(context, context.getString(R.string.font_yekan));
         View customMarkerView = ((LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE))
                 .inflate(R.layout.custom_map_marker, null);
         TextView txtMarkerTitle = (TextView) customMarkerView.findViewById(R.id.markerTitle);
