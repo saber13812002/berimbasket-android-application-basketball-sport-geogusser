@@ -217,5 +217,11 @@
     <!-- Settings preferences -->
     <string name="key_pref_update_notification">pref_update_notification</string>
     <string name="key_pref_state_list">pref_state_list</string>
+    <string name="key_pref_message_notification">pref_message_notification</string>
+    <string name="key_pref_help">pref_help</string>
+    <string name="key_pref_terms_and_services">pref_terms_and_services</string>
+    <string name="key_pref_change_log">pref_change_log</string>
+    <string name="key_pref_about_us">pref_about_us</string>
+
 
 </resources>

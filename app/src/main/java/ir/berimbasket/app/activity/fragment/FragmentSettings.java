@@ -15,16 +15,16 @@ public class FragmentSettings extends PreferenceFragmentCompat implements Prefer
     private final static String URL_PREFERENCE_TERMS_AND_SERVICES = "http://berimbasket.ir/terms";
     private final static String URL_PREFERENCE_ABOUT_US = "http://berimbasket.ir/about";
     private final static String URL_PREFERENCE_CHANGE_LOG = "http://berimbasket.ir/changelog";
+    private Preference help, aboutUs, terms, changeLog;
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         addPreferencesFromResource(R.xml.preference_settings);
 
-        // FIXME: 9/20/2017 read keys from strings.xml
-        Preference help = findPreference("help");
-        Preference aboutUs = findPreference("about_us");
-        Preference terms = findPreference("terms_and_services");
-        Preference changeLog = findPreference("change_log");
+        help = findPreference(getString(R.string.key_pref_help));
+        aboutUs = findPreference(getString(R.string.key_pref_about_us));
+        terms = findPreference(getString(R.string.key_pref_terms_and_services));
+        changeLog = findPreference(getString(R.string.key_pref_change_log));
         help.setOnPreferenceClickListener(this);
         aboutUs.setOnPreferenceClickListener(this);
         terms.setOnPreferenceClickListener(this);
@@ -34,28 +34,26 @@ public class FragmentSettings extends PreferenceFragmentCompat implements Prefer
     @Override
     public boolean onPreferenceClick(Preference preference) {
         String key = preference.getKey();
-        // FIXME: 9/20/2017 read keys from strings.xml
-        switch (key) {
-            case "help" :
-                // Tracking Event (Analytics)
-                ApplicationLoader.getInstance().trackEvent("Settings", "Click Help", "");
-                SendTo.sendToCustomTab(getActivity(), URL_PREFERENCE_HELP);
-                return true;
-            case "about_us" :
-                // Tracking Event (Analytics)
-                ApplicationLoader.getInstance().trackEvent("Settings", "Click About", "");
-                SendTo.sendToCustomTab(getActivity(), URL_PREFERENCE_ABOUT_US);
-                return true;
-            case "terms_and_services" :
-                // Tracking Event (Analytics)
-                ApplicationLoader.getInstance().trackEvent("Settings", "Click TermsAndServices", "");
-                SendTo.sendToCustomTab(getActivity(), URL_PREFERENCE_TERMS_AND_SERVICES);
-                return true;
-            case "change_log" :
-                // Tracking Event (Analytics)
-                ApplicationLoader.getInstance().trackEvent("Settings", "Click ChangeLog", "");
-                SendTo.sendToCustomTab(getActivity(), URL_PREFERENCE_CHANGE_LOG);
-                return true;
+        if (key.equals(help.getKey())) {
+            // Tracking Event (Analytics)
+            ApplicationLoader.getInstance().trackEvent("Settings", "Click Help", "");
+            SendTo.sendToCustomTab(getActivity(), URL_PREFERENCE_HELP);
+            return true;
+        } else if (key.equals(aboutUs.getKey())) {
+            // Tracking Event (Analytics)
+            ApplicationLoader.getInstance().trackEvent("Settings", "Click About", "");
+            SendTo.sendToCustomTab(getActivity(), URL_PREFERENCE_ABOUT_US);
+            return true;
+        } else if (key.equals(terms.getKey())) {
+            // Tracking Event (Analytics)
+            ApplicationLoader.getInstance().trackEvent("Settings", "Click TermsAndServices", "");
+            SendTo.sendToCustomTab(getActivity(), URL_PREFERENCE_TERMS_AND_SERVICES);
+            return true;
+        } else if (key.equals(changeLog.getKey())) {
+            // Tracking Event (Analytics)
+            ApplicationLoader.getInstance().trackEvent("Settings", "Click ChangeLog", "");
+            SendTo.sendToCustomTab(getActivity(), URL_PREFERENCE_CHANGE_LOG);
+            return true;
         }
         return false;
     }

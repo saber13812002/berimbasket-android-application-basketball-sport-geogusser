@@ -55,7 +55,7 @@ public class ActivitySplash extends AppCompatActivity {
         txtSplashLoading.setTypeface(typeface);
 
         PrefManager pref = new PrefManager(getApplicationContext());
-        boolean needForUpdate = pref.getSettingsPrefNotification();
+        boolean needForUpdate = pref.getSettingsPrefUpdateNotification();
         if (needForUpdate) {
             if (Connectivity.isConnected(this)) {
                 new UpdateTask().execute();

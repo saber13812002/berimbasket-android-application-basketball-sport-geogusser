@@ -90,12 +90,12 @@ public class PrefManager extends SecureSharedPreferences {
         return getString(KEY_PASSWORD, "");
     }
 
-    public boolean getSettingsPrefNotification() {
+    public boolean getSettingsPrefUpdateNotification() {
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
         return pref.getBoolean(context.getString(R.string.key_pref_update_notification), true);
     }
 
-    public void putSettingsPrefNotification(boolean value) {
+    public void putSettingsPrefUpdateNotification(boolean value) {
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = pref.edit();
         editor.putBoolean(context.getString(R.string.key_pref_update_notification), value);
@@ -111,6 +111,18 @@ public class PrefManager extends SecureSharedPreferences {
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = pref.edit();
         editor.putString(context.getString(R.string.key_pref_state_list), value);
+        editor.apply();
+    }
+
+    public boolean getSettingsPrefMessageNotification() {
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
+        return pref.getBoolean(context.getString(R.string.key_pref_message_notification), true);
+    }
+
+    public void putSettingsPrefMessageNotification(boolean value) {
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putBoolean(context.getString(R.string.key_pref_message_notification), value);
         editor.apply();
     }
 }
