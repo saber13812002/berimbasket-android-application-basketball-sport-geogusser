@@ -18,6 +18,8 @@ public class ActivityUser extends AppCompatActivity implements View.OnClickListe
 
     TextView txtUsername, txtAccountBalance, btnChangePass, btnLogout, btnCompleteProfile;
 
+    private static final String UPDATE_USER_INFO_BOT = "https://t.me/berimbasketprofilebot";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,7 +72,7 @@ public class ActivityUser extends AppCompatActivity implements View.OnClickListe
     }
 
     private void onCompleteProfileClick() {
-        SendTo.sendToTelegramChat(getApplicationContext(), "https://t.me/berimbasketprofilebot");
+        SendTo.sendToTelegramChat(getApplicationContext(), UPDATE_USER_INFO_BOT);
     }
 
     private void onLogoutClick() {

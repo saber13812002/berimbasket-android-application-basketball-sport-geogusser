@@ -31,19 +31,24 @@ import ir.berimbasket.app.entity.EntityPlayer;
 import ir.berimbasket.app.entity.EntityStadium;
 import ir.berimbasket.app.network.HttpFunctions;
 import ir.berimbasket.app.util.ApplicationLoader;
+import ir.berimbasket.app.util.SendTo;
 import ir.berimbasket.app.util.TypefaceManager;
 
 /**
  * Created by mohammad hosein on 5/1/2017.
  */
 
-public class FragmentHome extends Fragment {
+public class FragmentHome extends Fragment implements View.OnClickListener{
 
     private TextView txtMorePlayer, txtMoreStadium, txtMoreMatch;
     private AppCompatButton btnMorePlayer, btnMoreStadium, btnMoreMatch;
     private static String PLAYER_URL = "http://berimbasket.ir/bball/getPlayers.php?id=0";
     private static String STADIUM_URL = "http://berimbasket.ir/bball/getPlayGroundJson.php?id=0";
     private static String MATCH_URL = "http://berimbasket.ir/bball/getScore.php";
+    private static String MORE_MATCH_URL = "http://berimbasket.ir/bball/www/mains.php";
+    private static String MORE_PLAYER_URL = "http://berimbasket.ir/bball/www/players.php";
+    private static String MORE_STADIUM_URL = "http://berimbasket.ir/bball/www/mains.php";
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -71,6 +76,9 @@ public class FragmentHome extends Fragment {
         txtMoreStadium.setTypeface(typeface);
         btnMoreMatch.setTypeface(typeface);
 
+        btnMoreMatch.setOnClickListener(this);
+        btnMorePlayer.setOnClickListener(this);
+        btnMoreStadium.setOnClickListener(this);
 
         new GetPlayers().execute();
         new GetStadium().execute();
@@ -84,6 +92,22 @@ public class FragmentHome extends Fragment {
         super.onResume();
         // Tracking the screen view (Analytics)
         ApplicationLoader.getInstance().trackScreenView("Home Fragment");
+    }
+
+    @Override
+    public void onClick(View v) {
+        int viewId = v.getId();
+        switch (viewId) {
+            case R.id.btnMorePlayer :
+                SendTo.sendToCustomTab(getActivity(), MORE_PLAYER_URL);
+                break;
+            case R.id.btnMoreMatch :
+                SendTo.sendToCustomTab(getActivity(), MORE_MATCH_URL);
+                break;
+            case R.id.btnMoreStadium :
+                SendTo.sendToCustomTab(getActivity(), MORE_STADIUM_URL);
+                break;
+        }
     }
 
     private void setupMatchRecyclerView(View view, ArrayList<EntityMatchScore> matchList) {

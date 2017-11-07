@@ -224,7 +224,7 @@ public class ActivityHome extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btnSetting:
-                Intent goToSetting = new Intent(this, ActivitySetting.class);
+                Intent goToSetting = new Intent(this, ActivitySettings.class);
                 startActivity(goToSetting);
                 break;
 

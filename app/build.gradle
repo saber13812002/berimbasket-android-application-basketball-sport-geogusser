@@ -28,6 +28,7 @@ apply plugin: 'io.fabric'
 
 repositories {
     maven { url 'https://maven.fabric.io/public' }
+    google()
 }
 
 android {
@@ -39,12 +40,12 @@ android {
             storePassword keystoreProperties['storePassword']
         }
     }
-    compileSdkVersion 25
+    compileSdkVersion 26
     buildToolsVersion '26.0.2'
     defaultConfig {
         applicationId "ir.berimbasket.app"
         minSdkVersion 17
-        targetSdkVersion 25
+        targetSdkVersion 26
         versionCode 5
         versionName "0.9.03"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -71,27 +72,27 @@ dependencies {
     compile('com.crashlytics.sdk.android:crashlytics:2.6.8@aar') {
         transitive = true
     }
-    compile 'com.android.support:design:25.3.1'
-    compile 'de.hdodenhof:circleimageview:2.1.0'
-    compile 'com.android.support:appcompat-v7:25.3.1'
-    compile 'com.android.support:preference-v7:25.3.1'
-    compile 'com.android.support:support-vector-drawable:25.3.1'
-    compile 'com.google.android.gms:play-services-maps:10.0.1'
-    compile 'com.google.android.gms:play-services-analytics:10.0.1'
-    compile 'com.google.maps.android:android-maps-utils:0.5+'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    compile 'com.android.support:cardview-v7:25.3.1'
-    compile 'com.android.support:recyclerview-v7:25.3.1'
-    compile 'de.hdodenhof:circleimageview:2.1.0'
-    compile 'com.android.support:support-v4:25.3.1'
-    compile 'com.android.support:customtabs:25.3.1'
-    compile 'com.squareup.picasso:picasso:2.5.2'
-    compile 'com.nineoldandroids:library:2.4.0'
-    compile 'com.daimajia.slider:library:1.1.5@aar'
-    compile 'jp.wasabeef:blurry:2.1.1'
-    compile 'ru.egslava:blurredview:1.0'
-    compile 'co.ronash.android:pushe-base:1.3.1'
-    compile 'pl.droidsonroids.gif:android-gif-drawable:1.2.8'
-    compile 'com.google.code.gson:gson:2.7'
+    implementation 'com.android.support:design:26.1.0'
+    implementation 'de.hdodenhof:circleimageview:2.1.0'
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'com.android.support:preference-v7:26.1.0'
+    implementation 'com.android.support:support-vector-drawable:26.1.0'
+    implementation 'com.google.android.gms:play-services-maps:10.0.1'
+    implementation 'com.google.android.gms:play-services-analytics:10.0.1'
+    implementation 'com.google.maps.android:android-maps-utils:0.5+'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation 'com.android.support:cardview-v7:26.1.0'
+    implementation 'com.android.support:recyclerview-v7:26.1.0'
+    implementation 'de.hdodenhof:circleimageview:2.1.0'
+    implementation 'com.android.support:support-v4:26.1.0'
+    implementation 'com.android.support:customtabs:26.1.0'
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+    implementation 'com.nineoldandroids:library:2.4.0'
+    implementation 'com.daimajia.slider:library:1.1.5@aar'
+    implementation 'jp.wasabeef:blurry:2.1.1'
+    implementation 'ru.egslava:blurredview:1.0'
+    implementation 'co.ronash.android:pushe-base:1.3.1'
+    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.8'
+    implementation 'com.google.code.gson:gson:2.7'
     testCompile 'junit:junit:4.12'
 }

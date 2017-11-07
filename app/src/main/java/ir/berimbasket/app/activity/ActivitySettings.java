@@ -6,24 +6,29 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import ir.berimbasket.app.R;
 import ir.berimbasket.app.util.ApplicationLoader;
+import ir.berimbasket.app.util.SendTo;
 import ir.berimbasket.app.util.TypefaceManager;
 import ir.berimbasket.app.view.AppBarStateChangeListener;
 
-public class ActivitySetting extends AppCompatActivity {
+public class ActivitySettings extends AppCompatActivity {
 
     TextView title, subTitle;
     private AppBarLayout appBarLayout;
+    private FloatingActionButton fabUploadPhoto;
+    private static final String UPLOAD_PHOTO_BOT = "https://t.me/berimbasketUploadbot";
 
     public static int convertDpToPixel(float dp, Context context) {
         Resources resources = context.getResources();
@@ -34,7 +39,7 @@ public class ActivitySetting extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_setting);
+        setContentView(R.layout.activity_settings);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         appBarLayout = (AppBarLayout) findViewById(R.id.app_bar);
@@ -65,7 +70,13 @@ public class ActivitySetting extends AppCompatActivity {
             }
         });
 
-
+        fabUploadPhoto = findViewById(R.id.fabSettings);
+        fabUploadPhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SendTo.sendToTelegramChat(ActivitySettings.this, UPLOAD_PHOTO_BOT);
+            }
+        });
     }
 
     @Override

@@ -11,6 +11,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -24,6 +25,7 @@ import ir.berimbasket.app.adapter.AdapterStadiumGallery;
 import ir.berimbasket.app.entity.EntityStadium;
 import ir.berimbasket.app.entity.EntityStadiumGallery;
 import ir.berimbasket.app.util.ApplicationLoader;
+import ir.berimbasket.app.util.SendTo;
 import ir.berimbasket.app.util.TypefaceManager;
 
 public class ActivityStadium extends AppCompatActivity {
@@ -34,6 +36,7 @@ public class ActivityStadium extends AppCompatActivity {
     Typeface typeface;
     EntityStadium entityStadium;
     String stadiumLogoUrl;
+    private static final String UPDATE_STADIUM_INFO_BOT = "https://t.me/berimbasketProfilebot";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,10 +61,9 @@ public class ActivityStadium extends AppCompatActivity {
     private void initToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         // FIXME: 21/09/2017  setDisplayHomeAsUp show warning for nullpointer exception cause
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
     }
 
     private void getStadiumInfo(EntityStadium entityStadium) {
@@ -105,6 +107,13 @@ public class ActivityStadium extends AppCompatActivity {
         txtInstagramId.setTypeface(typeface);
         btnCompleteStadiumDetail.setTypeface(typeface);
         txtDetailSection.setTypeface(typeface);
+
+        btnCompleteStadiumDetail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SendTo.sendToTelegramChat(ActivityStadium.this, UPDATE_STADIUM_INFO_BOT);
+            }
+        });
     }
 
 

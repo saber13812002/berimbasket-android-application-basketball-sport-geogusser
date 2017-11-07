@@ -79,7 +79,7 @@
             android:label="@string/name_activity_set_marker"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".activity.ActivitySetting"
+            android:name=".activity.ActivitySettings"
             android:label="@string/name_activity_setting"
             android:theme="@style/StatusTransparent" />
         <activity
