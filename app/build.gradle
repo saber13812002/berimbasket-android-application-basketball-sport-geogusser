@@ -46,13 +46,13 @@ android {
         applicationId "ir.berimbasket.app"
         minSdkVersion 17
         targetSdkVersion 26
-        versionCode 5
-        versionName "0.9.03"
+        versionCode 6
+        versionName "0.9.04"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         // icon substitute
         vectorDrawables.useSupportLibrary = true
         // used in blurredView lib
-        renderscriptTargetApi 25
+        renderscriptTargetApi 26
         renderscriptSupportModeEnabled true
     }
     buildTypes {
