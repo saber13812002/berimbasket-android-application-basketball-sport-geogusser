@@ -15,7 +15,10 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -41,6 +44,7 @@ public class ActivityPlayer extends AppCompatActivity {
         setContentView(R.layout.activity_player);
         initViews();
         EntityPlayer entityPlayer = (EntityPlayer) getIntent().getSerializableExtra("MyClass");
+
         Log.i("nameFa", entityPlayer.getName());
 
         View imgProfileImageView = findViewById(R.id.imgPlayerProfile);
@@ -49,7 +53,14 @@ public class ActivityPlayer extends AppCompatActivity {
             imgProfileImageView.setTransitionName("image");
             txtPlayerNameView.setTransitionName("name");
         }
-
+        String profilePicUrl = "https://berimbasket.ir/" + getIntent().getStringExtra("ProfilePic");
+        Picasso.with(ActivityPlayer.this)
+                .load(profilePicUrl)
+                .resize(140, 140)
+                .centerInside()
+                .placeholder(R.drawable.profile_default)
+                .error(R.drawable.profile_default)
+                .into((ImageView)imgProfileImageView);
         txtPlayerName.setText(entityPlayer.getName());
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);

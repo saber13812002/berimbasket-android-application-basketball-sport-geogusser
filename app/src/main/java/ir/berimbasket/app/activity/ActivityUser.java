@@ -11,11 +11,12 @@ import android.widget.TextView;
 import ir.berimbasket.app.R;
 import ir.berimbasket.app.util.ApplicationLoader;
 import ir.berimbasket.app.util.PrefManager;
+import ir.berimbasket.app.util.SendTo;
 
 
-public class ActivityUser extends AppCompatActivity {
+public class ActivityUser extends AppCompatActivity implements View.OnClickListener {
 
-    TextView txtUsername, txtAccountBalance, btnChangePass, btnLogout;
+    TextView txtUsername, txtAccountBalance, btnChangePass, btnLogout, btnCompleteProfile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,46 +39,13 @@ public class ActivityUser extends AppCompatActivity {
         txtAccountBalance = (TextView) findViewById(R.id.txtAccCharge);
         btnChangePass = (TextView) findViewById(R.id.btnChangePass);
         btnLogout = (TextView) findViewById(R.id.btnLogout);
+        btnCompleteProfile = (TextView) findViewById(R.id.btnCompleteProfile);
     }
 
     private void initListeners() {
-        btnChangePass.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
-
-        btnLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AlertDialog.Builder builder;
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    builder = new AlertDialog.Builder(ActivityUser.this, android.R.style.Theme_Material_Light_Dialog_Alert);
-                } else {
-                    builder = new AlertDialog.Builder(ActivityUser.this);
-                }
-                builder.setTitle("ثبت نام")
-                        .setMessage("آیا مطمئن هستید که میخواهید از حساب کاربری خود خارج شوید")
-                        .setPositiveButton("بله", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                PrefManager pref = new PrefManager(getApplicationContext());
-                                pref.putIsLoggedIn(false);
-                                pref.putUserName(null);
-                                pref.putPassword(null);
-                                // Tracking Event (Analytics)
-                                ApplicationLoader.getInstance().trackEvent("Login", "Log out", "");
-                                ActivityUser.this.finish();
-                            }
-                        })
-                        .setNegativeButton("خیر", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                // do nothing
-                            }
-                        })
-                        .show();
-            }
-        });
+        btnChangePass.setOnClickListener(ActivityUser.this);
+        btnLogout.setOnClickListener(ActivityUser.this);
+        btnCompleteProfile.setOnClickListener(ActivityUser.this);
     }
 
     private void iniTexts() {
@@ -86,5 +54,50 @@ public class ActivityUser extends AppCompatActivity {
         String accBalance = "میزان امتیاز : 122000 امتیاز";
         txtUsername.setText("نام کاربری : " + username);
         txtAccountBalance.setText(accBalance);
+    }
+
+    @Override
+    public void onClick(View v) {
+        int viewId = v.getId();
+        switch (viewId) {
+            case R.id.btnLogout :
+                onLogoutClick();
+                break;
+            case R.id.btnCompleteProfile :
+                onCompleteProfileClick();
+                break;
+        }
+    }
+
+    private void onCompleteProfileClick() {
+        SendTo.sendToTelegramChat(getApplicationContext(), "https://t.me/berimbasketprofilebot");
+    }
+
+    private void onLogoutClick() {
+        AlertDialog.Builder builder;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            builder = new AlertDialog.Builder(ActivityUser.this, android.R.style.Theme_Material_Light_Dialog_Alert);
+        } else {
+            builder = new AlertDialog.Builder(ActivityUser.this);
+        }
+        builder.setTitle("ثبت نام")
+                .setMessage("آیا مطمئن هستید که میخواهید از حساب کاربری خود خارج شوید")
+                .setPositiveButton("بله", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        PrefManager pref = new PrefManager(getApplicationContext());
+                        pref.putIsLoggedIn(false);
+                        pref.putUserName(null);
+                        pref.putPassword(null);
+                        // Tracking Event (Analytics)
+                        ApplicationLoader.getInstance().trackEvent("Login", "Log out", "");
+                        ActivityUser.this.finish();
+                    }
+                })
+                .setNegativeButton("خیر", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // do nothing
+                    }
+                })
+                .show();
     }
 }

@@ -100,8 +100,8 @@
 
         <activity
             android:name=".activity.ActivityStadium"
-            android:label="@string/title_activity_stadium"
-            android:theme="@style/AppTheme" />
+            android:label="ورزشگاه"
+            android:theme="@style/AppTheme.NoActionBar" />
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="b657b55f3cd6f6df9c0a3dc03209c7f7243bfd85" />

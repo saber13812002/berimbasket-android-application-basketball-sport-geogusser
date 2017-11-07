@@ -21,7 +21,7 @@
             android:padding="15dp">
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/txtStadiumLogo"
+                android:id="@+id/imgStadiumLogo"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_alignParentRight="true"
@@ -32,7 +32,7 @@
                 android:id="@+id/txtStadiumName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toLeftOf="@id/txtStadiumLogo"
+                android:layout_toLeftOf="@id/imgStadiumLogo"
                 android:text="ورزشگاه شهید آوینی"
                 android:textColor="@android:color/black"
                 android:textSize="16sp" />
@@ -43,7 +43,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/txtStadiumName"
                 android:layout_marginTop="4dp"
-                android:layout_toLeftOf="@id/txtStadiumLogo"
+                android:layout_toLeftOf="@id/imgStadiumLogo"
                 android:text="تلفن : 8943264 98+"
                 android:textSize="14sp" />
 
@@ -55,7 +55,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/txtStadiumTel"
                 android:layout_marginTop="6dp"
-                android:layout_toLeftOf="@id/txtStadiumLogo"
+                android:layout_toLeftOf="@id/imgStadiumLogo"
                 android:isIndicator="false"
                 android:max="5"
                 android:numStars="5"
@@ -68,7 +68,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/ratingStadiumRate"
                 android:layout_marginTop="5dp"
-                android:layout_toLeftOf="@id/txtStadiumLogo"
+                android:layout_toLeftOf="@id/imgStadiumLogo"
                 android:text="10 نظر"
                 android:textSize="12sp" />
 

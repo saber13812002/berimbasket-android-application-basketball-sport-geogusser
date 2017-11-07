@@ -13,6 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -76,6 +78,7 @@ public class AdapterPlayer extends RecyclerView.Adapter<AdapterPlayer.PlayerView
                 public void onClick(View view) {
                     Intent intent = new Intent(activity, ActivityPlayer.class);
                     intent.putExtra("MyClass", playerList.get(getLayoutPosition()));
+                    intent.putExtra("ProfilePic", playerList.get(getLayoutPosition()).getProfileImage());
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         txtNameView.setTransitionName("name");
                         imgProfileView.setTransitionName("image");
@@ -95,6 +98,14 @@ public class AdapterPlayer extends RecyclerView.Adapter<AdapterPlayer.PlayerView
         public void setData(int pos) {
             imgPlayerProfile.setImageResource(R.drawable.profile_default);
             txtPlayerName.setText(playerList.get(pos).getName());
+            EntityPlayer entityPlayer = playerList.get(getLayoutPosition());
+            Picasso.with(context)
+                    .load("https://berimbasket.ir/" + entityPlayer.getProfileImage())
+                    .resize(120, 120)
+                    .centerInside()
+                    .placeholder(R.drawable.profile_default)
+                    .error(R.drawable.profile_default)
+                    .into(imgPlayerProfile);
         }
 
     }

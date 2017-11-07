@@ -34,6 +34,14 @@
         android:layout_marginTop="24dp"
         android:text="نام کاربری شما" />
 
+    <TextView
+        android:id="@+id/btnCompleteProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:clickable="true"
+        android:text="تکمیل اطلاعات پروفایل"
+        android:textColor="@color/colorAccent" />
 
     <TextView
         android:id="@+id/btnChangePass"

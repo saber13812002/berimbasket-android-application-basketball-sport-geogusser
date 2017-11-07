@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -71,6 +73,14 @@ public class AdapterStadium extends RecyclerView.Adapter<AdapterStadium.StadiumV
         public void setData(int pos) {
             imgStadiumImage.setImageResource(R.drawable.stadium1);
             txtStadiumName.setText(String.valueOf(stadiumList.get(pos).getTitle()));
+            EntityStadium entityStadium = stadiumList.get(getLayoutPosition());
+            Picasso.with(context)
+                    .load("https://berimbasket.ir/" + entityStadium.getImages()[0])
+                    .resize(130, 130)
+                    .placeholder(R.drawable.stadium1)
+                    .error(R.drawable.stadium1)
+                    .centerInside()
+                    .into(imgStadiumImage);
         }
 
         @Override
@@ -80,6 +90,7 @@ public class AdapterStadium extends RecyclerView.Adapter<AdapterStadium.StadiumV
                 case R.id.cardStadiumItem:
                     Intent intent = new Intent(context, ActivityStadium.class);
                     intent.putExtra("stadiumDetail", stadiumList.get(getLayoutPosition()));
+                    intent.putExtra("stadiumLogoUrlPath", stadiumList.get(getLayoutPosition()).getImages()[0]);
                     context.startActivity(intent);
                     break;
             }

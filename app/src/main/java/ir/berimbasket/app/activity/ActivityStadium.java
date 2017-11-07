@@ -13,8 +13,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import ir.berimbasket.app.R;
 import ir.berimbasket.app.activity.fragment.FragmentStadiumMap;
 import ir.berimbasket.app.adapter.AdapterStadiumGallery;
@@ -27,14 +30,17 @@ public class ActivityStadium extends AppCompatActivity {
 
     TextView txtStadiumName, txtStadiumTel, txtRateNo, txtStadiumAddress, txtStadiumRound, txtTelegramChannel, txtInstagramId, txtDetailSection;
     AppCompatButton btnCompleteStadiumDetail;
+    CircleImageView imgStadiumLogo;
     Typeface typeface;
     EntityStadium entityStadium;
+    String stadiumLogoUrl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stadium);
         entityStadium = (EntityStadium) getIntent().getSerializableExtra("stadiumDetail");
+        stadiumLogoUrl = getIntent().getStringExtra("stadiumLogoUrlPath");
         initToolbar();
         initViewsAndListeners();
         initStadiumMap();
@@ -79,6 +85,14 @@ public class ActivityStadium extends AppCompatActivity {
         txtTelegramChannel = (TextView) findViewById(R.id.txtTelegramChannel);
         txtInstagramId = (TextView) findViewById(R.id.txtInstagramId);
         txtDetailSection = (TextView) findViewById(R.id.txtDetailSection);
+        imgStadiumLogo = (CircleImageView) findViewById(R.id.imgStadiumLogo);
+        Picasso.with(ActivityStadium.this)
+                .load("https://berimbasket.ir/" + stadiumLogoUrl)
+                .resize(100, 100)
+                .placeholder(R.drawable.stadium1)
+                .error(R.drawable.stadium1)
+                .centerInside()
+                .into(imgStadiumLogo);
 
         btnCompleteStadiumDetail = (AppCompatButton) findViewById(R.id.btnCompleteStadiumDetail);
 

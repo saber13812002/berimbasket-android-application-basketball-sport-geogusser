@@ -80,12 +80,16 @@ public class AdapterMatch extends RecyclerView.Adapter<AdapterMatch.MatchViewHol
                     .load("https://berimbasket.ir/" + entityMatchScore.getAwayLogo())
                     .resize(50, 50)
                     .centerInside()
+                    .placeholder(R.mipmap.ic_launcher)
+                    .error(R.mipmap.ic_launcher)
                     .into(imgAwayLogo);
 
             Picasso.with(context)
                     .load("https://berimbasket.ir/" + entityMatchScore.getHomeLogo())
                     .resize(50, 50)
                     .centerInside()
+                    .placeholder(R.mipmap.ic_launcher)
+                    .error(R.mipmap.ic_launcher)
                     .into(imgHomeLogo);
         }
     }
