@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -26,11 +27,13 @@ import java.util.ArrayList;
 
 import ir.berimbasket.app.R;
 import ir.berimbasket.app.activity.ActivityLogin;
+import ir.berimbasket.app.activity.ActivityStadium;
 import ir.berimbasket.app.adapter.AdapterMission;
 import ir.berimbasket.app.entity.EntityMission;
 import ir.berimbasket.app.network.HttpFunctions;
 import ir.berimbasket.app.util.ApplicationLoader;
 import ir.berimbasket.app.util.PrefManager;
+import ir.berimbasket.app.util.SendTo;
 import ir.berimbasket.app.util.TypefaceManager;
 
 /**
@@ -41,6 +44,9 @@ public class FragmentProfile extends Fragment {
 
     TextView txtAccName, txtAccBadge, txtAccLevel, txtAccXp;
     private String MISSION_URL = "http://berimbasket.ir/bball/getMission.php";
+    AppCompatButton btnScoreProfile, btnProfileTeam;
+    private static final String PROFILE_SCORE_INFO_BOT = "http://t.me/berimbasketScorebot";
+    private static final String PROFILE_TEAM_INFO_BOT = "http://t.me/berimbasketScorebot";
     private static boolean isLoggedIn;
 
     @Override
@@ -62,11 +68,28 @@ public class FragmentProfile extends Fragment {
             txtAccLevel = (TextView) rootView.findViewById(R.id.txtAccLevel);
             txtAccBadge = (TextView) rootView.findViewById(R.id.txtAccBadge);
             txtAccXp = (TextView) rootView.findViewById(R.id.txtAccXp);
+            btnScoreProfile = rootView.findViewById(R.id.btnProfileScore);
+            btnProfileTeam = rootView.findViewById(R.id.btnProfileTeam);
 
             txtAccName.setTypeface(typeface);
             txtAccLevel.setTypeface(typeface);
             txtAccBadge.setTypeface(typeface);
             txtAccXp.setTypeface(typeface);
+
+            btnScoreProfile.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    SendTo.sendToTelegramChat(getActivity(), PROFILE_SCORE_INFO_BOT);
+                }
+            });
+
+            btnProfileTeam.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    SendTo.sendToTelegramChat(getActivity(), PROFILE_TEAM_INFO_BOT);
+                }
+            });
+
 
             new GetMissions().execute();
         } else {

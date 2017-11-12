@@ -14,6 +14,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -45,6 +46,7 @@ public class FragmentStadiumMap extends Fragment implements OnMapReadyCallback {
     EntityStadium entityStadium;
 
 
+
     @Override
     public void setArguments(Bundle args) {
         super.setArguments(args);
@@ -60,6 +62,7 @@ public class FragmentStadiumMap extends Fragment implements OnMapReadyCallback {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_stadium_map, container, false);
         locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+
         return view;
     }
 

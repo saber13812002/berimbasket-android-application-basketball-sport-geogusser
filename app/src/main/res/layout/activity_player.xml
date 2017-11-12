@@ -85,7 +85,24 @@
                 android:fitsSystemWindows="false"
                 android:theme="@style/ToolbarStyle"
                 style="@style/AppTheme.PopupOverlay"
-                app:layout_collapseMode="pin" />
+                app:layout_collapseMode="pin" >
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/btnReportPlayer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:padding="16dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        app:srcCompat="@drawable/ic_toolbar_flag_report" />
+
+                </RelativeLayout>
+            </android.support.v7.widget.Toolbar>
 
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>

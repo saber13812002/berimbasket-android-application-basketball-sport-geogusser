@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -30,13 +31,18 @@ import ir.berimbasket.app.util.TypefaceManager;
 
 public class ActivityStadium extends AppCompatActivity {
 
-    TextView txtStadiumName, txtStadiumTel, txtRateNo, txtStadiumAddress, txtStadiumRound, txtTelegramChannel, txtInstagramId, txtDetailSection;
-    AppCompatButton btnCompleteStadiumDetail;
+    TextView txtStadiumName, txtStadiumTel, txtStadiumAddress, txtStadiumRound, txtTelegramChannel, txtInstagramId, txtDetailSection;
+    AppCompatButton btnCompleteStadiumDetail, btnAddImage;
     CircleImageView imgStadiumLogo;
     Typeface typeface;
     EntityStadium entityStadium;
     String stadiumLogoUrl;
-    private static final String UPDATE_STADIUM_INFO_BOT = "https://t.me/berimbasketProfilebot";
+    private ImageView btnReportStadium, btnReserveStadium;
+    private static final String UPDATE_STADIUM_INFO_BOT = "https://t.me/berimbasketProfilebot?start=";
+    private static final String REPORT_STADIUM_BOT = "https://t.me/berimbasketreportbot?start=-";
+    private static final String RESERVE_STADIUM_BOT = "https://t.me/Berimbasketreservebot?start=";
+    private static final String STADIUM_IMAGE_BOT = "https://t.me/berimbasketuploadbot?start=";
+    private static final String STADIUM_PHOTO_BASE_URL = "https://berimbasket.ir/bball/bots/playgroundphoto/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,26 +74,28 @@ public class ActivityStadium extends AppCompatActivity {
 
     private void getStadiumInfo(EntityStadium entityStadium) {
         txtStadiumName.setText(entityStadium.getTitle());
-        txtStadiumTel.setText("-");
-        txtStadiumAddress.setText(entityStadium.getAddress());
-        txtStadiumRound.setText("-");
-        txtTelegramChannel.setText(entityStadium.getTelegramChannelId());
-        txtInstagramId.setText(entityStadium.getInstagramId());
+        txtStadiumTel.setText("تلفن : " + "-");
+        txtStadiumAddress.setText("آدرس : " + entityStadium.getAddress());
+        txtStadiumRound.setText("ساعت کاری : " + "-");
+        txtTelegramChannel.setText("کانال تلگرام : " + entityStadium.getTelegramChannelId());
+        txtInstagramId.setText("اینستاگرام" + entityStadium.getInstagramId());
     }
 
     private void initViewsAndListeners() {
 
         typeface = TypefaceManager.get(getApplicationContext(), getString(R.string.font_yekan));
 
-        txtStadiumName = (TextView) findViewById(R.id.txtStadiumName);
-        txtStadiumTel = (TextView) findViewById(R.id.txtStadiumTel);
-        txtRateNo = (TextView) findViewById(R.id.txtRateNo);
-        txtStadiumAddress = (TextView) findViewById(R.id.txtStadiumAddress);
-        txtStadiumRound = (TextView) findViewById(R.id.txtStadiumRound);
-        txtTelegramChannel = (TextView) findViewById(R.id.txtTelegramChannel);
-        txtInstagramId = (TextView) findViewById(R.id.txtInstagramId);
-        txtDetailSection = (TextView) findViewById(R.id.txtDetailSection);
-        imgStadiumLogo = (CircleImageView) findViewById(R.id.imgStadiumLogo);
+        txtStadiumName = findViewById(R.id.txtStadiumName);
+        txtStadiumTel = findViewById(R.id.txtStadiumTel);
+        txtStadiumAddress = findViewById(R.id.txtStadiumAddress);
+        txtStadiumRound = findViewById(R.id.txtStadiumRound);
+        txtTelegramChannel = findViewById(R.id.txtTelegramChannel);
+        txtInstagramId = findViewById(R.id.txtInstagramId);
+        txtDetailSection = findViewById(R.id.txtDetailSection);
+        imgStadiumLogo = findViewById(R.id.imgStadiumLogo);
+        btnReportStadium = findViewById(R.id.btnReportStadium);
+        btnReserveStadium = findViewById(R.id.btnReserveStadium);
+        btnAddImage = findViewById(R.id.btnAddImage);
         Picasso.with(ActivityStadium.this)
                 .load("https://berimbasket.ir/" + stadiumLogoUrl)
                 .resize(100, 100)
@@ -96,11 +104,10 @@ public class ActivityStadium extends AppCompatActivity {
                 .centerInside()
                 .into(imgStadiumLogo);
 
-        btnCompleteStadiumDetail = (AppCompatButton) findViewById(R.id.btnCompleteStadiumDetail);
+        btnCompleteStadiumDetail = findViewById(R.id.btnCompleteStadiumDetail);
 
         txtStadiumName.setTypeface(typeface);
         txtStadiumTel.setTypeface(typeface);
-        txtRateNo.setTypeface(typeface);
         txtStadiumAddress.setTypeface(typeface);
         txtStadiumRound.setTypeface(typeface);
         txtTelegramChannel.setTypeface(typeface);
@@ -111,7 +118,29 @@ public class ActivityStadium extends AppCompatActivity {
         btnCompleteStadiumDetail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SendTo.sendToTelegramChat(ActivityStadium.this, UPDATE_STADIUM_INFO_BOT);
+                SendTo.sendToTelegramChat(ActivityStadium.this, UPDATE_STADIUM_INFO_BOT + entityStadium.getId());
+            }
+        });
+
+        btnReportStadium.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SendTo.sendToTelegramChat(ActivityStadium.this, REPORT_STADIUM_BOT + entityStadium.getId());
+            }
+        });
+
+        btnReserveStadium.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SendTo.sendToTelegramChat(ActivityStadium.this, RESERVE_STADIUM_BOT + entityStadium.getId());
+            }
+        });
+
+
+        btnAddImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SendTo.sendToTelegramChat(ActivityStadium.this, STADIUM_IMAGE_BOT + entityStadium.getId());
             }
         });
     }
@@ -132,15 +161,16 @@ public class ActivityStadium extends AppCompatActivity {
     private void initGalleryRecycler() {
         int[] galleryIdes = {R.drawable.slider1, R.drawable.slider2, R.drawable.slider3};
 
+        String[] galleryImages = entityStadium.getImages();
         ArrayList<EntityStadiumGallery> stadiumGalleryList = new ArrayList<>();
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < galleryImages.length; i++) {
             EntityStadiumGallery entityStadiumGallery = new EntityStadiumGallery();
             entityStadiumGallery.setId(i);
-            entityStadiumGallery.setUrl(galleryIdes[i]);
+            entityStadiumGallery.setUrl(STADIUM_PHOTO_BASE_URL + galleryImages[i] + ".jpg");
             stadiumGalleryList.add(entityStadiumGallery);
         }
 
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerStadiumGallery);
+        RecyclerView recyclerView = findViewById(R.id.recyclerStadiumGallery);
         AdapterStadiumGallery adapterStadiumGallery = new AdapterStadiumGallery(stadiumGalleryList, this);
         recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setAdapter(adapterStadiumGallery);

@@ -62,24 +62,25 @@
                 android:progress="4"
                 android:progressTint="@color/colorGold" />
 
-            <TextView
-                android:id="@+id/txtRateNo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/ratingStadiumRate"
-                android:layout_marginTop="5dp"
-                android:layout_toLeftOf="@id/imgStadiumLogo"
-                android:text="10 نظر"
-                android:textSize="12sp" />
 
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/btnCompleteStadiumDetail"
                 style="@style/BrandButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBottom="@id/txtRateNo"
+                android:layout_alignBottom="@id/ratingStadiumRate"
                 android:layout_alignParentLeft="true"
                 android:text="تکمیل اطلاعات" />
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/btnAddImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/btnCompleteStadiumDetail"
+                style="@style/BrandButtonStyle"
+                android:text="افزودن عکس"
+                android:fontFamily="@font/yekan"/>
+
         </RelativeLayout>
 
         <View

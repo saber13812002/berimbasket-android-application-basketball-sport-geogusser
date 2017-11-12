@@ -26,11 +26,15 @@ import ir.berimbasket.app.R;
 import ir.berimbasket.app.adapter.AdapterPlayerSpecification;
 import ir.berimbasket.app.entity.EntityPlayer;
 import ir.berimbasket.app.util.ApplicationLoader;
+import ir.berimbasket.app.util.SendTo;
 import ir.berimbasket.app.util.TypefaceManager;
 
 public class ActivityPlayer extends AppCompatActivity {
 
     TextView txtPlayerName, txtPlayerLevel;
+    private ImageView btnReportPlayer;
+    private static final String REPORT_PLAYER_BOT = "https://t.me/berimbasketProfilebot?start=";
+    EntityPlayer entityPlayer;
     private Typeface typeface;
 
     @Override
@@ -43,7 +47,7 @@ public class ActivityPlayer extends AppCompatActivity {
         }
         setContentView(R.layout.activity_player);
         initViews();
-        EntityPlayer entityPlayer = (EntityPlayer) getIntent().getSerializableExtra("MyClass");
+        entityPlayer = (EntityPlayer) getIntent().getSerializableExtra("MyClass");
 
         Log.i("nameFa", entityPlayer.getName());
 
@@ -61,9 +65,10 @@ public class ActivityPlayer extends AppCompatActivity {
                 .placeholder(R.drawable.profile_default)
                 .error(R.drawable.profile_default)
                 .into((ImageView)imgProfileImageView);
+
         txtPlayerName.setText(entityPlayer.getName());
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         changeCollapsingToolbar(entityPlayer.getName());
@@ -110,12 +115,22 @@ public class ActivityPlayer extends AppCompatActivity {
     }
 
     private void initViews() {
-        txtPlayerName = (TextView) findViewById(R.id.txtPlayerName);
-        txtPlayerLevel = (TextView) findViewById(R.id.txtPlayerLevel);
+        txtPlayerName = findViewById(R.id.txtPlayerName);
+        txtPlayerLevel = findViewById(R.id.txtPlayerLevel);
+        btnReportPlayer = findViewById(R.id.btnReportPlayer);
+
         typeface = TypefaceManager.get(getApplicationContext(), getString(R.string.font_yekan));
 
         txtPlayerName.setTypeface(typeface);
         txtPlayerLevel.setTypeface(typeface);
+
+
+        btnReportPlayer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SendTo.sendToTelegramChat(ActivityPlayer.this, REPORT_PLAYER_BOT  + entityPlayer.getId());
+            }
+        });
     }
 
     private void setupMatchRecyclerView(ArrayList<String> playerSpecList) {

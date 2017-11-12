@@ -2,6 +2,7 @@ package ir.berimbasket.app.activity.fragment;
 
 import android.app.ProgressDialog;
 import android.graphics.Typeface;
+import android.media.Image;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,12 +44,12 @@ public class FragmentHome extends Fragment implements View.OnClickListener{
 
     private TextView txtMorePlayer, txtMoreStadium, txtMoreMatch;
     private AppCompatButton btnMorePlayer, btnMoreStadium, btnMoreMatch;
-    private static String PLAYER_URL = "http://berimbasket.ir/bball/getPlayers.php?id=0";
-    private static String STADIUM_URL = "http://berimbasket.ir/bball/getPlayGroundJson.php?id=0";
-    private static String MATCH_URL = "http://berimbasket.ir/bball/getScore.php";
-    private static String MORE_MATCH_URL = "http://berimbasket.ir/bball/www/mains.php";
-    private static String MORE_PLAYER_URL = "http://berimbasket.ir/bball/www/players.php";
-    private static String MORE_STADIUM_URL = "http://berimbasket.ir/bball/www/mains.php";
+    private static String PLAYER_URL = "https://berimbasket.ir/bball/getPlayers.php?id=0";
+    private static String STADIUM_URL = "https://berimbasket.ir/bball/getPlayGroundJson.php?id=0";
+    private static String MATCH_URL = "https://berimbasket.ir/bball/getScore.php";
+    private static String MORE_MATCH_URL = "https://berimbasket.ir/bball/www/plays.php";
+    private static String MORE_PLAYER_URL = "https://berimbasket.ir/bball/www/players.php";
+    private static String MORE_STADIUM_URL = "https://berimbasket.ir/bball/www/mains.php";
 
 
     @Override
