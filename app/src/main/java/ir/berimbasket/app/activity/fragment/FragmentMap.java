@@ -45,7 +45,7 @@ import ir.berimbasket.app.util.ApplicationLoader;
 import ir.berimbasket.app.util.PrefManager;
 
 public class FragmentMap extends Fragment implements OnMapReadyCallback {
-    private static String _URL = "http://berimbasket.ir/bball/get.php?id=0";
+    private static String _URL = "https://berimbasket.ir/bball/get.php?id=0";
     double latitude = 35.723284;
     double longitude = 51.441968;
     GoogleMap map;
@@ -168,6 +168,7 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback {
                 stadium.setLatitude(String.valueOf(latLng.latitude));
                 stadium.setLongitude(String.valueOf(latLng.longitude));
                 stadium.setTitle(myClusterItem.getTitle());
+                stadium.setId(Integer.parseInt(myClusterItem.getId()));
                 Intent intent = new Intent(getActivity(), ActivityStadium.class);
                 intent.putExtra("stadiumDetail", stadium);
                 startActivity(intent);

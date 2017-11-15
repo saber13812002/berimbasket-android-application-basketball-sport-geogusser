@@ -48,7 +48,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:padding="10dp"
+            android:padding="15dp"
             android:background="@android:color/white"
             android:textSize="16sp"/>
 
@@ -59,6 +59,7 @@
             style="?android:attr/ratingBarStyleSmall"
             android:max="5"
             android:numStars="5"
+            android:visibility="gone"
             android:progress="5"
             android:progressTint="@color/colorGold"
             android:layout_marginBottom="10dp"

@@ -1,5 +1,6 @@
 package ir.berimbasket.app.activity;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -50,7 +51,7 @@ public class ActivityStadium extends AppCompatActivity {
     private static final String RESERVE_STADIUM_BOT = "https://t.me/Berimbasketreservebot?start=";
     private static final String STADIUM_IMAGE_BOT = "https://t.me/berimbasketuploadbot?start=";
     private static final String STADIUM_PHOTO_BASE_URL = "https://berimbasket.ir/bball/bots/playgroundphoto/";
-    private static String STADIUM_URL = "https://berimbasket.ir/bball/getPlayGroundJson.php?id=0";
+    private static final String STADIUM_URL = "https://berimbasket.ir/bball/get.php?id=";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,15 +60,7 @@ public class ActivityStadium extends AppCompatActivity {
         entityStadium = (EntityStadium) getIntent().getSerializableExtra("stadiumDetail");
         stadiumLogoUrl = getIntent().getStringExtra("stadiumLogoUrlPath");
         initToolbar();
-        initViewsAndListeners();
-        initStadiumMap();
-        // FIXME: 14/11/2017 Get stadium info with stadium id stand alone and without getting from intent bundle
-        try {
-            initGalleryRecycler();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        getStadiumInfo(entityStadium);
+        new GetStadium().execute(entityStadium.getId());
     }
 
     @Override
@@ -204,6 +197,83 @@ public class ActivityStadium extends AppCompatActivity {
     }
 
 
+    private class GetStadium extends AsyncTask<Integer, Void, Void> {
 
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Void doInBackground(Integer... stadiumId) {
+            HttpFunctions sh = new HttpFunctions(HttpFunctions.RequestType.GET);
+
+            String jsonStr = sh.makeServiceCall(STADIUM_URL + stadiumId[0]);
+            if (jsonStr != null) {
+                try {
+                    JSONArray locations = new JSONArray(jsonStr);
+
+                    for (int i = 0; i < locations.length(); i++) {
+                        JSONObject c = locations.getJSONObject(i);
+
+                        String id = c.getString("id");
+                        String title = c.getString("title");
+                        String latitude = c.getString("PlaygroundLatitude");
+                        String longitude = c.getString("PlaygroundLongitude");
+                        String type = c.getString("PlaygroundType");
+                        String zoomLevel = c.getString("ZoomLevel");
+                        String address = c.getString("address");
+                        String images = c.getString("PgImages");
+                        String instagramId = c.getString("PgInstagramId");
+                        String telegramChannelId = c.getString("PgTlgrmChannelId");
+                        String telegramGroupId = c.getString("PgTlgrmGroupJoinLink");
+                        String telegramAdminId = c.getString("PgTlgrmGroupAdminId");
+
+                        entityStadium = new EntityStadium();
+
+                        entityStadium.setId(id != "null" ? Integer.parseInt(id) : -1);
+                        entityStadium.setTitle(title);
+                        entityStadium.setLatitude(latitude);
+                        entityStadium.setLongitude(longitude);
+                        entityStadium.setAddress(address);
+                        entityStadium.setTelegramGroupId(telegramGroupId);
+                        entityStadium.setTelegramChannelId(telegramChannelId);
+                        entityStadium.setTelegramAdminId(telegramAdminId);
+                        entityStadium.setInstagramId(instagramId);
+                        entityStadium.setImages(images.split(".jpg"));
+                        entityStadium.setType(type);
+                        entityStadium.setZoomLevel(zoomLevel != "null" ? Integer.parseInt(zoomLevel) : -1);
+
+                    }
+                } catch (final JSONException e) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(ActivityStadium.this,
+                                    "Json parsing error: " + e.getMessage(),
+                                    Toast.LENGTH_LONG)
+                                    .show();
+                        }
+                    });
+
+                }
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            initViewsAndListeners();
+            initStadiumMap();
+            try {
+                initGalleryRecycler();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            getStadiumInfo(entityStadium);
+        }
+    }
 
 }
