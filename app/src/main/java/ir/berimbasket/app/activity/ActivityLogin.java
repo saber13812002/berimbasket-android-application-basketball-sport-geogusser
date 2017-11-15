@@ -71,13 +71,13 @@ public class ActivityLogin extends AppCompatActivity {
         btnTelegramTut = (TextView) findViewById(R.id.btnTelegramTut);
         pDialog = new ProgressDialog(ActivityLogin.this);
 
-        Drawable imgUser = getResources().getDrawable( R.drawable.ic_login_user);
-        imgUser.setBounds( 0, 0, 60, 60 );
-        edtUsername.setCompoundDrawables( imgUser, null, null, null );
+        Drawable imgUser = getResources().getDrawable(R.drawable.ic_login_user);
+        imgUser.setBounds(0, 0, 60, 60);
+        edtUsername.setCompoundDrawables(imgUser, null, null, null);
 
-        Drawable imgPassword = getResources().getDrawable( R.drawable.ic_login_lock);
-        imgPassword.setBounds( 0, 0, 60, 60 );
-        edtPassword.setCompoundDrawables( imgPassword, null, null, null );
+        Drawable imgPassword = getResources().getDrawable(R.drawable.ic_login_lock);
+        imgPassword.setBounds(0, 0, 60, 60);
+        edtPassword.setCompoundDrawables(imgPassword, null, null, null);
     }
 
     private void initListeners() {
@@ -114,10 +114,6 @@ public class ActivityLogin extends AppCompatActivity {
 
     private void initFonts() {
         Typeface typeface = TypefaceManager.get(getApplicationContext(), getString(R.string.font_yekan));
-        edtUsername.setTypeface(typeface);
-        edtPassword.setTypeface(typeface);
-        btnLogin.setTypeface(typeface);
-        btnRegisterPage.setTypeface(typeface);
         inputUsername.setTypeface(typeface);
         inputPassword.setTypeface(typeface);
     }

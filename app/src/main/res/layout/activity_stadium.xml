@@ -30,8 +30,8 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:padding="16dp"
                     android:background="?attr/selectableItemBackgroundBorderless"
+                    android:padding="16dp"
                     app:srcCompat="@drawable/ic_toolbar_flag_report" />
 
                 <ImageView
@@ -39,9 +39,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:padding="16dp"
                     android:layout_toStartOf="@id/btnReportStadium"
                     android:background="?attr/selectableItemBackgroundBorderless"
+                    android:padding="16dp"
                     app:srcCompat="@drawable/ic_toolbar_reserve" />
 
             </RelativeLayout>

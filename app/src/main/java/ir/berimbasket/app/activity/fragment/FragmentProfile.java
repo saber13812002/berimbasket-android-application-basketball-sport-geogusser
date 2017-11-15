@@ -2,7 +2,6 @@ package ir.berimbasket.app.activity.fragment;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -27,14 +26,12 @@ import java.util.ArrayList;
 
 import ir.berimbasket.app.R;
 import ir.berimbasket.app.activity.ActivityLogin;
-import ir.berimbasket.app.activity.ActivityStadium;
 import ir.berimbasket.app.adapter.AdapterMission;
 import ir.berimbasket.app.entity.EntityMission;
 import ir.berimbasket.app.network.HttpFunctions;
 import ir.berimbasket.app.util.ApplicationLoader;
 import ir.berimbasket.app.util.PrefManager;
 import ir.berimbasket.app.util.SendTo;
-import ir.berimbasket.app.util.TypefaceManager;
 
 /**
  * Created by mohammad hosein on 5/1/2017.
@@ -59,7 +56,6 @@ public class FragmentProfile extends Fragment {
         final Context context = inflater.getContext();
         PrefManager pref = new PrefManager(getContext());
         isLoggedIn = pref.getIsLoggedIn();
-        Typeface typeface = TypefaceManager.get(getContext(), getString(R.string.font_yekan));
         View rootView;
         if (isLoggedIn) {
             // user logged in
@@ -71,10 +67,6 @@ public class FragmentProfile extends Fragment {
             btnScoreProfile = rootView.findViewById(R.id.btnProfileScore);
             btnProfileTeam = rootView.findViewById(R.id.btnProfileTeam);
 
-            txtAccName.setTypeface(typeface);
-            txtAccLevel.setTypeface(typeface);
-            txtAccBadge.setTypeface(typeface);
-            txtAccXp.setTypeface(typeface);
 
             btnScoreProfile.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -98,8 +90,6 @@ public class FragmentProfile extends Fragment {
             TextView txtNotRegisteredMsg = (TextView) rootView.findViewById(R.id.txtFragmentProfile_userNotRegMsg);
             Button btnGoToLogin = (Button) rootView.findViewById(R.id.btnFragmentProfile_goToLogin);
 
-            txtNotRegisteredMsg.setTypeface(typeface);
-            btnGoToLogin.setTypeface(typeface);
             btnGoToLogin.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

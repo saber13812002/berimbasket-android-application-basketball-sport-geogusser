@@ -1,8 +1,6 @@
 package ir.berimbasket.app.activity.fragment;
 
 import android.app.ProgressDialog;
-import android.graphics.Typeface;
-import android.media.Image;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -14,7 +12,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,13 +31,12 @@ import ir.berimbasket.app.entity.EntityStadium;
 import ir.berimbasket.app.network.HttpFunctions;
 import ir.berimbasket.app.util.ApplicationLoader;
 import ir.berimbasket.app.util.SendTo;
-import ir.berimbasket.app.util.TypefaceManager;
 
 /**
  * Created by mohammad hosein on 5/1/2017.
  */
 
-public class FragmentHome extends Fragment implements View.OnClickListener{
+public class FragmentHome extends Fragment implements View.OnClickListener {
 
     private TextView txtMorePlayer, txtMoreStadium, txtMoreMatch;
     private AppCompatButton btnMorePlayer, btnMoreStadium, btnMoreMatch;
@@ -69,15 +65,6 @@ public class FragmentHome extends Fragment implements View.OnClickListener{
         txtMorePlayer = (TextView) view.findViewById(R.id.txtMorePlayer);
         txtMoreMatch = (TextView) view.findViewById(R.id.txtMoreMatch);
 
-        Typeface typeface = TypefaceManager.get(getContext(), getString(R.string.font_yekan));
-
-        btnMorePlayer.setTypeface(typeface);
-        txtMorePlayer.setTypeface(typeface);
-        txtMoreMatch.setTypeface(typeface);
-        btnMoreStadium.setTypeface(typeface);
-        txtMoreStadium.setTypeface(typeface);
-        btnMoreMatch.setTypeface(typeface);
-
         btnMoreMatch.setOnClickListener(this);
         btnMorePlayer.setOnClickListener(this);
         btnMoreStadium.setOnClickListener(this);
@@ -100,13 +87,13 @@ public class FragmentHome extends Fragment implements View.OnClickListener{
     public void onClick(View v) {
         int viewId = v.getId();
         switch (viewId) {
-            case R.id.btnMorePlayer :
+            case R.id.btnMorePlayer:
                 SendTo.sendToCustomTab(getActivity(), MORE_PLAYER_URL);
                 break;
-            case R.id.btnMoreMatch :
+            case R.id.btnMoreMatch:
                 SendTo.sendToCustomTab(getActivity(), MORE_MATCH_URL);
                 break;
-            case R.id.btnMoreStadium :
+            case R.id.btnMoreStadium:
                 SendTo.sendToCustomTab(getActivity(), MORE_STADIUM_URL);
                 break;
         }
@@ -369,7 +356,6 @@ public class FragmentHome extends Fragment implements View.OnClickListener{
                         entityMatchScore.setHomeScore(Integer.parseInt(homeScore));
                         entityMatchScore.setAwayScore(Integer.parseInt(awayScore));
                         entityMatchScore.setDate(date);
-
 
 
                         matchList.add(entityMatchScore);

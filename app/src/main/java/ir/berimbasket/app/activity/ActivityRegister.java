@@ -80,32 +80,26 @@ public class ActivityRegister extends AppCompatActivity {
         edtVerifyCode.requestFocus();
 
 
-        Drawable imgUser = getResources().getDrawable( R.drawable.ic_login_user);
-        imgUser.setBounds( 0, 0, 60, 60 );
-        edtUsername.setCompoundDrawables( imgUser, null, null, null );
+        Drawable imgUser = getResources().getDrawable(R.drawable.ic_login_user);
+        imgUser.setBounds(0, 0, 60, 60);
+        edtUsername.setCompoundDrawables(imgUser, null, null, null);
 
-        Drawable imgPassword = getResources().getDrawable( R.drawable.ic_login_lock);
-        imgPassword.setBounds( 0, 0, 60, 60 );
-        edtPassword.setCompoundDrawables( imgPassword, null, null, null );
+        Drawable imgPassword = getResources().getDrawable(R.drawable.ic_login_lock);
+        imgPassword.setBounds(0, 0, 60, 60);
+        edtPassword.setCompoundDrawables(imgPassword, null, null, null);
 
 
-        Drawable imgPasswordRepeat = getResources().getDrawable( R.drawable.ic_login_open_lock);
-        imgPasswordRepeat.setBounds( 0, 0, 60, 60 );
-        edtPasswordRepeat.setCompoundDrawables( imgPasswordRepeat, null, null, null );
+        Drawable imgPasswordRepeat = getResources().getDrawable(R.drawable.ic_login_open_lock);
+        imgPasswordRepeat.setBounds(0, 0, 60, 60);
+        edtPasswordRepeat.setCompoundDrawables(imgPasswordRepeat, null, null, null);
 
-        Drawable imgVerify = getResources().getDrawable( R.drawable.ic_login_zero);
-        imgVerify.setBounds( 0, 0, 60, 60 );
-        edtVerifyCode.setCompoundDrawables( imgVerify, null, null, null );
+        Drawable imgVerify = getResources().getDrawable(R.drawable.ic_login_zero);
+        imgVerify.setBounds(0, 0, 60, 60);
+        edtVerifyCode.setCompoundDrawables(imgVerify, null, null, null);
     }
 
-    private void initFonts(){
+    private void initFonts() {
         Typeface typeface = TypefaceManager.get(getApplicationContext(), getString(R.string.font_yekan));
-        btnLoginActivity.setTypeface(typeface);
-        btnRegister.setTypeface(typeface);
-        edtVerifyCode.setTypeface(typeface);
-        edtUsername.setTypeface(typeface);
-        edtPassword.setTypeface(typeface);
-        edtPasswordRepeat.setTypeface(typeface);
         inputVerifyCode.setTypeface(typeface);
         inputUsername.setTypeface(typeface);
         inputPassword.setTypeface(typeface);
@@ -127,9 +121,9 @@ public class ActivityRegister extends AppCompatActivity {
                         || edtPassword.getText().toString().equals("")
                         || edtPasswordRepeat.getText().toString().equals("")) {
                     Toast.makeText(getApplicationContext(), "لطفا تمامی فیلد ها را پرکنید", Toast.LENGTH_LONG).show();
-                }else if (!edtPassword.getText().toString().equals(edtPasswordRepeat.getText().toString())) {
+                } else if (!edtPassword.getText().toString().equals(edtPasswordRepeat.getText().toString())) {
                     Toast.makeText(getApplicationContext(), "رمزهای وارد شده مطابقت ندارد", Toast.LENGTH_LONG).show();
-                }else {
+                } else {
                     new ValidateUsername().execute();
                 }
 
@@ -146,7 +140,6 @@ public class ActivityRegister extends AppCompatActivity {
             }
         });
     }
-
 
 
     private void showRobotDialog() {

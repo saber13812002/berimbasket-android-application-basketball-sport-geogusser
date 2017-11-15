@@ -1,29 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center"
     android:background="@color/colorAccent"
+    android:gravity="center"
+    android:orientation="vertical"
     tools:context="ir.berimbasket.app.activity.ActivitySplash">
 
     <pl.droidsonroids.gif.GifImageView
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_gravity="center"
-        android:src="@raw/animated_ball"
-        />
+        android:src="@raw/animated_ball" />
 
     <TextView
         android:id="@+id/txtSplash_loading"
-        android:layout_marginTop="30dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/yekan"
         android:text="@string/splash_screen_loading"
         android:textAppearance="@android:style/TextAppearance.Large"
-        android:textStyle="bold"
-        android:textColor="@android:color/white"/>
+        android:textColor="@android:color/white"
+        android:textStyle="bold" />
 
 </LinearLayout>

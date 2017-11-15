@@ -7,8 +7,6 @@
     android:clickable="true"
     app:cardCornerRadius="5dp">
 
-
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -22,9 +20,9 @@
             <ru.egslava.blurredview.BlurredImageView
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
+                android:scaleType="centerCrop"
                 android:src="@drawable/bg_profile"
                 app:downSampling="2"
-                android:scaleType="centerCrop"
                 app:keepOriginal="true"
                 app:radius="0.9" />
 
@@ -43,23 +41,24 @@
             android:id="@+id/txtPlayerName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:fontFamily="@font/yekan"
             android:gravity="center"
             android:padding="10dp"
-            android:background="@android:color/white"
-            android:textSize="16sp"/>
+            android:textSize="16sp" />
 
         <RatingBar
             android:id="@+id/rating"
+            style="?android:attr/ratingBarStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="?android:attr/ratingBarStyleSmall"
+            android:layout_marginBottom="10dp"
+            android:isIndicator="false"
             android:max="5"
             android:numStars="5"
             android:progress="5"
-            android:visibility="gone"
             android:progressTint="@color/colorGold"
-            android:layout_marginBottom="10dp"
-            android:isIndicator="false" />
+            android:visibility="gone" />
 
     </LinearLayout>
 

@@ -30,19 +30,19 @@
                 <ru.egslava.blurredview.BlurredImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@drawable/profile_circle"
-                    app:downSampling="12"
                     android:fitsSystemWindows="true"
                     android:scaleType="centerCrop"
-                    app:keepOriginal="false"
                     android:scaleX="1.5"
                     android:scaleY="1.5"
+                    android:src="@drawable/profile_circle"
+                    app:downSampling="12"
+                    app:keepOriginal="false"
                     app:radius="0.6" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/shape_player_profile_back"/>
+                    android:background="@drawable/shape_player_profile_back" />
 
             </FrameLayout>
 
@@ -50,24 +50,21 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:layout_collapseMode="pin"
                 android:theme="@style/ToolbarStyle"
+                app:layout_collapseMode="pin"
                 app:popupTheme="@style/AppTheme.PopupOverlay">
 
             </android.support.v7.widget.Toolbar>
-
-            <!--android:layout_marginTop="@*android:dimen/status_bar_height"-->
-
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="right"
-                android:gravity="center|start"
-                android:orientation="horizontal"
-                android:fitsSystemWindows="true"
                 android:layout_marginLeft="54dp"
                 android:layout_marginRight="54dp"
+                android:fitsSystemWindows="true"
+                android:gravity="center|start"
+                android:orientation="horizontal"
                 app:layout_collapseMode="parallax">
 
                 <de.hdodenhof.circleimageview.CircleImageView
@@ -89,6 +86,7 @@
                         android:id="@+id/title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/yekan"
                         android:text="نام و نام خانوادگی"
                         android:textColor="@android:color/white"
                         android:textSize="16sp" />
@@ -97,6 +95,7 @@
                         android:id="@+id/subTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/yekan"
                         android:text="کاربر حرفه ای"
                         android:textColor="#FFFFB8A2"
                         android:textSize="12sp" />

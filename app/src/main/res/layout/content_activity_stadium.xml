@@ -11,7 +11,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <RelativeLayout
@@ -33,6 +33,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toLeftOf="@id/imgStadiumLogo"
+                android:fontFamily="@font/yekan"
                 android:text="ورزشگاه شهید آوینی"
                 android:textColor="@android:color/black"
                 android:textSize="16sp" />
@@ -44,6 +45,7 @@
                 android:layout_below="@id/txtStadiumName"
                 android:layout_marginTop="4dp"
                 android:layout_toLeftOf="@id/imgStadiumLogo"
+                android:fontFamily="@font/yekan"
                 android:text="تلفن : 8943264 98+"
                 android:textSize="14sp" />
 
@@ -56,12 +58,12 @@
                 android:layout_below="@id/txtStadiumTel"
                 android:layout_marginTop="6dp"
                 android:layout_toLeftOf="@id/imgStadiumLogo"
-                android:visibility="gone"
                 android:isIndicator="false"
                 android:max="5"
                 android:numStars="5"
                 android:progress="4"
-                android:progressTint="@color/colorGold" />
+                android:progressTint="@color/colorGold"
+                android:visibility="gone" />
 
 
             <android.support.v7.widget.AppCompatButton
@@ -71,17 +73,18 @@
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@id/ratingStadiumRate"
                 android:layout_alignParentLeft="true"
+                android:fontFamily="@font/yekan"
                 android:text="تکمیل اطلاعات" />
 
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/btnAddImage"
+                style="@style/BrandButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_below="@id/btnCompleteStadiumDetail"
-                style="@style/BrandButtonStyle"
-                android:text="افزودن عکس"
-                android:fontFamily="@font/yekan"/>
+                android:fontFamily="@font/yekan"
+                android:text="افزودن عکس" />
 
         </RelativeLayout>
 
@@ -89,8 +92,8 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginBottom="10dp"
-            android:layout_marginRight="10dp"
             android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:layout_marginTop="20dp"
             android:background="@color/colorLightGrey" />
 
@@ -130,13 +133,15 @@
                 android:id="@+id/txtDetailSection"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorPrimary"
-                android:text="جزئیات ورزشگاه"/>
+                android:fontFamily="@font/yekan"
+                android:text="جزئیات ورزشگاه"
+                android:textColor="@color/colorPrimary" />
 
             <TextView
                 android:id="@+id/txtStadiumAddress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/yekan"
                 android:padding="10dp"
                 android:text="آدرس : تهران - کیلومتر 5 آزاد راه تهران کرج مجموعه ورزشی آزادی" />
 
@@ -144,6 +149,7 @@
                 android:id="@+id/txtStadiumRound"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/yekan"
                 android:padding="10dp"
                 android:text="ساعت کاری : 8 صبح تا 10 شب" />
 
@@ -151,6 +157,7 @@
                 android:id="@+id/txtTelegramChannel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/yekan"
                 android:padding="10dp"
                 android:text="کانال تلگرام : @berimbasket" />
 
@@ -158,6 +165,7 @@
                 android:id="@+id/txtInstagramId"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/yekan"
                 android:padding="10dp"
                 android:text="اینستاگرام : @berimbasket" />
 

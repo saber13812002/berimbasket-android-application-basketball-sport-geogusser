@@ -33,7 +33,7 @@ public class AdapterStadiumGallery extends RecyclerView.Adapter<AdapterStadiumGa
     public ViewHolderStadiumGallery onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.item_stadium_gallery, parent, false);
-        if (view.getLayoutParams ().width == RecyclerView.LayoutParams.MATCH_PARENT) {
+        if (view.getLayoutParams().width == RecyclerView.LayoutParams.MATCH_PARENT) {
             view.getLayoutParams().width = RecyclerView.LayoutParams.WRAP_CONTENT;
         }
         return new ViewHolderStadiumGallery(view);

@@ -64,7 +64,7 @@ public class ActivityPlayer extends AppCompatActivity {
                 .centerInside()
                 .placeholder(R.drawable.profile_default)
                 .error(R.drawable.profile_default)
-                .into((ImageView)imgProfileImageView);
+                .into((ImageView) imgProfileImageView);
 
         txtPlayerName.setText(entityPlayer.getName());
 
@@ -121,14 +121,11 @@ public class ActivityPlayer extends AppCompatActivity {
 
         typeface = TypefaceManager.get(getApplicationContext(), getString(R.string.font_yekan));
 
-        txtPlayerName.setTypeface(typeface);
-        txtPlayerLevel.setTypeface(typeface);
-
 
         btnReportPlayer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SendTo.sendToTelegramChat(ActivityPlayer.this, REPORT_PLAYER_BOT  + entityPlayer.getId());
+                SendTo.sendToTelegramChat(ActivityPlayer.this, REPORT_PLAYER_BOT + entityPlayer.getId());
             }
         });
     }

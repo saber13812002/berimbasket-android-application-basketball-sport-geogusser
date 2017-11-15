@@ -18,9 +18,10 @@
             android:id="@+id/txtDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:layout_marginLeft="10dp"
             android:layout_centerInParent="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:fontFamily="@font/yekan"
             android:text=" - " />
 
         <TextView
@@ -29,9 +30,10 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:layout_marginEnd="10dp"
-            android:textSize="18sp"
             android:layout_toStartOf="@id/txtDate"
-            android:text="2" />
+            android:fontFamily="@font/yekan"
+            android:text="2"
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/txtAwayScore"
@@ -39,10 +41,10 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:layout_marginStart="10dp"
-            android:textSize="18sp"
             android:layout_toEndOf="@id/txtDate"
-            android:fontFamily=""
-            android:text="1" />
+            android:fontFamily="@font/yekan"
+            android:text="1"
+            android:textSize="18sp" />
 
 
         <LinearLayout
@@ -64,6 +66,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:fontFamily="@font/yekan"
                 android:text="پرسپولیس" />
 
 
@@ -89,6 +92,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:fontFamily="@font/yekan"
                 android:text="استقلال" />
 
         </LinearLayout>

@@ -1,7 +1,5 @@
 package ir.berimbasket.app.activity;
 
-import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -35,14 +33,12 @@ import ir.berimbasket.app.entity.EntityStadiumGallery;
 import ir.berimbasket.app.network.HttpFunctions;
 import ir.berimbasket.app.util.ApplicationLoader;
 import ir.berimbasket.app.util.SendTo;
-import ir.berimbasket.app.util.TypefaceManager;
 
 public class ActivityStadium extends AppCompatActivity {
 
     TextView txtStadiumName, txtStadiumTel, txtStadiumAddress, txtStadiumRound, txtTelegramChannel, txtInstagramId, txtDetailSection;
     AppCompatButton btnCompleteStadiumDetail, btnAddImage;
     CircleImageView imgStadiumLogo;
-    Typeface typeface;
     EntityStadium entityStadium;
     String stadiumLogoUrl;
     private ImageView btnReportStadium, btnReserveStadium;
@@ -89,8 +85,6 @@ public class ActivityStadium extends AppCompatActivity {
 
     private void initViewsAndListeners() {
 
-        typeface = TypefaceManager.get(getApplicationContext(), getString(R.string.font_yekan));
-
         txtStadiumName = findViewById(R.id.txtStadiumName);
         txtStadiumTel = findViewById(R.id.txtStadiumTel);
         txtStadiumAddress = findViewById(R.id.txtStadiumAddress);
@@ -111,15 +105,6 @@ public class ActivityStadium extends AppCompatActivity {
                 .into(imgStadiumLogo);
 
         btnCompleteStadiumDetail = findViewById(R.id.btnCompleteStadiumDetail);
-
-        txtStadiumName.setTypeface(typeface);
-        txtStadiumTel.setTypeface(typeface);
-        txtStadiumAddress.setTypeface(typeface);
-        txtStadiumRound.setTypeface(typeface);
-        txtTelegramChannel.setTypeface(typeface);
-        txtInstagramId.setTypeface(typeface);
-        btnCompleteStadiumDetail.setTypeface(typeface);
-        txtDetailSection.setTypeface(typeface);
 
         btnCompleteStadiumDetail.setOnClickListener(new View.OnClickListener() {
             @Override

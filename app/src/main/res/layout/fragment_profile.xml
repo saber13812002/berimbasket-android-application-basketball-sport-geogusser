@@ -58,6 +58,7 @@
                         android:layout_width="36dp"
                         android:layout_height="36dp"
                         android:layout_gravity="bottom|right"
+                        android:fontFamily="@font/yekan"
                         android:gravity="center"
                         android:text="3"
                         android:textColor="@android:color/white"
@@ -78,6 +79,7 @@
                         android:layout_alignParentRight="true"
                         android:layout_marginBottom="5dp"
                         android:layout_marginLeft="15dp"
+                        android:fontFamily="@font/yekan"
                         android:layout_marginRight="15dp"
                         android:layout_marginTop="15dp"
                         android:text="نام و نام خانوادگی"
@@ -90,6 +92,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_below="@id/txtAccName"
+                        android:fontFamily="@font/yekan"
                         android:layout_marginRight="15dp"
                         android:text="کاربر حرفه ای" />
 
@@ -101,6 +104,7 @@
                         android:layout_margin="15dp"
                         android:layout_marginRight="15dp"
                         android:layout_toLeftOf="@id/txtAccName"
+                        android:fontFamily="@font/yekan"
                         android:gravity="left"
                         android:text="ارتقا لول در 2000xp"
                         android:textColor="@color/colorAccent"

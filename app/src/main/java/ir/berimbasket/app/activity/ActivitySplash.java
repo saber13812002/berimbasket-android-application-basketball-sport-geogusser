@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -16,7 +15,6 @@ import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.JsonArray;
@@ -31,7 +29,6 @@ import ir.berimbasket.app.downloadmanager.DownloadApkUpdate;
 import ir.berimbasket.app.network.Connectivity;
 import ir.berimbasket.app.network.HttpFunctions;
 import ir.berimbasket.app.util.PrefManager;
-import ir.berimbasket.app.util.TypefaceManager;
 import ir.berimbasket.app.view.CustomAlertDialog;
 
 public class ActivitySplash extends AppCompatActivity {
@@ -49,10 +46,6 @@ public class ActivitySplash extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-
-        Typeface typeface = TypefaceManager.get(getApplicationContext(), getString(R.string.font_yekan));
-        TextView txtSplashLoading = (TextView) findViewById(R.id.txtSplash_loading);
-        txtSplashLoading.setTypeface(typeface);
 
         PrefManager pref = new PrefManager(getApplicationContext());
         boolean needForUpdate = pref.getSettingsPrefUpdateNotification();
@@ -144,7 +137,7 @@ public class ActivitySplash extends AppCompatActivity {
                                         // Here, thisActivity is the current activity
                                         if (ContextCompat.checkSelfPermission(ActivitySplash.this,
                                                 Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                                                != PackageManager.PERMISSION_GRANTED){
+                                                != PackageManager.PERMISSION_GRANTED) {
 
                                             ActivityCompat.requestPermissions(ActivitySplash.this,
                                                     new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
@@ -153,8 +146,7 @@ public class ActivitySplash extends AppCompatActivity {
                                             // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
                                             // app-defined int constant. The callback method gets the
                                             // result of the request.
-                                        }
-                                        else {
+                                        } else {
                                             downloadApk();
                                         }
                                     } else {
@@ -192,7 +184,7 @@ public class ActivitySplash extends AppCompatActivity {
         this.finish();
     }
 
-    private void downloadApk(){
+    private void downloadApk() {
         // start update
         DownloadApkUpdate downloadApk = new DownloadApkUpdate(ActivitySplash.this, ActivitySplash.this);
         downloadApk.StartDownload(apkUrl, fileName, Integer.parseInt(fileSizeByte));
@@ -257,8 +249,7 @@ public class ActivitySplash extends AppCompatActivity {
                                 .show();
 
                         customAlertDialog.setDialogStyle(dialog);
-                    }
-                    else{
+                    } else {
                         CustomAlertDialog customAlertDialog = new CustomAlertDialog(ActivitySplash.this);
 
                         AlertDialog dialog = new AlertDialog.Builder(ActivitySplash.this)

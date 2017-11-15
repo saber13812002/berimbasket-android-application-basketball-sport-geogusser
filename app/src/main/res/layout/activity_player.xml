@@ -62,6 +62,7 @@
                         android:layout_height="wrap_content"
                         android:textColor="@android:color/white"
                         android:layout_marginTop="12dp"
+                        android:fontFamily="@font/yekan"
                         android:textSize="36sp"
                         android:text="جردن باروز"/>
 
@@ -72,6 +73,7 @@
                         android:textColor="@android:color/white"
                         android:layout_marginTop="4dp"
                         android:textSize="14sp"
+                        android:fontFamily="@font/yekan"
                         android:text="سطح کاربر : حرفه ای"/>
 
                 </LinearLayout>

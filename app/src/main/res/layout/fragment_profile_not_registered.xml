@@ -7,23 +7,24 @@
 
     <TextView
         android:id="@+id/txtFragmentProfile_userNotRegMsg"
-        android:text="@string/fragment_profile_user_not_reg_message"
-        android:textAppearance="@android:style/TextAppearance.Medium"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:layout_margin="16dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="16dp"
+        android:fontFamily="@font/yekan"
+        android:gravity="center"
+        android:text="@string/fragment_profile_user_not_reg_message"
+        android:textAppearance="@android:style/TextAppearance.Medium" />
 
     <android.support.v7.widget.AppCompatButton
         android:id="@+id/btnFragmentProfile_goToLogin"
+        style="@style/BrandButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:fontFamily="@font/yekan"
         android:text="@string/fragment_profile_user_not_reg_button"
         android:textAppearance="@android:style/TextAppearance.Medium"
-        android:textColor="@android:color/white"
-        android:background="@color/colorPrimary"
-        android:padding="16dp"
-        android:layout_gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:textColor="@android:color/white" />
 
 </LinearLayout>
