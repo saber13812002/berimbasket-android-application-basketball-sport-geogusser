@@ -47,33 +47,30 @@ public class ActivitySettings extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         collapsingToolbarLayout.setTitleEnabled(false);
         Typeface typeface = TypefaceManager.get(getApplicationContext(), getString(R.string.font_yekan));
-        title = (TextView) findViewById(R.id.title);
-        subTitle = (TextView) findViewById(R.id.subTitle);
+        title = findViewById(R.id.title);
+        subTitle = findViewById(R.id.subTitle);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         title.setTypeface(typeface);
         subTitle.setTypeface(typeface);
-        final CircleImageView imgProfileImage = (CircleImageView) findViewById(R.id.imgProfileImage);
-        try {
-            final LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(convertDpToPixel(46, getApplicationContext()), convertDpToPixel(46, getApplicationContext()));
-            final LinearLayout.LayoutParams params2 = new LinearLayout.LayoutParams(convertDpToPixel(64, getApplicationContext()), convertDpToPixel(64, getApplicationContext()));
+        final CircleImageView imgProfileImage = findViewById(R.id.imgProfileImage);
+
+        final LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(convertDpToPixel(46, getApplicationContext()), convertDpToPixel(46, getApplicationContext()));
+        final LinearLayout.LayoutParams params2 = new LinearLayout.LayoutParams(convertDpToPixel(64, getApplicationContext()), convertDpToPixel(64, getApplicationContext()));
 
 
-            appBarLayout.addOnOffsetChangedListener(new AppBarStateChangeListener() {
-                @Override
-                public void onStateChanged(AppBarLayout appBarLayout, State state) {
-                    Log.d("STATE", state.name());
-                    if (state.name().equals("COLLAPSED")) {
-                        imgProfileImage.setLayoutParams(params);
-                    } else {
-                        imgProfileImage.setLayoutParams(params2);
-                    }
+        appBarLayout.addOnOffsetChangedListener(new AppBarStateChangeListener() {
+            @Override
+            public void onStateChanged(AppBarLayout appBarLayout, State state) {
+                Log.d("STATE", state.name());
+                if (state.name().equals("COLLAPSED")) {
+                    imgProfileImage.setLayoutParams(params);
+                } else {
+                    imgProfileImage.setLayoutParams(params2);
                 }
-            });
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+            }
+        });
 
         fabUploadPhoto = findViewById(R.id.fabSettings);
         fabUploadPhoto.setOnClickListener(new View.OnClickListener() {

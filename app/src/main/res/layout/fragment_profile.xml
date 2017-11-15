@@ -143,6 +143,7 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@id/btnProfileScore"
                         android:layout_marginLeft="10dp"
+                        android:layout_alignParentLeft="true"
                         android:fontFamily="@font/yekan"
                         android:text="تیم من" />
 

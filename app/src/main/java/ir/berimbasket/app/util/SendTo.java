@@ -35,6 +35,7 @@ public class SendTo {
         if (SendTo.isAppAvailable(context, packageName)){
             try {
                 i.setPackage(packageName);
+                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(i);
             }catch (ActivityNotFoundException e){
                 // do nothing

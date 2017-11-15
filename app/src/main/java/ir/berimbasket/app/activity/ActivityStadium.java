@@ -1,6 +1,7 @@
 package ir.berimbasket.app.activity;
 
 import android.graphics.Typeface;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -14,8 +15,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -25,6 +31,7 @@ import ir.berimbasket.app.activity.fragment.FragmentStadiumMap;
 import ir.berimbasket.app.adapter.AdapterStadiumGallery;
 import ir.berimbasket.app.entity.EntityStadium;
 import ir.berimbasket.app.entity.EntityStadiumGallery;
+import ir.berimbasket.app.network.HttpFunctions;
 import ir.berimbasket.app.util.ApplicationLoader;
 import ir.berimbasket.app.util.SendTo;
 import ir.berimbasket.app.util.TypefaceManager;
@@ -38,11 +45,12 @@ public class ActivityStadium extends AppCompatActivity {
     EntityStadium entityStadium;
     String stadiumLogoUrl;
     private ImageView btnReportStadium, btnReserveStadium;
-    private static final String UPDATE_STADIUM_INFO_BOT = "https://t.me/berimbasketProfilebot?start=";
+    private static final String UPDATE_STADIUM_INFO_BOT = "https://t.me/berimbasketProfilebot?start=-";
     private static final String REPORT_STADIUM_BOT = "https://t.me/berimbasketreportbot?start=-";
     private static final String RESERVE_STADIUM_BOT = "https://t.me/Berimbasketreservebot?start=";
     private static final String STADIUM_IMAGE_BOT = "https://t.me/berimbasketuploadbot?start=";
     private static final String STADIUM_PHOTO_BASE_URL = "https://berimbasket.ir/bball/bots/playgroundphoto/";
+    private static String STADIUM_URL = "https://berimbasket.ir/bball/getPlayGroundJson.php?id=0";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +61,12 @@ public class ActivityStadium extends AppCompatActivity {
         initToolbar();
         initViewsAndListeners();
         initStadiumMap();
-        initGalleryRecycler();
+        // FIXME: 14/11/2017 Get stadium info with stadium id stand alone and without getting from intent bundle
+        try {
+            initGalleryRecycler();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         getStadiumInfo(entityStadium);
     }
 
@@ -159,8 +172,6 @@ public class ActivityStadium extends AppCompatActivity {
 
 
     private void initGalleryRecycler() {
-        int[] galleryIdes = {R.drawable.slider1, R.drawable.slider2, R.drawable.slider3};
-
         String[] galleryImages = entityStadium.getImages();
         ArrayList<EntityStadiumGallery> stadiumGalleryList = new ArrayList<>();
         for (int i = 0; i < galleryImages.length; i++) {
@@ -191,4 +202,8 @@ public class ActivityStadium extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+
+
+
 }

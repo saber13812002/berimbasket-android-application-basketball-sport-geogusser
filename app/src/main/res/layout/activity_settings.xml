@@ -56,6 +56,7 @@
 
             </android.support.v7.widget.Toolbar>
 
+            <!--android:layout_marginTop="@*android:dimen/status_bar_height"-->
 
 
             <LinearLayout
@@ -63,7 +64,6 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="right"
                 android:gravity="center|start"
-                android:layout_marginTop="@*android:dimen/status_bar_height"
                 android:orientation="horizontal"
                 android:fitsSystemWindows="true"
                 android:layout_marginLeft="54dp"

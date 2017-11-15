@@ -33,7 +33,7 @@ public class ActivityPlayer extends AppCompatActivity {
 
     TextView txtPlayerName, txtPlayerLevel;
     private ImageView btnReportPlayer;
-    private static final String REPORT_PLAYER_BOT = "https://t.me/berimbasketProfilebot?start=";
+    private static final String REPORT_PLAYER_BOT = "https://t.me/berimbasketreportbot?start=";
     EntityPlayer entityPlayer;
     private Typeface typeface;
 

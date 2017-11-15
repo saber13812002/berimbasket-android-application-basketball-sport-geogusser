@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 import ir.berimbasket.app.R;
@@ -52,13 +54,20 @@ public class AdapterStadiumGallery extends RecyclerView.Adapter<AdapterStadiumGa
 
         ImageView imgGalleryImage;
 
-        public ViewHolderStadiumGallery(View itemView) {
+        ViewHolderStadiumGallery(View itemView) {
             super(itemView);
-            imgGalleryImage = (ImageView) itemView.findViewById(R.id.imgGalleryImage);
+            imgGalleryImage = itemView.findViewById(R.id.imgGalleryImage);
         }
 
         public void setData(int position) {
-            imgGalleryImage.setImageResource(galleryList.get(position).getUrl());
+            Picasso.with(context)
+                    .load(galleryList.get(position).getUrl())
+                    .resize(120, 120)
+                    .centerInside()
+                    .placeholder(R.drawable.profile_default)
+                    .error(R.drawable.profile_default)
+                    .into(imgGalleryImage);
+
         }
     }
 }
