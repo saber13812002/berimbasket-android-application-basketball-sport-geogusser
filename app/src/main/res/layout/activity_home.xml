@@ -38,6 +38,15 @@
                     app:srcCompat="@drawable/ic_settings_black_24dp"
                     android:focusable="true" />
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_centerInParent="true"
+                    android:text="بریم بسکت"
+                    android:fontFamily="@font/yekan"
+                    android:textStyle="bold"
+                    android:textSize="16sp"/>
 
             </RelativeLayout>
         </android.support.v7.widget.Toolbar>
