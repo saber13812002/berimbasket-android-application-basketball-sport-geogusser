@@ -8,49 +8,48 @@
     android:orientation="vertical"
     tools:context="ir.berimbasket.app.activity.ActivityHome">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/toolbarColor"
-        android:minHeight="48dp"
-        app:contentInsetStart="0dp"
-        app:elevation="8dp"
-        android:theme="@style/ToolbarStyle"
-        app:titleTextColor="@android:color/white">
+        android:layout_height="wrap_content">
 
-        <RelativeLayout
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="?attr/actionBarSize"
+            android:theme="@style/ToolbarStyle"
+            app:contentInsetEnd="0dp"
+            app:contentInsetLeft="0dp"
+            app:contentInsetRight="0dp"
+            app:contentInsetStart="0dp">
 
-            <ImageView
-                android:id="@+id/btnUser"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:clickable="true"
-                android:padding="12dp"
-                app:srcCompat="@drawable/ic_home_toolbar_user" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            <ImageView
-                android:id="@+id/btnSetting"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:clickable="true"
-                android:padding="12dp"
-                app:srcCompat="@drawable/ic_settings_black_24dp" />
+                <ImageView
+                    android:id="@+id/btnSetting"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:padding="16dp"
+                    app:srcCompat="@drawable/ic_settings_black_24dp"
+                    android:focusable="true" />
 
 
-        </RelativeLayout>
-    </android.support.v7.widget.Toolbar>
+            </RelativeLayout>
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
 
 
     <android.support.v4.view.ViewPager
         android:id="@+id/vpPager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_weight="1" />
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"
@@ -60,6 +59,5 @@
         android:background="@android:color/white"
         app:elevation="24dp"
         app:menu="@menu/home_bottom_navigation" />
-
 
 </LinearLayout>

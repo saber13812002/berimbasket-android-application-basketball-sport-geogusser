@@ -212,7 +212,7 @@
     <string name="restart_your_device">دستگاه خود را خاموش کرده و دوباره روشن کنید</string>
     <string name="settings">تنظیمات</string>
     <string name="download_manager_not_found">امکان دانلود وجود ندارد ، برنامه ی Download Manager وجود ندارد</string>
-    <string name="telegram_not_found">تلگرام در دستگاه شما نصب نشده !\nاکنون نصب میکنید ؟</string>
+    <string name="telegram_not_found">تلگرام در دستگاه شما نصب نشده !  اکنون نصب میکنید ؟</string>
 
     <!-- Settings preferences -->
     <string name="key_pref_update_notification">pref_update_notification</string>
@@ -222,6 +222,9 @@
     <string name="key_pref_terms_and_services">pref_terms_and_services</string>
     <string name="key_pref_change_log">pref_change_log</string>
     <string name="key_pref_about_us">pref_about_us</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/menu_profile_score"
+        android:orderInCategory="1"
+        android:title="امتیاز من" />
+
+    <!-- todo : change icon of this resource -->
+    <item
+        android:id="@+id/menu_profile_team"
+        android:orderInCategory="2"
+        android:title="تیم من" />
+
+    <!-- todo : change icon of this resource-->
+    <item
+        android:id="@+id/menu_profile_info"
+        android:orderInCategory="3"
+        android:title="تکمیل پروفایل" />
+
+    <item
+        android:id="@+id/menu_profile_change_pass"
+        android:orderInCategory="4"
+        android:title="تغییر رمز عبور" />
+
+    <item
+        android:id="@+id/menu_profile_logout"
+        android:orderInCategory="5"
+        android:title="خروج از حساب" />
+
+</menu>

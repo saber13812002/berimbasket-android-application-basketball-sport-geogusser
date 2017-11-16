@@ -7,87 +7,22 @@
     android:fitsSystemWindows="true"
     tools:context="ir.berimbasket.app.activity.ActivityPlayer">
 
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/app_bar"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/app_bar_height"
-        android:fitsSystemWindows="true"
-        style="@style/AppTheme.AppBarOverlay" >
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
 
-        <android.support.design.widget.CollapsingToolbarLayout
-            android:id="@+id/toolbar_layout"
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/app_bar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:contentScrim="?attr/colorPrimary"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed">
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fitsSystemWindows="true">
-
-                <ru.egslava.blurredview.BlurredImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/profile2"
-                    app:downSampling="12"
-                    android:fitsSystemWindows="true"
-                    android:scaleType="centerCrop"
-                    app:keepOriginal="false"
-                    android:scaleX="1.5"
-                    android:scaleY="1.5"
-                    app:radius="0.6" />
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/shape_player_profile_back"/>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_gravity="center"
-                    android:gravity="center">
-
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/imgPlayerProfile"
-                        android:layout_width="140dp"
-                        android:layout_height="140dp"
-                        android:layout_gravity="center"
-                        android:src="@drawable/profile_default" />
-
-                    <TextView
-                        android:id="@+id/txtPlayerName"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@android:color/white"
-                        android:layout_marginTop="12dp"
-                        android:fontFamily="@font/yekan"
-                        android:textSize="36sp"
-                        android:text="جردن باروز"/>
-
-                    <TextView
-                        android:id="@+id/txtPlayerLevel"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@android:color/white"
-                        android:layout_marginTop="4dp"
-                        android:textSize="14sp"
-                        android:fontFamily="@font/yekan"
-                        android:text="سطح کاربر : حرفه ای"/>
-
-                </LinearLayout>
-
-            </FrameLayout>
+            android:layout_height="wrap_content">
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:fitsSystemWindows="false"
-                android:theme="@style/ToolbarStyle"
-                style="@style/AppTheme.PopupOverlay"
-                app:layout_collapseMode="pin" >
+                android:theme="@style/ToolbarStyle">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -99,16 +34,52 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
-                        android:padding="16dp"
                         android:background="?attr/selectableItemBackgroundBorderless"
+                        android:padding="16dp"
                         app:srcCompat="@drawable/ic_toolbar_flag_report" />
 
                 </RelativeLayout>
+
             </android.support.v7.widget.Toolbar>
 
-        </android.support.design.widget.CollapsingToolbarLayout>
-    </android.support.design.widget.AppBarLayout>
+        </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_activity_player" />
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/imgPlayerProfile"
+                    android:layout_width="124dp"
+                    android:layout_height="124dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="30dp"
+                    android:src="@drawable/profile_default"
+                    app:civ_border_color="@color/colorPrimary"
+                    app:civ_border_width="2dp" />
+
+                <TextView
+                    android:id="@+id/txtPlayerName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:fontFamily="@font/yekan"
+                    android:text="جردن باروز"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="24sp" />
+
+                <include layout="@layout/content_activity_player" />
+
+            </LinearLayout>
+
+        </android.support.v4.widget.NestedScrollView>
+
+    </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>

@@ -31,7 +31,6 @@ import ir.berimbasket.app.entity.EntityLocation;
 import ir.berimbasket.app.map.GPSTracker;
 import ir.berimbasket.app.network.SendLocationTask;
 import ir.berimbasket.app.util.ApplicationLoader;
-import ir.berimbasket.app.util.PrefManager;
 import ir.berimbasket.app.util.TypefaceManager;
 import ir.berimbasket.app.view.CustomTypefaceSpan;
 
@@ -78,9 +77,7 @@ public class ActivityHome extends AppCompatActivity implements View.OnClickListe
         public void onPageSelected(int position) {
             if (prevMenuItem != null) {
                 prevMenuItem.setChecked(false);  // unCheck previous item
-            }
-            else
-            {
+            } else {
                 // no previous item yet
                 navigation.getMenu().getItem(0).setChecked(false);
             }
@@ -101,7 +98,7 @@ public class ActivityHome extends AppCompatActivity implements View.OnClickListe
         Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_home);
         //Register for Push Notifications
-        Pushe.initialize(this,true);
+        Pushe.initialize(this, true);
         initToolbar();
         initViews();
         initListeners();
@@ -126,13 +123,13 @@ public class ActivityHome extends AppCompatActivity implements View.OnClickListe
 
     private void changeBottomNavFont(BottomNavigationView navigation) {
         Menu m = navigation.getMenu();
-        for (int i=0;i<m.size();i++) {
+        for (int i = 0; i < m.size(); i++) {
             MenuItem mi = m.getItem(i);
 
             //for aapplying a font to subMenu ...
             SubMenu subMenu = mi.getSubMenu();
-            if (subMenu!=null && subMenu.size() >0 ) {
-                for (int j=0; j <subMenu.size();j++) {
+            if (subMenu != null && subMenu.size() > 0) {
+                for (int j = 0; j < subMenu.size(); j++) {
                     MenuItem subMenuItem = subMenu.getItem(j);
                     applyFontToMenuItem(subMenuItem);
                 }
@@ -153,7 +150,7 @@ public class ActivityHome extends AppCompatActivity implements View.OnClickListe
     private void applyFontToMenuItem(MenuItem mi) {
         Typeface font = TypefaceManager.get(getApplicationContext(), getString(R.string.font_yekan));
         SpannableString mNewTitle = new SpannableString(mi.getTitle());
-        mNewTitle.setSpan(new CustomTypefaceSpan("" , font), 0 , mNewTitle.length(),  Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+        mNewTitle.setSpan(new CustomTypefaceSpan("", font), 0, mNewTitle.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
         mi.setTitle(mNewTitle);
     }
 
@@ -206,18 +203,16 @@ public class ActivityHome extends AppCompatActivity implements View.OnClickListe
     }
 
     private void initToolbar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
     }
 
     private void initViews() {
-        btnSetting = (ImageView) findViewById(R.id.btnSetting);
-        btnUser = (ImageView) findViewById(R.id.btnUser);
+        btnSetting = findViewById(R.id.btnSetting);
     }
 
     private void initListeners() {
         btnSetting.setOnClickListener(this);
-        btnUser.setOnClickListener(this);
     }
 
     @Override
@@ -227,33 +222,18 @@ public class ActivityHome extends AppCompatActivity implements View.OnClickListe
                 Intent goToSetting = new Intent(this, ActivitySettings.class);
                 startActivity(goToSetting);
                 break;
-
-            case R.id.btnUser:
-                PrefManager prefManager = new PrefManager(getApplicationContext());
-                boolean isLoggedIn = prefManager.getIsLoggedIn();
-                Intent intent;
-                if (isLoggedIn) {
-                    intent = new Intent(this, ActivityUser.class);
-                } else {
-                    intent = new Intent(this, ActivityLogin.class);
-                }
-                startActivity(intent);
-                break;
-
             default:
-
                 break;
         }
     }
 
+    @SuppressWarnings("NullableProblems")
     @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           String permissions[], int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         switch (requestCode) {
             case MY_PERMISSIONS_REQUEST_INTERNET: {
                 // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
                     // permission was granted, yay! Do the
                     // contacts-related task you need to do.
@@ -263,7 +243,6 @@ public class ActivityHome extends AppCompatActivity implements View.OnClickListe
                     // permission denied, boo! Disable the
                     // functionality that depends on this permission.
                 }
-                return;
             }
 
             // other 'case' lines to check for other

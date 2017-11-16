@@ -159,15 +159,14 @@ public class ActivityLogin extends AppCompatActivity {
         protected void onPostExecute(final Boolean success) {
             if (success) {
                 Toast.makeText(ActivityLogin.this, "ورود شما با موفقیت انجام شد", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(ActivityLogin.this, ActivityUser.class);
                 PrefManager pref = new PrefManager(getApplicationContext());
                 pref.putUserName(edtUsername.getText().toString());
                 pref.putPassword(edtPassword.getText().toString());
                 pref.putIsLoggedIn(true);
                 // Tracking Event (Analytics)
                 ApplicationLoader.getInstance().trackEvent("Login", "Log on", "");
-                startActivity(intent);
                 ActivityLogin.this.finish();
+                // FIXME: 16/11/2017  after login fragment profile's childes fragment not showing
             } else {
                 edtUsername.setError("نام کاربری یا رمز عبور اشتباه است");
             }

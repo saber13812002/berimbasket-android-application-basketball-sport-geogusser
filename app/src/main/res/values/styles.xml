@@ -13,13 +13,15 @@
 
     <style name="ToolbarStyle" parent="ThemeOverlay.AppCompat.ActionBar">
         <!-- Used to for the title of the Toolbar -->
-        <item name="android:textColorPrimary">#fff</item>
+        <item name="android:textColorPrimary">@color/colorPrimary</item>
         <!-- Used to for the title of the Toolbar when parent is Theme.AppCompat.Light -->
-        <item name="android:textColorPrimaryInverse">#fff</item>
+        <item name="android:textColorPrimaryInverse">@color/colorPrimary</item>
         <!-- Used to color the text of the action menu icons -->
-        <item name="android:textColorSecondary">#fff</item>
+        <item name="android:textColorSecondary">@color/colorPrimary</item>
         <!-- Used to color the overflow menu icon -->
-        <item name="actionMenuTextColor">#fff</item>
+        <item name="actionMenuTextColor">@color/colorPrimary</item>
+        <!-- Color of the Toolbar -->
+        <item name="android:background">@color/colorWhite</item>
     </style>
 
     <style name="PreferenceThemeOverlay">

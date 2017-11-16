@@ -69,7 +69,6 @@
         <activity
             android:name=".activity.ActivityRegister"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".activity.ActivityUser" />
         <activity
             android:name=".activity.ActivityCreateStadium"
             android:label="@string/name_activity_create_stadium"
@@ -80,8 +79,7 @@
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".activity.ActivitySettings"
-            android:label="@string/name_activity_setting"
-            android:theme="@style/StatusTransparent" />
+            android:label="@string/name_activity_setting" />
         <activity
             android:name=".activity.ActivityPlayer"
             android:label="@string/name_activity_player"

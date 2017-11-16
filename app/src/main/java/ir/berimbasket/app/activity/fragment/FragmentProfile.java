@@ -1,37 +1,33 @@
 package ir.berimbasket.app.activity.fragment;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatButton;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import android.support.v7.widget.PopupMenu;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
 
 import ir.berimbasket.app.R;
 import ir.berimbasket.app.activity.ActivityLogin;
-import ir.berimbasket.app.adapter.AdapterMission;
-import ir.berimbasket.app.entity.EntityMission;
-import ir.berimbasket.app.network.HttpFunctions;
+import ir.berimbasket.app.adapter.AdapterProfilePager;
 import ir.berimbasket.app.util.ApplicationLoader;
 import ir.berimbasket.app.util.PrefManager;
 import ir.berimbasket.app.util.SendTo;
+import ir.berimbasket.app.view.FontHelper;
+import ir.berimbasket.app.view.WrapContentViewPager;
 
 /**
  * Created by mohammad hosein on 5/1/2017.
@@ -39,12 +35,17 @@ import ir.berimbasket.app.util.SendTo;
 
 public class FragmentProfile extends Fragment {
 
-    TextView txtAccName, txtAccBadge, txtAccLevel, txtAccXp;
-    private String MISSION_URL = "http://berimbasket.ir/bball/getMission.php";
+    TextView txtProfileName;
     AppCompatButton btnScoreProfile, btnProfileTeam;
     private static final String PROFILE_SCORE_INFO_BOT = "http://t.me/berimbasketScorebot";
     private static final String PROFILE_TEAM_INFO_BOT = "http://t.me/berimbasketScorebot";
+    private static final String UPDATE_USER_INFO_BOT = "https://t.me/berimbasketprofilebot";
+    private static final String UPLOAD_PHOTO_BOT = "https://t.me/berimbasketUploadbot";
     private static boolean isLoggedIn;
+    private AdapterProfilePager adapterProfilePager;
+    private TabLayout tabProfile;
+    private WrapContentViewPager pagerProfile;
+    private FloatingActionButton fabProfileMenu, fabChangeAvatar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -60,35 +61,18 @@ public class FragmentProfile extends Fragment {
         if (isLoggedIn) {
             // user logged in
             rootView = inflater.inflate(R.layout.fragment_profile, container, false);
-            txtAccName = (TextView) rootView.findViewById(R.id.txtAccName);
-            txtAccLevel = (TextView) rootView.findViewById(R.id.txtAccLevel);
-            txtAccBadge = (TextView) rootView.findViewById(R.id.txtAccBadge);
-            txtAccXp = (TextView) rootView.findViewById(R.id.txtAccXp);
-            btnScoreProfile = rootView.findViewById(R.id.btnProfileScore);
-            btnProfileTeam = rootView.findViewById(R.id.btnProfileTeam);
+            initViews(rootView);
+            initProductPager();
+            initTabProduct();
 
+            txtProfileName = rootView.findViewById(R.id.txtProfileName);
+            txtProfileName.setText(pref.getUserName());
 
-            btnScoreProfile.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    SendTo.sendToTelegramChat(getActivity(), PROFILE_SCORE_INFO_BOT);
-                }
-            });
-
-            btnProfileTeam.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    SendTo.sendToTelegramChat(getActivity(), PROFILE_TEAM_INFO_BOT);
-                }
-            });
-
-
-            new GetMissions().execute();
         } else {
-            // user not logged in
+            //user not logged in
             rootView = inflater.inflate(R.layout.fragment_profile_not_registered, container, false);
-            TextView txtNotRegisteredMsg = (TextView) rootView.findViewById(R.id.txtFragmentProfile_userNotRegMsg);
-            Button btnGoToLogin = (Button) rootView.findViewById(R.id.btnFragmentProfile_goToLogin);
+            TextView txtNotRegisteredMsg = rootView.findViewById(R.id.txtFragmentProfile_userNotRegMsg);
+            Button btnGoToLogin = rootView.findViewById(R.id.btnFragmentProfile_goToLogin);
 
             btnGoToLogin.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -100,6 +84,73 @@ public class FragmentProfile extends Fragment {
         }
 
         return rootView;
+    }
+
+    private void initViews(View view) {
+        pagerProfile = view.findViewById(R.id.pagerProfile);
+        tabProfile = view.findViewById(R.id.tabProfile);
+        fabProfileMenu = view.findViewById(R.id.fabProfileMenu);
+        fabChangeAvatar = view.findViewById(R.id.fabChangeAvatar);
+
+        fabProfileMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showMenu(fabProfileMenu);
+            }
+        });
+
+        fabChangeAvatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SendTo.sendToTelegramChat(getActivity(), UPLOAD_PHOTO_BOT);
+            }
+        });
+    }
+
+    private void initProductPager() {
+        adapterProfilePager = new AdapterProfilePager(getActivity().getSupportFragmentManager());
+        pagerProfile.setAdapter(adapterProfilePager);
+        pagerProfile.setOffscreenPageLimit(3);
+    }
+
+    private void initTabProduct() {
+        tabProfile.setupWithViewPager(pagerProfile);
+        FontHelper fontHelper = new FontHelper(getContext(), "fonts/yekan.ttf");
+        fontHelper.tablayoutApplyFont(tabProfile);
+    }
+
+    public void showMenu(View v) {
+        PopupMenu popup = new PopupMenu(getActivity(), v);
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.menu_profile_change_pass:
+
+                        break;
+                    case R.id.menu_profile_info:
+                        SendTo.sendToTelegramChat(getActivity(), UPDATE_USER_INFO_BOT);
+                        break;
+                    case R.id.menu_profile_logout:
+                        logout();
+                        break;
+
+                    case R.id.menu_profile_score:
+                        SendTo.sendToTelegramChat(getActivity(), PROFILE_SCORE_INFO_BOT);
+                        break;
+                    case R.id.menu_profile_team:
+                        SendTo.sendToTelegramChat(getActivity(), PROFILE_TEAM_INFO_BOT);
+                        break;
+                }
+                return false;
+            }
+        });
+        MenuInflater inflater = popup.getMenuInflater();
+        inflater.inflate(R.menu.menu_fragment_profile, popup.getMenu());
+        popup.show();
+        FontHelper fontHelper = new FontHelper(getActivity(), "fonts/yekan.ttf");
+        fontHelper.popupApplyFont(popup);
+
     }
 
     @Override
@@ -115,106 +166,32 @@ public class FragmentProfile extends Fragment {
         }
     }
 
-    private String completeMissionUrl() {
-        return MISSION_URL + "?user=" + getActiveUsername();
-    }
-
-    private String getActiveUsername() {
-        PrefManager pref = new PrefManager(getContext());
-        return pref.getUserName();
-    }
-
-    private void setupXpRecycler(View view, ArrayList<EntityMission> missionList) {
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recyclerXp);
-        recyclerView.setNestedScrollingEnabled(false);
-        AdapterMission adapterPlayer = new AdapterMission(missionList, view.getContext());
-        recyclerView.setAdapter(adapterPlayer);
-
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext());
-        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setFocusable(false);
-
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-    }
-
-    ArrayList<EntityMission> missionList = new ArrayList<>();
-
-    private class GetMissions extends AsyncTask<Void, Void, Void> {
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
+    private void logout() {
+        AlertDialog.Builder builder;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            builder = new AlertDialog.Builder(getActivity(), android.R.style.Theme_Material_Light_Dialog_Alert);
+        } else {
+            builder = new AlertDialog.Builder(getActivity());
         }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-
-            HttpFunctions sh = new HttpFunctions(HttpFunctions.RequestType.GET);
-
-            // Making a request to url and getting response
-            String jsonStr = sh.makeServiceCall(completeMissionUrl());
-            if (jsonStr != null) {
-                try {
-                    // Getting JSON Array node
-                    JSONArray locations = new JSONArray(jsonStr);
-
-                    // looping through All Contacts
-                    for (int i = 0; i < locations.length(); i++) {
-                        JSONObject c = locations.getJSONObject(i);
-
-                        String id = c.getString("id");
-                        String title = c.getString("title");
-                        String link = c.getString("link");
-                        String score = c.getString("score");
-                        String level = c.getString("level");
-                        String lock = c.getString("lock");
-
-                        Log.i("name", String.valueOf(Integer.parseInt(level)));
-
-                        EntityMission entityMission = new EntityMission();
-
-                        entityMission.setId(id != "null" ? Integer.parseInt(id) : -1);
-                        entityMission.setTitle(title);
-                        entityMission.setLink(link);
-                        entityMission.setScore(score != "null" ? Integer.parseInt(score) : -1);
-                        entityMission.setLevel(level != "null" ? Integer.parseInt(level) : -1);
-                        entityMission.setIsLock(lock != "null" ? Integer.parseInt(lock) : -1);
-
-                        missionList.add(entityMission);
-
+        builder.setTitle("ثبت نام")
+                .setMessage("آیا مطمئن هستید که میخواهید از حساب کاربری خود خارج شوید")
+                .setPositiveButton("بله", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        PrefManager pref = new PrefManager(getActivity().getApplicationContext());
+                        pref.putIsLoggedIn(false);
+                        pref.putUserName(null);
+                        pref.putPassword(null);
+                        // Tracking Event (Analytics)
+                        ApplicationLoader.getInstance().trackEvent("Login", "Log out", "");
+                        getFragmentManager().beginTransaction().detach(FragmentProfile.this).attach(FragmentProfile.this).commitAllowingStateLoss();
+                    }
+                })
+                .setNegativeButton("خیر", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
 
                     }
-                } catch (final JSONException e) {
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(getActivity(),
-                                    "Json parsing error: " + e.getMessage(),
-                                    Toast.LENGTH_LONG)
-                                    .show();
-                        }
-                    });
-
-                }
-            } else {
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                    }
-                });
-
-            }
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-            setupXpRecycler(getView(), missionList);
-        }
+                })
+                .show();
     }
-
 
 }

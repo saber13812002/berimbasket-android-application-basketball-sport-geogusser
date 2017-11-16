@@ -23,7 +23,7 @@ public class CustomAlertDialog {
 
     public CustomAlertDialog(Context context){
         this.context = context;
-        tfSans = TypefaceManager.get(context, context.getString(R.string.font_iran_sans));
+        tfSans = TypefaceManager.get(context, "fonts/yekan.ttf");
     }
 
     public AlertDialog MaterialAlert(String title){
@@ -53,9 +53,9 @@ public class CustomAlertDialog {
     public TextView getTitleText(String title){
         TextView dialogTitle =  new TextView(context);
         dialogTitle.setText(title);
-        dialogTitle.setGravity(Gravity.RIGHT);
+        dialogTitle.setGravity(Gravity.START);
         dialogTitle.setTextSize(25);
-        dialogTitle.setPadding(0,0,25,0);
+        dialogTitle.setPadding(50,25,50,25);
         dialogTitle.setTypeface(tfSans);
         dialogTitle.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimary));
         dialogTitle.setTextColor(Color.WHITE);

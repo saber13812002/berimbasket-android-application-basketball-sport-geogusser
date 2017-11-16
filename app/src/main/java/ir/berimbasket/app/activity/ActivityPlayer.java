@@ -31,7 +31,7 @@ import ir.berimbasket.app.util.TypefaceManager;
 
 public class ActivityPlayer extends AppCompatActivity {
 
-    TextView txtPlayerName, txtPlayerLevel;
+    TextView txtPlayerName;
     private ImageView btnReportPlayer;
     private static final String REPORT_PLAYER_BOT = "https://t.me/berimbasketreportbot?start=";
     EntityPlayer entityPlayer;
@@ -71,8 +71,6 @@ public class ActivityPlayer extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        changeCollapsingToolbar(entityPlayer.getName());
-
         ArrayList<String> playerSpecList = getPlayerSpec(entityPlayer);
         setupMatchRecyclerView(playerSpecList);
     }
@@ -116,7 +114,6 @@ public class ActivityPlayer extends AppCompatActivity {
 
     private void initViews() {
         txtPlayerName = findViewById(R.id.txtPlayerName);
-        txtPlayerLevel = findViewById(R.id.txtPlayerLevel);
         btnReportPlayer = findViewById(R.id.btnReportPlayer);
 
         typeface = TypefaceManager.get(getApplicationContext(), getString(R.string.font_yekan));
@@ -145,12 +142,4 @@ public class ActivityPlayer extends AppCompatActivity {
 
     }
 
-    public void changeCollapsingToolbar(String name) {
-        CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
-        collapsingToolbarLayout.setTitle(name);
-        collapsingToolbarLayout.setExpandedTitleColor(getResources().getColor(android.R.color.transparent));
-        collapsingToolbarLayout.setCollapsedTitleTextColor(Color.rgb(250, 250, 250));
-        collapsingToolbarLayout.setExpandedTitleTypeface(typeface);
-        collapsingToolbarLayout.setCollapsedTitleTypeface(typeface);
-    }
 }
