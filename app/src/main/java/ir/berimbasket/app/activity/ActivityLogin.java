@@ -146,6 +146,9 @@ public class ActivityLogin extends AppCompatActivity {
                 JSONArray arrayLogin = new JSONArray(jsonLogin);
                 JSONObject loginObj = arrayLogin.getJSONObject(0);
                 boolean loginResult = loginObj.getBoolean("login");
+                int userId = loginObj.getInt("id");
+                PrefManager pref = new PrefManager(getApplicationContext());
+                pref.putUserID(userId);
                 return loginResult;
 
             } catch (JSONException e) {

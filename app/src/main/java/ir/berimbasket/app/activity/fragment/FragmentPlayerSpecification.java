@@ -1,13 +1,11 @@
 package ir.berimbasket.app.activity.fragment;
 
 
-import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -25,11 +23,12 @@ import ir.berimbasket.app.R;
 import ir.berimbasket.app.adapter.AdapterPlayerSpecification;
 import ir.berimbasket.app.entity.EntityPlayer;
 import ir.berimbasket.app.network.HttpFunctions;
+import ir.berimbasket.app.util.PrefManager;
 
 public class FragmentPlayerSpecification extends Fragment {
 
     // FIXME: 16/11/2017 save id of user when user logged in the use ir in PLAYER_URL
-    private static String PLAYER_URL = "http://berimbasket.ir/bball/getPlayers.php?id=1";
+    private static String PLAYER_URL = "http://berimbasket.ir/bball/getPlayers.php?id=";
     private EntityPlayer entityPlayer;
     private View view;
 
@@ -53,8 +52,8 @@ public class FragmentPlayerSpecification extends Fragment {
         protected Void doInBackground(Void... voids) {
 
             HttpFunctions sh = new HttpFunctions(HttpFunctions.RequestType.GET);
-
-            String jsonStr = sh.makeServiceCall(PLAYER_URL);
+            PrefManager pref = new PrefManager(getContext());
+            String jsonStr = sh.makeServiceCall(PLAYER_URL + pref.getUserId());
             if (jsonStr != null) {
                 try {
                     JSONArray locations = new JSONArray(jsonStr);

@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -54,14 +55,14 @@ public class AdapterStadium extends RecyclerView.Adapter<AdapterStadium.StadiumV
     class StadiumViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView txtStadiumName;
-        CircleImageView imgStadiumImage;
+        ImageView imgStadiumImage;
         CardView cardStadiumItem;
 
-        public StadiumViewHolder(View itemView) {
+        private StadiumViewHolder(View itemView) {
             super(itemView);
-            this.txtStadiumName = (TextView) itemView.findViewById(R.id.txtStadiumName);
-            this.imgStadiumImage = (CircleImageView) itemView.findViewById(R.id.imgStadiumImage);
-            cardStadiumItem = (CardView) itemView.findViewById(R.id.cardStadiumItem);
+            this.txtStadiumName = itemView.findViewById(R.id.txtStadiumName);
+            this.imgStadiumImage = itemView.findViewById(R.id.imgStadiumImage);
+            cardStadiumItem = itemView.findViewById(R.id.cardStadiumItem);
             cardStadiumItem.setOnClickListener(this);
         }
 

@@ -17,6 +17,7 @@ public class PrefManager extends SecureSharedPreferences {
     private static final String KEY_DOWNLOAD_APK_FILE_NAME = "downloadApkFileName";
     private static final String KEY_IS_LOGGED_IN = "isLoggedIn";
     private static final String KEY_USER_NAME = "userName";
+    private static final String KEY_USER_ID = "userId";
     private static final String KEY_PASSWORD = "password";
     private Context context;
 
@@ -50,8 +51,16 @@ public class PrefManager extends SecureSharedPreferences {
         return getInt(KEY_UPDATE_VERSION, 1);
     }
 
+    public int getUserId() {
+        return getInt(KEY_USER_ID, 1);
+    }
+
     public void putDownloadApkID(long id) {
         edit().putLong(KEY_DOWNLOAD_APK_ID, id).apply();
+    }
+
+    public void putUserID(long id) {
+        edit().putLong(KEY_USER_ID, id).apply();
     }
 
     public long getDownloadApkID() {
