@@ -3,8 +3,6 @@
     <string name="name_home">خانه</string>
     <string name="name_dashboard">مسابقات</string>
     <string name="name_notifications">امتیازات</string>
-    <string name="name_activity_map">Map</string>
-    <string name="name_activity_login">Sign in</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">پست الکترونیک</string>
@@ -19,8 +17,6 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
-    <string name="name_activity_match_board">ActivityMatchBoard</string>
-    <string name="name_activity_setting">Settings</string>
 
     <!-- Strings related to Settings -->
 
@@ -168,22 +164,13 @@
 
     <string name="pref_name_vibrate">Vibrate</string>
     <string name="action_settings">Settings</string>
-    <string name="name_activity_main">MainActivity</string>
-    <string name="name_activity_create_game">ActivityCreateGame</string>
-    <string name="name_activity_create_stadium">ActivityCreateStadium</string>
-    <string name="name_activity_account">ActivityAccount</string>
     <string name="section_format">Hello World from section: %1$d</string>
-    <string name="name_activity_setting_user">ActivitySettingUser</string>
-    <string name="name_activity_test_json">ActivityTestJson</string>
-    <string name="name_activity_set_marker">Map</string>
-    <string name="name_activity_settings">Settings</string>
     <string-array name="pref_example_list_names">
         <item>Always</item>
         <item>When possible</item>
         <item>Never</item>
     </string-array>
     <string name="name_activity_scrolling">ScrollingActivity</string>
-    <string name="name_activity_player">ActivityPlayer</string>
     <string name="home_navigation_profile">پروفایل</string>
     <string name="home_navigation_map">نقشه</string>
     <string name="font_iran_sans">fonts/iraniansansregular.ttf</string>

@@ -64,25 +64,20 @@
 
         <activity
             android:name=".activity.ActivityLogin"
-            android:label="@string/name_activity_login"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".activity.ActivityRegister"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".activity.ActivityCreateStadium"
-            android:label="@string/name_activity_create_stadium"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".activity.ActivitySetMarker"
-            android:label="@string/name_activity_set_marker"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".activity.ActivitySettings"
-            android:label="@string/name_activity_setting" />
+            android:name=".activity.ActivitySettings"/>
         <activity
             android:name=".activity.ActivityPlayer"
-            android:label="@string/name_activity_player"
             android:theme="@style/StatusTransparent" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -98,7 +93,6 @@
 
         <activity
             android:name=".activity.ActivityStadium"
-            android:label="ورزشگاه"
             android:theme="@style/AppTheme.NoActionBar" />
         <meta-data
             android:name="io.fabric.ApiKey"
