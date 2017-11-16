@@ -1,10 +1,8 @@
 package ir.berimbasket.app.activity;
 
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
@@ -25,7 +23,9 @@ import java.util.ArrayList;
 
 import ir.berimbasket.app.R;
 import ir.berimbasket.app.adapter.AdapterPlayerSpecification;
+import ir.berimbasket.app.adapter.AdapterSocialAcc;
 import ir.berimbasket.app.entity.EntityPlayer;
+import ir.berimbasket.app.entity.EntitySocialAcc;
 import ir.berimbasket.app.util.ApplicationLoader;
 import ir.berimbasket.app.util.SendTo;
 import ir.berimbasket.app.util.TypefaceManager;
@@ -73,7 +73,8 @@ public class ActivityPlayer extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ArrayList<String> playerSpecList = getPlayerSpec(entityPlayer);
-        setupMatchRecyclerView(playerSpecList);
+        initRecyclerPlayerSpec(playerSpecList);
+        initRecyclerSocialAcc();
     }
 
     @Override
@@ -92,6 +93,7 @@ public class ActivityPlayer extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+
     private ArrayList<String> getPlayerSpec(EntityPlayer entityPlayer) {
 
         ArrayList<String> playerSpecList = new ArrayList<>();
@@ -107,8 +109,24 @@ public class ActivityPlayer extends AppCompatActivity {
         playerSpecList.add("نام کاربری : " + entityPlayer.getUsername());
         playerSpecList.add("پست بازی : " + String.valueOf(entityPlayer.getPost()));
 //        playerSpecList.add("" + entityPlayer.getProfileImage());
+
+
         playerSpecList.add("تلگرام : " + entityPlayer.getTelegramId());
+        EntitySocialAcc entitySocialTelegram = new EntitySocialAcc();
+        entitySocialTelegram.setId(0);
+        entitySocialTelegram.setImageResId(R.drawable.ic_social_telegram);
+        entitySocialTelegram.setType(EntitySocialAcc.SOCIAL_TYPE_TELEGRAM_USER);
+        entitySocialTelegram.setLink(entityPlayer.getTelegramId());
+        socialAccList.add(entitySocialTelegram);
+
         playerSpecList.add("اینستاگرام : " + entityPlayer.getInstagramId());
+        EntitySocialAcc entitySocialInstagram = new EntitySocialAcc();
+        entitySocialInstagram.setId(0);
+        entitySocialInstagram.setImageResId(R.drawable.ic_social_instagram);
+        entitySocialInstagram.setType(EntitySocialAcc.SOCIAL_TYPE_INSTAGRAM);
+        entitySocialInstagram.setLink(entityPlayer.getInstagramId());
+        socialAccList.add(entitySocialInstagram);
+
         playerSpecList.add("شماره تلفن : " + entityPlayer.getPhone());
         return playerSpecList;
     }
@@ -116,7 +134,6 @@ public class ActivityPlayer extends AppCompatActivity {
     private void initViews() {
         txtPlayerName = findViewById(R.id.txtPlayerName);
         btnReportPlayer = findViewById(R.id.btnReportPlayer);
-
         typeface = TypefaceManager.get(getApplicationContext(), getString(R.string.font_yekan));
 
 
@@ -128,9 +145,12 @@ public class ActivityPlayer extends AppCompatActivity {
         });
     }
 
-    private void setupMatchRecyclerView(ArrayList<String> playerSpecList) {
 
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerPlayerSpec);
+    ArrayList<EntitySocialAcc> socialAccList = new ArrayList<>();
+
+    private void initRecyclerPlayerSpec(ArrayList<String> playerSpecList) {
+
+        RecyclerView recyclerView = findViewById(R.id.recyclerPlayerSpec);
         AdapterPlayerSpecification adapterPlayerSpecification = new AdapterPlayerSpecification(playerSpecList, this);
         recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setAdapter(adapterPlayerSpecification);
@@ -140,6 +160,21 @@ public class ActivityPlayer extends AppCompatActivity {
         recyclerView.setLayoutManager(glm);
 
         recyclerView.setItemAnimator(new DefaultItemAnimator());
+
+    }
+
+    private void initRecyclerSocialAcc() {
+
+        RecyclerView recyclerSocialAcc = findViewById(R.id.recyclerSocialAcc);
+        AdapterSocialAcc adapterSocialAcc = new AdapterSocialAcc(socialAccList, this);
+        recyclerSocialAcc.setNestedScrollingEnabled(false);
+        recyclerSocialAcc.setAdapter(adapterSocialAcc);
+
+        LinearLayoutManager llm = new LinearLayoutManager(this);
+        llm.setOrientation(LinearLayoutManager.HORIZONTAL);
+        recyclerSocialAcc.setLayoutManager(llm);
+
+        recyclerSocialAcc.setItemAnimator(new DefaultItemAnimator());
 
     }
 
