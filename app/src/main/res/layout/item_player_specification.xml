@@ -1,38 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardMissionItem"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:layout_marginBottom="8dp"
+    android:layout_marginStart="5dp"
+    android:layout_marginEnd="5dp"
+    app:cardBackgroundColor="@color/colorPrimary"
+    app:cardCornerRadius="5dp">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="16dp">
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="5dp">
 
         <TextView
-            android:id="@+id/txtSpecNum"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:background="@drawable/bg_circle_player_number"
+            android:id="@+id/txtSpecKey"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:fontFamily="@font/yekan"
-            android:gravity="center"
-            android:text="1"
-            android:textColor="@android:color/white" />
+            android:gravity="center_vertical"
+            android:text="قد"
+            android:textSize="18sp"
+            android:textColor="@color/colorWhite" />
 
         <TextView
             android:id="@+id/txtSpecValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
             android:fontFamily="@font/yekan"
-            android:text="قد : 185 سانتی متر" />
+            android:textColor="@color/colorWhite"
+            android:textSize="18sp"
+            android:gravity="center_vertical"
+            android:text="185 سانتی متر" />
 
     </LinearLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.1dp"
-        android:background="@color/colorLightGrey" />
-
-</LinearLayout>
+</android.support.v7.widget.CardView>

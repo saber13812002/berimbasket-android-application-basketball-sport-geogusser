@@ -50,7 +50,7 @@ public class AdapterPlayerSpecification extends RecyclerView.Adapter<AdapterPlay
 
         PlayerSpecViewHolder(View itemView) {
             super(itemView);
-            this.txtSpecNum = (TextView) itemView.findViewById(R.id.txtSpecNum);
+            this.txtSpecNum = (TextView) itemView.findViewById(R.id.txtSpecKey);
             this.txtSpecValue = (TextView) itemView.findViewById(R.id.txtSpecValue);
         }
 

@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -137,9 +138,9 @@ public class FragmentPlayerSpecification extends Fragment {
         recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setAdapter(adapterPlayerSpecification);
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
-        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(linearLayoutManager);
+        GridLayoutManager glm = new GridLayoutManager(getActivity(), 2);
+        glm.setOrientation(GridLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(glm);
 
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
