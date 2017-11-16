@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,14 +39,15 @@ import ir.berimbasket.app.util.SendTo;
 
 public class FragmentHome extends Fragment implements View.OnClickListener {
 
-    private TextView txtMorePlayer, txtMoreStadium, txtMoreMatch;
     private AppCompatButton btnMorePlayer, btnMoreStadium, btnMoreMatch;
+    private ProgressBar progressHome;
     private static String PLAYER_URL = "https://berimbasket.ir/bball/getPlayers.php?id=0";
     private static String STADIUM_URL = "https://berimbasket.ir/bball/getPlayGroundJson.php?id=0";
     private static String MATCH_URL = "https://berimbasket.ir/bball/getScore.php";
     private static String MORE_MATCH_URL = "https://berimbasket.ir/bball/www/plays.php";
     private static String MORE_PLAYER_URL = "https://berimbasket.ir/bball/www/players.php";
     private static String MORE_STADIUM_URL = "https://berimbasket.ir/bball/www/mains.php";
+    private int processCount = 0;
 
 
     @Override
@@ -58,12 +60,10 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         setupPlayerRecycler(view, playerList);
-        btnMoreStadium = (AppCompatButton) view.findViewById(R.id.btnMoreStadium);
-        btnMoreMatch = (AppCompatButton) view.findViewById(R.id.btnMorePlayer);
-        btnMorePlayer = (AppCompatButton) view.findViewById(R.id.btnMoreMatch);
-        txtMoreStadium = (TextView) view.findViewById(R.id.txtMoreStadium);
-        txtMorePlayer = (TextView) view.findViewById(R.id.txtMorePlayer);
-        txtMoreMatch = (TextView) view.findViewById(R.id.txtMoreMatch);
+        btnMoreStadium = view.findViewById(R.id.btnMoreStadium);
+        btnMoreMatch = view.findViewById(R.id.btnMorePlayer);
+        btnMorePlayer = view.findViewById(R.id.btnMoreMatch);
+        progressHome = view.findViewById(R.id.progressHome);
 
         btnMoreMatch.setOnClickListener(this);
         btnMorePlayer.setOnClickListener(this);
@@ -146,9 +146,7 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            pDialog = new ProgressDialog(getActivity());
-            pDialog.setMessage("لطفا صبر کنید ...");
-            pDialog.setCancelable(false);
+            progressHome.setVisibility(View.VISIBLE);
         }
 
         @Override
@@ -232,12 +230,17 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            pDialog.cancel();
-
+            progressCancel();
             setupPlayerRecycler(getView(), playerList);
         }
     }
 
+    private void progressCancel() {
+        processCount++;
+        if (processCount == 3) {
+            progressHome.setVisibility(View.INVISIBLE);
+        }
+    }
     ArrayList<EntityStadium> stadiumList = new ArrayList<>();
 
     private class GetStadium extends AsyncTask<Void, Void, Void> {
@@ -245,6 +248,7 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            progressHome.setVisibility(View.VISIBLE);
         }
 
         @Override
@@ -310,7 +314,7 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-
+            progressCancel();
             setupStadiumRecycler(getView(), stadiumList);
         }
     }
@@ -323,6 +327,7 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            progressHome.setVisibility(View.VISIBLE);
         }
 
         @Override
@@ -381,7 +386,8 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-
+            progressHome.setVisibility(View.INVISIBLE);
+            progressCancel();
             setupMatchRecyclerView(getView(), matchList);
         }
     }

@@ -1,7 +1,6 @@
 package ir.berimbasket.app.activity.fragment;
 
 import android.Manifest;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -53,7 +52,6 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback {
     private LocationManager locationManager;
     private ArrayList<EntityStadium> locationList;
     private String TAG = ActivityHome.class.getSimpleName();
-    private ProgressDialog pDialog;
     private ClusterManager<MyClusterItem> clusterManager;
 
     @Override
@@ -89,7 +87,7 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mapView = (MapView) view.findViewById(R.id.mapView);
+        mapView = view.findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
         mapView.onResume();
         mapView.getMapAsync(this);
@@ -160,24 +158,24 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback {
 
     private ClusterManager.OnClusterItemClickListener<MyClusterItem> clusterItemClickListener =
             new ClusterManager.OnClusterItemClickListener<MyClusterItem>() {
-        @Override
-        public boolean onClusterItemClick(MyClusterItem myClusterItem) {
-            try {
-                EntityStadium stadium = new EntityStadium();
-                LatLng latLng = myClusterItem.getPosition();
-                stadium.setLatitude(String.valueOf(latLng.latitude));
-                stadium.setLongitude(String.valueOf(latLng.longitude));
-                stadium.setTitle(myClusterItem.getTitle());
-                stadium.setId(Integer.parseInt(myClusterItem.getId()));
-                Intent intent = new Intent(getActivity(), ActivityStadium.class);
-                intent.putExtra("stadiumDetail", stadium);
-                startActivity(intent);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return true;
-        }
-    };
+                @Override
+                public boolean onClusterItemClick(MyClusterItem myClusterItem) {
+                    try {
+                        EntityStadium stadium = new EntityStadium();
+                        LatLng latLng = myClusterItem.getPosition();
+                        stadium.setLatitude(String.valueOf(latLng.latitude));
+                        stadium.setLongitude(String.valueOf(latLng.longitude));
+                        stadium.setTitle(myClusterItem.getTitle());
+                        stadium.setId(Integer.parseInt(myClusterItem.getId()));
+                        Intent intent = new Intent(getActivity(), ActivityStadium.class);
+                        intent.putExtra("stadiumDetail", stadium);
+                        startActivity(intent);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    return true;
+                }
+            };
 
     private class GetLocations extends AsyncTask<Void, Void, Void> {
 
@@ -186,7 +184,6 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback {
         protected void onPreExecute() {
             super.onPreExecute();
             // Showing progress dialog
-            pDialog = new ProgressDialog(getActivity());
             GPSTracker gps = new GPSTracker(getActivity());
 
             // Check if GPS enabled
@@ -201,9 +198,6 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback {
                 // Ask user to enable GPS/network in settings.
                 gps.showSettingsAlert();
             }
-            pDialog.setMessage("لطفا صبر کنید ...");
-            pDialog.setCancelable(false);
-            pDialog.show();
 
         }
 
@@ -280,9 +274,6 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback {
             /**
              * Updating parsed JSON data into ListView
              * */
-            if (pDialog.isShowing())
-                pDialog.cancel();
-
             for (int i = 0; i < locationList.size(); i++) {
                 EntityStadium entityStadium = locationList.get(i);
                 String id = String.valueOf(entityStadium.getId());
