@@ -21,7 +21,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 
     <application
         android:name=".util.ApplicationLoader"
@@ -60,8 +60,7 @@
 
         <activity
             android:name=".activity.ActivityHome"
-            android:label="@string/app_name"/>
-
+            android:label="@string/app_name" />
         <activity
             android:name=".activity.ActivityLogin"
             android:windowSoftInputMode="stateHidden" />
@@ -74,8 +73,7 @@
         <activity
             android:name=".activity.ActivitySetMarker"
             android:windowSoftInputMode="stateHidden" />
-        <activity
-            android:name=".activity.ActivitySettings"/>
+        <activity android:name=".activity.ActivitySettings" />
         <activity
             android:name=".activity.ActivityPlayer"
             android:theme="@style/StatusTransparent" />
@@ -94,6 +92,7 @@
         <activity
             android:name=".activity.ActivityStadium"
             android:theme="@style/AppTheme.NoActionBar" />
+
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="b657b55f3cd6f6df9c0a3dc03209c7f7243bfd85" />
@@ -145,7 +144,7 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_provider_paths"/>
+                android:resource="@xml/file_provider_paths" />
         </provider>
 
         <receiver android:name=".downloadmanager.DownloadBroadCast">
@@ -153,6 +152,8 @@
                 <action android:name="android.intent.action.DOWNLOAD_COMPLETE" />
             </intent-filter>
         </receiver>
+
+        <activity android:name=".activity.ActivityIntro"/>
     </application>
 
 </manifest>

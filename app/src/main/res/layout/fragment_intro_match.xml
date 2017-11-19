@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.percent.PercentRelativeLayout
+    android:id="@+id/rootIntroMatch"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:ignore="ContentDescription"
+    tools:background="@android:color/holo_blue_dark">
+
+    <ImageView
+        android:id="@+id/imView_introMatchBG"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:src="@drawable/intro_match_bg"
+
+        app:layout_heightPercent="40%"
+        app:layout_marginTopPercent="27%"
+        app:layout_widthPercent="100%"/>
+
+    <ImageView
+        android:id="@+id/imView_introMatchCenter"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+
+        android:src="@drawable/intro_match_center"
+
+        app:layout_heightPercent="20%"
+        app:layout_widthPercent="55%"/>
+
+
+    <ImageView
+        android:id="@+id/imView_introMatch2"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:src="@drawable/intro_match_2"
+
+        app:layout_heightPercent="7%"
+        app:layout_marginLeftPercent="20%"
+        app:layout_marginTopPercent="34%"
+        app:layout_widthPercent="16%"/>
+
+    <ImageView
+        android:id="@+id/imView_introMatch1"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:src="@drawable/intro_match_1"
+
+        app:layout_heightPercent="7%"
+        app:layout_marginLeftPercent="57%"
+        app:layout_marginTopPercent="29%"
+        app:layout_widthPercent="14%"/>
+
+    <ImageView
+        android:id="@+id/imView_introMatch3"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:src="@drawable/intro_match_3"
+
+        app:layout_heightPercent="15%"
+        app:layout_marginLeftPercent="65%"
+        app:layout_marginTopPercent="55%"
+        app:layout_widthPercent="25%"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+
+        android:gravity="center"
+
+        android:text="@string/intro_match_text"
+        android:textColor="@android:color/white"
+        android:textSize="26sp"
+
+        app:layout_heightPercent="15%"
+        app:layout_marginBottomPercent="11%"
+        app:layout_widthPercent="45%"/>
+</android.support.percent.PercentRelativeLayout>

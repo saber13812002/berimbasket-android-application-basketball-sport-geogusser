@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.percent.PercentRelativeLayout
+    android:id="@+id/rootIntroStadium"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:ignore="ContentDescription"
+    tools:background="@android:color/holo_blue_dark">
+
+    <ImageView
+        android:id="@+id/imView_introStadiumBG"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:src="@drawable/intro_stadium_bg"
+
+        app:layout_heightPercent="40%"
+        app:layout_marginTopPercent="27%"
+        app:layout_widthPercent="100%"/>
+
+    <ImageView
+        android:id="@+id/imView_introStadiumCenter"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+
+        android:src="@drawable/intro_stadium_center"
+
+        app:layout_heightPercent="18%"
+        app:layout_widthPercent="55%"/>
+
+
+    <ImageView
+        android:id="@+id/imView_introStadium1"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:src="@drawable/intro_stadium_1"
+
+        app:layout_heightPercent="7%"
+        app:layout_marginLeftPercent="33%"
+        app:layout_marginTopPercent="34%"
+        app:layout_widthPercent="16%"/>
+
+    <ImageView
+        android:id="@+id/imView_introStadium3"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:src="@drawable/intro_stadium_3"
+
+        app:layout_heightPercent="15%"
+        app:layout_marginLeftPercent="65%"
+        app:layout_marginTopPercent="47%"
+        app:layout_widthPercent="25%"/>
+
+    <ImageView
+        android:id="@+id/imView_introStadium2"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:src="@drawable/intro_stadium_2"
+
+        app:layout_heightPercent="10%"
+        app:layout_marginLeftPercent="77%"
+        app:layout_marginTopPercent="30%"
+        app:layout_widthPercent="15%"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+
+        android:gravity="center"
+
+        android:text="@string/intro_stadium_text"
+        android:textColor="@android:color/white"
+        android:textSize="26sp"
+
+        app:layout_heightPercent="15%"
+        app:layout_marginBottomPercent="11%"
+        app:layout_widthPercent="45%"/>
+</android.support.percent.PercentRelativeLayout>

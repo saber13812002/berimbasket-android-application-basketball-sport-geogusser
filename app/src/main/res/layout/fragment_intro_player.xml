@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.percent.PercentRelativeLayout
+    android:id="@+id/rootIntroPlayer"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:ignore="ContentDescription"
+    tools:background="@android:color/holo_orange_dark">
+
+    <ImageView
+        android:id="@+id/imView_introPlayerBG"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:src="@drawable/intro_player_bg"
+
+        app:layout_heightPercent="40%"
+        app:layout_marginTopPercent="27%"
+        app:layout_widthPercent="100%"/>
+
+    <ImageView
+        android:id="@+id/imView_introPlayerCenter"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+
+        android:src="@drawable/intro_player_center"
+
+        app:layout_heightPercent="35%"
+        app:layout_widthPercent="50%"/>
+
+    <ImageView
+        android:id="@+id/imView_introPlayer1"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+
+        android:src="@drawable/intro_player_1"
+
+        app:layout_heightPercent="15%"
+        app:layout_marginRightPercent="19%"
+        app:layout_marginTopPercent="28%"
+        app:layout_widthPercent="15%"/>
+
+
+    <ImageView
+        android:id="@+id/imView_introPlayer3"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:src="@drawable/intro_player_3"
+
+        app:layout_heightPercent="25%"
+        app:layout_marginLeftPercent="14%"
+        app:layout_marginTopPercent="49%"
+        app:layout_widthPercent="30%"/>
+
+    <ImageView
+        android:id="@+id/imView_introPlayer2"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:src="@drawable/intro_player_2"
+
+        app:layout_heightPercent="8%"
+        app:layout_marginLeftPercent="14%"
+        app:layout_marginTopPercent="25%"
+        app:layout_widthPercent="9%"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+
+        android:gravity="center"
+
+        android:text="@string/intro_player_text"
+        android:textColor="@android:color/white"
+        android:textSize="28sp"
+
+        app:layout_heightPercent="15%"
+        app:layout_marginBottomPercent="11%"
+        app:layout_widthPercent="45%"/>
+</android.support.percent.PercentRelativeLayout>

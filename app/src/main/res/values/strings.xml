@@ -212,6 +212,11 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="intro_skip_text">باشه</string>
+    <string name="intro_player_text">بازیکن شو</string>
+    <string name="intro_stadium_text">ورزشگاه پیدا کن</string>
+    <string name="intro_match_text">مسابقه بده</string>
+    <string name="intro_next_text">بعدی</string>
 
 
 </resources>

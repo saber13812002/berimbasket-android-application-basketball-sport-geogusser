@@ -45,24 +45,29 @@ public class ActivitySplash extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash);
-
         PrefManager pref = new PrefManager(getApplicationContext());
-        boolean needForUpdate = pref.getSettingsPrefUpdateNotification();
-        if (needForUpdate) {
-            if (Connectivity.isConnected(this)) {
-                new UpdateTask().execute();
-            } else {
-                Toast.makeText(this, "اینترنت در دسترس نیست", Toast.LENGTH_LONG).show();
-            }
+        if (!pref.getIntroPassed()) {
+            Intent intent = new Intent(this, ActivityIntro.class);
+            startActivity(intent);
         } else {
-            final Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    goToActivityHome();
+            setContentView(R.layout.activity_splash);
+
+            boolean needForUpdate = pref.getSettingsPrefUpdateNotification();
+            if (needForUpdate) {
+                if (Connectivity.isConnected(this)) {
+                    new UpdateTask().execute();
+                } else {
+                    Toast.makeText(this, "اینترنت در دسترس نیست", Toast.LENGTH_LONG).show();
                 }
-            }, 2000);
+            } else {
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        goToActivityHome();
+                    }
+                }, 2000);
+            }
         }
     }
 

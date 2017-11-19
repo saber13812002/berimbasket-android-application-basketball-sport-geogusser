@@ -19,6 +19,7 @@ public class PrefManager extends SecureSharedPreferences {
     private static final String KEY_USER_NAME = "userName";
     private static final String KEY_USER_ID = "userId";
     private static final String KEY_PASSWORD = "password";
+    private static final String KEY_INTRO_PASSED = "introPassed";
     private Context context;
 
     public PrefManager(Context context) {
@@ -133,5 +134,13 @@ public class PrefManager extends SecureSharedPreferences {
         SharedPreferences.Editor editor = pref.edit();
         editor.putBoolean(context.getString(R.string.key_pref_message_notification), value);
         editor.apply();
+    }
+
+    public boolean getIntroPassed() {
+        return getBoolean(KEY_INTRO_PASSED, false);
+    }
+
+    public void putIntroPassed(boolean value) {
+        edit().putBoolean(KEY_INTRO_PASSED, value).apply();
     }
 }
