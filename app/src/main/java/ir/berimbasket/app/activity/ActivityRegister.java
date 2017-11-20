@@ -23,6 +23,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import co.ronash.pushe.Pushe;
 import ir.berimbasket.app.R;
 import ir.berimbasket.app.network.HttpFunctions;
 import ir.berimbasket.app.util.ApplicationLoader;
@@ -32,8 +33,8 @@ import ir.berimbasket.app.util.TypefaceManager;
 
 public class ActivityRegister extends AppCompatActivity {
 
-    private final String VERIFY_URL = "http://berimbasket.ir/bball/getSignupStatusByVerificationCodeAndMAC.php?mac=";
-    private final String USER_URL = "http://berimbasket.ir/bball/getExistOrNotThisNewRequestedUsername.php?mac=";
+    private final String VERIFY_URL = "http://berimbasket.ir/bball/getSignupStatusByVerificationCodeAndMAC.php";
+    private final String USER_URL = "http://berimbasket.ir/bball/getExistOrNotThisNewRequestedUsername.php";
     private final String REGISTER_URL = "http://berimbasket.ir/bball/setPasswordForThisUsername.php?mac=1a2b3c4d5e6f&username=allstar33&password=@ll$tar33";
     private final String USER_ERROR = "userError";
     private final String VERIFY_ERROR = "verifyError";
@@ -170,19 +171,28 @@ public class ActivityRegister extends AppCompatActivity {
 
     private String completeUserUrl(String userUrl) {
         PrefManager pref = new PrefManager(getApplicationContext());
-        userUrl = userUrl + pref.getDeviceID() + "&username=" + edtUsername.getText().toString();
+        String pusheId = Pushe.getPusheId(getApplicationContext());
+        String deviceId = pref.getDeviceID();
+        userUrl = userUrl + "?" + "mac=" + deviceId + "&username=" + edtUsername.getText().toString() + "&pusheid=" + pusheId;
         return userUrl;
     }
 
     private String completeVerifyUrl(String verifyUrl) {
         PrefManager pref = new PrefManager(getApplicationContext());
-        verifyUrl = verifyUrl + pref.getDeviceID() + "&code=" + edtVerifyCode.getText().toString();
+        String pusheId = Pushe.getPusheId(getApplicationContext());
+        String userName = pref.getUserName();
+        String deviceId = pref.getDeviceID();
+        String code = edtVerifyCode.getText().toString();
+        String urlParams = String.format("mac=%s&code=%s&pusheid=%s&username=%s",deviceId, code, pusheId, userName);
+        verifyUrl = verifyUrl + "?" + urlParams;
         return verifyUrl;
     }
 
     private String completeRegisterUrl(String registerUrl) {
         PrefManager pref = new PrefManager(getApplicationContext());
-        registerUrl = registerUrl + pref.getDeviceID() + "&username=" + edtUsername.getText().toString() + "&password=" + edtPassword.getText().toString();
+        String pusheId = Pushe.getPusheId(getApplicationContext());
+        registerUrl = registerUrl + pref.getDeviceID() + "&username=" + edtUsername.getText().toString()
+                + "&password=" + edtPassword.getText().toString() + "&pusheid=" + pusheId;
         return registerUrl;
     }
 

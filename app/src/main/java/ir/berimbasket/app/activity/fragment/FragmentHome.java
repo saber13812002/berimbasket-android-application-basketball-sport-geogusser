@@ -13,7 +13,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -22,6 +21,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import co.ronash.pushe.Pushe;
 import ir.berimbasket.app.R;
 import ir.berimbasket.app.adapter.AdapterMatch;
 import ir.berimbasket.app.adapter.AdapterPlayer;
@@ -31,6 +31,7 @@ import ir.berimbasket.app.entity.EntityPlayer;
 import ir.berimbasket.app.entity.EntityStadium;
 import ir.berimbasket.app.network.HttpFunctions;
 import ir.berimbasket.app.util.ApplicationLoader;
+import ir.berimbasket.app.util.PrefManager;
 import ir.berimbasket.app.util.SendTo;
 
 /**
@@ -41,8 +42,8 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
 
     private AppCompatButton btnMorePlayer, btnMoreStadium, btnMoreMatch;
     private ProgressBar progressHome;
-    private static String PLAYER_URL = "https://berimbasket.ir/bball/getPlayers.php?id=0";
-    private static String STADIUM_URL = "https://berimbasket.ir/bball/getPlayGroundJson.php?id=0";
+    private static String PLAYER_URL = "https://berimbasket.ir/bball/getPlayers.php";
+    private static String STADIUM_URL = "https://berimbasket.ir/bball/getPlayGroundJson.php";
     private static String MATCH_URL = "https://berimbasket.ir/bball/getScore.php";
     private static String MORE_MATCH_URL = "https://berimbasket.ir/bball/www/plays.php";
     private static String MORE_PLAYER_URL = "https://berimbasket.ir/bball/www/players.php";
@@ -153,8 +154,10 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
         protected Void doInBackground(Void... voids) {
 
             HttpFunctions sh = new HttpFunctions(HttpFunctions.RequestType.GET);
-
-            String jsonStr = sh.makeServiceCall(PLAYER_URL);
+            String pusheId = Pushe.getPusheId(getContext());
+            String userName = new PrefManager(getContext()).getUserName();
+            String urlParams = String.format("id=0&pusheid=%s&username=%s", pusheId, userName);
+            String jsonStr = sh.makeServiceCall(PLAYER_URL + "?" + urlParams);
             if (jsonStr != null) {
                 try {
                     JSONArray locations = new JSONArray(jsonStr);
@@ -254,8 +257,10 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
         @Override
         protected Void doInBackground(Void... voids) {
             HttpFunctions sh = new HttpFunctions(HttpFunctions.RequestType.GET);
-
-            String jsonStr = sh.makeServiceCall(STADIUM_URL);
+            String pusheId = Pushe.getPusheId(getContext());
+            String userName = new PrefManager(getContext()).getUserName();
+            String urlParams = String.format("id=0&pusheid=%s&username=%s", pusheId, userName);
+            String jsonStr = sh.makeServiceCall(STADIUM_URL + "?" + urlParams);
             if (jsonStr != null) {
                 try {
                     JSONArray locations = new JSONArray(jsonStr);
@@ -333,8 +338,10 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
         @Override
         protected Void doInBackground(Void... voids) {
             HttpFunctions sh = new HttpFunctions(HttpFunctions.RequestType.GET);
-
-            String jsonStr = sh.makeServiceCall(MATCH_URL);
+            String pusheId = Pushe.getPusheId(getContext());
+            String userName = new PrefManager(getContext()).getUserName();
+            String urlParams = String.format("pusheid=%s&username=%s", pusheId, userName);
+            String jsonStr = sh.makeServiceCall(MATCH_URL + "?" + urlParams);
             if (jsonStr != null) {
                 try {
                     JSONArray locations = new JSONArray(jsonStr);

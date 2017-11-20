@@ -19,6 +19,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import co.ronash.pushe.Pushe;
 import ir.berimbasket.app.R;
 import ir.berimbasket.app.adapter.AdapterMission;
 import ir.berimbasket.app.entity.EntityMission;
@@ -128,11 +129,9 @@ public class FragmentMissions extends Fragment {
     }
 
     private String completeMissionUrl() {
-        return MISSION_URL + "?user=" + getActiveUsername();
-    }
-
-    private String getActiveUsername() {
-        PrefManager pref = new PrefManager(getContext());
-        return pref.getUserName();
+        String pusheId = Pushe.getPusheId(getContext());
+        String userName = new PrefManager(getContext()).getUserName();
+        String urlParams = String.format("pusheid=%s&username=%s", pusheId, userName);
+        return MISSION_URL + "?user=" + userName + "&" + urlParams;
     }
 }

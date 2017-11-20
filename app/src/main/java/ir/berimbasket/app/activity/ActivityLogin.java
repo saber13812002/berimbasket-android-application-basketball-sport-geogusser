@@ -20,6 +20,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import co.ronash.pushe.Pushe;
 import ir.berimbasket.app.R;
 import ir.berimbasket.app.network.HttpFunctions;
 import ir.berimbasket.app.util.ApplicationLoader;
@@ -32,7 +33,7 @@ import ir.berimbasket.app.util.TypefaceManager;
  */
 public class ActivityLogin extends AppCompatActivity {
 
-    private final String LOGIN_URL = "http://berimbasket.ir/bball/getStatusLoginByUsernamePassword.php?mac=";
+    private final String LOGIN_URL = "http://berimbasket.ir/bball/getStatusLoginByUsernamePassword.php";
     AppCompatButton btnLogin;
     TextView btnRegisterPage, btnTelegramTut;
     ProgressDialog pDialog;
@@ -120,7 +121,9 @@ public class ActivityLogin extends AppCompatActivity {
 
     private String completeLoginUrl(String loginUrl) {
         PrefManager pref = new PrefManager(getApplicationContext());
-        loginUrl = loginUrl + pref.getDeviceID() + "&username=" + edtUsername.getText().toString() + "&password=" + edtPassword.getText().toString();
+        String pusheId = Pushe.getPusheId(getApplicationContext());
+        loginUrl = loginUrl + "?" + "mac=" + pref.getDeviceID() + "&username=" + edtUsername.getText().toString()
+                + "&password=" + edtPassword.getText().toString() + "&pusheid=" + pusheId;
         return loginUrl;
     }
 

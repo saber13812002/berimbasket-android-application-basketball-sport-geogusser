@@ -89,7 +89,7 @@ public class PrefManager extends SecureSharedPreferences {
     }
 
     public String getUserName() {
-        return getString(KEY_USER_NAME, "");
+        return getString(KEY_USER_NAME, "null");
     }
 
     public void putPassword(String password) {

@@ -19,6 +19,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import co.ronash.pushe.Pushe;
 import ir.berimbasket.app.R;
 import ir.berimbasket.app.adapter.AdapterPlayerSpecification;
 import ir.berimbasket.app.entity.EntityPlayer;
@@ -28,7 +29,7 @@ import ir.berimbasket.app.util.PrefManager;
 public class FragmentPlayerSpecification extends Fragment {
 
     // FIXME: 16/11/2017 save id of user when user logged in the use ir in PLAYER_URL
-    private static String PLAYER_URL = "http://berimbasket.ir/bball/getPlayers.php?id=";
+    private static String PLAYER_URL = "http://berimbasket.ir/bball/getPlayers.php";
     private EntityPlayer entityPlayer;
     private View view;
 
@@ -53,7 +54,11 @@ public class FragmentPlayerSpecification extends Fragment {
 
             HttpFunctions sh = new HttpFunctions(HttpFunctions.RequestType.GET);
             PrefManager pref = new PrefManager(getContext());
-            String jsonStr = sh.makeServiceCall(PLAYER_URL + pref.getUserId());
+            String pusheId = Pushe.getPusheId(getContext());
+            String userName = pref.getUserName();
+            int userId = pref.getUserId();
+            String urlParams = String.format("id=%s&pusheid=%s&username=%s",userId, pusheId, userName);
+            String jsonStr = sh.makeServiceCall(PLAYER_URL + "?" + urlParams);
             if (jsonStr != null) {
                 try {
                     JSONArray locations = new JSONArray(jsonStr);

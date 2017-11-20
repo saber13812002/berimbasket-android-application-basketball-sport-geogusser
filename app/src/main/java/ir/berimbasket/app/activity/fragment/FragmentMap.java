@@ -31,6 +31,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import co.ronash.pushe.Pushe;
 import ir.berimbasket.app.R;
 import ir.berimbasket.app.activity.ActivityHome;
 import ir.berimbasket.app.activity.ActivitySetMarker;
@@ -44,7 +45,7 @@ import ir.berimbasket.app.util.ApplicationLoader;
 import ir.berimbasket.app.util.PrefManager;
 
 public class FragmentMap extends Fragment implements OnMapReadyCallback {
-    private static String _URL = "https://berimbasket.ir/bball/get.php?id=0";
+    private static String _URL = "https://berimbasket.ir/bball/get.php";
     double latitude = 35.723284;
     double longitude = 51.441968;
     GoogleMap map;
@@ -206,7 +207,10 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback {
             HttpFunctions sh = new HttpFunctions(HttpFunctions.RequestType.GET);
 
             // Making a request to _URL and getting response
-            String jsonStr = sh.makeServiceCall(_URL);
+            String pusheId = Pushe.getPusheId(getContext());
+            String userName = new PrefManager(getContext()).getUserName();
+            String urlParams = String.format("id=0&pusheid=%s&username=%s", pusheId, userName);
+            String jsonStr = sh.makeServiceCall(_URL + "?" + urlParams);
             Log.e(TAG, "Response from _URL: " + jsonStr);
 
             if (jsonStr != null) {

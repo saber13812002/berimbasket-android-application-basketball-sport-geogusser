@@ -24,6 +24,7 @@ import com.google.gson.JsonParser;
 
 import java.util.Locale;
 
+import co.ronash.pushe.Pushe;
 import ir.berimbasket.app.R;
 import ir.berimbasket.app.downloadmanager.DownloadApkUpdate;
 import ir.berimbasket.app.network.Connectivity;
@@ -85,7 +86,10 @@ public class ActivitySplash extends AppCompatActivity {
                 } catch (PackageManager.NameNotFoundException e) {
                     // do nothing
                 }
-
+                PrefManager pref = new PrefManager(getApplicationContext());
+                String pusheId = Pushe.getPusheId(getApplicationContext());
+                String userName = pref.getUserName();
+                url_params += "&username=" + userName + "&pusheid=" + pusheId;
                 // call web service
                 HttpFunctions httpFunctions = new HttpFunctions(HttpFunctions.RequestType.GET);
                 String response = httpFunctions.makeServiceCall(URL_API_UPDATE + "?" + url_params);

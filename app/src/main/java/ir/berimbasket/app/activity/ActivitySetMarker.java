@@ -14,10 +14,12 @@ import android.widget.Toast;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 
+import co.ronash.pushe.Pushe;
 import ir.berimbasket.app.R;
 import ir.berimbasket.app.activity.fragment.FragmentSetMarker;
 import ir.berimbasket.app.network.HttpFunctions;
 import ir.berimbasket.app.util.ApplicationLoader;
+import ir.berimbasket.app.util.PrefManager;
 
 public class ActivitySetMarker extends AppCompatActivity {
 
@@ -68,7 +70,12 @@ public class ActivitySetMarker extends AppCompatActivity {
                 double longitude = fragmentSetMarker.getLongitude();
                 Log.i("message", String.valueOf(latitude));
                 if (!edtLocationName.getText().toString().equals("")) {
-                    String Url = "http://berimbasket.ir/bball/set.php?token=jkhfgkljhasfdlkh&lat=" + latitude + "&long=" + longitude + "&title=" + edtLocationName.getText();
+                    PrefManager pref = new PrefManager(getApplicationContext());
+                    String pusheId = Pushe.getPusheId(getApplicationContext());
+                    String userName = pref.getUserName();
+                    String Url = "http://berimbasket.ir/bball/set.php?token=jkhfgkljhasfdlkh&lat="
+                            + latitude + "&long=" + longitude + "&title=" + edtLocationName.getText() + "&username=" + userName
+                            + "&pusheid=" + pusheId;
                     Url.replace(" ", "%20");
                     // Tracking Event (Analytics)
                     ApplicationLoader.getInstance().trackEvent("Map", "SetNewMarker",

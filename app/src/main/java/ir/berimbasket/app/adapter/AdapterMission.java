@@ -1,7 +1,6 @@
 package ir.berimbasket.app.adapter;
 
 import android.content.Context;
-import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.customtabs.CustomTabsIntent;
@@ -17,11 +16,11 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import co.ronash.pushe.Pushe;
 import ir.berimbasket.app.R;
 import ir.berimbasket.app.entity.EntityMission;
 import ir.berimbasket.app.network.HttpFunctions;
 import ir.berimbasket.app.util.PrefManager;
-import ir.berimbasket.app.util.TypefaceManager;
 
 /**
  * Created by mohammad hosein on 7/22/2017.
@@ -144,12 +143,10 @@ public class AdapterMission extends RecyclerView.Adapter<AdapterMission.MissionV
         }
 
         private String completeMissionDoneUrl(int missionId) {
-            return MISSION_DONE_URL + "id=" + missionId + "&token=asf" + "&user=" + getActiveUsername();
-        }
-
-        private String getActiveUsername() {
             PrefManager pref = new PrefManager(context);
-            return pref.getUserName();
+            String pusheId = Pushe.getPusheId(context);
+            String userName = pref.getUserName();
+            return MISSION_DONE_URL + "id=" + missionId + "&token=asf" + "&user=" + userName + "&pusheid=" + pusheId + "&username=" + userName;
         }
 
         private void setMissionDone(String missionLink) {

@@ -24,6 +24,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import co.ronash.pushe.Pushe;
 import de.hdodenhof.circleimageview.CircleImageView;
 import ir.berimbasket.app.R;
 import ir.berimbasket.app.activity.fragment.FragmentStadiumMap;
@@ -32,6 +33,7 @@ import ir.berimbasket.app.entity.EntityStadium;
 import ir.berimbasket.app.entity.EntityStadiumGallery;
 import ir.berimbasket.app.network.HttpFunctions;
 import ir.berimbasket.app.util.ApplicationLoader;
+import ir.berimbasket.app.util.PrefManager;
 import ir.berimbasket.app.util.SendTo;
 
 public class ActivityStadium extends AppCompatActivity {
@@ -193,7 +195,10 @@ public class ActivityStadium extends AppCompatActivity {
         protected Void doInBackground(Integer... stadiumId) {
             HttpFunctions sh = new HttpFunctions(HttpFunctions.RequestType.GET);
 
-            String jsonStr = sh.makeServiceCall(STADIUM_URL + stadiumId[0]);
+            PrefManager pref = new PrefManager(getApplicationContext());
+            String pusheId = Pushe.getPusheId(getApplicationContext());
+            String userName = pref.getUserName();
+            String jsonStr = sh.makeServiceCall(STADIUM_URL + stadiumId[0] + "&username=" + userName + "&pusheid=" + pusheId);
             if (jsonStr != null) {
                 try {
                     JSONArray locations = new JSONArray(jsonStr);
