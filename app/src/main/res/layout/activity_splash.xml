@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:fontFamily="@font/yekan"
-        android:text="@string/splash_screen_loading"
+        android:text="@string/activity_splash_loading_message"
         android:textAppearance="@android:style/TextAppearance.Large"
         android:textColor="@android:color/white"
         android:textStyle="bold" />

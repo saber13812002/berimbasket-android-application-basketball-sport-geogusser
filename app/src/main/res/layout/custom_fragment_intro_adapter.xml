@@ -31,7 +31,7 @@
         android:layout_marginRight="10dp"
         android:fontFamily="sans-serif-light"
         android:padding="10dp"
-        android:text="@string/intro_skip_text"
+        android:text="@string/activity_intro_skip_text"
         android:textColor="@android:color/white"
         android:textSize="21sp"
         tools:ignore="UnusedAttribute"/>

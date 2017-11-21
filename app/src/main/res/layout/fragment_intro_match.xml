@@ -81,7 +81,7 @@
 
         android:gravity="center"
 
-        android:text="@string/intro_match_text"
+        android:text="@string/fragment_intro_match_text"
         android:textColor="@android:color/white"
         android:textSize="26sp"
 

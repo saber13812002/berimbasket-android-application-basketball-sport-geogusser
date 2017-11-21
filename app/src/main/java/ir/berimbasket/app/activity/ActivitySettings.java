@@ -2,26 +2,14 @@ package ir.berimbasket.app.activity;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
-import de.hdodenhof.circleimageview.CircleImageView;
 import ir.berimbasket.app.R;
 import ir.berimbasket.app.util.ApplicationLoader;
-import ir.berimbasket.app.util.SendTo;
-import ir.berimbasket.app.util.TypefaceManager;
-import ir.berimbasket.app.view.AppBarStateChangeListener;
 
 public class ActivitySettings extends AppCompatActivity {
 
@@ -54,7 +42,7 @@ public class ActivitySettings extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         // Tracking the screen view (Analytics)
-        ApplicationLoader.getInstance().trackScreenView("Settings Screen");
+        ApplicationLoader.getInstance().trackScreenView(getString(R.string.analytics_screen_settings));
     }
 
     @Override

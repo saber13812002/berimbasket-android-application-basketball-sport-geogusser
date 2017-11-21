@@ -16,6 +16,7 @@ import ir.berimbasket.app.util.PrefManager;
 public class SendLocationTask extends AsyncTask<EntityLocation, Void, Void> {
 
     private final static String URL_SET_LOCATION = "https://berimbasket.ir/bball/setLoc.php";
+
     @Override
     protected Void doInBackground(EntityLocation... params) {
         HttpFunctions httpFuncs = new HttpFunctions(HttpFunctions.RequestType.GET);

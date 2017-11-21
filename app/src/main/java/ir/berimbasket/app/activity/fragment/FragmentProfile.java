@@ -25,7 +25,7 @@ import ir.berimbasket.app.activity.ActivityLogin;
 import ir.berimbasket.app.adapter.AdapterProfilePager;
 import ir.berimbasket.app.util.ApplicationLoader;
 import ir.berimbasket.app.util.PrefManager;
-import ir.berimbasket.app.util.SendTo;
+import ir.berimbasket.app.util.Redirect;
 import ir.berimbasket.app.view.FontHelper;
 import ir.berimbasket.app.view.WrapContentViewPager;
 
@@ -102,20 +102,20 @@ public class FragmentProfile extends Fragment {
         fabChangeAvatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SendTo.sendToTelegramChat(getActivity(), UPLOAD_PHOTO_BOT);
+                Redirect.sendToTelegramChat(getActivity(), UPLOAD_PHOTO_BOT);
             }
         });
     }
 
     private void initProductPager() {
-        adapterProfilePager = new AdapterProfilePager(getActivity().getSupportFragmentManager());
+        adapterProfilePager = new AdapterProfilePager(getContext(), getActivity().getSupportFragmentManager());
         pagerProfile.setAdapter(adapterProfilePager);
         pagerProfile.setOffscreenPageLimit(3);
     }
 
     private void initTabProduct() {
         tabProfile.setupWithViewPager(pagerProfile);
-        FontHelper fontHelper = new FontHelper(getContext(), "fonts/yekan.ttf");
+        FontHelper fontHelper = new FontHelper(getContext(), getString(R.string.font_yekan));
         fontHelper.tablayoutApplyFont(tabProfile);
     }
 
@@ -129,17 +129,17 @@ public class FragmentProfile extends Fragment {
 
                         break;
                     case R.id.menu_profile_info:
-                        SendTo.sendToTelegramChat(getActivity(), UPDATE_USER_INFO_BOT);
+                        Redirect.sendToTelegramChat(getActivity(), UPDATE_USER_INFO_BOT);
                         break;
                     case R.id.menu_profile_logout:
                         logout();
                         break;
 
                     case R.id.menu_profile_score:
-                        SendTo.sendToTelegramChat(getActivity(), PROFILE_SCORE_INFO_BOT);
+                        Redirect.sendToTelegramChat(getActivity(), PROFILE_SCORE_INFO_BOT);
                         break;
                     case R.id.menu_profile_team:
-                        SendTo.sendToTelegramChat(getActivity(), PROFILE_TEAM_INFO_BOT);
+                        Redirect.sendToTelegramChat(getActivity(), PROFILE_TEAM_INFO_BOT);
                         break;
                 }
                 return false;
@@ -148,7 +148,7 @@ public class FragmentProfile extends Fragment {
         MenuInflater inflater = popup.getMenuInflater();
         inflater.inflate(R.menu.menu_fragment_profile, popup.getMenu());
         popup.show();
-        FontHelper fontHelper = new FontHelper(getActivity(), "fonts/yekan.ttf");
+        FontHelper fontHelper = new FontHelper(getActivity(), getString(R.string.font_yekan));
         fontHelper.popupApplyFont(popup);
 
     }
@@ -157,7 +157,7 @@ public class FragmentProfile extends Fragment {
     public void onResume() {
         super.onResume();
         // Tracking the screen view (Analytics)
-        ApplicationLoader.getInstance().trackScreenView("Profile Fragment");
+        ApplicationLoader.getInstance().trackScreenView(getString(R.string.analytics_screen_fragment_profile));
         // invalidate fragment when login status changes (eg. return from login activity)
         PrefManager pref = new PrefManager(getContext());
         boolean loginStatus = pref.getIsLoggedIn();
@@ -173,20 +173,20 @@ public class FragmentProfile extends Fragment {
         } else {
             builder = new AlertDialog.Builder(getActivity());
         }
-        builder.setTitle("ثبت نام")
-                .setMessage("آیا مطمئن هستید که میخواهید از حساب کاربری خود خارج شوید")
-                .setPositiveButton("بله", new DialogInterface.OnClickListener() {
+        builder.setTitle(getString(R.string.general_dialog_title_register))
+                .setMessage(getString(R.string.general_dialog_message_log_out))
+                .setPositiveButton(getString(R.string.general_dialog_option_yes), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         PrefManager pref = new PrefManager(getActivity().getApplicationContext());
                         pref.putIsLoggedIn(false);
                         pref.putUserName(null);
                         pref.putPassword(null);
                         // Tracking Event (Analytics)
-                        ApplicationLoader.getInstance().trackEvent("Login", "Log out", "");
+                        ApplicationLoader.getInstance().trackEvent(getString(R.string.analytics_category_login), getString(R.string.analytics_action_log_out), "");
                         getFragmentManager().beginTransaction().detach(FragmentProfile.this).attach(FragmentProfile.this).commitAllowingStateLoss();
                     }
                 })
-                .setNegativeButton("خیر", new DialogInterface.OnClickListener() {
+                .setNegativeButton(getString(R.string.general_dialog_option_no), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
 
                     }

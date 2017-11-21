@@ -99,7 +99,7 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback {
         super.onResume();
         mapView.onResume();
         // Tracking the screen view (Analytics)
-        ApplicationLoader.getInstance().trackScreenView("Map Fragment");
+        ApplicationLoader.getInstance().trackScreenView(getString(R.string.analytics_screen_fragment_map));
         if (map != null) {
             // change camera location only when city filter is changed
             LatLng pre = new LatLng(this.latitude, this.longitude);

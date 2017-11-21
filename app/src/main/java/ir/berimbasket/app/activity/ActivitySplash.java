@@ -58,7 +58,7 @@ public class ActivitySplash extends AppCompatActivity {
                 if (Connectivity.isConnected(this)) {
                     new UpdateTask().execute();
                 } else {
-                    Toast.makeText(this, "اینترنت در دسترس نیست", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, getString(R.string.general_toast_no_internet), Toast.LENGTH_LONG).show();
                 }
             } else {
                 final Handler handler = new Handler();
@@ -137,10 +137,10 @@ public class ActivitySplash extends AppCompatActivity {
                     CustomAlertDialog customAlertDialog = new CustomAlertDialog(ActivitySplash.this);
 
                     AlertDialog dialog = new AlertDialog.Builder(ActivitySplash.this)
-                            .setCustomTitle(customAlertDialog.getTitleText("به روز رسانی"))
-                            .setMessage("نسخه ی جدید موجود است ، اکنون نصب میکنید ؟")
+                            .setCustomTitle(customAlertDialog.getTitleText(getString(R.string.general_dialog_title_update)))
+                            .setMessage(getString(R.string.general_dialog_message_update))
                             .setCancelable(false)
-                            .setPositiveButton("بله", new DialogInterface.OnClickListener() {
+                            .setPositiveButton(getString(R.string.general_dialog_option_yes), new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
                                     if (Build.VERSION.SDK_INT >= 23) {
                                         // Here, thisActivity is the current activity
@@ -163,13 +163,13 @@ public class ActivitySplash extends AppCompatActivity {
                                     }
                                 }
                             })
-                            .setNegativeButton("خیر", new DialogInterface.OnClickListener() {
+                            .setNegativeButton(getString(R.string.general_dialog_option_no), new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
                                     dialog.dismiss();
                                     goToActivityHome();
                                 }
                             })
-                            .setNeutralButton("دیگر نشان نده", new DialogInterface.OnClickListener() {
+                            .setNeutralButton(getString(R.string.general_dialog_option_dont_show_again), new DialogInterface.OnClickListener() {
 
                                 public void onClick(DialogInterface dialog, int id) {
                                     prefs.putUpdateVersion(apkVersion);
@@ -202,10 +202,10 @@ public class ActivitySplash extends AppCompatActivity {
             CustomAlertDialog customAlertDialog = new CustomAlertDialog(ActivitySplash.this);
 
             AlertDialog dialog = new AlertDialog.Builder(ActivitySplash.this)
-                    .setCustomTitle(customAlertDialog.getTitleText("تغییرات نسخه ی جدید"))
+                    .setCustomTitle(customAlertDialog.getTitleText(getString(R.string.general_dialog_title_change_log)))
                     .setMessage(changeLog)
                     .setCancelable(false)
-                    .setPositiveButton("بستن", new DialogInterface.OnClickListener() {
+                    .setPositiveButton(getString(R.string.general_dialog_option_close), new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             dialog.dismiss();
                             goToActivityHome();
@@ -244,10 +244,10 @@ public class ActivitySplash extends AppCompatActivity {
                         CustomAlertDialog customAlertDialog = new CustomAlertDialog(ActivitySplash.this);
 
                         AlertDialog dialog = new AlertDialog.Builder(ActivitySplash.this)
-                                .setCustomTitle(customAlertDialog.getTitleText("راهنمایی"))
-                                .setMessage(getString(R.string.write_external_storage_guide_persian_phones))
+                                .setCustomTitle(customAlertDialog.getTitleText(getString(R.string.general_dialog_title_guide)))
+                                .setMessage(getString(R.string.permission_explain_write_external_storage_fa_phones))
                                 .setCancelable(false)
-                                .setPositiveButton("تنظیمات", new DialogInterface.OnClickListener() {
+                                .setPositiveButton(getString(R.string.general_dialog_option_settings), new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
                                         Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
                                         intent.setData(Uri.parse("package:" + getPackageName()));
@@ -262,10 +262,10 @@ public class ActivitySplash extends AppCompatActivity {
                         CustomAlertDialog customAlertDialog = new CustomAlertDialog(ActivitySplash.this);
 
                         AlertDialog dialog = new AlertDialog.Builder(ActivitySplash.this)
-                                .setCustomTitle(customAlertDialog.getTitleText("راهنمایی"))
+                                .setCustomTitle(customAlertDialog.getTitleText(getString(R.string.general_dialog_title_guide)))
                                 .setCancelable(false)
-                                .setMessage(getString(R.string.write_external_storage_guide_english_phones))
-                                .setPositiveButton("تنظیمات", new DialogInterface.OnClickListener() {
+                                .setMessage(getString(R.string.permission_explain_write_external_storage_en_phones))
+                                .setPositiveButton(getString(R.string.general_dialog_option_settings), new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
                                         Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
                                         intent.setData(Uri.parse("package:" + getPackageName()));

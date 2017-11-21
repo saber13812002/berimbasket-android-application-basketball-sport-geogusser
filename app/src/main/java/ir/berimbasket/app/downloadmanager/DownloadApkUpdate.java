@@ -17,34 +17,32 @@ import java.io.File;
 import ir.berimbasket.app.R;
 import ir.berimbasket.app.network.Connectivity;
 import ir.berimbasket.app.util.PrefManager;
-import ir.berimbasket.app.util.SendTo;
+import ir.berimbasket.app.util.Redirect;
 import ir.berimbasket.app.view.CustomToast;
 
 public class DownloadApkUpdate {
 
-	private Activity activity;
-	private Context context;
-	
-	private String DownloadTitle;
-	private String fileDir="";
-	private String fileName;
-	
-    private long enqueue=0;//this is download request id , at first set to zero for check download status
+    private Activity activity;
+    private Context context;
+
+    private String DownloadTitle;
+    private String fileDir = "";
+    private String fileName;
+
+    private long enqueue = 0;//this is download request id , at first set to zero for check download status
     private DownloadManager dm;
 
     private Request request;
-	
-	public DownloadApkUpdate(Activity ac, Context c)
-	{
-		this.activity = ac;
-		this.fileDir = "/BerimBasket";
-		this.context = c;
-		DownloadTitle = activity.getResources().getString(R.string.app_name);
-	}
-	
-	public void StartDownload(String url, String filename, int fileSizeByte)
-	{
-        if(downloadManagerIsEnable()){
+
+    public DownloadApkUpdate(Activity ac, Context c) {
+        this.activity = ac;
+        this.fileDir = "/" + c.getString(R.string.download_apk_update_folder);
+        this.context = c;
+        DownloadTitle = activity.getResources().getString(R.string.app_name);
+    }
+
+    public void StartDownload(String url, String filename, int fileSizeByte) {
+        if (downloadManagerIsEnable()) {
             this.fileName = filename;
             makeDir();
             initializeDownload(url);
@@ -53,14 +51,13 @@ public class DownloadApkUpdate {
 
             boolean storageAvailability;
             long availableSpace = getAvailableSpace();
-            availableSpace=(availableSpace-10);
-            storageAvailability=(availableSpace > FileSizeMB);
+            availableSpace = (availableSpace - 10);
+            storageAvailability = (availableSpace > FileSizeMB);
 
             File myFile = new File(Environment.getExternalStorageDirectory() +
                     fileDir + "/" + fileName);
 
-            if(myFile.exists()&&enqueue==0)
-            {
+            if (myFile.exists() && enqueue == 0) {
                 long savedDownloadIds = new PrefManager(context).getDownloadApkID();
 
                 DownloadManager.Query q = new DownloadManager.Query();
@@ -68,75 +65,63 @@ public class DownloadApkUpdate {
                 DownloadManager manager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
                 Cursor c = manager.query(q);
 
-                if(c.getCount() != 0)
-                {
+                if (c.getCount() != 0) {
                     c.moveToFirst();
                     int status = c.getInt(c.getColumnIndex(DownloadManager.COLUMN_STATUS));
                     if (status != DownloadManager.STATUS_RUNNING)
                         promptInstallApk();
-                }
-                else
+                } else
                     promptInstallApk();
-            }
-            else
-            {
-                if(Connectivity.isConnected(context))
-                {
-                    if(storageAvailability)
-                    {
+            } else {
+                if (Connectivity.isConnected(context)) {
+                    if (storageAvailability) {
                         Download();
-                    }
-                    else
-                    {
-                        CustomToast toast= new CustomToast("حافظه ی کافی برای دانلود آپدیت موجود نیست", context);
+                    } else {
+                        CustomToast toast = new CustomToast(context.getString(R.string.download_toast_no_enough_space_for_update), context);
                         toast.showToast(true);
                     }
                 }
             }
-        }else {
-            SendTo.sendToEnableDownloadManager(activity);
+        } else {
+            Redirect.sendToEnableDownloadManager(activity);
         }
-	}
-	
-	private void initializeDownload(String url)
-	{
-		dm = (DownloadManager) activity.getSystemService(Context.DOWNLOAD_SERVICE);
+    }
+
+    private void initializeDownload(String url) {
+        dm = (DownloadManager) activity.getSystemService(Context.DOWNLOAD_SERVICE);
         request = new Request(Uri.parse(url));
         request.setAllowedNetworkTypes(Request.NETWORK_WIFI | Request.NETWORK_MOBILE)
-        .setTitle(DownloadTitle)
-        .setDescription("لطفا صبر کنید")
-        .setDestinationInExternalPublicDir(fileDir, fileName);
-	}
-	
-	private void Download()
-	{
-        PrefManager prefs = new PrefManager(context);
-	    long savedDownloadIds = prefs.getDownloadApkID();
-	    
-	    DownloadManager.Query q = new DownloadManager.Query();
-	    q.setFilterById(savedDownloadIds);
-	    DownloadManager manager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
-	    Cursor c = manager.query(q);
-	    
-	    boolean StartDownload = true;
-		if(c != null){
-			if(c.getCount() != 0)
-			{
-				c.moveToFirst();
-				int status = c.getInt(c.getColumnIndex(DownloadManager.COLUMN_STATUS));
-				if (status == DownloadManager.STATUS_RUNNING)
-					StartDownload = false;
-			}
-		}
+                .setTitle(DownloadTitle)
+                .setDescription(context.getString(R.string.general_please_wait))
+                .setDestinationInExternalPublicDir(fileDir, fileName);
+    }
 
-		if(StartDownload)
-    	{
-    		enqueue = dm.enqueue(request);
+    private void Download() {
+        PrefManager prefs = new PrefManager(context);
+        long savedDownloadIds = prefs.getDownloadApkID();
+
+        DownloadManager.Query q = new DownloadManager.Query();
+        q.setFilterById(savedDownloadIds);
+        DownloadManager manager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
+        Cursor c = manager.query(q);
+
+        boolean StartDownload = true;
+        if (c != null) {
+            if (c.getCount() != 0) {
+                c.moveToFirst();
+                int status = c.getInt(c.getColumnIndex(DownloadManager.COLUMN_STATUS));
+                if (status == DownloadManager.STATUS_RUNNING)
+                    StartDownload = false;
+            }
+        }
+
+        if (StartDownload) {
+            enqueue = dm.enqueue(request);
             prefs.putDownloadApkFileName(fileName);
             prefs.putDownloadApkID(enqueue);
-    	}
+        }
 
-	}
+    }
 
     private boolean downloadManagerIsEnable() {
         int state = context.getPackageManager().getApplicationEnabledSetting("com.android.providers.downloads");
@@ -144,35 +129,33 @@ public class DownloadApkUpdate {
             return (!(state == PackageManager.COMPONENT_ENABLED_STATE_DISABLED
                     || state == PackageManager.COMPONENT_ENABLED_STATE_DISABLED_USER
                     || state == PackageManager.COMPONENT_ENABLED_STATE_DISABLED_UNTIL_USED));
-        }else{
+        } else {
             return (!(state == PackageManager.COMPONENT_ENABLED_STATE_DISABLED
                     || state == PackageManager.COMPONENT_ENABLED_STATE_DISABLED_USER));
         }
     }
-	
-	private void promptInstallApk() {
-        SendTo.sendToInstallApk(context, new File(Environment.getExternalStorageDirectory() + fileDir +"/" + fileName));
-	}
-	
-	private void makeDir()
-	{
-		File direct = new File(Environment.getExternalStorageDirectory() + fileDir);
-        if (!direct.exists()) {
-           direct.mkdirs();
-        }
-	}
 
-	private long getAvailableSpace()
-    {
+    private void promptInstallApk() {
+        Redirect.sendToInstallApk(context, new File(Environment.getExternalStorageDirectory() + fileDir + "/" + fileName));
+    }
+
+    private void makeDir() {
+        File direct = new File(Environment.getExternalStorageDirectory() + fileDir);
+        if (!direct.exists()) {
+            direct.mkdirs();
+        }
+    }
+
+    private long getAvailableSpace() {
         StatFs statFs = new StatFs(Environment.getExternalStorageDirectory().getAbsolutePath());
         long freeSize;
         if (Build.VERSION.SDK_INT >= 18) {
-            freeSize = (statFs.getFreeBlocksLong()*statFs.getBlockSizeLong())/1048576;
-        }else{
-            freeSize = (statFs.getFreeBlocks()*statFs.getBlockSize())/1048576;
+            freeSize = (statFs.getFreeBlocksLong() * statFs.getBlockSizeLong()) / 1048576;
+        } else {
+            freeSize = (statFs.getFreeBlocks() * statFs.getBlockSize()) / 1048576;
         }
-    	 Log.d("Free Storage", Long.toString(freeSize));
-    	 return freeSize;
+        Log.d("Free Storage", Long.toString(freeSize));
+        return freeSize;
     }
-	
+
 }

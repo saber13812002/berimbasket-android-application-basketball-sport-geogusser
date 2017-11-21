@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/yekan"
             android:gravity="center_vertical"
-            android:text="قد"
+            android:text="@string/item_player_spec_key_default"
             android:textSize="18sp"
             android:textColor="@color/colorWhite" />
 
@@ -35,7 +35,7 @@
             android:textColor="@color/colorWhite"
             android:textSize="18sp"
             android:gravity="center_vertical"
-            android:text="185 سانتی متر" />
+            android:text="@string/item_player_spec_value_default" />
 
     </LinearLayout>
 

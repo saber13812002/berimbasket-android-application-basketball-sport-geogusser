@@ -83,7 +83,7 @@
 
         android:gravity="center"
 
-        android:text="@string/intro_player_text"
+        android:text="@string/fragment_intro_player_text"
         android:textColor="@android:color/white"
         android:textSize="28sp"
 

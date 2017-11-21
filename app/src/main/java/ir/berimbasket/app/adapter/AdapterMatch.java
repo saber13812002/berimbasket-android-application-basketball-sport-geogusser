@@ -1,7 +1,6 @@
 package ir.berimbasket.app.adapter;
 
 import android.content.Context;
-import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +14,6 @@ import java.util.ArrayList;
 
 import ir.berimbasket.app.R;
 import ir.berimbasket.app.entity.EntityMatchScore;
-import ir.berimbasket.app.util.TypefaceManager;
 
 public class AdapterMatch extends RecyclerView.Adapter<AdapterMatch.MatchViewHolder> {
 

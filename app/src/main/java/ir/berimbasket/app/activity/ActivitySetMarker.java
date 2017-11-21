@@ -52,7 +52,7 @@ public class ActivitySetMarker extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         // Tracking the screen view (Analytics)
-        ApplicationLoader.getInstance().trackScreenView("SetMarker Screen");
+        ApplicationLoader.getInstance().trackScreenView(getString(R.string.analytics_screen_set_marker));
     }
 
     private void initViews() {
@@ -78,12 +78,13 @@ public class ActivitySetMarker extends AppCompatActivity {
                             + "&pusheid=" + pusheId;
                     Url.replace(" ", "%20");
                     // Tracking Event (Analytics)
-                    ApplicationLoader.getInstance().trackEvent("Map", "SetNewMarker",
+                    ApplicationLoader.getInstance().trackEvent(getString(R.string.analytics_category_map),
+                            getString(R.string.analytics_action_set_new_marker),
                             String.format("Location : lat=%s , long=%s", latitude, longitude));
                     new PostLocation().execute(Url);
 
                 } else {
-                    Toast.makeText(getApplicationContext(), "لطفا نام ورزشگاه را وارد کنید", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), getString(R.string.activity_set_marker_toast_stadium_name_error), Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -96,7 +97,7 @@ public class ActivitySetMarker extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
             pDialog = new ProgressDialog(ActivitySetMarker.this);
-            pDialog.setMessage("لطفا صبر کنید ...");
+            pDialog.setMessage(getString(R.string.general_please_wait));
             pDialog.setCancelable(false);
             pDialog.show();
         }
@@ -113,7 +114,7 @@ public class ActivitySetMarker extends AppCompatActivity {
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
             pDialog.cancel();
-            Toast.makeText(getApplicationContext(), "نقطه مد نظر شما با موفقیت ثبت شد", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), getString(R.string.activity_set_marker_toast_marker_successful), Toast.LENGTH_SHORT).show();
             ActivitySetMarker.this.finish();
         }
     }

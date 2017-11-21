@@ -57,7 +57,7 @@ public class FragmentPlayerSpecification extends Fragment {
             String pusheId = Pushe.getPusheId(getContext());
             String userName = pref.getUserName();
             int userId = pref.getUserId();
-            String urlParams = String.format("id=%s&pusheid=%s&username=%s",userId, pusheId, userName);
+            String urlParams = String.format("id=%s&pusheid=%s&username=%s", userId, pusheId, userName);
             String jsonStr = sh.makeServiceCall(PLAYER_URL + "?" + urlParams);
             if (jsonStr != null) {
                 try {
@@ -153,21 +153,22 @@ public class FragmentPlayerSpecification extends Fragment {
     private ArrayList<String> getPlayerSpec(EntityPlayer entityPlayer) {
 
         ArrayList<String> playerSpecList = new ArrayList<>();
-        playerSpecList.add("نام : " + entityPlayer.getName());
-        playerSpecList.add("سن : " + String.valueOf(entityPlayer.getAge()));
-        playerSpecList.add("شهر : " + entityPlayer.getCity());
-        playerSpecList.add("قد : " + String.valueOf(entityPlayer.getHeight()));
-        playerSpecList.add("وزن : " + String.valueOf(entityPlayer.getWeight()));
-        playerSpecList.add("آدرس : " + entityPlayer.getAddress());
-        playerSpecList.add("میزان تجربه : " + entityPlayer.getExperience());
-        playerSpecList.add("سرمربی : " + entityPlayer.getCoachName());
-        playerSpecList.add("تیم : " + entityPlayer.getTeamName());
-        playerSpecList.add("نام کاربری : " + entityPlayer.getUsername());
-        playerSpecList.add("پست بازی : " + String.valueOf(entityPlayer.getPost()));
+        String specSeparator = getString(R.string.fragment_player_spec_separator);
+        playerSpecList.add(getString(R.string.fragment_player_spec_name) + " " + specSeparator + " " + entityPlayer.getName());
+        playerSpecList.add(getString(R.string.fragment_player_spec_age) + " " + specSeparator + " " + String.valueOf(entityPlayer.getAge()));
+        playerSpecList.add(getString(R.string.fragment_player_spec_city) + " " + specSeparator + " " + entityPlayer.getCity());
+        playerSpecList.add(getString(R.string.fragment_player_spec_height) + " " + specSeparator + " " + String.valueOf(entityPlayer.getHeight()));
+        playerSpecList.add(getString(R.string.fragment_player_spec_weight) + " " + specSeparator + " " + String.valueOf(entityPlayer.getWeight()));
+        playerSpecList.add(getString(R.string.fragment_player_spec_address) + " " + specSeparator + " " + entityPlayer.getAddress());
+        playerSpecList.add(getString(R.string.fragment_player_spec_experience) + " " + specSeparator + " " + entityPlayer.getExperience());
+        playerSpecList.add(getString(R.string.fragment_player_spec_head_coach) + " " + specSeparator + " " + entityPlayer.getCoachName());
+        playerSpecList.add(getString(R.string.fragment_player_spec_team) + " " + specSeparator + " " + entityPlayer.getTeamName());
+        playerSpecList.add(getString(R.string.fragment_player_spec_user_name) + " " + specSeparator + " " + entityPlayer.getUsername());
+        playerSpecList.add(getString(R.string.fragment_player_spec_post) + " " + specSeparator + " " + String.valueOf(entityPlayer.getPost()));
 //        playerSpecList.add("" + entityPlayer.getProfileImage());
-        playerSpecList.add("تلگرام : " + entityPlayer.getTelegramId());
-        playerSpecList.add("اینستاگرام : " + entityPlayer.getInstagramId());
-        playerSpecList.add("شماره تلفن : " + entityPlayer.getPhone());
+        playerSpecList.add(getString(R.string.fragment_player_spec_telegram) + " " + specSeparator + " " + entityPlayer.getTelegramId());
+        playerSpecList.add(getString(R.string.fragment_player_spec_instagram) + " " + specSeparator + " " + entityPlayer.getInstagramId());
+        playerSpecList.add(getString(R.string.fragment_player_spec_phone_number) + " " + specSeparator + " " + entityPlayer.getPhone());
         return playerSpecList;
     }
 

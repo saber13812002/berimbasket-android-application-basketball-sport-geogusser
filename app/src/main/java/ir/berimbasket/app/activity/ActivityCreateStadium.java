@@ -23,6 +23,6 @@ public class ActivityCreateStadium extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         // Tracking the screen view (Analytics)
-        ApplicationLoader.getInstance().trackScreenView("CreateStadium Screen");
+        ApplicationLoader.getInstance().trackScreenView(getString(R.string.analytics_screen_create_stadium));
     }
 }

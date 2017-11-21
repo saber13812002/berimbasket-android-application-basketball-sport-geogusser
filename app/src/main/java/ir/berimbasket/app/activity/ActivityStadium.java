@@ -34,7 +34,7 @@ import ir.berimbasket.app.entity.EntityStadiumGallery;
 import ir.berimbasket.app.network.HttpFunctions;
 import ir.berimbasket.app.util.ApplicationLoader;
 import ir.berimbasket.app.util.PrefManager;
-import ir.berimbasket.app.util.SendTo;
+import ir.berimbasket.app.util.Redirect;
 
 public class ActivityStadium extends AppCompatActivity {
 
@@ -65,7 +65,7 @@ public class ActivityStadium extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         // Tracking the screen view (Analytics)
-        ApplicationLoader.getInstance().trackScreenView("Stadium Screen");
+        ApplicationLoader.getInstance().trackScreenView(getString(R.string.analytics_screen_stadium));
     }
 
     private void initToolbar() {
@@ -77,12 +77,13 @@ public class ActivityStadium extends AppCompatActivity {
     }
 
     private void getStadiumInfo(EntityStadium entityStadium) {
+        String specSeparator = getString(R.string.activity_stadium_spec_separator);
         txtStadiumName.setText(entityStadium.getTitle());
-        txtStadiumTel.setText("تلفن : " + "-");
-        txtStadiumAddress.setText("آدرس : " + entityStadium.getAddress());
-        txtStadiumRound.setText("ساعت کاری : " + "-");
-        txtTelegramChannel.setText("کانال تلگرام : " + entityStadium.getTelegramChannelId());
-        txtInstagramId.setText("اینستاگرام" + entityStadium.getInstagramId());
+        txtStadiumTel.setText(getString(R.string.activity_stadium_spec_phone) + " " +  specSeparator + " " +  "-");
+        txtStadiumAddress.setText(getString(R.string.activity_stadium_spec_address) + " " +  specSeparator + " " +  entityStadium.getAddress());
+        txtStadiumRound.setText(getString(R.string.activity_stadium_spec_work_time) + " " +  specSeparator + " " +  "-");
+        txtTelegramChannel.setText(getString(R.string.activity_stadium_spec_telegram_channel) + " " +  specSeparator + " " +  entityStadium.getTelegramChannelId());
+        txtInstagramId.setText(getString(R.string.activity_stadium_spec_instagram) + " " +  specSeparator + " " +  entityStadium.getInstagramId());
     }
 
     private void initViewsAndListeners() {
@@ -111,21 +112,21 @@ public class ActivityStadium extends AppCompatActivity {
         btnCompleteStadiumDetail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SendTo.sendToTelegramChat(ActivityStadium.this, UPDATE_STADIUM_INFO_BOT + entityStadium.getId());
+                Redirect.sendToTelegramChat(ActivityStadium.this, UPDATE_STADIUM_INFO_BOT + entityStadium.getId());
             }
         });
 
         btnReportStadium.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SendTo.sendToTelegramChat(ActivityStadium.this, REPORT_STADIUM_BOT + entityStadium.getId());
+                Redirect.sendToTelegramChat(ActivityStadium.this, REPORT_STADIUM_BOT + entityStadium.getId());
             }
         });
 
         btnReserveStadium.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SendTo.sendToTelegramChat(ActivityStadium.this, RESERVE_STADIUM_BOT + entityStadium.getId());
+                Redirect.sendToTelegramChat(ActivityStadium.this, RESERVE_STADIUM_BOT + entityStadium.getId());
             }
         });
 
@@ -133,7 +134,7 @@ public class ActivityStadium extends AppCompatActivity {
         btnAddImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SendTo.sendToTelegramChat(ActivityStadium.this, STADIUM_IMAGE_BOT + entityStadium.getId());
+                Redirect.sendToTelegramChat(ActivityStadium.this, STADIUM_IMAGE_BOT + entityStadium.getId());
             }
         });
     }

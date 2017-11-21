@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:fontFamily="@font/yekan"
-        android:text="@string/fragment_profile_user_not_reg_button"
+        android:text="@string/fragment_profile_user_not_reg_btn"
         android:textAppearance="@android:style/TextAppearance.Medium"
         android:textColor="@android:color/white" />
 

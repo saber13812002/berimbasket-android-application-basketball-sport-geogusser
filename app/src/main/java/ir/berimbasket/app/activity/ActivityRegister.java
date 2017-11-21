@@ -63,7 +63,7 @@ public class ActivityRegister extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         // Tracking the screen view (Analytics)
-        ApplicationLoader.getInstance().trackScreenView("Register Screen");
+        ApplicationLoader.getInstance().trackScreenView(getString(R.string.analytics_screen_register));
     }
 
     private void initViews() {
@@ -121,9 +121,9 @@ public class ActivityRegister extends AppCompatActivity {
                         || edtUsername.getText().toString().equals("")
                         || edtPassword.getText().toString().equals("")
                         || edtPasswordRepeat.getText().toString().equals("")) {
-                    Toast.makeText(getApplicationContext(), "لطفا تمامی فیلد ها را پرکنید", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), getString(R.string.activity_register_toast_fill_all_fields), Toast.LENGTH_LONG).show();
                 } else if (!edtPassword.getText().toString().equals(edtPasswordRepeat.getText().toString())) {
-                    Toast.makeText(getApplicationContext(), "رمزهای وارد شده مطابقت ندارد", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), getString(R.string.activity_register_toast_wrong_password), Toast.LENGTH_LONG).show();
                 } else {
                     new ValidateUsername().execute();
                 }
@@ -150,17 +150,18 @@ public class ActivityRegister extends AppCompatActivity {
         } else {
             builder = new AlertDialog.Builder(ActivityRegister.this);
         }
-        builder.setTitle("ثبت نام")
-                .setMessage("برای ثبت نام روی دکمه لینک ربات کلیک کنید و سپس با دریافت کد چهار رقمی با برگشت به اپلیکیشن آن را در اپلیکیشن وارد کنید تا ثبت نام شما انجام شود")
-                .setPositiveButton("لینک ربات", new DialogInterface.OnClickListener() {
+        builder.setTitle(getString(R.string.general_dialog_title_register))
+                .setMessage(getString(R.string.general_dialog_message_bot_register))
+                .setPositiveButton(getString(R.string.general_dialog_option_bot_link), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         Intent telegram = new Intent(Intent.ACTION_VIEW, Uri.parse("https://telegram.me/berimbasketbot"));
                         // Tracking Event (Analytics)
-                        ApplicationLoader.getInstance().trackEvent("Registration", "Go to TelegramBot", "");
+                        ApplicationLoader.getInstance().trackEvent(getString(R.string.analytics_category_registration)
+                                , getString(R.string.analytics_action_telegram_bot), "");
                         startActivity(telegram);
                     }
                 })
-                .setNegativeButton("لغو", new DialogInterface.OnClickListener() {
+                .setNegativeButton(getString(R.string.general_dialog_option_cancel), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         // do nothing
                         ActivityRegister.this.finish();
@@ -183,7 +184,7 @@ public class ActivityRegister extends AppCompatActivity {
         String userName = pref.getUserName();
         String deviceId = pref.getDeviceID();
         String code = edtVerifyCode.getText().toString();
-        String urlParams = String.format("mac=%s&code=%s&pusheid=%s&username=%s",deviceId, code, pusheId, userName);
+        String urlParams = String.format("mac=%s&code=%s&pusheid=%s&username=%s", deviceId, code, pusheId, userName);
         verifyUrl = verifyUrl + "?" + urlParams;
         return verifyUrl;
     }
@@ -201,7 +202,7 @@ public class ActivityRegister extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            pDialog.setMessage("در حال بررسی اطلاعات");
+            pDialog.setMessage(getString(R.string.general_progress_dialog_checking_info));
             pDialog.setCancelable(false);
             pDialog.show();
         }
@@ -247,21 +248,21 @@ public class ActivityRegister extends AppCompatActivity {
         @Override
         protected void onPostExecute(Bundle result) {
             super.onPostExecute(result);
-            edtUsername.setError("این نام کاربری قبلا استفاده شده");
+            edtUsername.setError(getString(R.string.activity_register_edt_username_error));
             boolean userError = result.getBoolean(USER_ERROR, false);
             boolean verifyError = result.getBoolean(VERIFY_ERROR, false);
             boolean registerError = result.getBoolean(REGISTER_ERROR, true);
 
             if (userError) {
-                edtUsername.setError("این نام کاربری قبلا استفاده شده");
+                edtUsername.setError(getString(R.string.activity_register_edt_username_error));
             }
             if (verifyError) {
-                edtVerifyCode.setError("کد اشتباه است یا منقضی شده");
+                edtVerifyCode.setError(getString(R.string.activity_register_edt_verify_error));
             }
             if (!registerError) {
-                Toast.makeText(getApplicationContext(), "ثبت نام شما با موفقیت انجام شد، حالا میتوانید وارد شوید", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), getString(R.string.activity_register_toast_register_successful), Toast.LENGTH_LONG).show();
                 // Tracking Event (Analytics)
-                ApplicationLoader.getInstance().trackEvent("Registration", "New User Register", "");
+                ApplicationLoader.getInstance().trackEvent(getString(R.string.analytics_category_registration), getString(R.string.analytics_action_new_register), "");
                 ActivityRegister.this.finish();
             }
             pDialog.cancel();

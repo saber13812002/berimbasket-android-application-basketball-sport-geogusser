@@ -30,7 +30,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginStart="5dp"
                     android:fontFamily="@font/yekan"
-                    android:text="بازیکنان"
+                    android:text="@string/fragment_home_txt_more_player"
                     android:textColor="@android:color/black"
                     android:textSize="16sp" />
 
@@ -41,7 +41,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:fontFamily="@font/yekan"
-                    android:text="بیشتر" />
+                    android:text="@string/general_more" />
             </RelativeLayout>
 
             <android.support.v7.widget.RecyclerView
@@ -66,7 +66,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginStart="5dp"
                     android:fontFamily="@font/yekan"
-                    android:text="ورزشگاه ها"
+                    android:text="@string/fragment_home_txt_more_stadium"
                     android:textColor="@android:color/black"
                     android:textSize="16sp" />
 
@@ -77,7 +77,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:fontFamily="@font/yekan"
-                    android:text="بیشتر" />
+                    android:text="@string/general_more" />
             </RelativeLayout>
 
             <android.support.v7.widget.RecyclerView
@@ -101,7 +101,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginStart="5dp"
                     android:fontFamily="@font/yekan"
-                    android:text="بازی ها"
+                    android:text="@string/fragment_home_txt_more_match"
                     android:textColor="@android:color/black"
                     android:textSize="16sp" />
 
@@ -112,7 +112,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:fontFamily="@font/yekan"
-                    android:text="بیشتر" />
+                    android:text="@string/general_more" />
             </RelativeLayout>
 
             <android.support.v7.widget.RecyclerView

@@ -144,7 +144,7 @@ public class ActivityHome extends AppCompatActivity implements View.OnClickListe
     protected void onResume() {
         super.onResume();
         // Tracking the screen view (Analytics)
-        ApplicationLoader.getInstance().trackScreenView("Home Screen");
+        ApplicationLoader.getInstance().trackScreenView(getString(R.string.analytics_screen_home));
     }
 
     private void applyFontToMenuItem(MenuItem mi) {

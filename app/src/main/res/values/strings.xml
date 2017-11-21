@@ -1,37 +1,154 @@
 <resources>
+    <!-- app specific -->
     <string name="app_name">بریم بسکت</string>
-    <string name="name_home">خانه</string>
-    <string name="name_dashboard">مسابقات</string>
-    <string name="name_notifications">امتیازات</string>
 
-    <!-- Strings related to login -->
-    <string name="prompt_email">پست الکترونیک</string>
-    <string name="prompt_password">رمز عبور</string>
-    <string name="action_sign_in">ورود به حساب کاربری</string>
-    <string name="action_sign_up">ثبت نام</string>
-    <string name="action_sign_in_short">Sign in</string>
-    <string name="error_invalid_email">This email address is invalid</string>
-    <string name="error_invalid_password">This password is too short</string>
-    <string name="error_incorrect_password">This password is incorrect</string>
-    <string name="error_field_required">This field is required</string>
-    <string name="permission_rationale">"Contacts permissions are needed for providing email
-        completions."
-    </string>
+    <!-- activity -->
+    <string name="activity_home_navigation_home">خانه</string>
+    <string name="activity_home_navigation_profile">پروفایل</string>
+    <string name="activity_home_navigation_map">نقشه</string>
 
-    <!-- Strings related to Settings -->
+    <string name="activity_login_edt_username_hint">نام کاربری</string>
+    <string name="activity_login_edt_password_hint">رمز عبور</string>
+    <string name="activity_login_btn_sign_in">ورود به حساب کاربری</string>
+    <string name="activity_login_toast_fill_all_fields">لطفا تمامی فیلد ها را پرکنید</string>
+    <string name="activity_login_toast_successful">ورود شما با موفقیت انجام شد</string>
+    <string name="activity_login_edt_username_error">نام کاربری یا رمز عبور اشتباه است</string>
+    <string name="activity_login_txt_create_account">حساب کاربری نداری؟ یکی بساز !!!</string>
+    <string name="activity_login_txt_watch_video">چجور حساب بسازی؟ ویدیو رو ببین</string>
 
-    <!-- Example General settings -->
-    <string name="pref_header_general">General</string>
+    <string name="activity_register_btn_sign_up">ثبت نام</string>
+    <string name="activity_register_toast_fill_all_fields">لطفا تمامی فیلد ها را پرکنید</string>
+    <string name="activity_register_toast_wrong_password">رمزهای وارد شده مطابقت ندارد</string>
+    <string name="activity_register_edt_username_error">این نام کاربری قبلا استفاده شده</string>
+    <string name="activity_register_edt_verify_error">کد اشتباه است یا منقضی شده</string>
+    <string name="activity_register_toast_register_successful">ثبت نام شما با موفقیت انجام شد، حالا میتوانید وارد شوید</string>
+    <string name="activity_register_edt_verify_code_hint">کد ثبت نام</string>
+    <string name="activity_register_edt_user_name_hint">نام کاربری</string>
+    <string name="activity_register_edt_repeat_pass_hint">تکرار رمز عبور</string>
+    <string name="activity_register_txt_have_account">حساب کاربری دارید؟ وارد شوید !!!</string>
 
-    <string name="pref_name_social_recommendations">Enable social recommendations</string>
-    <string name="pref_description_social_recommendations">Recommendations for people to contact
-        based on your message history
-    </string>
+    <string name="activity_player_spec_name">نام</string>
+    <string name="activity_player_spec_age">سن</string>
+    <string name="activity_player_spec_city">شهر</string>
+    <string name="activity_player_spec_height">قد</string>
+    <string name="activity_player_spec_weight">وزن</string>
+    <string name="activity_player_spec_address">آدرس</string>
+    <string name="activity_player_spec_experience">میزان تجربه</string>
+    <string name="activity_player_spec_head_coach">سرمربی</string>
+    <string name="activity_player_spec_team">تیم</string>
+    <string name="activity_player_spec_user_name">نام کاربری</string>
+    <string name="activity_player_spec_game_post">پست بازی</string>
+    <string name="activity_player_spec_separator">:</string>
+    <string name="activity_player_spec_telegram">تلگرم</string>
+    <string name="activity_player_spec_instagram">اینستاگرام</string>
+    <string name="activity_player_spec_phone_number">شماره تلفن</string>
+    <string name="activity_player_default_name">جردن باروز</string>
 
-    <string name="pref_name_display_name">Display name</string>
-    <string name="pref_default_display_name">John Smith</string>
+    <string name="activity_splash_loading_message">بریم بسکت</string>
 
-    <string name="pref_name_add_friends_to_messages">Add friends to messages</string>
+    <string name="activity_intro_skip_text">بزن بریم</string>
+
+    <string name="activity_set_marker_toast_stadium_name_error">لطفا نام ورزشگاه را وارد کنید</string>
+    <string name="activity_set_marker_toast_marker_successful">نقطه مد نظر شما با موفقیت ثبت شد</string>
+    <string name="activity_set_marker_edt_location_hint">نام ورزشگاه</string>
+
+    <string name="activity_stadium_spec_phone">تلفن</string>
+    <string name="activity_stadium_spec_separator">:</string>
+    <string name="activity_stadium_spec_address">آدرس</string>
+    <string name="activity_stadium_spec_work_time">ساعت کاری</string>
+    <string name="activity_stadium_spec_telegram_channel">کانال تلگرام</string>
+    <string name="activity_stadium_spec_instagram">اینستاگرام</string>
+    <string name="activity_stadium_txt_name_default">ورزشگاه شهید آوینی</string>
+    <string name="activity_stadium_txt_phone_default">تلفن : 8943264 98+</string>
+    <string name="activity_stadium_btn_complete_detail">تکمیل اطلاعات</string>
+    <string name="activity_stadium_btn_add_image">افزودن عکس</string>
+    <string name="activity_stadium_txt_detail">جزئیات ورزشگاه</string>
+    <string name="activity_stadium_txt_address_default">آدرس : تهران - کیلومتر 5 آزاد راه تهران کرج مجموعه ورزشی آزادی</string>
+    <string name="activity_stadium_txt_round_default">ساعت کاری : 8 صبح تا 10 شب</string>
+    <string name="activity_stadium_txt_telegram_channel_default">کانال تلگرام : @berimbasket</string>
+    <string name="activity_stadium_txt_instagram_default">اینستاگرام : @berimbasket</string>
+
+    <string name="activity_create_stadium_edt_stadium_hint">نام تیم میهمان</string>
+    <string name="activity_create_stadium_edt_address_hint">آدرس ورزشگاه به صورت دستی</string>
+    <string name="activity_create_stadium_btn_address">آدرس ورزشگاه روی نقشه</string>
+    <string name="activity_create_stadium_btn_add_image">اضافه کردن عکس های ورشگاه</string>
+
+    <!-- fragment -->
+    <string name="fragment_home_txt_more_player">بازیکنان</string>
+    <string name="fragment_home_txt_more_stadium">ورزشگاه ها</string>
+    <string name="fragment_home_txt_more_match">بازی ها</string>
+
+    <string name="fragment_profile_user_not_reg_message">وارد حساب کاربریت شو تا غافلگیر شی</string>
+    <string name="fragment_profile_user_not_reg_btn">ورود به حساب کاربری</string>
+    <string name="fragment_profile_txt_name_default">نام و نام خانوادگی</string>
+
+    <string name="fragment_intro_player_text">بازیکن شو</string>
+    <string name="fragment_intro_stadium_text">ورزشگاه پیدا کن</string>
+    <string name="fragment_intro_match_text">مسابقه بده</string>
+
+    <string name="fragment_set_marker_your_location">مکان انتخابی شما</string>
+
+    <string name="fragment_player_spec_separator">:</string>
+    <string name="fragment_player_spec_name">نام</string>
+    <string name="fragment_player_spec_age">سن</string>
+    <string name="fragment_player_spec_city">شهر</string>
+    <string name="fragment_player_spec_height">قد</string>
+    <string name="fragment_player_spec_weight">وزن</string>
+    <string name="fragment_player_spec_address">آدرس</string>
+    <string name="fragment_player_spec_experience">میزان تجربه</string>
+    <string name="fragment_player_spec_head_coach">سرمربی</string>
+    <string name="fragment_player_spec_team">تیم</string>
+    <string name="fragment_player_spec_user_name">نام کاربری</string>
+    <string name="fragment_player_spec_post">پست بازی</string>
+    <string name="fragment_player_spec_telegram">تلگرام</string>
+    <string name="fragment_player_spec_instagram">اینستاگرام</string>
+    <string name="fragment_player_spec_phone_number">شماره تلفن</string>
+
+    <!-- adapter -->
+    <string name="adapter_mission_point">امتیاز</string>
+    <string name="adapter_mission_toast_set_mission_error">متاسفانه عملیات ثبت ماموریت ناموفق بود، لطفا در زمان دیگری امتحان کنید</string>
+
+    <string name="adapter_profile_pager_missions">ماموریت ها</string>
+    <string name="adapter_profile_pager_specification">مشخصات</string>
+
+    <!-- item view -->
+    <string name="item_match_score_separator"> - </string>
+    <string name="item_match_score_home_default_score">2</string>
+    <string name="item_match_score_away_default_score">1</string>
+
+    <string name="item_mission_badge_default">1</string>
+    <string name="item_mission_score_default">100 امتیاز</string>
+    <string name="item_mission_title_default">اضافه شدن به کانال تلگرام</string>
+
+    <string name="item_player_spec_key_default">قد</string>
+    <string name="item_player_spec_value_default">185 سانتی متر</string>
+
+    <!-- custom view -->
+    <string name="custom_map_marker_default">شهید آوینی</string>
+
+    <!-- Settings preferences -->
+    <string name="pref_category_alerts">تنظیمات اعلان</string>
+    <string name="pref_category_city">تنظیمات شهر</string>
+    <string name="pref_category_support">پشتیبانی</string>
+
+    <string name="pref_update_notification_title">فعالسازی اعلان آپدیت برنامه</string>
+    <string name="pref_message_notification_title">نمایش اعلان های برنامه</string>
+    <string name="pref_help_title">راهنمای برنامه</string>
+    <string name="pref_terms_and_services_title">شرایط استفاده</string>
+    <string name="pref_change_log_title">تغییرات اخیر</string>
+    <string name="pref_about_us_title">درباره ما</string>
+    <string name="pref_state_list_title">انتخاب استان نمایش داده شده در نقشه</string>
+
+    <string name="key_pref_update_notification">pref_update_notification</string>
+    <string name="key_pref_message_notification">pref_message_notification</string>
+    <string name="key_pref_help">pref_help</string>
+    <string name="key_pref_terms_and_services">pref_terms_and_services</string>
+    <string name="key_pref_change_log">pref_change_log</string>
+    <string name="key_pref_about_us">pref_about_us</string>
+    <string name="key_pref_state_list">pref_state_list</string>
+
+    <string name="pref_update_notification_summary">با فعالسازی این قسمت بروزرسانی های برنامه به شما اعلا داده میشود تا بتوانید از آخرین نسخه برنامه استفاده کنید</string>
+    <string name="pref_message_notification_summary">با فعالسازی این قسمت شما میتوانید از آخرین اخبار و پیشنهادا ویژه برنامه آگاه شوید</string>
 
     <string-array name="pref_state_list_values">
         <item>0a0</item>
@@ -67,8 +184,6 @@
         <item>34.7988580a48.5150220</item>
         <item>31.8974230a54.3568560</item>
     </string-array>
-
-
     <string-array name="pref_state_list_names">
         <item>بر اساس مکان گوشی </item>
         <item>آذربایجان شرقی </item>
@@ -104,119 +219,101 @@
         <item>یزد </item>
     </string-array>
 
-    <string-array name="pref_city_list_names">
-        <item>قم</item>
-        <item>کهک</item>
-        <item>قنوات</item>
-        <item>فردو</item>
-    </string-array>
-
-    <string-array name="pref_example_list_values">
-        <item>1</item>
-        <item>0</item>
-        <item>-1</item>
-    </string-array>
-
-    <!-- Example settings for Data & Sync -->
-    <string name="pref_header_data_sync">Data &amp; sync</string>
-
-    <string name="pref_name_sync_frequency">Sync frequency</string>
-    <string-array name="pref_sync_frequency_names">
-        <item>15 minutes</item>
-        <item>30 minutes</item>
-        <item>1 hour</item>
-        <item>3 hours</item>
-        <item>6 hours</item>
-        <item>Never</item>
-    </string-array>
-    <string-array name="pref_sync_frequency_values">
-        <item>15</item>
-        <item>30</item>
-        <item>60</item>
-        <item>180</item>
-        <item>360</item>
-        <item>-1</item>
-    </string-array>
-
-    <string-array name="list_preference_entries">
-        <item>Entry 1</item>
-        <item>Entry 2</item>
-        <item>Entry 3</item>
-    </string-array>
-
-    <string-array name="list_preference_entry_values">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-    </string-array>
-
-    <string-array name="multi_select_list_preference_default_value" />
-
-    <string name="pref_name_system_sync_settings">System sync settings</string>
-
-    <!-- Example settings for Notifications -->
-    <string name="pref_header_notifications">Notifications</string>
-
-    <string name="pref_name_new_message_notifications">New message notifications</string>
-
-    <string name="pref_name_ringtone">Ringtone</string>
-    <string name="pref_ringtone_silent">Silent</string>
-
-    <string name="pref_name_vibrate">Vibrate</string>
-    <string name="action_settings">Settings</string>
-    <string name="section_format">Hello World from section: %1$d</string>
-    <string-array name="pref_example_list_names">
-        <item>Always</item>
-        <item>When possible</item>
-        <item>Never</item>
-    </string-array>
-    <string name="name_activity_scrolling">ScrollingActivity</string>
-    <string name="home_navigation_profile">پروفایل</string>
-    <string name="home_navigation_map">نقشه</string>
+    <!-- assets font -->
     <string name="font_iran_sans">fonts/iraniansansregular.ttf</string>
     <string name="font_yekan">fonts/yekan.ttf</string>
-    <string name="browser_not_found_install_now">برنامه ی مرورگر در دستگاه شما نصب نشده ! \n اکنون نصب میکنید ؟</string>
-    <string name="install_app">نصب برنامه</string>
-    <string name="yes">بله</string>
-    <string name="no">خیر</string>
-    <string name="no_google_play_found">سرویس گوگل پلی در دستگاه شما موجود نیست</string>
-    <string name="title_activity_stadium">ActivityStadium</string>
-    <string name="fragment_profile_user_not_reg_message">وارد حساب کاربریت شو تا غافلگیر شی</string>
-    <string name="fragment_profile_user_not_reg_button">ورود به حساب کاربری</string>
-    <string name="splash_screen_loading">بریم بسکت</string>
-    <string name="write_external_storage_guide_persian_phones">برای ذخیره ی آپدیت نیاز به دسترسی به حافظه میباشد\n
+
+    <!-- general -->
+    <string name="general_dialog_title_guide">راهنمایی</string>
+    <string name="general_dialog_title_install_app">نصب برنامه</string>
+    <string name="general_dialog_title_register">ثبت نام</string>
+    <string name="general_dialog_title_update">به روز رسانی</string>
+    <string name="general_dialog_title_change_log">تغییرات نسخه ی جدید</string>
+    <string name="general_dialog_title_settings">تنظیمات</string>
+
+    <string name="general_dialog_message_browser_not_found">برنامه ی مرورگر در دستگاه شما نصب نشده ! \n اکنون نصب میکنید ؟</string>
+    <string name="general_dialog_message_google_play_not_found">سرویس گوگل پلی در دستگاه شما موجود نیست</string>
+    <string name="general_dialog_message_download_manager_not_enabled">برای دانلود فایل نیاز است که برنامه Download Manager فعال باشد\n
+گزینه ی تنظیمات را از منوی زیر انتخاب کرده</string>
+    <string name="general_dialog_message_enable_download_manager_fa">دکمه ی فعال کردن را بزنید</string>
+    <string name="general_dialog_message_enable_download_manager_en">دکمه ی Enable را بزنید</string>
+    <string name="general_dialog_message_download_manager_restart">دستگاه خود را خاموش کرده و دوباره روشن کنید</string>
+    <string name="general_dialog_message_download_manager_not_found">امکان دانلود وجود ندارد ، برنامه ی Download Manager وجود ندارد</string>
+    <string name="general_dialog_message_telegram_not_found">تلگرام در دستگاه شما نصب نشده !  اکنون نصب میکنید ؟</string>
+    <string name="general_dialog_message_bot_register">برای ثبت نام روی دکمه لینک ربات کلیک کنید و سپس با دریافت کد چهار رقمی با برگشت به اپلیکیشن آن را در اپلیکیشن وارد کنید تا ثبت نام شما انجام شود</string>
+    <string name="general_dialog_message_update">نسخه ی جدید موجود است ، اکنون نصب میکنید ؟</string>
+    <string name="general_dialog_message_log_out">آیا مطمئن هستید که میخواهید از حساب کاربری خود خارج شوید</string>
+    <string name="general_dialog_message_gps_not_enabled">جی پی اس فعال نیست ، از طریق دکمه ی زیر آن را فعال کنید</string>
+
+    <string name="general_dialog_option_yes">بله</string>
+    <string name="general_dialog_option_no">خیر</string>
+    <string name="general_dialog_option_settings">تنظیمات</string>
+    <string name="general_dialog_option_bot_link">لینک ربات</string>
+    <string name="general_dialog_option_cancel">لغو</string>
+    <string name="general_dialog_option_dont_show_again">دیگر نشان نده</string>
+    <string name="general_dialog_option_close">بستن</string>
+
+    <string name="general_progress_dialog_logging_in">در حال ورود</string>
+    <string name="general_progress_dialog_checking_info">در حال بررسی اطلاعات</string>
+
+    <string name="general_toast_no_internet">اینترنت در دسترس نیست</string>
+
+    <string name="general_please_wait">لطفا صبر کنید</string>
+    <string name="general_more">بیشتر</string>
+
+    <!-- permission explain -->
+    <string name="permission_explain_write_external_storage_fa_phones">برای ذخیره ی آپدیت نیاز به دسترسی به حافظه میباشد\n
 گزینه ی زیر را انتخاب کرده\n
 از داخل مجوز ها دسترسی حافظه را فعال کنید</string>
-    <string name="write_external_storage_guide_english_phones">برای ذخیره ی آپدیت نیاز به دسترسی به حافظه میباشد\n
+    <string name="permission_explain_write_external_storage_en_phones">برای ذخیره ی آپدیت نیاز به دسترسی به حافظه میباشد\n
 گزینه ی زیر را انتخاب کرده\n
 از داخل permissions\n
 گزینه ی Storage را فعال کنید</string>
-    <string name="guide">راهنمایی</string>
-    <string name="enable_download_manager_guide">برای دانلود فایل نیاز است که برنامه Download Manager فعال باشد\n
-گزینه ی تنظیمات را از منوی زیر انتخاب کرده</string>
-    <string name="enable_download_manager_persian">دکمه ی فعال کردن را بزنید</string>
-    <string name="enable_download_manager_english">دکمه ی Enable را بزنید</string>
-    <string name="restart_your_device">دستگاه خود را خاموش کرده و دوباره روشن کنید</string>
-    <string name="settings">تنظیمات</string>
-    <string name="download_manager_not_found">امکان دانلود وجود ندارد ، برنامه ی Download Manager وجود ندارد</string>
-    <string name="telegram_not_found">تلگرام در دستگاه شما نصب نشده !  اکنون نصب میکنید ؟</string>
 
-    <!-- Settings preferences -->
-    <string name="key_pref_update_notification">pref_update_notification</string>
-    <string name="key_pref_state_list">pref_state_list</string>
-    <string name="key_pref_message_notification">pref_message_notification</string>
-    <string name="key_pref_help">pref_help</string>
-    <string name="key_pref_terms_and_services">pref_terms_and_services</string>
-    <string name="key_pref_change_log">pref_change_log</string>
-    <string name="key_pref_about_us">pref_about_us</string>
+    <!-- analytics -->
+    <string name="analytics_screen_register">Register Screen</string>
+    <string name="analytics_screen_player">Player Screen</string>
+    <string name="analytics_screen_login">Login Screen</string>
+    <string name="analytics_screen_home">Home Screen</string>
+    <string name="analytics_screen_create_stadium">CreateStadium Screen</string>
+    <string name="analytics_screen_set_marker">SetMarker Screen</string>
+    <string name="analytics_screen_settings">Settings Screen</string>
+    <string name="analytics_screen_stadium">Stadium Screen</string>
+    <string name="analytics_screen_fragment_home">Home Fragment</string>
+    <string name="analytics_screen_fragment_map">Map Fragment</string>
+    <string name="analytics_screen_fragment_profile">Profile Fragment</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="intro_skip_text">باشه</string>
-    <string name="intro_player_text">بازیکن شو</string>
-    <string name="intro_stadium_text">ورزشگاه پیدا کن</string>
-    <string name="intro_match_text">مسابقه بده</string>
-    <string name="intro_next_text">بعدی</string>
+    <string name="analytics_category_registration">Registration</string>
+    <string name="analytics_category_login">Login</string>
+    <string name="analytics_category_map">Map</string>
+    <string name="analytics_category_settings">Settings</string>
+
+    <string name="analytics_action_new_register">New User Register</string>
+    <string name="analytics_action_telegram_bot">Go to TelegramBot</string>
+    <string name="analytics_action_log_on">Log on</string>
+    <string name="analytics_action_set_new_marker">SetNewMarker</string>
+    <string name="analytics_action_log_out">Log out</string>
+    <string name="analytics_action_help">Click Help</string>
+    <string name="analytics_action_about">Click About</string>
+    <string name="analytics_action_terms">Click TermsAndServices</string>
+    <string name="analytics_action_change_log">Click ChangeLog</string>
+
+    <!-- menu -->
+    <string name="menu_fragment_profile_score">امتیاز من</string>
+    <string name="menu_fragment_profile_team">تیم من</string>
+    <string name="menu_fragment_profile_info">تکمیل پروفایل</string>
+    <string name="menu_fragment_profile_change_pass">تغییر رمز عبور</string>
+    <string name="menu_fragment_profile_logout">خروج از حساب</string>
+
+    <!-- download manager -->
+    <string name="download_toast_no_enough_space_for_update">حافظه ی کافی برای دانلود آپدیت موجود نیست</string>
+    <string name="download_receiver_toast_download_successful">دانلود با موفقیت به پایان رسید</string>
+    <string name="download_apk_update_folder">BerimBasket</string>
+
+    <!-- entity -->
+    <string name="entity_match_score_away_default">استقلال</string>
+    <string name="entity_match_score_home_default">پرسپولیس</string>
+    <string name="entity_match_score_data_default">پایان</string>
 
 
 </resources>

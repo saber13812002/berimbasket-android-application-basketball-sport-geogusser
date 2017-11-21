@@ -25,7 +25,7 @@ import ir.berimbasket.app.R;
 import ir.berimbasket.app.network.HttpFunctions;
 import ir.berimbasket.app.util.ApplicationLoader;
 import ir.berimbasket.app.util.PrefManager;
-import ir.berimbasket.app.util.SendTo;
+import ir.berimbasket.app.util.Redirect;
 import ir.berimbasket.app.util.TypefaceManager;
 
 /**
@@ -59,7 +59,7 @@ public class ActivityLogin extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         // Tracking the screen view (Analytics)
-        ApplicationLoader.getInstance().trackScreenView("Login Screen");
+        ApplicationLoader.getInstance().trackScreenView(getString(R.string.analytics_screen_login));
     }
 
     private void initViews() {
@@ -90,7 +90,7 @@ public class ActivityLogin extends AppCompatActivity {
 
                 if (edtUsername.getText().toString().equals("")
                         || edtPassword.getText().toString().equals("")) {
-                    Toast.makeText(getApplicationContext(), "لطفا تمامی فیلد ها را پرکنید", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), R.string.activity_login_toast_fill_all_fields, Toast.LENGTH_LONG).show();
                 } else {
                     new UserLoginTask().execute();
                 }
@@ -107,7 +107,7 @@ public class ActivityLogin extends AppCompatActivity {
         btnTelegramTut.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                SendTo.sendToTelegramChat(ActivityLogin.this, "https://t.me/berimbasket/263");
+                Redirect.sendToTelegramChat(ActivityLogin.this, "https://t.me/berimbasket/263");
             }
         });
         edtUsername.requestFocus();
@@ -136,7 +136,7 @@ public class ActivityLogin extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            pDialog.setMessage("در حال ورود");
+            pDialog.setMessage(getString(R.string.general_progress_dialog_logging_in));
             pDialog.setCancelable(false);
             pDialog.show();
         }
@@ -164,17 +164,18 @@ public class ActivityLogin extends AppCompatActivity {
         @Override
         protected void onPostExecute(final Boolean success) {
             if (success) {
-                Toast.makeText(ActivityLogin.this, "ورود شما با موفقیت انجام شد", Toast.LENGTH_LONG).show();
+                Toast.makeText(ActivityLogin.this, getString(R.string.activity_login_toast_successful), Toast.LENGTH_LONG).show();
                 PrefManager pref = new PrefManager(getApplicationContext());
                 pref.putUserName(edtUsername.getText().toString());
                 pref.putPassword(edtPassword.getText().toString());
                 pref.putIsLoggedIn(true);
                 // Tracking Event (Analytics)
-                ApplicationLoader.getInstance().trackEvent("Login", "Log on", "");
+                ApplicationLoader.getInstance().trackEvent(getString(R.string.analytics_category_login),
+                        getString(R.string.analytics_action_log_on), "");
                 ActivityLogin.this.finish();
                 // FIXME: 16/11/2017  after login fragment profile's childes fragment not showing
             } else {
-                edtUsername.setError("نام کاربری یا رمز عبور اشتباه است");
+                edtUsername.setError(getString(R.string.activity_login_edt_username_error));
             }
             pDialog.cancel();
         }

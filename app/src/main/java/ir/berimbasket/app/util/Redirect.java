@@ -26,22 +26,22 @@ import ir.berimbasket.app.view.CustomToast;
  * redirect user to external activity
  */
 
-public class SendTo {
+public class Redirect {
 
-    public static void sendToTelegramChat(Context context, String chatUrl){
+    public static void sendToTelegramChat(Context context, String chatUrl) {
         Intent i = new Intent(Intent.ACTION_VIEW);
         i.setData(Uri.parse(chatUrl));
         final String packageName = "org.telegram.messenger";
-        if (SendTo.isAppAvailable(context, packageName)){
+        if (Redirect.isAppAvailable(context, packageName)) {
             try {
                 i.setPackage(packageName);
                 i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(i);
-            }catch (ActivityNotFoundException e){
+            } catch (ActivityNotFoundException e) {
                 // do nothing
             }
         } else {
-            sendToMarketToInstallApp(packageName,context.getString(R.string.telegram_not_found), context);
+            sendToMarketToInstallApp(packageName, context.getString(R.string.general_dialog_message_telegram_not_found), context);
         }
     }
 
@@ -72,7 +72,7 @@ public class SendTo {
                             activity.startActivity(intent);
                         } catch (ActivityNotFoundException e) {
                             sendToMarketToInstallApp("com.android.chrome",
-                                    activity.getString(R.string.browser_not_found_install_now), activity.getApplicationContext());
+                                    activity.getString(R.string.general_dialog_message_browser_not_found), activity.getApplicationContext());
                         }
                     }
                 });
@@ -82,10 +82,10 @@ public class SendTo {
         CustomAlertDialog customAlertDialog = new CustomAlertDialog(context);
 
         AlertDialog dialog = new AlertDialog.Builder(context)
-                .setCustomTitle(customAlertDialog.getTitleText(context.getString(R.string.install_app)))
+                .setCustomTitle(customAlertDialog.getTitleText(context.getString(R.string.general_dialog_title_install_app)))
                 .setMessage(message)
                 .setCancelable(false)
-                .setPositiveButton(context.getString(R.string.yes), new DialogInterface.OnClickListener() {
+                .setPositiveButton(context.getString(R.string.general_dialog_option_yes), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         try {
 
@@ -96,12 +96,12 @@ public class SendTo {
                                 context.startActivity(new Intent(Intent.ACTION_VIEW,
                                         Uri.parse("http://play.google.com/store/apps/details?id=" + packageName)));
                             } catch (ActivityNotFoundException e2) {
-                                new CustomToast(context.getString(R.string.no_google_play_found), context).showToast(true);
+                                new CustomToast(context.getString(R.string.general_dialog_message_google_play_not_found), context).showToast(true);
                             }
                         }
                     }
                 })
-                .setNegativeButton(context.getString(R.string.no), new DialogInterface.OnClickListener() {
+                .setNegativeButton(context.getString(R.string.general_dialog_option_no), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.dismiss();
                     }
@@ -114,13 +114,13 @@ public class SendTo {
 
         CustomAlertDialog customAlertDialog = new CustomAlertDialog(activity);
         AlertDialog dialog = new AlertDialog.Builder(activity)
-                .setCustomTitle(customAlertDialog.getTitleText(activity.getString(R.string.guide)))
-                .setMessage(activity.getString(R.string.enable_download_manager_guide) + " و " + "\n" +
-                        (SendTo.isRtlLanguage() ? activity.getString(R.string.enable_download_manager_persian)
-                                : activity.getString(R.string.enable_download_manager_english))
-                        + "\n" + activity.getString(R.string.restart_your_device))
+                .setCustomTitle(customAlertDialog.getTitleText(activity.getString(R.string.general_dialog_title_guide)))
+                .setMessage(activity.getString(R.string.general_dialog_message_download_manager_not_enabled) + " و " + "\n" +
+                        (Redirect.isRtlLanguage() ? activity.getString(R.string.general_dialog_message_enable_download_manager_fa)
+                                : activity.getString(R.string.general_dialog_message_enable_download_manager_en))
+                        + "\n" + activity.getString(R.string.general_dialog_message_download_manager_restart))
                 .setCancelable(false)
-                .setPositiveButton(activity.getString(R.string.settings), new DialogInterface.OnClickListener() {
+                .setPositiveButton(activity.getString(R.string.general_dialog_option_settings), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 
                         String packageName = "com.android.providers.downloads";
@@ -131,7 +131,7 @@ public class SendTo {
                             activity.startActivity(intent);
 
                         } catch (ActivityNotFoundException e) {
-                            new CustomToast(activity.getString(R.string.download_manager_not_found), activity).showToast(true);
+                            new CustomToast(activity.getString(R.string.general_dialog_message_download_manager_not_found), activity).showToast(true);
                         }
                     }
                 })
@@ -147,16 +147,12 @@ public class SendTo {
                 || Locale.getDefault().getISO3Language().equals("ara"));
     }
 
-    private static boolean isAppAvailable(Context context, String appName)
-    {
+    private static boolean isAppAvailable(Context context, String appName) {
         PackageManager pm = context.getPackageManager();
-        try
-        {
+        try {
             pm.getPackageInfo(appName, PackageManager.GET_ACTIVITIES);
             return true;
-        }
-        catch (PackageManager.NameNotFoundException e)
-        {
+        } catch (PackageManager.NameNotFoundException e) {
             return false;
         }
     }

@@ -7,7 +7,7 @@ import android.support.v7.preference.PreferenceFragmentCompat;
 
 import ir.berimbasket.app.R;
 import ir.berimbasket.app.util.ApplicationLoader;
-import ir.berimbasket.app.util.SendTo;
+import ir.berimbasket.app.util.Redirect;
 
 public class FragmentSettings extends PreferenceFragmentCompat implements Preference.OnPreferenceClickListener {
 
@@ -36,23 +36,23 @@ public class FragmentSettings extends PreferenceFragmentCompat implements Prefer
         String key = preference.getKey();
         if (key.equals(help.getKey())) {
             // Tracking Event (Analytics)
-            ApplicationLoader.getInstance().trackEvent("Settings", "Click Help", "");
-            SendTo.sendToCustomTab(getActivity(), URL_PREFERENCE_HELP);
+            ApplicationLoader.getInstance().trackEvent(getString(R.string.analytics_category_settings), getString(R.string.analytics_action_help), "");
+            Redirect.sendToCustomTab(getActivity(), URL_PREFERENCE_HELP);
             return true;
         } else if (key.equals(aboutUs.getKey())) {
             // Tracking Event (Analytics)
-            ApplicationLoader.getInstance().trackEvent("Settings", "Click About", "");
-            SendTo.sendToCustomTab(getActivity(), URL_PREFERENCE_ABOUT_US);
+            ApplicationLoader.getInstance().trackEvent(getString(R.string.analytics_category_settings), getString(R.string.analytics_action_about), "");
+            Redirect.sendToCustomTab(getActivity(), URL_PREFERENCE_ABOUT_US);
             return true;
         } else if (key.equals(terms.getKey())) {
             // Tracking Event (Analytics)
-            ApplicationLoader.getInstance().trackEvent("Settings", "Click TermsAndServices", "");
-            SendTo.sendToCustomTab(getActivity(), URL_PREFERENCE_TERMS_AND_SERVICES);
+            ApplicationLoader.getInstance().trackEvent(getString(R.string.analytics_category_settings), getString(R.string.analytics_action_terms), "");
+            Redirect.sendToCustomTab(getActivity(), URL_PREFERENCE_TERMS_AND_SERVICES);
             return true;
         } else if (key.equals(changeLog.getKey())) {
             // Tracking Event (Analytics)
-            ApplicationLoader.getInstance().trackEvent("Settings", "Click ChangeLog", "");
-            SendTo.sendToCustomTab(getActivity(), URL_PREFERENCE_CHANGE_LOG);
+            ApplicationLoader.getInstance().trackEvent(getString(R.string.analytics_category_settings), getString(R.string.analytics_action_change_log), "");
+            Redirect.sendToCustomTab(getActivity(), URL_PREFERENCE_CHANGE_LOG);
             return true;
         }
         return false;

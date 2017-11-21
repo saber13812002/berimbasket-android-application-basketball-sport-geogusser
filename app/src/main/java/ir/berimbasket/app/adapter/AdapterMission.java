@@ -49,7 +49,8 @@ public class AdapterMission extends RecyclerView.Adapter<AdapterMission.MissionV
 
         holder.txtMissionTitle.setText(missionList.get(holder.getLayoutPosition()).getTitle());
         holder.txtMissionBadge.setText(String.valueOf(missionList.get(holder.getLayoutPosition()).getLevel()));
-        holder.txtMissionScore.setText(String.valueOf(missionList.get(holder.getLayoutPosition()).getScore()) + "  امتیاز ");
+        holder.txtMissionScore.setText(String.valueOf(missionList.get(holder.getLayoutPosition()).getScore())
+                + " " + context.getString(R.string.adapter_mission_point) + " ");
         if (missionList.get(holder.getLayoutPosition()).getIsLock() != 0) {
             holder.imgMissionLock.setVisibility(View.VISIBLE);
             holder.txtMissionScore.setVisibility(View.GONE);
@@ -63,19 +64,19 @@ public class AdapterMission extends RecyclerView.Adapter<AdapterMission.MissionV
             @Override
             public void onClick(View view) {
                 if (missionList.get(holder.getLayoutPosition()).getIsLock() == 0)
-                new RegisterMissionToUser(new AsyncResponse() {
+                    new RegisterMissionToUser(new AsyncResponse() {
 
-                    @Override
-                    public void processFinish(String output) {
-                        if (!output.equals("")) {
-                            // TODO: 04/10/2017 Uncomment this part of code when isDone in missionDoneUrl added
+                        @Override
+                        public void processFinish(String output) {
+                            if (!output.equals("")) {
+                                // TODO: 04/10/2017 Uncomment this part of code when isDone in missionDoneUrl added
 //                            missionList.get(holder.getLayoutPosition()).setIsLock(1);
 //                            holder.imgMissionLock.setVisibility(View.VISIBLE);
 //                            holder.txtMissionScore.setVisibility(View.INVISIBLE);
 //                            notifyItemChanged(holder.getLayoutPosition());
+                            }
                         }
-                    }
-                }).execute(missionList.get(holder.getLayoutPosition()));
+                    }).execute(missionList.get(holder.getLayoutPosition()));
             }
         });
     }
@@ -137,7 +138,7 @@ public class AdapterMission extends RecyclerView.Adapter<AdapterMission.MissionV
             if (!result.equals("")) {
                 setMissionDone(result);
             } else {
-                Toast.makeText(context, "متاسفانه عملیات ثبت ماموریت ناموفق بود، لطفا در زمان دیگری امتحان کنید", Toast.LENGTH_LONG).show();
+                Toast.makeText(context, context.getString(R.string.adapter_mission_toast_set_mission_error), Toast.LENGTH_LONG).show();
             }
             delegate.processFinish(result);
         }

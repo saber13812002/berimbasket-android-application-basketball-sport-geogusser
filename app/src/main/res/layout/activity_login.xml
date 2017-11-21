@@ -51,7 +51,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/yekan"
                     android:gravity="right"
-                    android:hint="نام کاربری"
+                    android:hint="@string/activity_login_edt_username_hint"
                     android:inputType="text"
                     android:maxLines="1" />
 
@@ -71,9 +71,8 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/yekan"
                     android:gravity="right"
-                    android:hint="@string/prompt_password"
-                    android:imeActionLabel="@string/action_sign_in_short"
-                    android:imeOptions="actionUnspecified"
+                    android:hint="@string/activity_login_edt_password_hint"
+                    android:imeOptions="actionDone"
                     android:inputType="textPassword"
                     android:maxLines="1"
                     android:singleLine="true" />
@@ -89,7 +88,7 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/yekan"
-                android:text="@string/action_sign_in"
+                android:text="@string/activity_login_btn_sign_in"
                 android:textStyle="bold"
                 android:theme="@style/BrandButtonStyle" />
 
@@ -111,7 +110,7 @@
                 android:layout_marginTop="24dp"
                 android:fontFamily="@font/yekan"
                 android:gravity="center_horizontal"
-                android:text="حساب کاربری نداری؟ یکی بساز !!!"
+                android:text="@string/activity_login_txt_create_account"
                 android:textColor="@color/colorPrimary"
                 android:textSize="16sp" />
 
@@ -124,7 +123,7 @@
                 android:layout_marginTop="24dp"
                 android:fontFamily="@font/yekan"
                 android:gravity="center_horizontal"
-                android:text="چجور حساب بسازی؟ ویدیو رو ببین"
+                android:text="@string/activity_login_txt_watch_video"
                 android:textColor="@color/colorPrimary"
                 android:textSize="16sp" />
 

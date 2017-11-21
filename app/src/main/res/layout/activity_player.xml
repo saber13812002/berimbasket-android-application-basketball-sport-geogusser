@@ -71,7 +71,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:fontFamily="@font/yekan"
-                    android:text="جردن باروز"
+                    android:text="@string/activity_player_default_name"
                     android:textColor="@color/colorBlack"
                     android:textSize="24sp" />
 

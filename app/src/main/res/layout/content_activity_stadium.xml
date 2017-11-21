@@ -34,7 +34,7 @@
                 android:layout_height="wrap_content"
                 android:layout_toLeftOf="@id/imgStadiumLogo"
                 android:fontFamily="@font/yekan"
-                android:text="ورزشگاه شهید آوینی"
+                android:text="@string/activity_stadium_txt_name_default"
                 android:textColor="@android:color/black"
                 android:textSize="16sp" />
 
@@ -46,7 +46,7 @@
                 android:layout_marginTop="4dp"
                 android:layout_toLeftOf="@id/imgStadiumLogo"
                 android:fontFamily="@font/yekan"
-                android:text="تلفن : 8943264 98+"
+                android:text="@string/activity_stadium_txt_phone_default"
                 android:textSize="14sp" />
 
 
@@ -74,7 +74,7 @@
                 android:layout_alignBottom="@id/ratingStadiumRate"
                 android:layout_alignParentLeft="true"
                 android:fontFamily="@font/yekan"
-                android:text="تکمیل اطلاعات" />
+                android:text="@string/activity_stadium_btn_complete_detail" />
 
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/btnAddImage"
@@ -84,7 +84,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_below="@id/btnCompleteStadiumDetail"
                 android:fontFamily="@font/yekan"
-                android:text="افزودن عکس" />
+                android:text="@string/activity_stadium_btn_add_image" />
 
         </RelativeLayout>
 
@@ -134,7 +134,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/yekan"
-                android:text="جزئیات ورزشگاه"
+                android:text="@string/activity_stadium_txt_detail"
                 android:textColor="@color/colorPrimary" />
 
             <TextView
@@ -143,7 +143,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/yekan"
                 android:padding="10dp"
-                android:text="آدرس : تهران - کیلومتر 5 آزاد راه تهران کرج مجموعه ورزشی آزادی" />
+                android:text="@string/activity_stadium_txt_address_default" />
 
             <TextView
                 android:id="@+id/txtStadiumRound"
@@ -151,7 +151,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/yekan"
                 android:padding="10dp"
-                android:text="ساعت کاری : 8 صبح تا 10 شب" />
+                android:text="@string/activity_stadium_txt_round_default" />
 
             <TextView
                 android:id="@+id/txtTelegramChannel"
@@ -159,7 +159,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/yekan"
                 android:padding="10dp"
-                android:text="کانال تلگرام : @berimbasket" />
+                android:text="@string/activity_stadium_txt_telegram_channel_default" />
 
             <TextView
                 android:id="@+id/txtInstagramId"
@@ -167,7 +167,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/yekan"
                 android:padding="10dp"
-                android:text="اینستاگرام : @berimbasket" />
+                android:text="@string/activity_stadium_txt_instagram_default" />
 
         </LinearLayout>
 

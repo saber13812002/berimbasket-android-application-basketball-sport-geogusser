@@ -10,8 +10,9 @@ import android.os.Environment;
 
 import java.io.File;
 
+import ir.berimbasket.app.R;
 import ir.berimbasket.app.util.PrefManager;
-import ir.berimbasket.app.util.SendTo;
+import ir.berimbasket.app.util.Redirect;
 import ir.berimbasket.app.view.CustomToast;
 
 /**
@@ -40,12 +41,13 @@ public class DownloadBroadCast extends BroadcastReceiver {
                 int status = c.getInt(c.getColumnIndex(DownloadManager.COLUMN_STATUS));
                 if (status == DownloadManager.STATUS_SUCCESSFUL) {
 
-                    CustomToast toast = new CustomToast("دانلود با موفقیت به پایان رسید", context);
+                    CustomToast toast = new CustomToast(context.getString(R.string.download_receiver_toast_download_successful), context);
                     toast.showToast(true);
 
                     prefs.putDownloadApkID(0);
 
-                    SendTo.sendToInstallApk(context, new File(Environment.getExternalStorageDirectory() + "/BerimBasket" +"/" + fileName));
+                    Redirect.sendToInstallApk(context, new File(Environment.getExternalStorageDirectory() +
+                            "/" + context.getString(R.string.download_apk_update_folder) + "/" + fileName));
                 }
             }
 

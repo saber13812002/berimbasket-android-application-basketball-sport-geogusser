@@ -32,7 +32,7 @@ import ir.berimbasket.app.entity.EntityStadium;
 import ir.berimbasket.app.network.HttpFunctions;
 import ir.berimbasket.app.util.ApplicationLoader;
 import ir.berimbasket.app.util.PrefManager;
-import ir.berimbasket.app.util.SendTo;
+import ir.berimbasket.app.util.Redirect;
 
 /**
  * Created by mohammad hosein on 5/1/2017.
@@ -81,7 +81,7 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
     public void onResume() {
         super.onResume();
         // Tracking the screen view (Analytics)
-        ApplicationLoader.getInstance().trackScreenView("Home Fragment");
+        ApplicationLoader.getInstance().trackScreenView(getString(R.string.analytics_screen_fragment_home));
     }
 
     @Override
@@ -89,13 +89,13 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
         int viewId = v.getId();
         switch (viewId) {
             case R.id.btnMorePlayer:
-                SendTo.sendToCustomTab(getActivity(), MORE_PLAYER_URL);
+                Redirect.sendToCustomTab(getActivity(), MORE_PLAYER_URL);
                 break;
             case R.id.btnMoreMatch:
-                SendTo.sendToCustomTab(getActivity(), MORE_MATCH_URL);
+                Redirect.sendToCustomTab(getActivity(), MORE_MATCH_URL);
                 break;
             case R.id.btnMoreStadium:
-                SendTo.sendToCustomTab(getActivity(), MORE_STADIUM_URL);
+                Redirect.sendToCustomTab(getActivity(), MORE_STADIUM_URL);
                 break;
         }
     }
@@ -244,6 +244,7 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
             progressHome.setVisibility(View.INVISIBLE);
         }
     }
+
     ArrayList<EntityStadium> stadiumList = new ArrayList<>();
 
     private class GetStadium extends AsyncTask<Void, Void, Void> {

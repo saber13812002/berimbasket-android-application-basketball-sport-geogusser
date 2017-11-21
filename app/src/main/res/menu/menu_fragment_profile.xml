@@ -4,28 +4,26 @@
     <item
         android:id="@+id/menu_profile_score"
         android:orderInCategory="1"
-        android:title="امتیاز من" />
+        android:title="@string/menu_fragment_profile_score" />
 
-    <!-- todo : change icon of this resource -->
     <item
         android:id="@+id/menu_profile_team"
         android:orderInCategory="2"
-        android:title="تیم من" />
+        android:title="@string/menu_fragment_profile_team" />
 
-    <!-- todo : change icon of this resource-->
     <item
         android:id="@+id/menu_profile_info"
         android:orderInCategory="3"
-        android:title="تکمیل پروفایل" />
+        android:title="@string/menu_fragment_profile_info" />
 
     <item
         android:id="@+id/menu_profile_change_pass"
         android:orderInCategory="4"
-        android:title="تغییر رمز عبور" />
+        android:title="@string/menu_fragment_profile_change_pass" />
 
     <item
         android:id="@+id/menu_profile_logout"
         android:orderInCategory="5"
-        android:title="خروج از حساب" />
+        android:title="@string/menu_fragment_profile_logout" />
 
 </menu>

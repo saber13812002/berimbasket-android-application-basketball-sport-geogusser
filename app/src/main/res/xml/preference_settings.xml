@@ -1,27 +1,27 @@
 <android.support.v7.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <ir.berimbasket.app.view.preference.CustomPreferenceCategory android:title="تنظیمات اعلان">
+    <ir.berimbasket.app.view.preference.CustomPreferenceCategory android:title="@string/pref_category_alerts">
 
         <ir.berimbasket.app.view.preference.CustomSwitchPreferenceCompat
             android:defaultValue="true"
             android:key="@string/key_pref_message_notification"
-            android:summary="با فعالسازی این قسمت شما میتوانید از آخرین اخبار و پیشنهادا ویژه برنامه آگاه شوید"
-            android:title="نمایش اعلان های برنامه" />
+            android:summary="@string/pref_message_notification_summary"
+            android:title="@string/pref_message_notification_title" />
 
         <Preference android:layout="@layout/item_preference_divider" />
 
         <ir.berimbasket.app.view.preference.CustomSwitchPreferenceCompat
             android:defaultValue="true"
             android:key="@string/key_pref_update_notification"
-            android:summary="با فعالسازی این قسمت بروزرسانی های برنامه به شما اعلا داده میشود تا بتوانید از آخرین نسخه برنامه استفاده کنید"
+            android:summary="@string/pref_update_notification_summary"
             android:textColor="#ab6789"
-            android:title="فعالسازی اعلان آپدیت برنامه" />
+            android:title="@string/pref_update_notification_title" />
 
         <Preference android:layout="@layout/item_preference_space" />
 
     </ir.berimbasket.app.view.preference.CustomPreferenceCategory>
 
-    <ir.berimbasket.app.view.preference.CustomPreferenceCategory android:title="تنظیمات شهر">
+    <ir.berimbasket.app.view.preference.CustomPreferenceCategory android:title="@string/pref_category_city">
 
         <ir.berimbasket.app.view.preference.CustomListPreference
             android:defaultValue="0a0"
@@ -30,38 +30,38 @@
             android:key="@string/key_pref_state_list"
             android:negativeButtonText="@null"
             android:positiveButtonText="@null"
-            android:title="انتخاب استان نمایش داده شده در نقشه" />
+            android:title="@string/pref_state_list_title" />
         <Preference android:layout="@layout/item_preference_divider" />
 
         <Preference android:layout="@layout/item_preference_space" />
 
     </ir.berimbasket.app.view.preference.CustomPreferenceCategory>
 
-    <ir.berimbasket.app.view.preference.CustomPreferenceCategory android:title="پشتیبانی">
+    <ir.berimbasket.app.view.preference.CustomPreferenceCategory android:title="@string/pref_category_support">
 
         <ir.berimbasket.app.view.preference.CustomPreference
             android:key="@string/key_pref_help"
             android:layout="@layout/item_preference_intent"
-            android:title="راهنمای برنامه" />
+            android:title="@string/pref_help_title" />
         <Preference android:layout="@layout/item_preference_divider" />
 
         <ir.berimbasket.app.view.preference.CustomPreference
             android:key="@string/key_pref_terms_and_services"
             android:layout="@layout/item_preference_intent"
-            android:title="شرایط استفاده" />
+            android:title="@string/pref_terms_and_services_title" />
         <Preference android:layout="@layout/item_preference_divider" />
 
         <ir.berimbasket.app.view.preference.CustomPreference
             android:key="@string/key_pref_change_log"
             android:layout="@layout/item_preference_intent"
-            android:title="تغییرات اخیر" />
+            android:title="@string/pref_change_log_title" />
 
         <Preference android:layout="@layout/item_preference_divider" />
 
         <ir.berimbasket.app.view.preference.CustomPreference
             android:key="@string/key_pref_about_us"
             android:layout="@layout/item_preference_intent"
-            android:title="درباره ما">
+            android:title="@string/pref_about_us_title">
 
         </ir.berimbasket.app.view.preference.CustomPreference>
 

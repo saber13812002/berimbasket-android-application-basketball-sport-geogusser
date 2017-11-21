@@ -12,7 +12,7 @@
         android:background="@drawable/shape_marker_title"
         android:fontFamily="@font/yekan"
         android:padding="5dp"
-        android:text="شهید آوینی"
+        android:text="@string/custom_map_marker_default"
         android:textColor="@android:color/black" />
 
     <ImageView

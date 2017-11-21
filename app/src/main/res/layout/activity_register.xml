@@ -49,7 +49,7 @@
                     android:id="@+id/edtVerifyCode"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="کد ثبت نام"
+                    android:hint="@string/activity_register_edt_verify_code_hint"
                     android:fontFamily="@font/yekan"
                     android:inputType="textEmailAddress"
                     android:maxLines="1" />
@@ -69,10 +69,9 @@
                     android:id="@+id/edtUsername"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="نام کاربری"
+                    android:hint="@string/activity_register_edt_user_name_hint"
                     android:fontFamily="@font/yekan"
-                    android:imeActionLabel="@string/action_sign_in_short"
-                    android:imeOptions="actionUnspecified"
+                    android:imeOptions="actionDone"
                     android:inputType="text"
                     android:maxLines="1" />
 
@@ -91,10 +90,9 @@
                     android:id="@+id/edtPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/prompt_password"
+                    android:hint="@string/activity_login_edt_password_hint"
                     android:fontFamily="@font/yekan"
-                    android:imeActionLabel="@string/action_sign_in_short"
-                    android:imeOptions="actionUnspecified"
+                    android:imeOptions="actionDone"
                     android:inputType="textPassword"
                     android:maxLines="1" />
 
@@ -113,10 +111,9 @@
                     android:id="@+id/edtPasswordRepeat"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="تکرار رمز عبور"
+                    android:hint="@string/activity_register_edt_repeat_pass_hint"
                     android:fontFamily="@font/yekan"
-                    android:imeActionLabel="@string/action_sign_in_short"
-                    android:imeOptions="actionUnspecified"
+                    android:imeOptions="actionDone"
                     android:inputType="textPassword"
                     android:maxLines="1" />
 
@@ -131,7 +128,7 @@
                 android:fontFamily="@font/yekan"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="16dp"
-                android:text="@string/action_sign_up"
+                android:text="@string/activity_register_btn_sign_up"
                 android:textStyle="bold"
                 android:theme="@style/BrandButtonStyle" />
 
@@ -153,7 +150,7 @@
                 android:fontFamily="@font/yekan"
                 android:layout_marginTop="24dp"
                 android:gravity="center_horizontal"
-                android:text="حساب کاربری دارید؟ وارد شوید !!!"
+                android:text="@string/activity_register_txt_have_account"
                 android:textColor="@color/colorPrimary"
                 android:textSize="16sp" />
 

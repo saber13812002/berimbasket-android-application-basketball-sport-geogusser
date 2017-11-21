@@ -128,7 +128,7 @@ public class FragmentSetMarker extends Fragment implements OnMapReadyCallback {
                 googleMap.clear();
                 View customMarkerView = ((LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.custom_map_marker, null);
                 TextView txtMarkerTitle = (TextView) customMarkerView.findViewById(R.id.markerTitle);
-                txtMarkerTitle.setText("مکان انتخابی شما");
+                txtMarkerTitle.setText(getString(R.string.fragment_set_marker_your_location));
                 IconGenerator generator = new IconGenerator(getActivity());
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     generator.setBackground(null);

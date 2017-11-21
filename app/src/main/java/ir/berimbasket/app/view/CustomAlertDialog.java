@@ -21,18 +21,18 @@ public class CustomAlertDialog {
     Typeface tfSans;
     Context context;
 
-    public CustomAlertDialog(Context context){
+    public CustomAlertDialog(Context context) {
         this.context = context;
-        tfSans = TypefaceManager.get(context, "fonts/yekan.ttf");
+        tfSans = TypefaceManager.get(context, context.getString(R.string.font_yekan));
     }
 
-    public AlertDialog MaterialAlert(String title){
+    public AlertDialog MaterialAlert(String title) {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         AlertDialog dialog = builder.create();
         TextView message = (TextView) dialog.findViewById(android.R.id.message);
 
-        TextView dialogTitle =  new TextView(context);
+        TextView dialogTitle = new TextView(context);
         dialogTitle.setText(title);
         dialogTitle.setGravity(Gravity.CENTER);
         dialogTitle.setTextSize(30);
@@ -50,21 +50,21 @@ public class CustomAlertDialog {
         return null;
     }
 
-    public TextView getTitleText(String title){
-        TextView dialogTitle =  new TextView(context);
+    public TextView getTitleText(String title) {
+        TextView dialogTitle = new TextView(context);
         dialogTitle.setText(title);
         dialogTitle.setGravity(Gravity.START);
         dialogTitle.setTextSize(25);
-        dialogTitle.setPadding(50,25,50,25);
+        dialogTitle.setPadding(50, 25, 50, 25);
         dialogTitle.setTypeface(tfSans);
         dialogTitle.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimary));
         dialogTitle.setTextColor(Color.WHITE);
         return dialogTitle;
     }
 
-    public void setDialogStyle(AlertDialog alertDialog){
+    public void setDialogStyle(AlertDialog alertDialog) {
         TextView message = (TextView) alertDialog.findViewById(android.R.id.message);
-        if(message != null){
+        if (message != null) {
             message.setTypeface(tfSans);
             message.setTextSize(18);
         }

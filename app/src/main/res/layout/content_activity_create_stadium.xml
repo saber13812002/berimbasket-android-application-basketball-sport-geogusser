@@ -25,7 +25,7 @@
                 android:id="@+id/edtُStadiumName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="نام تیم میهمان"
+                android:hint="@string/activity_create_stadium_edt_stadium_hint"
                 android:maxLines="1"
                 android:singleLine="true" />
 
@@ -42,7 +42,7 @@
                 android:id="@+id/edtُStadiumAddress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="آدرس ورزشگاه به صورت دستی"
+                android:hint="@string/activity_create_stadium_edt_address_hint"
                 android:maxLines="1"
                 android:singleLine="true" />
 
@@ -52,12 +52,12 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="آدرس ورزشگاه روی نقشه" />
+            android:text="@string/activity_create_stadium_btn_address" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="اضافه کردن عکس های ورشگاه" />
+            android:text="@string/activity_create_stadium_btn_add_image" />
 
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"

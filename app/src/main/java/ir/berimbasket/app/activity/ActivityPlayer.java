@@ -27,7 +27,7 @@ import ir.berimbasket.app.adapter.AdapterSocialAcc;
 import ir.berimbasket.app.entity.EntityPlayer;
 import ir.berimbasket.app.entity.EntitySocialAcc;
 import ir.berimbasket.app.util.ApplicationLoader;
-import ir.berimbasket.app.util.SendTo;
+import ir.berimbasket.app.util.Redirect;
 import ir.berimbasket.app.util.TypefaceManager;
 
 public class ActivityPlayer extends AppCompatActivity {
@@ -81,7 +81,7 @@ public class ActivityPlayer extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         // Tracking the screen view (Analytics)
-        ApplicationLoader.getInstance().trackScreenView("Player Screen");
+        ApplicationLoader.getInstance().trackScreenView(getString(R.string.analytics_screen_player));
 
     }
 
@@ -97,21 +97,22 @@ public class ActivityPlayer extends AppCompatActivity {
     private ArrayList<String> getPlayerSpec(EntityPlayer entityPlayer) {
 
         ArrayList<String> playerSpecList = new ArrayList<>();
-        playerSpecList.add("نام : " + entityPlayer.getName());
-        playerSpecList.add("سن : " + String.valueOf(entityPlayer.getAge()));
-        playerSpecList.add("شهر : " + entityPlayer.getCity());
-        playerSpecList.add("قد : " + String.valueOf(entityPlayer.getHeight()));
-        playerSpecList.add("وزن : " + String.valueOf(entityPlayer.getWeight()));
-        playerSpecList.add("آدرس : " + entityPlayer.getAddress());
-        playerSpecList.add("میزان تجربه : " + entityPlayer.getExperience());
-        playerSpecList.add("سرمربی : " + entityPlayer.getCoachName());
-        playerSpecList.add("تیم : " + entityPlayer.getTeamName());
-        playerSpecList.add("نام کاربری : " + entityPlayer.getUsername());
-        playerSpecList.add("پست بازی : " + String.valueOf(entityPlayer.getPost()));
+        String specSeparator = getString(R.string.activity_player_spec_separator);
+        playerSpecList.add(getString(R.string.activity_player_spec_name) + " " +  specSeparator + " " +  entityPlayer.getName());
+        playerSpecList.add(getString(R.string.activity_player_spec_age) + " " +  specSeparator + " " +  String.valueOf(entityPlayer.getAge()));
+        playerSpecList.add(getString(R.string.activity_player_spec_city) + " " +  specSeparator + entityPlayer.getCity());
+        playerSpecList.add(getString(R.string.activity_player_spec_height) + " " +  specSeparator + " " +  String.valueOf(entityPlayer.getHeight()));
+        playerSpecList.add(getString(R.string.activity_player_spec_weight) + " " +  specSeparator + " " +  String.valueOf(entityPlayer.getWeight()));
+        playerSpecList.add(getString(R.string.activity_player_spec_address) + " " +  specSeparator + " " +  entityPlayer.getAddress());
+        playerSpecList.add(getString(R.string.activity_player_spec_experience) + " " +  specSeparator + " " +  entityPlayer.getExperience());
+        playerSpecList.add(getString(R.string.activity_player_spec_head_coach) + " " +  specSeparator + " " +  entityPlayer.getCoachName());
+        playerSpecList.add(getString(R.string.activity_player_spec_team) + " " +  specSeparator + " " +  entityPlayer.getTeamName());
+        playerSpecList.add(getString(R.string.activity_player_spec_user_name) + " " +  specSeparator + " " +  entityPlayer.getUsername());
+        playerSpecList.add(getString(R.string.activity_player_spec_game_post) + " " +  specSeparator + " " +  String.valueOf(entityPlayer.getPost()));
 //        playerSpecList.add("" + entityPlayer.getProfileImage());
 
 
-        playerSpecList.add("تلگرام : " + entityPlayer.getTelegramId());
+        playerSpecList.add(getString(R.string.activity_player_spec_telegram) + " " +  specSeparator + " " +  entityPlayer.getTelegramId());
         EntitySocialAcc entitySocialTelegram = new EntitySocialAcc();
         entitySocialTelegram.setId(0);
         entitySocialTelegram.setImageResId(R.drawable.ic_social_telegram);
@@ -119,7 +120,7 @@ public class ActivityPlayer extends AppCompatActivity {
         entitySocialTelegram.setLink(entityPlayer.getTelegramId());
         socialAccList.add(entitySocialTelegram);
 
-        playerSpecList.add("اینستاگرام : " + entityPlayer.getInstagramId());
+        playerSpecList.add(getString(R.string.activity_player_spec_instagram) + " " +  specSeparator + " " +  entityPlayer.getInstagramId());
         EntitySocialAcc entitySocialInstagram = new EntitySocialAcc();
         entitySocialInstagram.setId(0);
         entitySocialInstagram.setImageResId(R.drawable.ic_social_instagram);
@@ -127,7 +128,7 @@ public class ActivityPlayer extends AppCompatActivity {
         entitySocialInstagram.setLink(entityPlayer.getInstagramId());
         socialAccList.add(entitySocialInstagram);
 
-        playerSpecList.add("شماره تلفن : " + entityPlayer.getPhone());
+        playerSpecList.add(getString(R.string.activity_player_spec_phone_number) + " " +  specSeparator + " " +  entityPlayer.getPhone());
         return playerSpecList;
     }
 
@@ -140,7 +141,7 @@ public class ActivityPlayer extends AppCompatActivity {
         btnReportPlayer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SendTo.sendToTelegramChat(ActivityPlayer.this, REPORT_PLAYER_BOT + entityPlayer.getId());
+                Redirect.sendToTelegramChat(ActivityPlayer.this, REPORT_PLAYER_BOT + entityPlayer.getId());
             }
         });
     }

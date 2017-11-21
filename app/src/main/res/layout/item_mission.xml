@@ -34,7 +34,7 @@
                 android:layout_height="match_parent"
                 android:fontFamily="@font/yekan"
                 android:gravity="center"
-                android:text="1"
+                android:text="@string/item_mission_badge_default"
                 android:textColor="@android:color/white"
                 android:textSize="18sp" />
 
@@ -52,7 +52,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/yekan"
-                android:text="100 امتیاز" />
+                android:text="@string/item_mission_score_default" />
 
             <ImageView
                 android:id="@+id/imgMissionLock"
@@ -72,7 +72,7 @@
             android:layout_toLeftOf="@id/badgeFrame"
             android:layout_toRightOf="@id/frameMissionScore"
             android:fontFamily="@font/yekan"
-            android:text="اضافه شدن به کانال تلگرام"
+            android:text="@string/item_mission_title_default"
             android:textColor="@android:color/black" />
 
     </RelativeLayout>

@@ -52,6 +52,7 @@ public class FragmentMissions extends Fragment {
     }
 
     ArrayList<EntityMission> missionList = new ArrayList<>();
+
     private class GetMissions extends AsyncTask<Void, Void, Void> {
 
         @Override
