@@ -17,6 +17,7 @@
         android:orientation="vertical"
         android:padding="5dp">
 
+        <!-- fixme: set value of this view to real key in code (instead of numbers) -->
         <TextView
             android:id="@+id/txtSpecKey"
             android:layout_width="wrap_content"
@@ -25,6 +26,7 @@
             android:gravity="center_vertical"
             android:text="@string/item_player_spec_key_default"
             android:textSize="18sp"
+            android:visibility="gone"
             android:textColor="@color/colorWhite" />
 
         <TextView
