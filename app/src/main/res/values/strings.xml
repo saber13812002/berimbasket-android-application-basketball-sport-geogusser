@@ -260,6 +260,7 @@
     <string name="general_dialog_message_download_manager_restart">دستگاه خود را خاموش کرده و دوباره روشن کنید</string>
     <string name="general_dialog_message_download_manager_not_found">امکان دانلود وجود ندارد ، برنامه ی Download Manager وجود ندارد</string>
     <string name="general_dialog_message_telegram_not_found">تلگرام در دستگاه شما نصب نشده !  اکنون نصب میکنید ؟</string>
+    <string name="general_dialog_message_instagram_not_found">اینستاگرام در دستگاه شما نصب نشده ! اکنون نصب میکنید ؟</string>
     <string name="general_dialog_message_bot_register">برای ثبت نام روی دکمه لینک ربات کلیک کنید و سپس با دریافت کد چهار رقمی با برگشت به اپلیکیشن آن را در اپلیکیشن وارد کنید تا ثبت نام شما انجام شود</string>
     <string name="general_dialog_message_update">نسخه ی جدید موجود است ، اکنون نصب میکنید ؟</string>
     <string name="general_dialog_message_log_out">آیا مطمئن هستید که میخواهید از حساب کاربری خود خارج شوید</string>
@@ -334,7 +335,6 @@
     <string name="entity_match_score_away_default">استقلال</string>
     <string name="entity_match_score_home_default">پرسپولیس</string>
     <string name="entity_match_score_data_default">پایان</string>
-
 
 
 </resources>

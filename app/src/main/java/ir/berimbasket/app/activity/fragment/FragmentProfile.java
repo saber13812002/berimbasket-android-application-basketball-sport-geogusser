@@ -23,6 +23,7 @@ import android.widget.TextView;
 import ir.berimbasket.app.R;
 import ir.berimbasket.app.activity.ActivityLogin;
 import ir.berimbasket.app.adapter.AdapterProfilePager;
+import ir.berimbasket.app.exception.UnknownTelegramURL;
 import ir.berimbasket.app.util.ApplicationLoader;
 import ir.berimbasket.app.util.PrefManager;
 import ir.berimbasket.app.util.Redirect;
@@ -102,7 +103,11 @@ public class FragmentProfile extends Fragment {
         fabChangeAvatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Redirect.sendToTelegramChat(getActivity(), UPLOAD_PHOTO_BOT);
+                try {
+                    Redirect.sendToTelegram(getActivity(), UPLOAD_PHOTO_BOT);
+                } catch (UnknownTelegramURL unknownTelegramURL) {
+                    // do nothing yet
+                }
             }
         });
     }
@@ -129,17 +134,29 @@ public class FragmentProfile extends Fragment {
 
                         break;
                     case R.id.menu_profile_info:
-                        Redirect.sendToTelegramChat(getActivity(), UPDATE_USER_INFO_BOT);
+                        try {
+                            Redirect.sendToTelegram(getActivity(), UPDATE_USER_INFO_BOT);
+                        } catch (UnknownTelegramURL unknownTelegramURL) {
+                            // do nothing yet
+                        }
                         break;
                     case R.id.menu_profile_logout:
                         logout();
                         break;
 
                     case R.id.menu_profile_score:
-                        Redirect.sendToTelegramChat(getActivity(), PROFILE_SCORE_INFO_BOT);
+                        try {
+                            Redirect.sendToTelegram(getActivity(), PROFILE_SCORE_INFO_BOT);
+                        } catch (UnknownTelegramURL unknownTelegramURL) {
+                            // do nothing yet
+                        }
                         break;
                     case R.id.menu_profile_team:
-                        Redirect.sendToTelegramChat(getActivity(), PROFILE_TEAM_INFO_BOT);
+                        try {
+                            Redirect.sendToTelegram(getActivity(), PROFILE_TEAM_INFO_BOT);
+                        } catch (UnknownTelegramURL unknownTelegramURL) {
+                            // do nothing yet
+                        }
                         break;
                 }
                 return false;

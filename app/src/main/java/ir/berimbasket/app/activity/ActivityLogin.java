@@ -22,6 +22,7 @@ import org.json.JSONObject;
 
 import co.ronash.pushe.Pushe;
 import ir.berimbasket.app.R;
+import ir.berimbasket.app.exception.UnknownTelegramURL;
 import ir.berimbasket.app.network.HttpFunctions;
 import ir.berimbasket.app.util.ApplicationLoader;
 import ir.berimbasket.app.util.PrefManager;
@@ -107,7 +108,11 @@ public class ActivityLogin extends AppCompatActivity {
         btnTelegramTut.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Redirect.sendToTelegramChat(ActivityLogin.this, "https://t.me/berimbasket/263");
+                try {
+                    Redirect.sendToTelegram(ActivityLogin.this, "https://t.me/berimbasket/263");
+                } catch (UnknownTelegramURL unknownTelegramURL) {
+                    // do nothing yet
+                }
             }
         });
         edtUsername.requestFocus();

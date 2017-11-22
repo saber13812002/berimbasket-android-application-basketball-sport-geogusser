@@ -6,12 +6,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import ir.berimbasket.app.R;
 import ir.berimbasket.app.entity.EntitySocialAcc;
+import ir.berimbasket.app.exception.UnknownInstagramURL;
+import ir.berimbasket.app.exception.UnknownTelegramURL;
+import ir.berimbasket.app.util.Redirect;
 
 /**
  * Created by mohammad hosein on 7/21/2017.
@@ -49,6 +51,7 @@ public class AdapterSocialAcc extends RecyclerView.Adapter<AdapterSocialAcc.View
     class ViewHolderSocialAcc extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         ImageView btnSocialAcc;
+
         ViewHolderSocialAcc(View itemView) {
             super(itemView);
             this.btnSocialAcc = itemView.findViewById(R.id.btnSocialAcc);
@@ -61,13 +64,19 @@ public class AdapterSocialAcc extends RecyclerView.Adapter<AdapterSocialAcc.View
                 @Override
                 public void onClick(View view) {
                     if (entitySocialAcc.getType() == EntitySocialAcc.SOCIAL_TYPE_INSTAGRAM) {
-
-                    } else if (entitySocialAcc.getType() == EntitySocialAcc.SOCIAL_TYPE_TELEGRAM_CHANNEL) {
-
-                    } else if(entitySocialAcc.getType() == EntitySocialAcc.SOCIAL_TYPE_TELEGRAM_GROUP) {
-
-                    } else {
-
+                        try {
+                            Redirect.sendToInstagram(context, entitySocialAcc.getLink());  // https://instagram.com/_u/javaherisaber
+                        } catch (UnknownInstagramURL unknownInstagramURL) {
+                            // do nothing yet
+                        }
+                    } else if (entitySocialAcc.getType() == EntitySocialAcc.SOCIAL_TYPE_TELEGRAM_CHANNEL ||
+                            entitySocialAcc.getType() == EntitySocialAcc.SOCIAL_TYPE_TELEGRAM_GROUP ||
+                            entitySocialAcc.getType() == EntitySocialAcc.SOCIAL_TYPE_TELEGRAM_USER) {
+                        try {
+                            Redirect.sendToTelegram(context, entitySocialAcc.getLink());  // https://t.me/mamlekate
+                        } catch (UnknownTelegramURL unknownTelegramURL) {
+                            // do nothing yet
+                        }
                     }
                 }
             });

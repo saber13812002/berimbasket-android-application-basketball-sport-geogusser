@@ -17,6 +17,8 @@ import java.io.File;
 import java.util.Locale;
 
 import ir.berimbasket.app.R;
+import ir.berimbasket.app.exception.UnknownInstagramURL;
+import ir.berimbasket.app.exception.UnknownTelegramURL;
 import ir.berimbasket.app.util.customtabs.CustomTabActivityHelper;
 import ir.berimbasket.app.view.CustomAlertDialog;
 import ir.berimbasket.app.view.CustomToast;
@@ -28,20 +30,47 @@ import ir.berimbasket.app.view.CustomToast;
 
 public class Redirect {
 
-    public static void sendToTelegramChat(Context context, String chatUrl) {
-        Intent i = new Intent(Intent.ACTION_VIEW);
-        i.setData(Uri.parse(chatUrl));
-        final String packageName = "org.telegram.messenger";
-        if (Redirect.isAppAvailable(context, packageName)) {
-            try {
-                i.setPackage(packageName);
-                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                context.startActivity(i);
-            } catch (ActivityNotFoundException e) {
-                // do nothing
+    public static void sendToTelegram(Context context, String telegramUrl) throws UnknownTelegramURL{
+        String regex = "http(s?)://(www\\.)?(t|telegram)\\.me/.+";
+        if (telegramUrl.matches(regex)) {
+            final String packageName = "org.telegram.messenger";
+            if (Redirect.isAppAvailable(context, packageName)) {
+                try {
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse(telegramUrl));
+                    i.setPackage(packageName);
+                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(i);
+                } catch (ActivityNotFoundException e) {
+                    // do nothing
+                }
+            } else {
+                sendToMarketToInstallApp(packageName, context.getString(R.string.general_dialog_message_telegram_not_found), context);
             }
         } else {
-            sendToMarketToInstallApp(packageName, context.getString(R.string.general_dialog_message_telegram_not_found), context);
+            throw new UnknownTelegramURL();
+        }
+    }
+
+    public static void sendToInstagram(Context context, String instagramUrl) throws UnknownInstagramURL{
+        String regex = "http(s?)://(www\\.)?(instagram)\\.com/.+";
+        if (instagramUrl.matches(regex)) {
+            String packageName = "com.instagram.android";
+            if (Redirect.isAppAvailable(context, packageName)) {
+                try {
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse(instagramUrl));
+                    i.setPackage(packageName);
+                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(i);
+                } catch (ActivityNotFoundException e) {
+                    // do nothing
+                }
+            } else {
+                sendToMarketToInstallApp(packageName, context.getString(R.string.general_dialog_message_instagram_not_found), context);
+            }
+        } else {
+            throw new UnknownInstagramURL();
         }
     }
 

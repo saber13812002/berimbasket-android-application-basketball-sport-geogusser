@@ -31,6 +31,7 @@ import ir.berimbasket.app.activity.fragment.FragmentStadiumMap;
 import ir.berimbasket.app.adapter.AdapterStadiumGallery;
 import ir.berimbasket.app.entity.EntityStadium;
 import ir.berimbasket.app.entity.EntityStadiumGallery;
+import ir.berimbasket.app.exception.UnknownTelegramURL;
 import ir.berimbasket.app.network.HttpFunctions;
 import ir.berimbasket.app.util.ApplicationLoader;
 import ir.berimbasket.app.util.PrefManager;
@@ -137,21 +138,33 @@ public class ActivityStadium extends AppCompatActivity {
         btnCompleteStadiumDetail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Redirect.sendToTelegramChat(ActivityStadium.this, UPDATE_STADIUM_INFO_BOT + entityStadium.getId());
+                try {
+                    Redirect.sendToTelegram(ActivityStadium.this, UPDATE_STADIUM_INFO_BOT + entityStadium.getId());
+                } catch (UnknownTelegramURL unknownTelegramURL) {
+                    // do nothing yet
+                }
             }
         });
 
         btnReportStadium.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Redirect.sendToTelegramChat(ActivityStadium.this, REPORT_STADIUM_BOT + entityStadium.getId());
+                try {
+                    Redirect.sendToTelegram(ActivityStadium.this, REPORT_STADIUM_BOT + entityStadium.getId());
+                } catch (UnknownTelegramURL unknownTelegramURL) {
+                    // do nothing yet
+                }
             }
         });
 
         btnReserveStadium.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Redirect.sendToTelegramChat(ActivityStadium.this, RESERVE_STADIUM_BOT + entityStadium.getId());
+                try {
+                    Redirect.sendToTelegram(ActivityStadium.this, RESERVE_STADIUM_BOT + entityStadium.getId());
+                } catch (UnknownTelegramURL unknownTelegramURL) {
+                    // do nothing yet
+                }
             }
         });
 
@@ -159,7 +172,11 @@ public class ActivityStadium extends AppCompatActivity {
         btnAddImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Redirect.sendToTelegramChat(ActivityStadium.this, STADIUM_IMAGE_BOT + entityStadium.getId());
+                try {
+                    Redirect.sendToTelegram(ActivityStadium.this, STADIUM_IMAGE_BOT + entityStadium.getId());
+                } catch (UnknownTelegramURL unknownTelegramURL) {
+                    // do nothing yet
+                }
             }
         });
     }

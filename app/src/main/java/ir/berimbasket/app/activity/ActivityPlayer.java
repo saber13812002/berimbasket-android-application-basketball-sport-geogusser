@@ -26,6 +26,7 @@ import ir.berimbasket.app.adapter.AdapterPlayerSpecification;
 import ir.berimbasket.app.adapter.AdapterSocialAcc;
 import ir.berimbasket.app.entity.EntityPlayer;
 import ir.berimbasket.app.entity.EntitySocialAcc;
+import ir.berimbasket.app.exception.UnknownTelegramURL;
 import ir.berimbasket.app.util.ApplicationLoader;
 import ir.berimbasket.app.util.Redirect;
 import ir.berimbasket.app.util.TypefaceManager;
@@ -141,7 +142,11 @@ public class ActivityPlayer extends AppCompatActivity {
         btnReportPlayer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Redirect.sendToTelegramChat(ActivityPlayer.this, REPORT_PLAYER_BOT + entityPlayer.getId());
+                try {
+                    Redirect.sendToTelegram(ActivityPlayer.this, REPORT_PLAYER_BOT + entityPlayer.getId());
+                } catch (UnknownTelegramURL unknownTelegramURL) {
+                    // to nothing yet
+                }
             }
         });
     }
