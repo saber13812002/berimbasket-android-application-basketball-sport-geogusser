@@ -58,16 +58,36 @@
     <string name="activity_stadium_spec_work_time">ساعت کاری</string>
     <string name="activity_stadium_spec_telegram_channel">کانال تلگرام</string>
     <string name="activity_stadium_spec_instagram">اینستاگرام</string>
+    <string name="activity_stadium_spec_roof">سقف</string>
+    <string name="activity_stadium_spec_distance_2_parking">فاصله تا پارکینگ</string>
+    <string name="activity_stadium_spec_rim_height">ارتفاع سبد</string>
+    <string name="activity_stadium_spec_rim_number">تعداد سبد</string>
+    <string name="activity_stadium_spec_spotlight">نورافکن</string>
+    <string name="activity_stadium_spec_fence">فنس</string>
+    <string name="activity_stadium_spec_parking">پارکینگ</string>
+    <string name="activity_stadium_spec_basket_net">تور سبد</string>
+    <string name="activity_stadium_spec_score_line">خط امتیاز</string>
+    <string name="activity_stadium_spec_lines">خط کشی</string>
     <string name="activity_stadium_txt_name_default">ورزشگاه شهید آوینی</string>
     <string name="activity_stadium_txt_phone_default">تلفن : 8943264 98+</string>
-    <string name="activity_stadium_btn_complete_detail">تکمیل اطلاعات</string>
-    <string name="activity_stadium_btn_add_image">افزودن عکس</string>
     <string name="activity_stadium_txt_detail">جزئیات ورزشگاه</string>
     <string name="activity_stadium_txt_address_default">آدرس : تهران - کیلومتر 5 آزاد راه تهران کرج مجموعه ورزشی آزادی</string>
     <string name="activity_stadium_txt_round_default">ساعت کاری : 8 صبح تا 10 شب</string>
     <string name="activity_stadium_txt_telegram_channel_default">کانال تلگرام : @berimbasket</string>
     <string name="activity_stadium_txt_instagram_default">اینستاگرام : @berimbasket</string>
+    <string name="activity_stadium_txt_root_default">سقف : دارد</string>
+    <string name="activity_stadium_txt_distance_2_parking_default">فاصله تا پارکینگ : 500 متر</string>
+    <string name="activity_stadium_txt_rim_height">ارتفاع سبد : 3 متر</string>
+    <string name="activity_stadium_txt_rim_number_default">تعداد سبد : 2 عدد</string>
+    <string name="activity_stadium_txt_spotlight_default">نورافکن : دارد</string>
+    <string name="activity_stadium_txt_fence_default">فنس : دارد</string>
+    <string name="activity_stadium_txt_parking_default">پارکینگ : دارد</string>
+    <string name="activity_stadium_txt_basket_net_default">تور سبد : دارد</string>
+    <string name="activity_stadium_txt_score_line_default">خط امتیاز : دارد</string>
+    <string name="activity_stadium_btn_complete_detail">تکمیل اطلاعات</string>
+    <string name="activity_stadium_btn_add_image">افزودن عکس</string>
 
+    <string name="activity_stadium_txt_lines_default">خط کشی : دارد</string>
     <string name="activity_create_stadium_edt_stadium_hint">نام تیم میهمان</string>
     <string name="activity_create_stadium_edt_address_hint">آدرس ورزشگاه به صورت دستی</string>
     <string name="activity_create_stadium_btn_address">آدرس ورزشگاه روی نقشه</string>
@@ -314,6 +334,7 @@
     <string name="entity_match_score_away_default">استقلال</string>
     <string name="entity_match_score_home_default">پرسپولیس</string>
     <string name="entity_match_score_data_default">پایان</string>
+
 
 
 </resources>

@@ -8,6 +8,7 @@ import java.io.Serializable;
 
 public class EntityStadium implements Serializable{
 
+    // FIXME: 11/22/2017 this kind of usage from this class is breaking oop rules
     private int id;
     private String title;
     private String latitude;

@@ -38,7 +38,9 @@ import ir.berimbasket.app.util.Redirect;
 
 public class ActivityStadium extends AppCompatActivity {
 
-    TextView txtStadiumName, txtStadiumTel, txtStadiumAddress, txtStadiumRound, txtTelegramChannel, txtInstagramId, txtDetailSection;
+    TextView txtStadiumName, txtStadiumTel, txtStadiumAddress, txtStadiumRound, txtTelegramChannel, txtInstagramId,
+            txtDetailSection, txtRoof, txtDistance2Parking, txtRimHeight, txtRimNumber, txtSpotlight, txtFence, txtParking,
+            txtBasketNet, txtScoreLine, txtLines;
     AppCompatButton btnCompleteStadiumDetail, btnAddImage;
     CircleImageView imgStadiumLogo;
     EntityStadium entityStadium;
@@ -76,14 +78,27 @@ public class ActivityStadium extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
     }
 
-    private void getStadiumInfo(EntityStadium entityStadium) {
+    // FIXME: 11/22/2017 use another entity for this class
+    private void setStadiumInfo(EntityStadium entityStadium, String roof, String distance2Parking, String rimHeight,
+                                String rimNumber, String spotlight, String fence, String parking, String basketNet,
+                                String scoreLine, String lines) {
         String specSeparator = getString(R.string.activity_stadium_spec_separator);
         txtStadiumName.setText(entityStadium.getTitle());
-        txtStadiumTel.setText(getString(R.string.activity_stadium_spec_phone) + " " +  specSeparator + " " +  "-");
-        txtStadiumAddress.setText(getString(R.string.activity_stadium_spec_address) + " " +  specSeparator + " " +  entityStadium.getAddress());
-        txtStadiumRound.setText(getString(R.string.activity_stadium_spec_work_time) + " " +  specSeparator + " " +  "-");
-        txtTelegramChannel.setText(getString(R.string.activity_stadium_spec_telegram_channel) + " " +  specSeparator + " " +  entityStadium.getTelegramChannelId());
-        txtInstagramId.setText(getString(R.string.activity_stadium_spec_instagram) + " " +  specSeparator + " " +  entityStadium.getInstagramId());
+        txtStadiumTel.setText(getString(R.string.activity_stadium_spec_phone) + " " + specSeparator + " " + "-");
+        txtStadiumAddress.setText(getString(R.string.activity_stadium_spec_address) + " " + specSeparator + " " + entityStadium.getAddress());
+        txtStadiumRound.setText(getString(R.string.activity_stadium_spec_work_time) + " " + specSeparator + " " + "-");
+        txtTelegramChannel.setText(getString(R.string.activity_stadium_spec_telegram_channel) + " " + specSeparator + " " + entityStadium.getTelegramChannelId());
+        txtInstagramId.setText(getString(R.string.activity_stadium_spec_instagram) + " " + specSeparator + " " + entityStadium.getInstagramId());
+        txtRoof.setText(getString(R.string.activity_stadium_spec_roof) + " " + specSeparator + " " + roof);
+        txtDistance2Parking.setText(getString(R.string.activity_stadium_spec_distance_2_parking) + " " + specSeparator + " " + distance2Parking);
+        txtRimHeight.setText(getString(R.string.activity_stadium_spec_rim_height) + " " + specSeparator + " " + rimHeight);
+        txtRimNumber.setText(getString(R.string.activity_stadium_spec_rim_number) + " " + specSeparator + " " + rimNumber);
+        txtSpotlight.setText(getString(R.string.activity_stadium_spec_spotlight) + " " + specSeparator + " " + spotlight);
+        txtFence.setText(getString(R.string.activity_stadium_spec_fence) + " " + specSeparator + " " + fence);
+        txtParking.setText(getString(R.string.activity_stadium_spec_parking) + " " + specSeparator + " " + parking);
+        txtBasketNet.setText(getString(R.string.activity_stadium_spec_basket_net) + " " + specSeparator + " " + basketNet);
+        txtScoreLine.setText(getString(R.string.activity_stadium_spec_score_line) + " " + specSeparator + " " + scoreLine);
+        txtLines.setText(getString(R.string.activity_stadium_spec_lines) + " " + specSeparator + " " + lines);
     }
 
     private void initViewsAndListeners() {
@@ -95,6 +110,16 @@ public class ActivityStadium extends AppCompatActivity {
         txtTelegramChannel = findViewById(R.id.txtTelegramChannel);
         txtInstagramId = findViewById(R.id.txtInstagramId);
         txtDetailSection = findViewById(R.id.txtDetailSection);
+        txtRoof = findViewById(R.id.txtRoof);
+        txtDistance2Parking = findViewById(R.id.txtDistance2Parking);
+        txtRimHeight = findViewById(R.id.txtRimHeight);
+        txtRimNumber = findViewById(R.id.txtRimNumber);
+        txtSpotlight = findViewById(R.id.txtSpotlight);
+        txtFence = findViewById(R.id.txtFence);
+        txtParking = findViewById(R.id.txtParking);
+        txtBasketNet = findViewById(R.id.txtBasketNet);
+        txtScoreLine = findViewById(R.id.txtScoreLine);
+        txtLines = findViewById(R.id.txtLines);
         imgStadiumLogo = findViewById(R.id.imgStadiumLogo);
         btnReportStadium = findViewById(R.id.btnReportStadium);
         btnReserveStadium = findViewById(R.id.btnReserveStadium);
@@ -187,6 +212,8 @@ public class ActivityStadium extends AppCompatActivity {
 
     private class GetStadium extends AsyncTask<Integer, Void, Void> {
 
+        String roof, distance2Parking, rimHeight, rimNumber, spotlight, fence, parking, basketNet, scoreLine, lines;
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -219,6 +246,16 @@ public class ActivityStadium extends AppCompatActivity {
                         String telegramChannelId = c.getString("PgTlgrmChannelId");
                         String telegramGroupId = c.getString("PgTlgrmGroupJoinLink");
                         String telegramAdminId = c.getString("PgTlgrmGroupAdminId");
+                        roof = c.getString("roof");
+                        distance2Parking = c.getString("distance2parking");
+                        rimHeight = c.getString("rimHeight");
+                        rimNumber = c.getString("rimNumber");
+                        spotlight = c.getString("spotlight");
+                        fence = c.getString("fence");
+                        parking = c.getString("parking");
+                        basketNet = c.getString("basketnet");
+                        scoreLine = c.getString("scoreline");
+                        lines = c.getString("lines");
 
                         entityStadium = new EntityStadium();
 
@@ -263,7 +300,8 @@ public class ActivityStadium extends AppCompatActivity {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            getStadiumInfo(entityStadium);
+            setStadiumInfo(entityStadium, roof, distance2Parking, rimHeight, rimNumber, spotlight, fence, parking
+                    , basketNet, scoreLine, lines);
         }
     }
 

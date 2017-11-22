@@ -18,73 +18,66 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:padding="15dp">
+            android:padding="5dp">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/imgStadiumLogo"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:layout_alignParentRight="true"
-                android:layout_marginLeft="15dp"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentTop="true"
                 android:src="@drawable/stadium1" />
 
             <TextView
                 android:id="@+id/txtStadiumName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toLeftOf="@id/imgStadiumLogo"
+                android:layout_below="@+id/imgStadiumLogo"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="5dp"
                 android:fontFamily="@font/yekan"
                 android:text="@string/activity_stadium_txt_name_default"
                 android:textColor="@android:color/black"
                 android:textSize="16sp" />
 
-            <TextView
-                android:id="@+id/txtStadiumTel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+
+            <!--<RatingBar-->
+                <!--android:id="@+id/ratingStadiumRate"-->
+                <!--style="?android:attr/ratingBarStyleSmall"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="6dp"-->
+                <!--android:layout_toLeftOf="@id/imgStadiumLogo"-->
+                <!--android:isIndicator="false"-->
+                <!--android:max="5"-->
+                <!--android:numStars="5"-->
+                <!--android:progress="4"-->
+                <!--android:progressTint="@color/colorGold"-->
+                <!--android:visibility="gone" />-->
+            <LinearLayout
+                android:orientation="horizontal"
+                android:gravity="center"
                 android:layout_below="@id/txtStadiumName"
-                android:layout_marginTop="4dp"
-                android:layout_toLeftOf="@id/imgStadiumLogo"
-                android:fontFamily="@font/yekan"
-                android:text="@string/activity_stadium_txt_phone_default"
-                android:textSize="14sp" />
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/btnCompleteStadiumDetail"
+                    style="@style/BrandButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:fontFamily="@font/yekan"
+                    android:text="@string/activity_stadium_btn_complete_detail" />
 
-            <RatingBar
-                android:id="@+id/ratingStadiumRate"
-                style="?android:attr/ratingBarStyleSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/txtStadiumTel"
-                android:layout_marginTop="6dp"
-                android:layout_toLeftOf="@id/imgStadiumLogo"
-                android:isIndicator="false"
-                android:max="5"
-                android:numStars="5"
-                android:progress="4"
-                android:progressTint="@color/colorGold"
-                android:visibility="gone" />
-
-
-            <android.support.v7.widget.AppCompatButton
-                android:id="@+id/btnCompleteStadiumDetail"
-                style="@style/BrandButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@id/ratingStadiumRate"
-                android:layout_alignParentLeft="true"
-                android:fontFamily="@font/yekan"
-                android:text="@string/activity_stadium_btn_complete_detail" />
-
-            <android.support.v7.widget.AppCompatButton
-                android:id="@+id/btnAddImage"
-                style="@style/BrandButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_below="@id/btnCompleteStadiumDetail"
-                android:fontFamily="@font/yekan"
-                android:text="@string/activity_stadium_btn_add_image" />
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/btnAddImage"
+                    style="@style/BrandButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/yekan"
+                    android:text="@string/activity_stadium_btn_add_image" />
+            </LinearLayout>
 
         </RelativeLayout>
 
@@ -94,7 +87,7 @@
             android:layout_marginBottom="10dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:background="@color/colorLightGrey" />
 
         <RelativeLayout
@@ -134,14 +127,28 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/yekan"
+                android:gravity="end"
+                android:layout_gravity="end"
                 android:text="@string/activity_stadium_txt_detail"
                 android:textColor="@color/colorPrimary" />
+
+            <TextView
+                android:id="@+id/txtStadiumTel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/yekan"
+                android:gravity="end"
+                android:layout_gravity="end"
+                android:padding="10dp"
+                android:text="@string/activity_stadium_txt_phone_default" />
 
             <TextView
                 android:id="@+id/txtStadiumAddress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/yekan"
+                android:gravity="end"
+                android:layout_gravity="end"
                 android:padding="10dp"
                 android:text="@string/activity_stadium_txt_address_default" />
 
@@ -150,6 +157,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/yekan"
+                android:gravity="end"
+                android:layout_gravity="end"
                 android:padding="10dp"
                 android:text="@string/activity_stadium_txt_round_default" />
 
@@ -158,6 +167,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/yekan"
+                android:gravity="end"
+                android:layout_gravity="end"
                 android:padding="10dp"
                 android:text="@string/activity_stadium_txt_telegram_channel_default" />
 
@@ -166,8 +177,110 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/yekan"
+                android:gravity="end"
+                android:layout_gravity="end"
                 android:padding="10dp"
                 android:text="@string/activity_stadium_txt_instagram_default" />
+
+            <TextView
+                android:id="@+id/txtRoof"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/yekan"
+                android:gravity="end"
+                android:layout_gravity="end"
+                android:padding="10dp"
+                android:text="@string/activity_stadium_txt_root_default" />
+
+            <TextView
+                android:id="@+id/txtDistance2Parking"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/yekan"
+                android:gravity="end"
+                android:layout_gravity="end"
+                android:padding="10dp"
+                android:text="@string/activity_stadium_txt_distance_2_parking_default" />
+
+            <TextView
+                android:id="@+id/txtRimHeight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/yekan"
+                android:gravity="end"
+                android:layout_gravity="end"
+                android:padding="10dp"
+                android:text="@string/activity_stadium_txt_rim_height" />
+
+            <TextView
+                android:id="@+id/txtRimNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/yekan"
+                android:gravity="end"
+                android:layout_gravity="end"
+                android:padding="10dp"
+                android:text="@string/activity_stadium_txt_rim_number_default" />
+
+            <TextView
+                android:id="@+id/txtSpotlight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/yekan"
+                android:gravity="end"
+                android:layout_gravity="end"
+                android:padding="10dp"
+                android:text="@string/activity_stadium_txt_spotlight_default" />
+
+            <TextView
+                android:id="@+id/txtFence"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/yekan"
+                android:gravity="end"
+                android:layout_gravity="end"
+                android:padding="10dp"
+                android:text="@string/activity_stadium_txt_fence_default" />
+
+            <TextView
+                android:id="@+id/txtParking"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/yekan"
+                android:gravity="end"
+                android:layout_gravity="end"
+                android:padding="10dp"
+                android:text="@string/activity_stadium_txt_parking_default" />
+
+            <TextView
+                android:id="@+id/txtBasketNet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/yekan"
+                android:gravity="end"
+                android:layout_gravity="end"
+                android:padding="10dp"
+                android:text="@string/activity_stadium_txt_basket_net_default" />
+
+            <TextView
+                android:id="@+id/txtScoreLine"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/yekan"
+                android:gravity="end"
+                android:layout_gravity="end"
+                android:padding="10dp"
+                android:text="@string/activity_stadium_txt_score_line_default" />
+
+            <TextView
+                android:id="@+id/txtLines"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/yekan"
+                android:gravity="end"
+                android:layout_gravity="end"
+                android:padding="10dp"
+                android:text="@string/activity_stadium_txt_lines_default" />
 
         </LinearLayout>
 
