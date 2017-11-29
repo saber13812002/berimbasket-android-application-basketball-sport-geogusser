@@ -3,14 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorAccent"
+    android:background="#7ee3ba"
     android:gravity="center"
     android:orientation="vertical"
     tools:context="ir.berimbasket.app.activity.ActivitySplash">
 
     <pl.droidsonroids.gif.GifImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
         android:layout_gravity="center"
         android:src="@raw/animated_ball" />
 
