@@ -200,7 +200,11 @@ public class ActivityStadium extends AppCompatActivity {
         for (int i = 0; i < galleryImages.length; i++) {
             EntityStadiumGallery entityStadiumGallery = new EntityStadiumGallery();
             entityStadiumGallery.setId(i);
-            entityStadiumGallery.setUrl(STADIUM_PHOTO_BASE_URL + galleryImages[i] + ".jpg");
+            if (entityStadium.getImageType() == EntityStadium.IMAGE_TYPE_JPG) {
+                entityStadiumGallery.setUrl(STADIUM_PHOTO_BASE_URL + galleryImages[i] + ".jpg");
+            } else {
+                entityStadiumGallery.setUrl(STADIUM_PHOTO_BASE_URL + galleryImages[i] + ".png");
+            }
             stadiumGalleryList.add(entityStadiumGallery);
         }
 
@@ -285,7 +289,12 @@ public class ActivityStadium extends AppCompatActivity {
                         entityStadium.setTelegramChannelId(telegramChannelId);
                         entityStadium.setTelegramAdminId(telegramAdminId);
                         entityStadium.setInstagramId(instagramId);
-                        entityStadium.setImages(images.split(".jpg"));
+                        entityStadium.setImages(images.split("\\.[a-z]{3}"));
+                        if (images.contains("png")){
+                            entityStadium.setImageType(EntityStadium.IMAGE_TYPE_PNG);
+                        } else if (images.contains("jpg")) {
+                            entityStadium.setImageType(EntityStadium.IMAGE_TYPE_JPG);
+                        }
                         entityStadium.setType(type);
                         entityStadium.setZoomLevel(zoomLevel != "null" ? Integer.parseInt(zoomLevel) : -1);
 

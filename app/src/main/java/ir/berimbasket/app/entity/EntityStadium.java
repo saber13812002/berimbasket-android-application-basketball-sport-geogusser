@@ -9,6 +9,9 @@ import java.io.Serializable;
 public class EntityStadium implements Serializable{
 
     // FIXME: 11/22/2017 this kind of usage from this class is breaking oop rules
+    public static final int IMAGE_TYPE_PNG = 0;
+    public static final int IMAGE_TYPE_JPG = 1;
+
     private int id;
     private String title;
     private String latitude;
@@ -17,6 +20,7 @@ public class EntityStadium implements Serializable{
     private int zoomLevel;
     private String address;
     private String[] images;
+    private int imageType;
     private String telegramChannelId;
     private String instagramId;
     private String telegramGroupId;
@@ -116,5 +120,13 @@ public class EntityStadium implements Serializable{
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getImageType() {
+        return imageType;
+    }
+
+    public void setImageType(int imageType) {
+        this.imageType = imageType;
     }
 }

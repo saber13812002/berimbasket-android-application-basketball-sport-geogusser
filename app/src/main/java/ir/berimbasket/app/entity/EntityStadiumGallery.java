@@ -6,7 +6,6 @@ package ir.berimbasket.app.entity;
 
 public class EntityStadiumGallery {
     private int id;
-    // FIXME: 21/09/2017 when Stadium detail web service connected change url data type to String
     private String url;
 
     public int getId() {
