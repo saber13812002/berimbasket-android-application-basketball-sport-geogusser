@@ -27,3 +27,4 @@
 -dontwarn com.squareup.okhttp.**
 -keep class android.support.v8.renderscript.** { *; }
 -keep class ru.egslava.** { *; }
+-keep class  ir.berimbasket.app.activity.ActivityLogin$UserLoginTask.doInBackground {*;}
