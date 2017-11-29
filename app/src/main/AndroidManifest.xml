@@ -128,8 +128,7 @@
 
         <service android:name="com.google.android.gms.analytics.CampaignTrackingService" />
 
-        <activity
-            android:name=".activity.ActivitySplash">
+        <activity android:name=".activity.ActivitySplash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -153,7 +152,8 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".activity.ActivityIntro"/>
+        <activity android:name=".activity.ActivityIntro" />
+        <activity android:name=".activity.ActivityBrowser"></activity>
     </application>
 
 </manifest>
