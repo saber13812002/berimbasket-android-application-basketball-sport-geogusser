@@ -45,7 +45,7 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
     private static String PLAYER_URL = "https://berimbasket.ir/bball/getPlayers.php";
     private static String STADIUM_URL = "https://berimbasket.ir/bball/getPlayGroundJson.php";
     private static String MATCH_URL = "https://berimbasket.ir/bball/getScore.php";
-    private static String MORE_MATCH_URL = "https://berimbasket.ir/bball/www/plays.php";
+    private static String MORE_MATCH_URL = "http://www.espn.com/nba/scoreboard";
     private static String MORE_PLAYER_URL = "https://berimbasket.ir/bball/www/players.php";
     private static String MORE_STADIUM_URL = "https://berimbasket.ir/bball/www/mains.php";
     private int processCount = 0;

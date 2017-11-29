@@ -41,7 +41,7 @@ public class FragmentProfile extends Fragment {
     private static final String PROFILE_SCORE_INFO_BOT = "http://t.me/berimbasketScorebot";
     private static final String PROFILE_TEAM_INFO_BOT = "http://t.me/berimbasketScorebot";
     private static final String UPDATE_USER_INFO_BOT = "https://t.me/berimbasketprofilebot";
-    private static final String UPLOAD_PHOTO_BOT = "https://t.me/berimbasketUploadbot";
+    private static final String UPLOAD_PHOTO_BOT = "http://t.me/berimbasketProfilebot";
     private static boolean isLoggedIn;
     private AdapterProfilePager adapterProfilePager;
     private TabLayout tabProfile;
