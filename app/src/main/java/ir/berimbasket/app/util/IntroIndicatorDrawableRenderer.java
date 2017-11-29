@@ -30,6 +30,7 @@ import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.content.res.AppCompatResources;
 
 import com.cleveroad.slidingtutorial.Renderer;
 
@@ -49,8 +50,13 @@ public class IntroIndicatorDrawableRenderer implements Renderer {
     }
 
     private IntroIndicatorDrawableRenderer(@NonNull Context context) {
-        mDrawableActive = ContextCompat.getDrawable(context, R.drawable.vec_checkbox_fill_circle_outline);
-        mDrawable = ContextCompat.getDrawable(context, R.drawable.vec_checkbox_blank_circle_outline);
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP){
+            mDrawableActive = ContextCompat.getDrawable(context, R.drawable.vec_checkbox_fill_circle_outline);
+            mDrawable = ContextCompat.getDrawable(context, R.drawable.vec_checkbox_blank_circle_outline);
+        } else{
+            mDrawableActive = AppCompatResources.getDrawable(context, R.drawable.vec_checkbox_fill_circle_outline);
+            mDrawable = AppCompatResources.getDrawable(context, R.drawable.vec_checkbox_blank_circle_outline);
+        }
     }
 
     @Override
