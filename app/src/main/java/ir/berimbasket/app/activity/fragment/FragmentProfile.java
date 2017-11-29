@@ -3,6 +3,7 @@ package ir.berimbasket.app.activity.fragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -18,12 +19,24 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.function.Consumer;
+
+import co.ronash.pushe.Pushe;
 import ir.berimbasket.app.R;
 import ir.berimbasket.app.activity.ActivityLogin;
 import ir.berimbasket.app.adapter.AdapterProfilePager;
 import ir.berimbasket.app.exception.UnknownTelegramURL;
+import ir.berimbasket.app.network.HttpFunctions;
 import ir.berimbasket.app.util.ApplicationLoader;
 import ir.berimbasket.app.util.PrefManager;
 import ir.berimbasket.app.util.Redirect;
@@ -36,6 +49,8 @@ import ir.berimbasket.app.view.WrapContentViewPager;
 
 public class FragmentProfile extends Fragment {
 
+    private static String PLAYER_URL = "http://berimbasket.ir/bball/getPlayers.php";
+
     TextView txtProfileName;
     AppCompatButton btnScoreProfile, btnProfileTeam;
     private static final String PROFILE_SCORE_INFO_BOT = "http://t.me/berimbasketScorebot";
@@ -47,6 +62,7 @@ public class FragmentProfile extends Fragment {
     private TabLayout tabProfile;
     private WrapContentViewPager pagerProfile;
     private FloatingActionButton fabProfileMenu, fabChangeAvatar;
+    private static ImageView imgProfileImage;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -58,7 +74,7 @@ public class FragmentProfile extends Fragment {
         final Context context = inflater.getContext();
         PrefManager pref = new PrefManager(getContext());
         isLoggedIn = pref.getIsLoggedIn();
-        View rootView;
+        View rootView = null;
         if (isLoggedIn) {
             // user logged in
             rootView = inflater.inflate(R.layout.fragment_profile, container, false);
@@ -66,8 +82,10 @@ public class FragmentProfile extends Fragment {
             initProductPager();
             initTabProduct();
 
+            imgProfileImage = rootView.findViewById(R.id.imgPlayerProfile);
             txtProfileName = rootView.findViewById(R.id.txtProfileName);
             txtProfileName.setText(pref.getUserName());
+            new GetPlayer(getContext()).execute();
 
         } else {
             //user not logged in
@@ -209,6 +227,75 @@ public class FragmentProfile extends Fragment {
                     }
                 })
                 .show();
+    }
+
+    private static String userImage;
+
+    private static class GetPlayer extends AsyncTask<Void, Void, Void> {
+
+        Context context;
+
+        GetPlayer(Context context) {
+            this.context = context;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+
+            HttpFunctions sh = new HttpFunctions(HttpFunctions.RequestType.GET);
+            PrefManager pref = new PrefManager(context);
+            String pusheId = Pushe.getPusheId(context);
+            String userName = pref.getUserName();
+            int userId = pref.getUserId();
+            String urlParams = String.format("id=%s&pusheid=%s&username=%s", userId, pusheId, userName);
+            String jsonStr = sh.makeServiceCall(PLAYER_URL + "?" + urlParams);
+            if (jsonStr != null) {
+                try {
+                    JSONArray locations = new JSONArray(jsonStr);
+
+                    for (int i = 0; i < locations.length(); i++) {
+                        JSONObject c = locations.getJSONObject(i);
+
+                        String id = c.getString("id");
+                        String username = c.getString("username");
+                        String namefa = c.getString("namefa");
+                        String address = c.getString("address");
+                        userImage = c.getString("uImages");
+                        String uInstagramId = c.getString("uInstagramId");
+                        String uTelegramId = c.getString("uTelegramlId");
+                        String height = c.getString("height");
+                        String weight = c.getString("weight");
+                        String city = c.getString("city");
+                        String age = c.getString("age");
+                        String coach = c.getString("coach");
+                        String teamname = c.getString("teamname");
+                        String experience = c.getString("experience");
+                        String post = c.getString("post");
+                        String telegramPhone = c.getString("telegramphone");
+                    }
+                } catch (final JSONException e) {
+                   e.printStackTrace();
+                }
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            Picasso.with(context)
+                    .load("https://berimbasket.ir" + userImage)
+                    .resize(120, 120)
+                    .centerInside()
+                    .placeholder(R.drawable.profile_default)
+                    .error(R.drawable.profile_default)
+                    .into(imgProfileImage);
+        }
     }
 
 }

@@ -28,7 +28,6 @@ import ir.berimbasket.app.util.PrefManager;
 
 public class FragmentPlayerSpecification extends Fragment {
 
-    // FIXME: 16/11/2017 save id of user when user logged in the use ir in PLAYER_URL
     private static String PLAYER_URL = "http://berimbasket.ir/bball/getPlayers.php";
     private EntityPlayer entityPlayer;
     private View view;
