@@ -3,13 +3,13 @@ package ir.berimbasket.app.adapter;
 import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 
 import ir.berimbasket.app.R;
 import ir.berimbasket.app.activity.fragment.FragmentMissions;
 import ir.berimbasket.app.activity.fragment.FragmentPlayerSpecification;
 
-public class AdapterProfilePager extends FragmentPagerAdapter {
+public class AdapterProfilePager extends FragmentStatePagerAdapter {
 
     private String pagesTitle[] = new String[2];
 
