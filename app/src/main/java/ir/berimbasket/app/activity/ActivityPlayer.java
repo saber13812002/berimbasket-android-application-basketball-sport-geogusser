@@ -118,7 +118,7 @@ public class ActivityPlayer extends AppCompatActivity {
         entitySocialTelegram.setId(0);
         entitySocialTelegram.setImageResId(R.drawable.ic_social_telegram);
         entitySocialTelegram.setType(EntitySocialAcc.SOCIAL_TYPE_TELEGRAM_USER);
-        entitySocialTelegram.setLink(entityPlayer.getTelegramId());
+        entitySocialTelegram.setLink("https://t.me/" + entityPlayer.getTelegramId());
         socialAccList.add(entitySocialTelegram);
 
         playerSpecList.add(getString(R.string.activity_player_spec_instagram) + " " +  specSeparator + " " +  entityPlayer.getInstagramId());
@@ -126,7 +126,7 @@ public class ActivityPlayer extends AppCompatActivity {
         entitySocialInstagram.setId(0);
         entitySocialInstagram.setImageResId(R.drawable.ic_social_instagram);
         entitySocialInstagram.setType(EntitySocialAcc.SOCIAL_TYPE_INSTAGRAM);
-        entitySocialInstagram.setLink(entityPlayer.getInstagramId());
+        entitySocialInstagram.setLink("https://instagram.com/_u/" + entityPlayer.getInstagramId());
         socialAccList.add(entitySocialInstagram);
 
         playerSpecList.add(getString(R.string.activity_player_spec_phone_number) + " " +  specSeparator + " " +  entityPlayer.getPhone());

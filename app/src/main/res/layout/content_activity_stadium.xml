@@ -119,6 +119,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="right"
             android:orientation="vertical"
             android:padding="15dp">
 
@@ -127,8 +128,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/yekan"
-                android:gravity="end"
-                android:layout_gravity="end"
                 android:text="@string/activity_stadium_txt_detail"
                 android:textColor="@color/colorPrimary" />
 
@@ -137,8 +136,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/yekan"
-                android:gravity="end"
-                android:layout_gravity="end"
                 android:padding="10dp"
                 android:text="@string/activity_stadium_txt_phone_default" />
 
@@ -147,8 +144,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/yekan"
-                android:gravity="end"
-                android:layout_gravity="end"
                 android:padding="10dp"
                 android:text="@string/activity_stadium_txt_address_default" />
 
@@ -157,8 +152,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/yekan"
-                android:gravity="end"
-                android:layout_gravity="end"
                 android:padding="10dp"
                 android:text="@string/activity_stadium_txt_round_default" />
 
@@ -167,8 +160,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/yekan"
-                android:gravity="end"
-                android:layout_gravity="end"
                 android:padding="10dp"
                 android:text="@string/activity_stadium_txt_telegram_channel_default" />
 
@@ -177,8 +168,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/yekan"
-                android:gravity="end"
-                android:layout_gravity="end"
                 android:padding="10dp"
                 android:text="@string/activity_stadium_txt_instagram_default" />
 
@@ -187,8 +176,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/yekan"
-                android:gravity="end"
-                android:layout_gravity="end"
                 android:padding="10dp"
                 android:text="@string/activity_stadium_txt_root_default" />
 
@@ -197,8 +184,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/yekan"
-                android:gravity="end"
-                android:layout_gravity="end"
                 android:padding="10dp"
                 android:text="@string/activity_stadium_txt_distance_2_parking_default" />
 
@@ -207,8 +192,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/yekan"
-                android:gravity="end"
-                android:layout_gravity="end"
                 android:padding="10dp"
                 android:text="@string/activity_stadium_txt_rim_height" />
 
@@ -217,8 +200,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/yekan"
-                android:gravity="end"
-                android:layout_gravity="end"
                 android:padding="10dp"
                 android:text="@string/activity_stadium_txt_rim_number_default" />
 
@@ -227,8 +208,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/yekan"
-                android:gravity="end"
-                android:layout_gravity="end"
                 android:padding="10dp"
                 android:text="@string/activity_stadium_txt_spotlight_default" />
 
@@ -237,8 +216,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/yekan"
-                android:gravity="end"
-                android:layout_gravity="end"
                 android:padding="10dp"
                 android:text="@string/activity_stadium_txt_fence_default" />
 
@@ -247,8 +224,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/yekan"
-                android:gravity="end"
-                android:layout_gravity="end"
                 android:padding="10dp"
                 android:text="@string/activity_stadium_txt_parking_default" />
 
@@ -257,8 +232,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/yekan"
-                android:gravity="end"
-                android:layout_gravity="end"
                 android:padding="10dp"
                 android:text="@string/activity_stadium_txt_basket_net_default" />
 
@@ -267,8 +240,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/yekan"
-                android:gravity="end"
-                android:layout_gravity="end"
                 android:padding="10dp"
                 android:text="@string/activity_stadium_txt_score_line_default" />
 
@@ -277,8 +248,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/yekan"
-                android:gravity="end"
-                android:layout_gravity="end"
                 android:padding="10dp"
                 android:text="@string/activity_stadium_txt_lines_default" />
 
