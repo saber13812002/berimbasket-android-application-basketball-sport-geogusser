@@ -122,24 +122,34 @@ public class FragmentSetMarker extends Fragment implements OnMapReadyCallback {
         CameraPosition cameraPosition = ((ActivitySetMarker) getActivity()).getCameraPosition();
         googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 
-        googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+//        googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+//            @Override
+//            public void onMapClick(LatLng point) {
+//                googleMap.clear();
+//                View customMarkerView = ((LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.custom_map_marker, null);
+//                TextView txtMarkerTitle = (TextView) customMarkerView.findViewById(R.id.markerTitle);
+//                txtMarkerTitle.setText(getString(R.string.fragment_set_marker_your_location));
+//                IconGenerator generator = new IconGenerator(getActivity());
+//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//                    generator.setBackground(null);
+//                } else {
+//                    generator.setBackground(null);
+//                }
+//                generator.setContentView(customMarkerView);
+//                Bitmap icon = generator.makeIcon();
+//                googleMap.addMarker(new MarkerOptions().position(point).title("Custom location").icon(BitmapDescriptorFactory.fromBitmap(icon)));
+//                latitude = point.latitude;
+//                longitude = point.longitude;
+//            }
+//        });
+
+        googleMap.setOnCameraMoveListener(new GoogleMap.OnCameraMoveListener() {
             @Override
-            public void onMapClick(LatLng point) {
-                googleMap.clear();
-                View customMarkerView = ((LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.custom_map_marker, null);
-                TextView txtMarkerTitle = (TextView) customMarkerView.findViewById(R.id.markerTitle);
-                txtMarkerTitle.setText(getString(R.string.fragment_set_marker_your_location));
-                IconGenerator generator = new IconGenerator(getActivity());
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    generator.setBackground(null);
-                } else {
-                    generator.setBackground(null);
-                }
-                generator.setContentView(customMarkerView);
-                Bitmap icon = generator.makeIcon();
-                googleMap.addMarker(new MarkerOptions().position(point).title("Custom location").icon(BitmapDescriptorFactory.fromBitmap(icon)));
-                latitude = point.latitude;
-                longitude = point.longitude;
+            public void onCameraMove() {
+                // Get the center of the map
+                LatLng center = googleMap.getCameraPosition().target;
+                latitude = center.latitude;
+                longitude = center.longitude;
             }
         });
     }
