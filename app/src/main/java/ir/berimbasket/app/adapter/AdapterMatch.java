@@ -45,19 +45,20 @@ public class AdapterMatch extends RecyclerView.Adapter<AdapterMatch.MatchViewHol
 
     class MatchViewHolder extends RecyclerView.ViewHolder {
 
-        TextView txtHomeName, txtAwayName, txtHomeScore, txtAwayScore, txtDate;
+        TextView txtHomeName, txtAwayName, txtHomeScore, txtAwayScore, txtDate, txtScoreDate;
         ImageView imgHomeLogo, imgAwayLogo;
 
         MatchViewHolder(View itemView) {
             super(itemView);
 
-            this.imgAwayLogo = (ImageView) itemView.findViewById(R.id.imgAwayLogo);
-            this.imgHomeLogo = (ImageView) itemView.findViewById(R.id.imgHomeLogo);
-            this.txtHomeName = (TextView) itemView.findViewById(R.id.txtHomeName);
-            this.txtAwayName = (TextView) itemView.findViewById(R.id.txtَAwayName);
-            this.txtHomeScore = (TextView) itemView.findViewById(R.id.txtHomeScore);
-            this.txtAwayScore = (TextView) itemView.findViewById(R.id.txtAwayScore);
-            this.txtDate = (TextView) itemView.findViewById(R.id.txtDate);
+            this.imgAwayLogo = itemView.findViewById(R.id.imgAwayLogo);
+            this.imgHomeLogo = itemView.findViewById(R.id.imgHomeLogo);
+            this.txtHomeName = itemView.findViewById(R.id.txtHomeName);
+            this.txtAwayName = itemView.findViewById(R.id.txtَAwayName);
+            this.txtHomeScore = itemView.findViewById(R.id.txtHomeScore);
+            this.txtAwayScore = itemView.findViewById(R.id.txtAwayScore);
+            this.txtDate = itemView.findViewById(R.id.txtDate);
+            this.txtScoreDate = itemView.findViewById(R.id.txtScoreDate);
 
         }
 
@@ -67,6 +68,7 @@ public class AdapterMatch extends RecyclerView.Adapter<AdapterMatch.MatchViewHol
             this.txtAwayName.setText(entityMatchScore.getAwayName());
             this.txtHomeScore.setText(String.valueOf(entityMatchScore.getHomeScore()));
             this.txtAwayScore.setText(String.valueOf(entityMatchScore.getAwayScore()));
+            this.txtScoreDate.setText(entityMatchScore.getScoreDate());
             Picasso.with(context)
                     .load("https://berimbasket.ir/" + entityMatchScore.getAwayLogo())
                     .resize(50, 50)

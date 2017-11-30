@@ -7,12 +7,27 @@
     android:layout_marginBottom="10dp"
     android:layout_marginLeft="10dp"
     android:layout_marginRight="10dp"
+    app:cardBackgroundColor="@color/colorDarkGrey"
     app:cardCornerRadius="5dp">
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="300dp"
+        android:layout_width="360dp"
         android:layout_height="120dp"
         android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/txtScoreDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_below="@id/txtDate"
+            android:layout_centerHorizontal="true"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="2dp"
+            android:fontFamily="@font/yekan"
+            android:textColor="@color/colorGold"
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/txtDate"
@@ -21,6 +36,7 @@
             android:layout_centerInParent="true"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
+            android:textColor="@color/colorGold"
             android:fontFamily="@font/yekan"
             android:text="@string/item_match_score_separator" />
 
@@ -33,7 +49,8 @@
             android:layout_toStartOf="@id/txtDate"
             android:fontFamily="@font/yekan"
             android:text="@string/item_match_score_home_default_score"
-            android:textSize="18sp" />
+            android:textColor="@color/colorWhite"
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/txtAwayScore"
@@ -44,15 +61,17 @@
             android:layout_toEndOf="@id/txtDate"
             android:fontFamily="@font/yekan"
             android:text="@string/item_match_score_away_default_score"
-            android:textSize="18sp" />
+            android:textColor="@color/colorWhite"
+            android:textSize="20sp" />
 
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginEnd="16dp"
+            android:layout_marginEnd="26dp"
             android:layout_toStartOf="@id/txtHomeScore"
+            android:gravity="center"
             android:orientation="vertical">
 
             <ImageView
@@ -65,8 +84,10 @@
                 android:id="@+id/txtHomeName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textStyle="bold"
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/yekan"
+                android:textColor="@color/colorWhite"
                 android:text="@string/entity_match_score_home_default" />
 
 
@@ -76,9 +97,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="26dp"
             android:layout_toEndOf="@id/txtAwayScore"
-            android:gravity="center_horizontal"
+            android:gravity="center"
             android:orientation="vertical">
 
             <ImageView
@@ -92,6 +113,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:textStyle="bold"
+                android:textColor="@color/colorWhite"
                 android:fontFamily="@font/yekan"
                 android:text="@string/entity_match_score_away_default" />
 

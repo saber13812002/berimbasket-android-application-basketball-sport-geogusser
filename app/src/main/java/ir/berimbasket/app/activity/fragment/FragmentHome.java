@@ -357,6 +357,7 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
                         String awayLogo = c.getString("logoTitleB");
                         String homeScore = c.getString("scoreA");
                         String awayScore = c.getString("scoreB");
+                        String scoreDate = c.getString("scoreDate");
                         String date = c.getString("date");
 
                         EntityMatchScore entityMatchScore = new EntityMatchScore();
@@ -369,6 +370,7 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
                         entityMatchScore.setHomeScore(Integer.parseInt(homeScore));
                         entityMatchScore.setAwayScore(Integer.parseInt(awayScore));
                         entityMatchScore.setDate(date);
+                        entityMatchScore.setScoreDate(scoreDate);
 
 
                         matchList.add(entityMatchScore);

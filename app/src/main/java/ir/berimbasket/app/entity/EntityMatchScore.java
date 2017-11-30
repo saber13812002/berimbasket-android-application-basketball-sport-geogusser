@@ -20,6 +20,7 @@ public class EntityMatchScore {
     private String awayLogo;
     private String homeName;
     private String awayName;
+    private String scoreDate;
 
     public static ArrayList<EntityMatchScore> getRecyclerLandscape(Context context) {
 
@@ -99,5 +100,13 @@ public class EntityMatchScore {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getScoreDate() {
+        return scoreDate;
+    }
+
+    public void setScoreDate(String scoreDate) {
+        this.scoreDate = scoreDate;
     }
 }
