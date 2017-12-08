@@ -103,7 +103,7 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
     private void setupMatchRecyclerView(View view, ArrayList<EntityMatchScore> matchList) {
 
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recyclerMatchBoard);
-        AdapterMatch adapterMatch = new AdapterMatch(view.getContext(), matchList);
+        AdapterMatch adapterMatch = new AdapterMatch(getActivity(), view.getContext(), matchList);
         recyclerView.setAdapter(adapterMatch);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext());
@@ -358,7 +358,8 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
                         String homeScore = c.getString("scoreA");
                         String awayScore = c.getString("scoreB");
                         String scoreDate = c.getString("scoreDate");
-                        String date = c.getString("date");
+                        String status = c.getString("date");
+                        String link = c.getString("link");
 
                         EntityMatchScore entityMatchScore = new EntityMatchScore();
 
@@ -369,8 +370,9 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
                         entityMatchScore.setAwayLogo(awayLogo);
                         entityMatchScore.setHomeScore(Integer.parseInt(homeScore));
                         entityMatchScore.setAwayScore(Integer.parseInt(awayScore));
-                        entityMatchScore.setDate(date);
+                        entityMatchScore.setStatus(status);
                         entityMatchScore.setScoreDate(scoreDate);
+                        entityMatchScore.setLink(link);
 
 
                         matchList.add(entityMatchScore);

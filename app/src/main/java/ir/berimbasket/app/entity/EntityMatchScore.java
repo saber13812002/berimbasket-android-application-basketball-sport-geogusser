@@ -13,7 +13,7 @@ import ir.berimbasket.app.R;
 public class EntityMatchScore {
 
     private int id;
-    private String date;
+    private String status;
     private int homeScore;
     private int awayScore;
     private String homeLogo;
@@ -21,22 +21,7 @@ public class EntityMatchScore {
     private String homeName;
     private String awayName;
     private String scoreDate;
-
-    public static ArrayList<EntityMatchScore> getRecyclerLandscape(Context context) {
-
-        ArrayList<EntityMatchScore> matchScores = new ArrayList<>();
-        for (int i = 0; i < 33; i++) {
-            EntityMatchScore matchScore = new EntityMatchScore();
-            matchScore.setAwayName(context.getString(R.string.entity_match_score_away_default));
-            matchScore.setHomeName(context.getString(R.string.entity_match_score_home_default));
-            matchScore.setAwayScore(1);
-            matchScore.setHomeScore(3);
-            matchScore.setDate(context.getString(R.string.entity_match_score_data_default));
-            matchScores.add(matchScore);
-        }
-
-        return matchScores;
-    }
+    private String link;
 
     public String getHomeLogo() {
         return homeLogo;
@@ -86,12 +71,12 @@ public class EntityMatchScore {
         this.homeScore = homeScore;
     }
 
-    public String getDate() {
-        return date;
+    public String getStatus() {
+        return status;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public int getId() {
@@ -108,5 +93,13 @@ public class EntityMatchScore {
 
     public void setScoreDate(String scoreDate) {
         this.scoreDate = scoreDate;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
     }
 }
