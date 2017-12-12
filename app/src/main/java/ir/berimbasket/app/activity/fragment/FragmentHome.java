@@ -48,6 +48,7 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
     private static String MORE_MATCH_URL = "http://www.espn.com/nba/scoreboard";
     private static String MORE_PLAYER_URL = "https://berimbasket.ir/bball/www/players.php";
     private static String MORE_STADIUM_URL = "https://berimbasket.ir/bball/www/mains.php";
+    private static final String STADIUM_PHOTO_BASE_URL = "https://berimbasket.ir/bball/bots/playgroundphoto/";
     private int processCount = 0;
 
 
@@ -277,6 +278,12 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
                         String zoomLevel = c.getString("ZoomLevel");
                         String address = c.getString("address");
                         String images = c.getString("PgImages");
+                        String thumb = null;
+                        if (images.contains("png")) {
+                            thumb = STADIUM_PHOTO_BASE_URL + images.split(".png")[0] + ".png";
+                        } else {
+                            thumb = STADIUM_PHOTO_BASE_URL + images.split(".jpg")[0] + ".jpg";
+                        }
                         String instagramId = c.getString("PgInstagramId");
                         String telegramChannelId = c.getString("PgTlgrmChannelId");
                         String telegramGroupId = c.getString("PgTlgrmGroupJoinLink");
@@ -293,7 +300,13 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
                         entityStadium.setTelegramChannelId(telegramChannelId);
                         entityStadium.setTelegramAdminId(telegramAdminId);
                         entityStadium.setInstagramId(instagramId);
-                        entityStadium.setImages(images.split(".jpg"));
+                        entityStadium.setImages(images.split("\\.[a-z]{3}"));
+                        if (images.contains("png")){
+                            entityStadium.setImageType(EntityStadium.IMAGE_TYPE_PNG);
+                        } else if (images.contains("jpg")) {
+                            entityStadium.setImageType(EntityStadium.IMAGE_TYPE_JPG);
+                        }
+                        entityStadium.setThumbnail(thumb);
                         entityStadium.setType(type);
                         entityStadium.setZoomLevel(zoomLevel != "null" ? Integer.parseInt(zoomLevel) : -1);
 

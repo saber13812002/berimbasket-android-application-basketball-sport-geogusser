@@ -25,6 +25,7 @@ public class EntityStadium implements Serializable{
     private String instagramId;
     private String telegramGroupId;
     private String telegramAdminId;
+    private String thumbnail;
 
     public String getTitle() {
         return title;
@@ -128,5 +129,13 @@ public class EntityStadium implements Serializable{
 
     public void setImageType(int imageType) {
         this.imageType = imageType;
+    }
+
+    public String getThumbnail() {
+        return thumbnail;
+    }
+
+    public void setThumbnail(String thumbnail) {
+        this.thumbnail = thumbnail;
     }
 }

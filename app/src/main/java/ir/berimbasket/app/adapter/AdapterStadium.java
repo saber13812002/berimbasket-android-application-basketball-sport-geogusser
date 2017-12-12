@@ -70,7 +70,7 @@ public class AdapterStadium extends RecyclerView.Adapter<AdapterStadium.StadiumV
             txtStadiumName.setText(String.valueOf(stadiumList.get(pos).getTitle()));
             EntityStadium entityStadium = stadiumList.get(getLayoutPosition());
             Picasso.with(context)
-                    .load("https://berimbasket.ir/" + entityStadium.getImages()[0])
+                    .load(entityStadium.getThumbnail())
                     .resize(130, 130)
                     .placeholder(R.drawable.stadium1)
                     .error(R.drawable.stadium1)
