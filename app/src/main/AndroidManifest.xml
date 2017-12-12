@@ -29,6 +29,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:configChanges="locale"
         android:theme="@style/AppTheme">
         <receiver android:name="co.ronash.pushe.receiver.UpdateReceiver">
             <intent-filter>
@@ -73,7 +74,9 @@
         <activity
             android:name=".activity.ActivitySetMarker"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".activity.ActivitySettings" />
+        <activity android:name=".activity.ActivitySettings" >
+
+        </activity>
         <activity
             android:name=".activity.ActivityPlayer"
             android:theme="@style/StatusTransparent" />

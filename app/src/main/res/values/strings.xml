@@ -149,6 +149,7 @@
     <!-- Settings preferences -->
     <string name="pref_category_alerts">تنظیمات اعلان</string>
     <string name="pref_category_city">تنظیمات شهر</string>
+    <string name="pref_category_lang">تنظیمات زبان</string>
     <string name="pref_category_support">پشتیبانی</string>
 
     <string name="pref_update_notification_title">فعالسازی اعلان آپدیت برنامه</string>
@@ -158,6 +159,7 @@
     <string name="pref_change_log_title">تغییرات اخیر</string>
     <string name="pref_about_us_title">درباره ما</string>
     <string name="pref_state_list_title">انتخاب استان نمایش داده شده در نقشه</string>
+    <string name="pref_lang_list_title">انتخاب زبان برنامه</string>
 
     <string name="key_pref_update_notification">pref_update_notification</string>
     <string name="key_pref_message_notification">pref_message_notification</string>
@@ -166,9 +168,20 @@
     <string name="key_pref_change_log">pref_change_log</string>
     <string name="key_pref_about_us">pref_about_us</string>
     <string name="key_pref_state_list">pref_state_list</string>
+    <string name="key_pref_lang_list">pref_lang_list</string>
 
     <string name="pref_update_notification_summary">با فعالسازی این قسمت بروزرسانی های برنامه به شما اعلا داده میشود تا بتوانید از آخرین نسخه برنامه استفاده کنید</string>
     <string name="pref_message_notification_summary">با فعالسازی این قسمت شما میتوانید از آخرین اخبار و پیشنهادا ویژه برنامه آگاه شوید</string>
+
+    <string-array name="pref_lang_list_values">
+        <item>en</item>
+        <item>fa</item>
+    </string-array>
+
+    <string-array name="pref_lang_list_names">
+        <item>English</item>
+        <item>فارسی</item>
+    </string-array>
 
     <string-array name="pref_state_list_values">
         <item>0a0</item>
@@ -241,7 +254,7 @@
 
     <!-- assets font -->
     <string name="font_iran_sans">fonts/iraniansansregular.ttf</string>
-    <string name="font_yekan">fonts/yekan.ttf</string>
+    <string name="font_yekan">fonts/yekan_fa.ttf</string>
 
     <!-- general -->
     <string name="general_dialog_title_guide">راهنمایی</string>

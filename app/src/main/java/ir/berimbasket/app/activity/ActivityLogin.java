@@ -76,10 +76,12 @@ public class ActivityLogin extends AppCompatActivity {
         Drawable imgUser = getResources().getDrawable(R.drawable.ic_login_user);
         imgUser.setBounds(0, 0, 60, 60);
         edtUsername.setCompoundDrawables(imgUser, null, null, null);
+        edtUsername.setCompoundDrawablePadding(30);
 
         Drawable imgPassword = getResources().getDrawable(R.drawable.ic_login_lock);
         imgPassword.setBounds(0, 0, 60, 60);
         edtPassword.setCompoundDrawables(imgPassword, null, null, null);
+        edtPassword.setCompoundDrawablePadding(30);
     }
 
     private void initListeners() {

@@ -1,23 +1,14 @@
 package ir.berimbasket.app.activity;
 
-import android.content.Context;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.DisplayMetrics;
 import android.view.MenuItem;
 
 import ir.berimbasket.app.R;
 import ir.berimbasket.app.util.ApplicationLoader;
 
 public class ActivitySettings extends AppCompatActivity {
-
-    public static int convertDpToPixel(float dp, Context context) {
-        Resources resources = context.getResources();
-        DisplayMetrics metrics = resources.getDisplayMetrics();
-        return (int) (dp * ((float) metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT));
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -97,6 +97,10 @@ public class ActivityRegister extends AppCompatActivity {
         Drawable imgVerify = getResources().getDrawable(R.drawable.ic_login_zero);
         imgVerify.setBounds(0, 0, 60, 60);
         edtVerifyCode.setCompoundDrawables(imgVerify, null, null, null);
+        edtVerifyCode.setCompoundDrawablePadding(30);
+        edtPassword.setCompoundDrawablePadding(30);
+        edtPasswordRepeat.setCompoundDrawablePadding(30);
+        edtUsername.setCompoundDrawablePadding(30);
     }
 
     private void initFonts() {

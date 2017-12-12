@@ -25,12 +25,28 @@
 
         <ir.berimbasket.app.view.preference.CustomListPreference
             android:defaultValue="0a0"
-            android:entryValues="@array/pref_state_list_values"
             android:entries="@array/pref_state_list_names"
+            android:entryValues="@array/pref_state_list_values"
             android:key="@string/key_pref_state_list"
             android:negativeButtonText="@null"
             android:positiveButtonText="@null"
             android:title="@string/pref_state_list_title" />
+        <Preference android:layout="@layout/item_preference_divider" />
+
+        <Preference android:layout="@layout/item_preference_space" />
+
+    </ir.berimbasket.app.view.preference.CustomPreferenceCategory>
+
+    <ir.berimbasket.app.view.preference.CustomPreferenceCategory android:title="@string/pref_category_lang">
+
+        <ir.berimbasket.app.view.preference.CustomListPreference
+            android:defaultValue="fa"
+            android:entries="@array/pref_lang_list_names"
+            android:entryValues="@array/pref_lang_list_values"
+            android:key="@string/key_pref_lang_list"
+            android:negativeButtonText="@null"
+            android:positiveButtonText="@null"
+            android:title="@string/pref_lang_list_title" />
         <Preference android:layout="@layout/item_preference_divider" />
 
         <Preference android:layout="@layout/item_preference_space" />

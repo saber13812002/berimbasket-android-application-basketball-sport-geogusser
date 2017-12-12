@@ -19,7 +19,7 @@
             android:id="@+id/badgeFrame"
             android:layout_width="36dp"
             android:layout_height="36dp"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentStart="true"
             android:layout_centerVertical="true">
 
             <ImageView
@@ -44,7 +44,7 @@
             android:id="@+id/frameMissionScore"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
+            android:layout_alignParentEnd="true"
             android:layout_centerVertical="true">
 
             <TextView
@@ -69,8 +69,9 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
-            android:layout_toLeftOf="@id/badgeFrame"
-            android:layout_toRightOf="@id/frameMissionScore"
+            android:gravity="start"
+            android:layout_toEndOf="@id/badgeFrame"
+            android:layout_toStartOf="@id/frameMissionScore"
             android:fontFamily="@font/yekan"
             android:text="@string/item_mission_title_default"
             android:textColor="@android:color/black" />

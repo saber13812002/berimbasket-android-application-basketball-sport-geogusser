@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -15,6 +16,7 @@ import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.DisplayMetrics;
 import android.widget.Toast;
 
 import com.google.gson.JsonArray;
@@ -29,6 +31,7 @@ import ir.berimbasket.app.R;
 import ir.berimbasket.app.downloadmanager.DownloadApkUpdate;
 import ir.berimbasket.app.network.Connectivity;
 import ir.berimbasket.app.network.HttpFunctions;
+import ir.berimbasket.app.util.LocalChanger;
 import ir.berimbasket.app.util.PrefManager;
 import ir.berimbasket.app.view.CustomAlertDialog;
 
@@ -51,6 +54,9 @@ public class ActivitySplash extends AppCompatActivity {
             Intent intent = new Intent(this, ActivityIntro.class);
             startActivity(intent);
         } else {
+            LocalChanger localChanger = new LocalChanger();
+            localChanger.changeLocal(pref.getSettingsPrefLangList(), getApplicationContext());
+
             setContentView(R.layout.activity_splash);
 
             boolean needForUpdate = pref.getSettingsPrefUpdateNotification();
@@ -70,6 +76,7 @@ public class ActivitySplash extends AppCompatActivity {
                 }, 2000);
             }
         }
+
     }
 
     private class UpdateTask extends AsyncTask<Void, Integer, Integer> {

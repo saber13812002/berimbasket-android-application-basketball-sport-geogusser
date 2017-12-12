@@ -19,6 +19,7 @@ public class PrefManager extends SecureSharedPreferences {
     private static final String KEY_USER_NAME = "userName";
     private static final String KEY_USER_ID = "userId";
     private static final String KEY_PASSWORD = "password";
+    private static final String KEY_LANG_CHANGED = "langChanged";
     private static final String KEY_INTRO_PASSED = "introPassed";
     private Context context;
 
@@ -100,6 +101,15 @@ public class PrefManager extends SecureSharedPreferences {
         return getString(KEY_PASSWORD, "");
     }
 
+
+    public void putLangChanged(boolean langChanged) {
+        edit().putBoolean(KEY_LANG_CHANGED, langChanged).apply();
+    }
+
+    public boolean getLangChanged() {
+        return getBoolean(KEY_LANG_CHANGED, false);
+    }
+
     public boolean getSettingsPrefUpdateNotification() {
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
         return pref.getBoolean(context.getString(R.string.key_pref_update_notification), true);
@@ -121,6 +131,18 @@ public class PrefManager extends SecureSharedPreferences {
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = pref.edit();
         editor.putString(context.getString(R.string.key_pref_state_list), value);
+        editor.apply();
+    }
+
+    public String getSettingsPrefLangList() {
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
+        return pref.getString(context.getString(R.string.key_pref_lang_list), "fa");
+    }
+
+    public void putSettingsPrefLangList(String value) {
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putString(context.getString(R.string.key_pref_lang_list), value);
         editor.apply();
     }
 

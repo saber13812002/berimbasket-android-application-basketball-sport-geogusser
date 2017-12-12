@@ -50,7 +50,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/yekan"
-                    android:gravity="right"
                     android:hint="@string/activity_login_edt_username_hint"
                     android:inputType="text"
                     android:maxLines="1" />
@@ -63,6 +62,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="24dp"
                 android:layout_marginStart="24dp"
+                android:gravity="start"
                 android:layout_marginTop="24dp">
 
                 <EditText
@@ -70,7 +70,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/yekan"
-                    android:gravity="right"
+                    android:gravity="start"
                     android:hint="@string/activity_login_edt_password_hint"
                     android:imeOptions="actionDone"
                     android:inputType="textPassword"

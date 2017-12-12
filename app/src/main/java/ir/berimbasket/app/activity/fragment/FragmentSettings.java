@@ -1,15 +1,20 @@
 package ir.berimbasket.app.activity.fragment;
 
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
 
 import ir.berimbasket.app.R;
+import ir.berimbasket.app.activity.ActivitySplash;
 import ir.berimbasket.app.util.ApplicationLoader;
+import ir.berimbasket.app.util.LocalChanger;
+import ir.berimbasket.app.util.PrefManager;
 import ir.berimbasket.app.util.Redirect;
 
-public class FragmentSettings extends PreferenceFragmentCompat implements Preference.OnPreferenceClickListener {
+public class FragmentSettings extends PreferenceFragmentCompat implements Preference.OnPreferenceClickListener, SharedPreferences.OnSharedPreferenceChangeListener {
 
     private final static String URL_PREFERENCE_HELP = "http://berimbasket.ir/help";
     private final static String URL_PREFERENCE_TERMS_AND_SERVICES = "http://berimbasket.ir/terms";
@@ -56,5 +61,30 @@ public class FragmentSettings extends PreferenceFragmentCompat implements Prefer
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        if (key.equals(getResources().getString(R.string.key_pref_lang_list))) {
+            PrefManager pref = new PrefManager(getActivity());
+            LocalChanger localChanger = new LocalChanger();
+            localChanger.changeLocal(pref.getSettingsPrefLangList(), getContext());
+            Intent i = new Intent(getActivity(), ActivitySplash.class);
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(i);
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getPreferenceManager().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
+
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        getPreferenceManager().getSharedPreferences().unregisterOnSharedPreferenceChangeListener(this);
     }
 }
