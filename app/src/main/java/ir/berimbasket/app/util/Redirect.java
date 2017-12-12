@@ -144,7 +144,8 @@ public class Redirect {
         CustomAlertDialog customAlertDialog = new CustomAlertDialog(activity);
         AlertDialog dialog = new AlertDialog.Builder(activity)
                 .setCustomTitle(customAlertDialog.getTitleText(activity.getString(R.string.general_dialog_title_guide)))
-                .setMessage(activity.getString(R.string.general_dialog_message_download_manager_not_enabled) + " و " + "\n" +
+                .setMessage(activity.getString(R.string.general_dialog_message_download_manager_not_enabled) + " "
+                        + activity.getString(R.string.general_and) + " " + "\n" +
                         (Redirect.isRtlLanguage() ? activity.getString(R.string.general_dialog_message_enable_download_manager_fa)
                                 : activity.getString(R.string.general_dialog_message_enable_download_manager_en))
                         + "\n" + activity.getString(R.string.general_dialog_message_download_manager_restart))
