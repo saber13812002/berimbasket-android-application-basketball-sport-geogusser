@@ -152,7 +152,7 @@
     <string name="pref_category_alerts">Notification Settings</string>
     <string name="pref_category_city">City Settings</string>
     <string name="pref_category_support">Support</string>
-    <string name="pref_category_lang">تنظیمات زبان</string>
+    <string name="pref_category_lang">Language Settings</string>
 
     <string name="pref_update_notification_title">Enable update notifications</string>
     <string name="pref_message_notification_title">Display app\'s notifications</string>
@@ -161,7 +161,7 @@
     <string name="pref_terms_and_services_title">Terms And Services</string>
     <string name="pref_change_log_title">ChangeLog</string>
     <string name="pref_about_us_title">About</string>
-    <string name="pref_lang_list_title">انتخاب زبان برنامه</string>
+    <string name="pref_lang_list_title">Select Language</string>
 
     <string name="key_pref_update_notification" translatable="false">pref_update_notification</string>
     <string name="key_pref_message_notification" translatable="false">pref_message_notification</string>
@@ -170,7 +170,7 @@
     <string name="key_pref_change_log" translatable="false">pref_change_log</string>
     <string name="key_pref_about_us" translatable="false">pref_about_us</string>
     <string name="key_pref_state_list" translatable="false">pref_state_list</string>
-    <string name="key_pref_lang_list">pref_lang_list</string>
+    <string name="key_pref_lang_list" translatable="false">pref_lang_list</string>
 
     <string name="pref_update_notification_summary">Get informed of app\'s update</string>
     <string name="pref_message_notification_summary">Get informed of news and special offers</string>
