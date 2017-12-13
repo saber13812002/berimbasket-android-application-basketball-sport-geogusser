@@ -49,7 +49,7 @@ public class AdapterMatch extends RecyclerView.Adapter<AdapterMatch.MatchViewHol
 
     class MatchViewHolder extends RecyclerView.ViewHolder {
 
-        TextView txtHomeName, txtAwayName, txtHomeScore, txtAwayScore, txtDate, txtScoreDate;
+        TextView txtHomeName, txtAwayName, txtHomeScore, txtAwayScore, txtDate, txtScoreDate,txtMatchStatus;
         ImageView imgHomeLogo, imgAwayLogo;
 
         MatchViewHolder(final View itemView) {
@@ -63,6 +63,7 @@ public class AdapterMatch extends RecyclerView.Adapter<AdapterMatch.MatchViewHol
             this.txtAwayScore = itemView.findViewById(R.id.txtAwayScore);
             this.txtDate = itemView.findViewById(R.id.txtDate);
             this.txtScoreDate = itemView.findViewById(R.id.txtScoreDate);
+            this.txtMatchStatus = itemView.findViewById(R.id.txtMatchStatus);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -80,6 +81,7 @@ public class AdapterMatch extends RecyclerView.Adapter<AdapterMatch.MatchViewHol
             this.txtHomeScore.setText(String.valueOf(entityMatchScore.getHomeScore()));
             this.txtAwayScore.setText(String.valueOf(entityMatchScore.getAwayScore()));
             this.txtScoreDate.setText(entityMatchScore.getScoreDate());
+            this.txtMatchStatus.setText(entityMatchScore.getStatus());
             Picasso.with(context)
                     .load("https://berimbasket.ir/" + entityMatchScore.getAwayLogo())
                     .resize(50, 50)

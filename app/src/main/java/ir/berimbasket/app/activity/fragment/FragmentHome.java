@@ -371,7 +371,7 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
                         String homeScore = c.getString("scoreA");
                         String awayScore = c.getString("scoreB");
                         String scoreDate = c.getString("scoreDate");
-                        String status = c.getString("date");
+                        String status = c.getString("status");
                         String link = c.getString("link");
 
                         EntityMatchScore entityMatchScore = new EntityMatchScore();
