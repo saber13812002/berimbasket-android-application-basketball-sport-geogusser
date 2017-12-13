@@ -36,6 +36,7 @@ public class ActivityRegister extends AppCompatActivity {
     private final String VERIFY_URL = "http://berimbasket.ir/bball/getSignupStatusByVerificationCodeAndMAC.php";
     private final String USER_URL = "http://berimbasket.ir/bball/getExistOrNotThisNewRequestedUsername.php";
     private final String REGISTER_URL = "http://berimbasket.ir/bball/setPasswordForThisUsername.php?mac=1a2b3c4d5e6f&username=allstar33&password=@ll$tar33";
+    private static final String REGISTER_BOT = "https://telegram.me/berimbasketbot";
     private final String USER_ERROR = "userError";
     private final String VERIFY_ERROR = "verifyError";
     private final String REGISTER_ERROR = "registerError";
@@ -67,16 +68,16 @@ public class ActivityRegister extends AppCompatActivity {
     }
 
     private void initViews() {
-        btnRegister = (AppCompatButton) findViewById(R.id.btnRegister);
-        btnLoginActivity = (TextView) findViewById(R.id.btnLoginActivity);
-        edtUsername = (EditText) findViewById(R.id.edtUsername);
-        edtVerifyCode = (EditText) findViewById(R.id.edtVerifyCode);
-        edtPassword = (EditText) findViewById(R.id.edtPassword);
-        edtPasswordRepeat = (EditText) findViewById(R.id.edtPasswordRepeat);
-        inputVerifyCode = (TextInputLayout) findViewById(R.id.inputVerifyCode);
-        inputUsername = (TextInputLayout) findViewById(R.id.inputUsername);
-        inputPassword = (TextInputLayout) findViewById(R.id.inputPassword);
-        inputPasswordRepeat = (TextInputLayout) findViewById(R.id.inputPasswordRepeat);
+        btnRegister = findViewById(R.id.btnRegister);
+        btnLoginActivity = findViewById(R.id.btnLoginActivity);
+        edtUsername = findViewById(R.id.edtUsername);
+        edtVerifyCode = findViewById(R.id.edtVerifyCode);
+        edtPassword = findViewById(R.id.edtPassword);
+        edtPasswordRepeat = findViewById(R.id.edtPasswordRepeat);
+        inputVerifyCode = findViewById(R.id.inputVerifyCode);
+        inputUsername = findViewById(R.id.inputUsername);
+        inputPassword = findViewById(R.id.inputPassword);
+        inputPasswordRepeat = findViewById(R.id.inputPasswordRepeat);
         pDialog = new ProgressDialog(ActivityRegister.this);
         edtVerifyCode.requestFocus();
 
@@ -158,7 +159,8 @@ public class ActivityRegister extends AppCompatActivity {
                 .setMessage(getString(R.string.general_dialog_message_bot_register))
                 .setPositiveButton(getString(R.string.general_dialog_option_bot_link), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        Intent telegram = new Intent(Intent.ACTION_VIEW, Uri.parse("https://telegram.me/berimbasketbot"));
+                        String pusheId = Pushe.getPusheId(getApplicationContext());
+                        Intent telegram = new Intent(Intent.ACTION_VIEW, Uri.parse(REGISTER_BOT + "?pusheid=" + pusheId));
                         // Tracking Event (Analytics)
                         ApplicationLoader.getInstance().trackEvent(getString(R.string.analytics_category_registration)
                                 , getString(R.string.analytics_action_telegram_bot), "");
