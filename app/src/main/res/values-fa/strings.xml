@@ -205,4 +205,5 @@
     </string-array>
     <string name="pref_category_lang">تنظیمات زبان</string>
     <string name="pref_lang_list_title">انتخاب زبان برنامه</string>
+    <string name="activity_player_txt_player_name_loading">در حال بارگیری بازیکن</string>
 </resources>

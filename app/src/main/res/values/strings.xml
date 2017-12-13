@@ -43,6 +43,7 @@
     <string name="activity_player_spec_phone_number">Phone Number</string>
     <string name="activity_player_spec_age">Age</string>
     <string name="activity_player_default_name">Jordan Burroughs</string>
+    <string name="activity_player_txt_player_name_loading">Loading Player</string>
 
     <string name="activity_set_marker_toast_stadium_name_error">Please enter stadium name</string>
     <string name="activity_set_marker_toast_marker_successful">You\'r location successfully submitted</string>

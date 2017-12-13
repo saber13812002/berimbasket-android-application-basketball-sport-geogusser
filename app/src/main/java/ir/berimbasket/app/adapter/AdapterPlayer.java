@@ -3,7 +3,6 @@ package ir.berimbasket.app.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.Build;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.util.Pair;
@@ -21,7 +20,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import ir.berimbasket.app.R;
 import ir.berimbasket.app.activity.ActivityPlayer;
 import ir.berimbasket.app.entity.EntityPlayer;
-import ir.berimbasket.app.util.TypefaceManager;
 
 /**
  * Created by mohammad hosein on 7/21/2017.
@@ -66,16 +64,15 @@ public class AdapterPlayer extends RecyclerView.Adapter<AdapterPlayer.PlayerView
 
         PlayerViewHolder(final View itemView) {
             super(itemView);
-            this.txtPlayerName = (TextView) itemView.findViewById(R.id.txtPlayerName);
+            this.txtPlayerName = itemView.findViewById(R.id.txtPlayerName);
             this.txtNameView = itemView.findViewById(R.id.txtPlayerName);
-            this.imgPlayerProfile = (CircleImageView) itemView.findViewById(R.id.imgPlayerProfile);
+            this.imgPlayerProfile = itemView.findViewById(R.id.imgPlayerProfile);
             this.imgProfileView = itemView.findViewById(R.id.imgPlayerProfile);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(activity, ActivityPlayer.class);
                     intent.putExtra("MyClass", playerList.get(getLayoutPosition()));
-                    intent.putExtra("ProfilePic", playerList.get(getLayoutPosition()).getProfileImage());
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         txtNameView.setTransitionName("name");
                         imgProfileView.setTransitionName("image");

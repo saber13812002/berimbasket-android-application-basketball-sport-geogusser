@@ -58,10 +58,17 @@ public class ActivityStadium extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stadium);
-        entityStadium = (EntityStadium) getIntent().getSerializableExtra("stadiumDetail");
-        stadiumLogoUrl = getIntent().getStringExtra("stadiumLogoUrlPath");
         initToolbar();
-        new GetStadium().execute(entityStadium.getId());
+        String pusheStadiumId = getIntent().getStringExtra("pushe_activity_extra");
+        if (pusheStadiumId != null) {
+            new GetStadium().execute(Integer.parseInt(pusheStadiumId));
+            // FIXME: 12/13/2017 send another param for logo
+            stadiumLogoUrl = "http://test";
+        } else {
+            entityStadium = (EntityStadium) getIntent().getSerializableExtra("stadiumDetail");
+            stadiumLogoUrl = getIntent().getStringExtra("stadiumLogoUrlPath");
+            new GetStadium().execute(entityStadium.getId());
+        }
     }
 
     @Override
@@ -72,7 +79,7 @@ public class ActivityStadium extends AppCompatActivity {
     }
 
     private void initToolbar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         // FIXME: 21/09/2017  setDisplayHomeAsUp show warning for nullpointer exception cause
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
