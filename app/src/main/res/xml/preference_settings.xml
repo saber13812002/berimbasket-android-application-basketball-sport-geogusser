@@ -40,7 +40,6 @@
     <ir.berimbasket.app.view.preference.CustomPreferenceCategory android:title="@string/pref_category_lang">
 
         <ir.berimbasket.app.view.preference.CustomListPreference
-            android:defaultValue="fa"
             android:entries="@array/pref_lang_list_names"
             android:entryValues="@array/pref_lang_list_values"
             android:key="@string/key_pref_lang_list"

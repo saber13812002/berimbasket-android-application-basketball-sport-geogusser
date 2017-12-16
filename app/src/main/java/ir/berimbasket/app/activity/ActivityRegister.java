@@ -11,7 +11,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.AppCompatButton;
 import android.view.View;
@@ -27,11 +26,12 @@ import co.ronash.pushe.Pushe;
 import ir.berimbasket.app.R;
 import ir.berimbasket.app.network.HttpFunctions;
 import ir.berimbasket.app.util.ApplicationLoader;
+import ir.berimbasket.app.util.BaseActivity;
 import ir.berimbasket.app.util.PrefManager;
 import ir.berimbasket.app.util.TypefaceManager;
 
 
-public class ActivityRegister extends AppCompatActivity {
+public class ActivityRegister extends BaseActivity {
 
     private final String VERIFY_URL = "http://berimbasket.ir/bball/getSignupStatusByVerificationCodeAndMAC.php";
     private final String USER_URL = "http://berimbasket.ir/bball/getExistOrNotThisNewRequestedUsername.php";

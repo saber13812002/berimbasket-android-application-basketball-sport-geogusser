@@ -3,7 +3,6 @@ package ir.berimbasket.app.activity;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -35,10 +34,11 @@ import ir.berimbasket.app.entity.EntitySocialAcc;
 import ir.berimbasket.app.exception.UnknownTelegramURL;
 import ir.berimbasket.app.network.HttpFunctions;
 import ir.berimbasket.app.util.ApplicationLoader;
+import ir.berimbasket.app.util.BaseActivity;
 import ir.berimbasket.app.util.PrefManager;
 import ir.berimbasket.app.util.Redirect;
 
-public class ActivityPlayer extends AppCompatActivity {
+public class ActivityPlayer extends BaseActivity {
 
     // TODO: 12/13/2017 this class breaks oop rules (there are so many bound in fields and methods) 
 

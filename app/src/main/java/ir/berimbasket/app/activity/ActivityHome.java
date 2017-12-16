@@ -10,7 +10,6 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
 import android.text.Spannable;
@@ -31,10 +30,11 @@ import ir.berimbasket.app.entity.EntityLocation;
 import ir.berimbasket.app.map.GPSTracker;
 import ir.berimbasket.app.network.SendLocationTask;
 import ir.berimbasket.app.util.ApplicationLoader;
+import ir.berimbasket.app.util.BaseActivity;
 import ir.berimbasket.app.util.TypefaceManager;
 import ir.berimbasket.app.view.CustomTypefaceSpan;
 
-public class ActivityHome extends AppCompatActivity implements View.OnClickListener {
+public class ActivityHome extends BaseActivity implements View.OnClickListener {
 
     static {
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);

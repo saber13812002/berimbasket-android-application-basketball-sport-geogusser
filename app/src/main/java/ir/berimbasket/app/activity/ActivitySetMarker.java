@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatEditText;
 import android.util.Log;
 import android.view.View;
@@ -19,9 +18,10 @@ import ir.berimbasket.app.R;
 import ir.berimbasket.app.activity.fragment.FragmentSetMarker;
 import ir.berimbasket.app.network.HttpFunctions;
 import ir.berimbasket.app.util.ApplicationLoader;
+import ir.berimbasket.app.util.BaseActivity;
 import ir.berimbasket.app.util.PrefManager;
 
-public class ActivitySetMarker extends AppCompatActivity {
+public class ActivitySetMarker extends BaseActivity {
 
     private ImageView btnSendLocation;
     private AppCompatEditText edtLocationName;

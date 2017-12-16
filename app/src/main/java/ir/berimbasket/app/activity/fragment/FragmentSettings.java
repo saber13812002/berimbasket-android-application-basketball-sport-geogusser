@@ -4,13 +4,14 @@ package ir.berimbasket.app.activity.fragment;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v7.preference.ListPreference;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
 
 import ir.berimbasket.app.R;
 import ir.berimbasket.app.activity.ActivitySplash;
 import ir.berimbasket.app.util.ApplicationLoader;
-import ir.berimbasket.app.util.LocalChanger;
+import ir.berimbasket.app.util.LocaleManager;
 import ir.berimbasket.app.util.PrefManager;
 import ir.berimbasket.app.util.Redirect;
 
@@ -25,6 +26,14 @@ public class FragmentSettings extends PreferenceFragmentCompat implements Prefer
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         addPreferencesFromResource(R.xml.preference_settings);
+
+        // set default value of language switch to device language
+        String deviceLanguage = new PrefManager(getContext()).getSettingsPrefLangList();
+        ListPreference langSwitch = (ListPreference) findPreference(getString(R.string.key_pref_lang_list));
+        String[] langList = getResources().getStringArray(R.array.pref_lang_list_values);
+        int index = 0;
+        for (int i = 0; i < langList.length; i++) if (langList[i].equals(deviceLanguage)) index = i;
+        langSwitch.setValueIndex(index);
 
         help = findPreference(getString(R.string.key_pref_help));
         aboutUs = findPreference(getString(R.string.key_pref_about_us));
@@ -66,9 +75,9 @@ public class FragmentSettings extends PreferenceFragmentCompat implements Prefer
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         if (key.equals(getResources().getString(R.string.key_pref_lang_list))) {
-            PrefManager pref = new PrefManager(getActivity());
-            LocalChanger localChanger = new LocalChanger();
-            localChanger.changeLocal(pref.getSettingsPrefLangList(), getContext());
+            String newLang = new PrefManager(getContext()).getSettingsPrefLangList();
+            LocaleManager.changeLocale(getContext(), newLang);
+
             Intent i = new Intent(getActivity(), ActivitySplash.class);
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(i);

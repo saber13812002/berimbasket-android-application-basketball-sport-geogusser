@@ -4,7 +4,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -34,10 +33,11 @@ import ir.berimbasket.app.entity.EntityStadiumGallery;
 import ir.berimbasket.app.exception.UnknownTelegramURL;
 import ir.berimbasket.app.network.HttpFunctions;
 import ir.berimbasket.app.util.ApplicationLoader;
+import ir.berimbasket.app.util.BaseActivity;
 import ir.berimbasket.app.util.PrefManager;
 import ir.berimbasket.app.util.Redirect;
 
-public class ActivityStadium extends AppCompatActivity {
+public class ActivityStadium extends BaseActivity {
 
     TextView txtStadiumName, txtStadiumTel, txtStadiumAddress, txtStadiumRound, txtTelegramChannel, txtInstagramId,
             txtDetailSection, txtRoof, txtDistance2Parking, txtRimHeight, txtRimNumber, txtSpotlight, txtFence, txtParking,

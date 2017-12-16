@@ -1,14 +1,14 @@
 package ir.berimbasket.app.activity;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import ir.berimbasket.app.R;
 import ir.berimbasket.app.util.ApplicationLoader;
+import ir.berimbasket.app.util.BaseActivity;
 
-public class ActivitySettings extends AppCompatActivity {
+public class ActivitySettings extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

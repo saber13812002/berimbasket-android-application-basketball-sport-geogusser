@@ -1,14 +1,14 @@
 package ir.berimbasket.app.activity;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import ir.berimbasket.app.R;
 import ir.berimbasket.app.util.ApplicationLoader;
+import ir.berimbasket.app.util.BaseActivity;
 
 
-public class ActivityCreateStadium extends AppCompatActivity {
+public class ActivityCreateStadium extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

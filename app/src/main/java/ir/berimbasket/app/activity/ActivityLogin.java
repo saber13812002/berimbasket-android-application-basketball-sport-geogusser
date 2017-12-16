@@ -7,7 +7,6 @@ import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.AppCompatButton;
 import android.view.View;
@@ -25,6 +24,7 @@ import ir.berimbasket.app.R;
 import ir.berimbasket.app.exception.UnknownTelegramURL;
 import ir.berimbasket.app.network.HttpFunctions;
 import ir.berimbasket.app.util.ApplicationLoader;
+import ir.berimbasket.app.util.BaseActivity;
 import ir.berimbasket.app.util.PrefManager;
 import ir.berimbasket.app.util.Redirect;
 import ir.berimbasket.app.util.TypefaceManager;
@@ -32,7 +32,7 @@ import ir.berimbasket.app.util.TypefaceManager;
 /**
  * A login screen that offers login via email/password.
  */
-public class ActivityLogin extends AppCompatActivity {
+public class ActivityLogin extends BaseActivity {
 
     private final String LOGIN_URL = "http://berimbasket.ir/bball/getStatusLoginByUsernamePassword.php";
     AppCompatButton btnLogin;
