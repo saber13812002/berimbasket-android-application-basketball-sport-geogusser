@@ -6,8 +6,6 @@ import android.content.SharedPreferences;
 import android.provider.Settings;
 import android.support.v7.preference.PreferenceManager;
 
-import java.util.Locale;
-
 import ir.berimbasket.app.R;
 
 public class PrefManager extends SecureSharedPreferences {
@@ -128,8 +126,7 @@ public class PrefManager extends SecureSharedPreferences {
 
     public String getSettingsPrefLangList() {
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
-        Locale locale = LocaleManager.getLocale(context.getResources());
-        return pref.getString(context.getString(R.string.key_pref_lang_list), locale.getLanguage());
+        return pref.getString(context.getString(R.string.key_pref_lang_list), "fa");
     }
 
     public void putSettingsPrefLangList(String value) {
