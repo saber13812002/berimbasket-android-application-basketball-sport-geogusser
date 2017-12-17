@@ -186,8 +186,9 @@
         <item>فارسی</item>
     </string-array>
 
+    <!-- FIXME: 12/18/2017 set based on phone location -->
     <string-array name="pref_state_list_values">
-        <item>0a0</item>
+        <item>35.6891980a51.3889740</item>
         <item>37.5498060a45.0786280</item>
         <item>38.0962390a46.2738010</item>
         <item>38.2537360a38.2537360</item>
