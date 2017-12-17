@@ -144,19 +144,21 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
     private class GetPlayers extends AsyncTask<Void, Void, Void> {
 
         private ProgressDialog pDialog;
+        private String pusheId;
+        private String userName;
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
             progressHome.setVisibility(View.VISIBLE);
+            pusheId = Pushe.getPusheId(getContext());
+            userName = new PrefManager(getContext()).getUserName();
         }
 
         @Override
         protected Void doInBackground(Void... voids) {
 
             HttpFunctions sh = new HttpFunctions(HttpFunctions.RequestType.GET);
-            String pusheId = Pushe.getPusheId(getContext());
-            String userName = new PrefManager(getContext()).getUserName();
             String urlParams = String.format("id=0&pusheid=%s&username=%s", pusheId, userName);
             String jsonStr = sh.makeServiceCall(PLAYER_URL + "?" + urlParams);
             if (jsonStr != null) {
@@ -234,8 +236,10 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            progressCancel();
-            setupPlayerRecycler(getView(), playerList);
+            if (getView() != null) {
+                progressCancel();
+                setupPlayerRecycler(getView(), playerList);
+            }
         }
     }
 
@@ -250,17 +254,20 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
 
     private class GetStadium extends AsyncTask<Void, Void, Void> {
 
+        private String pusheId;
+        private String userName;
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
             progressHome.setVisibility(View.VISIBLE);
+            pusheId = Pushe.getPusheId(getContext());
+            userName = new PrefManager(getContext()).getUserName();
         }
 
         @Override
         protected Void doInBackground(Void... voids) {
             HttpFunctions sh = new HttpFunctions(HttpFunctions.RequestType.GET);
-            String pusheId = Pushe.getPusheId(getContext());
-            String userName = new PrefManager(getContext()).getUserName();
             String urlParams = String.format("id=0&pusheid=%s&username=%s", pusheId, userName);
             String jsonStr = sh.makeServiceCall(STADIUM_URL + "?" + urlParams);
             if (jsonStr != null) {
@@ -333,8 +340,10 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            progressCancel();
-            setupStadiumRecycler(getView(), stadiumList);
+            if (getView() != null) {
+                progressCancel();
+                setupStadiumRecycler(getView(), stadiumList);
+            }
         }
     }
 
@@ -343,17 +352,20 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
 
     private class GetMatch extends AsyncTask<Void, Void, Void> {
 
+        private String userName;
+        private String pusheId;
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
             progressHome.setVisibility(View.VISIBLE);
+            pusheId = Pushe.getPusheId(getContext());
+            userName = new PrefManager(getContext()).getUserName();
         }
 
         @Override
         protected Void doInBackground(Void... voids) {
             HttpFunctions sh = new HttpFunctions(HttpFunctions.RequestType.GET);
-            String pusheId = Pushe.getPusheId(getContext());
-            String userName = new PrefManager(getContext()).getUserName();
             String urlParams = String.format("pusheid=%s&username=%s", pusheId, userName);
             String jsonStr = sh.makeServiceCall(MATCH_URL + "?" + urlParams);
             if (jsonStr != null) {
@@ -412,8 +424,10 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             progressHome.setVisibility(View.INVISIBLE);
-            progressCancel();
-            setupMatchRecyclerView(getView(), matchList);
+            if (getView() != null) {
+                progressCancel();
+                setupMatchRecyclerView(getView(), matchList);
+            }
         }
     }
 }

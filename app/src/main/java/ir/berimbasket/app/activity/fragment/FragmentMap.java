@@ -181,6 +181,9 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback {
     private class GetLocations extends AsyncTask<Void, Void, Void> {
 
 
+        private String pusheId;
+        private String userName;
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -200,6 +203,8 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback {
                 gps.showSettingsAlert();
             }
 
+            pusheId = Pushe.getPusheId(getContext());
+            userName = new PrefManager(getContext()).getUserName();
         }
 
         @Override
@@ -207,8 +212,6 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback {
             HttpFunctions sh = new HttpFunctions(HttpFunctions.RequestType.GET);
 
             // Making a request to _URL and getting response
-            String pusheId = Pushe.getPusheId(getContext());
-            String userName = new PrefManager(getContext()).getUserName();
             String urlParams = String.format("id=0&pusheid=%s&username=%s", pusheId, userName);
             String jsonStr = sh.makeServiceCall(_URL + "?" + urlParams);
             Log.e(TAG, "Response from _URL: " + jsonStr);
@@ -275,9 +278,6 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback {
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
             // Dismiss the progress dialog
-            /**
-             * Updating parsed JSON data into ListView
-             * */
             for (int i = 0; i < locationList.size(); i++) {
                 EntityStadium entityStadium = locationList.get(i);
                 String id = String.valueOf(entityStadium.getId());
@@ -289,7 +289,9 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback {
                 clusterManager.addItem(item);
             }
 
-            setCameraLocation();
+            if (getView() != null) {
+                setCameraLocation();
+            }
 
         }
 
