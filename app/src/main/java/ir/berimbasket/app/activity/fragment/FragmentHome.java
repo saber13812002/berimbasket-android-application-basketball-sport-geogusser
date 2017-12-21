@@ -1,6 +1,5 @@
 package ir.berimbasket.app.activity.fragment;
 
-import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,7 +7,6 @@ import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,20 +17,26 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.net.HttpURLConnection;
 import java.util.ArrayList;
+import java.util.List;
 
 import co.ronash.pushe.Pushe;
 import ir.berimbasket.app.R;
 import ir.berimbasket.app.adapter.AdapterMatch;
 import ir.berimbasket.app.adapter.AdapterPlayer;
 import ir.berimbasket.app.adapter.AdapterStadium;
+import ir.berimbasket.app.api.WebApiClient;
+import ir.berimbasket.app.api.model.Player;
 import ir.berimbasket.app.entity.EntityMatchScore;
-import ir.berimbasket.app.entity.EntityPlayer;
 import ir.berimbasket.app.entity.EntityStadium;
 import ir.berimbasket.app.network.HttpFunctions;
 import ir.berimbasket.app.util.ApplicationLoader;
 import ir.berimbasket.app.util.PrefManager;
 import ir.berimbasket.app.util.Redirect;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by mohammad hosein on 5/1/2017.
@@ -42,7 +46,6 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
 
     private AppCompatButton btnMorePlayer, btnMoreStadium, btnMoreMatch;
     private ProgressBar progressHome;
-    private static String PLAYER_URL = "https://berimbasket.ir/bball/getPlayers.php";
     private static String STADIUM_URL = "https://berimbasket.ir/bball/getPlayGroundJson.php";
     private static String MATCH_URL = "https://berimbasket.ir/bball/getScore.php";
     private static String MORE_MATCH_URL = "http://www.espn.com/nba/scoreboard";
@@ -61,7 +64,6 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-        setupPlayerRecycler(view, playerList);
         btnMoreStadium = view.findViewById(R.id.btnMoreStadium);
         btnMoreMatch = view.findViewById(R.id.btnMorePlayer);
         btnMorePlayer = view.findViewById(R.id.btnMoreMatch);
@@ -71,11 +73,61 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
         btnMorePlayer.setOnClickListener(this);
         btnMoreStadium.setOnClickListener(this);
 
-        new GetPlayers().execute();
+        initPlayerList();
         new GetStadium().execute();
         new GetMatch().execute();
 
         return view;
+    }
+
+    private void initPlayerList() {
+        String pusheId = Pushe.getPusheId(getContext());
+        String userName = new PrefManager(getContext()).getUserName();
+        progressHome.setVisibility(View.VISIBLE);
+        WebApiClient.getPlayerApi().getPlayers(0, pusheId, userName).enqueue(new Callback<List<Player>>() {
+            @Override
+            public void onResponse(Call<List<Player>> call, Response<List<Player>> response) {
+                if (response.code() == HttpURLConnection.HTTP_OK) {
+                    List<Player> players = response.body();
+                    if (players != null && getView() != null) {
+                        progressCancel();
+                        setupPlayerRecycler(getView(), players);
+                    }
+                } else {
+                    // http call with incorrect params or other network error
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Player>> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private void initStadiumList() {
+        String pusheId = Pushe.getPusheId(getContext());
+        String userName = new PrefManager(getContext()).getUserName();
+        progressHome.setVisibility(View.VISIBLE);
+        WebApiClient.getPlayerApi().getPlayers(0, pusheId, userName).enqueue(new Callback<List<Player>>() {
+            @Override
+            public void onResponse(Call<List<Player>> call, Response<List<Player>> response) {
+                if (response.code() == HttpURLConnection.HTTP_OK) {
+                    List<Player> players = response.body();
+                    if (players != null && getView() != null) {
+                        progressCancel();
+                        setupPlayerRecycler(getView(), players);
+                    }
+                } else {
+                    // http call with incorrect params or other network error
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Player>> call, Throwable t) {
+
+            }
+        });
     }
 
     @Override
@@ -115,7 +167,7 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
 
     }
 
-    private void setupPlayerRecycler(View view, ArrayList<EntityPlayer> playerList) {
+    private void setupPlayerRecycler(View view, List<Player> playerList) {
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recyclerPlayer);
         AdapterPlayer adapterPlayer = new AdapterPlayer(playerList, view.getContext(), getActivity());
         recyclerView.setAdapter(adapterPlayer);
@@ -137,110 +189,6 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
         recyclerView.setLayoutManager(linearLayoutManager);
 
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-    }
-
-    private ArrayList<EntityPlayer> playerList = new ArrayList<>();
-
-    private class GetPlayers extends AsyncTask<Void, Void, Void> {
-
-        private ProgressDialog pDialog;
-        private String pusheId;
-        private String userName;
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            progressHome.setVisibility(View.VISIBLE);
-            pusheId = Pushe.getPusheId(getContext());
-            userName = new PrefManager(getContext()).getUserName();
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-
-            HttpFunctions sh = new HttpFunctions(HttpFunctions.RequestType.GET);
-            String urlParams = String.format("id=0&pusheid=%s&username=%s", pusheId, userName);
-            String jsonStr = sh.makeServiceCall(PLAYER_URL + "?" + urlParams);
-            if (jsonStr != null) {
-                try {
-                    JSONArray locations = new JSONArray(jsonStr);
-
-                    for (int i = 0; i < locations.length(); i++) {
-                        JSONObject c = locations.getJSONObject(i);
-
-                        String id = c.getString("id");
-                        String username = c.getString("username");
-                        String namefa = c.getString("namefa");
-                        String address = c.getString("address");
-                        String uImage = c.getString("uImages");
-                        String uInstagramId = c.getString("uInstagramId");
-                        String uTelegramId = c.getString("uTelegramlId");
-                        String height = c.getString("height");
-                        String weight = c.getString("weight");
-                        String city = c.getString("city");
-                        String age = c.getString("age");
-                        String coach = c.getString("coach");
-                        String teamname = c.getString("teamname");
-                        String experience = c.getString("experience");
-                        String post = c.getString("post");
-                        String telegramPhone = c.getString("telegramphone");
-
-                        Log.i("name", id);
-
-                        EntityPlayer entityPlayer = new EntityPlayer();
-                        // adding each child node to HashMap key => value
-
-                        entityPlayer.setId(id != "null" ? Integer.parseInt(id) : -1);
-                        entityPlayer.setUsername(username);
-                        entityPlayer.setName(namefa);
-                        entityPlayer.setAddress(address);
-                        entityPlayer.setProfileImage(uImage);
-                        entityPlayer.setInstagramId(uInstagramId);
-                        entityPlayer.setTelegramId(uTelegramId);
-                        entityPlayer.setHeight(height != "null" ? Integer.parseInt(height) : -1);
-                        entityPlayer.setWeight(weight != "null" ? Integer.parseInt(weight) : -1);
-                        entityPlayer.setCity(city);
-                        entityPlayer.setAge(age != "null" ? Integer.parseInt(age) : -1);
-                        entityPlayer.setCoachName(coach);
-                        entityPlayer.setTeamName(teamname);
-                        entityPlayer.setExperience(experience);
-                        entityPlayer.setPhone(telegramPhone);
-
-                        playerList.add(entityPlayer);
-
-
-                    }
-                } catch (final JSONException e) {
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(getActivity(),
-                                    "Json parsing error: " + e.getMessage(),
-                                    Toast.LENGTH_LONG)
-                                    .show();
-                        }
-                    });
-
-                }
-            } else {
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                    }
-                });
-
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-            if (getView() != null) {
-                progressCancel();
-                setupPlayerRecycler(getView(), playerList);
-            }
-        }
     }
 
     private void progressCancel() {

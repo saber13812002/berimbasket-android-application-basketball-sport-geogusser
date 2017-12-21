@@ -1,6 +1,6 @@
 package ir.berimbasket.app.activity;
 
-import android.os.AsyncTask;
+import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -15,35 +15,34 @@ import android.view.Window;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
+import java.net.HttpURLConnection;
 import java.util.ArrayList;
+import java.util.List;
 
 import co.ronash.pushe.Pushe;
 import ir.berimbasket.app.R;
 import ir.berimbasket.app.adapter.AdapterPlayerSpecification;
 import ir.berimbasket.app.adapter.AdapterSocialAcc;
-import ir.berimbasket.app.entity.EntityPlayer;
+import ir.berimbasket.app.api.WebApiClient;
+import ir.berimbasket.app.api.model.Player;
 import ir.berimbasket.app.entity.EntitySocialAcc;
 import ir.berimbasket.app.exception.UnknownTelegramURL;
-import ir.berimbasket.app.network.HttpFunctions;
 import ir.berimbasket.app.util.ApplicationLoader;
 import ir.berimbasket.app.util.BaseActivity;
 import ir.berimbasket.app.util.PrefManager;
 import ir.berimbasket.app.util.Redirect;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ActivityPlayer extends BaseActivity {
 
     // TODO: 12/13/2017 this class breaks oop rules (there are so many bound in fields and methods) 
 
     private static final String REPORT_PLAYER_BOT = "https://t.me/berimbasketreportbot?start=";
-    private static final String PLAYER_URL = "https://berimbasket.ir/bball/getPlayers.php";
 
     private ProgressBar progress;
     private TextView txtPlayerName;
@@ -76,25 +75,49 @@ public class ActivityPlayer extends BaseActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // init content
-        String pusheStadiumId = getIntent().getStringExtra("pushe_activity_extra");
-        if (pusheStadiumId != null) {
+        String pushePlayerId = getIntent().getStringExtra("pushe_activity_extra");
+        if (pushePlayerId != null) {
             txtPlayerName.setText(R.string.activity_player_txt_player_name_loading);
-            new GetPlayers().execute(pusheStadiumId);
+            initPlayer(Integer.parseInt(pushePlayerId), this);
         } else {
-            EntityPlayer entityPlayer = (EntityPlayer) getIntent().getSerializableExtra("MyClass");
+            Player entityPlayer = (Player) getIntent().getSerializableExtra("MyClass");
             loadActivity(entityPlayer);
         }
 
     }
 
+    private void initPlayer(int id, Context context) {
+        String pusheId = Pushe.getPusheId(context);
+        String userName = new PrefManager(context).getUserName();
+        progress.setVisibility(View.VISIBLE);
+        WebApiClient.getPlayerApi().getPlayers(id, pusheId, userName).enqueue(new Callback<List<Player>>() {
+            @Override
+            public void onResponse(Call<List<Player>> call, Response<List<Player>> response) {
+                if (response.code() == HttpURLConnection.HTTP_OK) {
+                    List<Player> players = response.body();
+                    if (players != null) {
+                        loadActivity(players.get(0));
+                    }
+                } else {
+                    // http call with incorrect params or other network error
+                }
+                progress.setVisibility(View.INVISIBLE);
+            }
 
-    private void loadActivity(final EntityPlayer entityPlayer) {
+            @Override
+            public void onFailure(Call<List<Player>> call, Throwable t) {
+                progress.setVisibility(View.INVISIBLE);
+            }
+        });
+    }
+
+    private void loadActivity(final Player player) {
         btnReportPlayer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 try {
-                    if (entityPlayer != null) {
-                        Redirect.sendToTelegram(ActivityPlayer.this, REPORT_PLAYER_BOT + entityPlayer.getId());
+                    if (player != null) {
+                        Redirect.sendToTelegram(ActivityPlayer.this, REPORT_PLAYER_BOT + player.getId());
                     }
                 } catch (UnknownTelegramURL unknownTelegramURL) {
                     // to nothing yet
@@ -102,7 +125,7 @@ public class ActivityPlayer extends BaseActivity {
             }
         });
 
-        String profilePicUrl = "https://berimbasket.ir/" + entityPlayer.getProfileImage();
+        String profilePicUrl = "https://berimbasket.ir/" + player.getProfileImage();
         Picasso.with(ActivityPlayer.this)
                 .load(profilePicUrl)
                 .resize(140, 140)
@@ -111,9 +134,9 @@ public class ActivityPlayer extends BaseActivity {
                 .error(R.drawable.profile_default)
                 .into(imgProfileImageView);
 
-        txtPlayerName.setText(entityPlayer.getName());
+        txtPlayerName.setText(player.getName());
 
-        ArrayList<String> playerSpecList = getPlayerSpec(entityPlayer);
+        ArrayList<String> playerSpecList = getPlayerSpec(player);
         initRecyclerPlayerSpec(playerSpecList);
         initRecyclerSocialAcc();
     }
@@ -135,41 +158,41 @@ public class ActivityPlayer extends BaseActivity {
     }
 
 
-    private ArrayList<String> getPlayerSpec(EntityPlayer entityPlayer) {
+    private ArrayList<String> getPlayerSpec(Player player) {
 
         ArrayList<String> playerSpecList = new ArrayList<>();
         String specSeparator = getString(R.string.activity_player_spec_separator);
-        playerSpecList.add(getString(R.string.activity_player_spec_name) + " " + specSeparator + " " + entityPlayer.getName());
-        playerSpecList.add(getString(R.string.activity_player_spec_age) + " " + specSeparator + " " + String.valueOf(entityPlayer.getAge()));
-        playerSpecList.add(getString(R.string.activity_player_spec_city) + " " + specSeparator + entityPlayer.getCity());
-        playerSpecList.add(getString(R.string.activity_player_spec_height) + " " + specSeparator + " " + String.valueOf(entityPlayer.getHeight()));
-        playerSpecList.add(getString(R.string.activity_player_spec_weight) + " " + specSeparator + " " + String.valueOf(entityPlayer.getWeight()));
-        playerSpecList.add(getString(R.string.activity_player_spec_address) + " " + specSeparator + " " + entityPlayer.getAddress());
-        playerSpecList.add(getString(R.string.activity_player_spec_experience) + " " + specSeparator + " " + entityPlayer.getExperience());
-        playerSpecList.add(getString(R.string.activity_player_spec_head_coach) + " " + specSeparator + " " + entityPlayer.getCoachName());
-        playerSpecList.add(getString(R.string.activity_player_spec_team) + " " + specSeparator + " " + entityPlayer.getTeamName());
-        playerSpecList.add(getString(R.string.activity_player_spec_user_name) + " " + specSeparator + " " + entityPlayer.getUsername());
-        playerSpecList.add(getString(R.string.activity_player_spec_game_post) + " " + specSeparator + " " + String.valueOf(entityPlayer.getPost()));
+        playerSpecList.add(getString(R.string.activity_player_spec_name) + " " + specSeparator + " " + player.getName());
+        playerSpecList.add(getString(R.string.activity_player_spec_age) + " " + specSeparator + " " + String.valueOf(player.getAge()));
+        playerSpecList.add(getString(R.string.activity_player_spec_city) + " " + specSeparator + player.getCity());
+        playerSpecList.add(getString(R.string.activity_player_spec_height) + " " + specSeparator + " " + String.valueOf(player.getHeight()));
+        playerSpecList.add(getString(R.string.activity_player_spec_weight) + " " + specSeparator + " " + String.valueOf(player.getWeight()));
+        playerSpecList.add(getString(R.string.activity_player_spec_address) + " " + specSeparator + " " + player.getAddress());
+        playerSpecList.add(getString(R.string.activity_player_spec_experience) + " " + specSeparator + " " + player.getExperience());
+        playerSpecList.add(getString(R.string.activity_player_spec_head_coach) + " " + specSeparator + " " + player.getCoachName());
+        playerSpecList.add(getString(R.string.activity_player_spec_team) + " " + specSeparator + " " + player.getTeamName());
+        playerSpecList.add(getString(R.string.activity_player_spec_user_name) + " " + specSeparator + " " + player.getUsername());
+        playerSpecList.add(getString(R.string.activity_player_spec_game_post) + " " + specSeparator + " " + String.valueOf(player.getPost()));
 //        playerSpecList.add("" + entityPlayer.getProfileImage());
 
 
-        playerSpecList.add(getString(R.string.activity_player_spec_telegram) + " " + specSeparator + " " + entityPlayer.getTelegramId());
+        playerSpecList.add(getString(R.string.activity_player_spec_telegram) + " " + specSeparator + " " + player.getTelegramId());
         EntitySocialAcc entitySocialTelegram = new EntitySocialAcc();
         entitySocialTelegram.setId(0);
         entitySocialTelegram.setImageResId(R.drawable.ic_social_telegram);
         entitySocialTelegram.setType(EntitySocialAcc.SOCIAL_TYPE_TELEGRAM_USER);
-        entitySocialTelegram.setLink("https://t.me/" + entityPlayer.getTelegramId());
+        entitySocialTelegram.setLink("https://t.me/" + player.getTelegramId());
         socialAccList.add(entitySocialTelegram);
 
-        playerSpecList.add(getString(R.string.activity_player_spec_instagram) + " " + specSeparator + " " + entityPlayer.getInstagramId());
+        playerSpecList.add(getString(R.string.activity_player_spec_instagram) + " " + specSeparator + " " + player.getInstagramId());
         EntitySocialAcc entitySocialInstagram = new EntitySocialAcc();
         entitySocialInstagram.setId(0);
         entitySocialInstagram.setImageResId(R.drawable.ic_social_instagram);
         entitySocialInstagram.setType(EntitySocialAcc.SOCIAL_TYPE_INSTAGRAM);
-        entitySocialInstagram.setLink("https://instagram.com/_u/" + entityPlayer.getInstagramId());
+        entitySocialInstagram.setLink("https://instagram.com/_u/" + player.getInstagramId());
         socialAccList.add(entitySocialInstagram);
 
-        playerSpecList.add(getString(R.string.activity_player_spec_phone_number) + " " + specSeparator + " " + entityPlayer.getPhone());
+        playerSpecList.add(getString(R.string.activity_player_spec_phone_number) + " " + specSeparator + " " + player.getPhone());
         return playerSpecList;
     }
 
@@ -203,94 +226,6 @@ public class ActivityPlayer extends BaseActivity {
 
         recyclerSocialAcc.setItemAnimator(new DefaultItemAnimator());
 
-    }
-
-    private class GetPlayers extends AsyncTask<String, Void, Void> {
-
-        EntityPlayer entityPlayer = new EntityPlayer();
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            progress.setVisibility(View.VISIBLE);
-        }
-
-        @Override
-        protected Void doInBackground(String... playerId) {
-
-            HttpFunctions sh = new HttpFunctions(HttpFunctions.RequestType.GET);
-            String pusheId = Pushe.getPusheId(getApplicationContext());
-            String userName = new PrefManager(getApplicationContext()).getUserName();
-            String urlParams = String.format("id=%s&pusheid=%s&username=%s",playerId[0], pusheId, userName);
-            String jsonStr = sh.makeServiceCall(PLAYER_URL + "?" + urlParams);
-            if (jsonStr != null) {
-                try {
-                    JSONArray rootArray = new JSONArray(jsonStr);
-
-                    JSONObject player = rootArray.getJSONObject(0);
-
-                    String id = player.getString("id");
-                    String username = player.getString("username");
-                    String namefa = player.getString("namefa");
-                    String address = player.getString("address");
-                    String uImage = player.getString("uImages");
-                    String uInstagramId = player.getString("uInstagramId");
-                    String uTelegramId = player.getString("uTelegramlId");
-                    String height = player.getString("height");
-                    String weight = player.getString("weight");
-                    String city = player.getString("city");
-                    String age = player.getString("age");
-                    String coach = player.getString("coach");
-                    String teamname = player.getString("teamname");
-                    String experience = player.getString("experience");
-                    String post = player.getString("post");
-                    String telegramPhone = player.getString("telegramphone");
-
-                    entityPlayer.setId(id != "null" ? Integer.parseInt(id) : -1);
-                    entityPlayer.setUsername(username);
-                    entityPlayer.setName(namefa);
-                    entityPlayer.setAddress(address);
-                    entityPlayer.setProfileImage(uImage);
-                    entityPlayer.setInstagramId(uInstagramId);
-                    entityPlayer.setTelegramId(uTelegramId);
-                    entityPlayer.setHeight(height != "null" ? Integer.parseInt(height) : -1);
-                    entityPlayer.setWeight(weight != "null" ? Integer.parseInt(weight) : -1);
-                    entityPlayer.setCity(city);
-                    entityPlayer.setAge(age != "null" ? Integer.parseInt(age) : -1);
-                    entityPlayer.setCoachName(coach);
-                    entityPlayer.setTeamName(teamname);
-                    entityPlayer.setExperience(experience);
-                    entityPlayer.setPhone(telegramPhone);
-
-                } catch (final JSONException e) {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(getApplicationContext(),
-                                    "Json parsing error: " + e.getMessage(),
-                                    Toast.LENGTH_LONG)
-                                    .show();
-                        }
-                    });
-
-                }
-            } else {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                    }
-                });
-
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-            progress.setVisibility(View.INVISIBLE);
-            loadActivity(this.entityPlayer);
-        }
     }
 
 }

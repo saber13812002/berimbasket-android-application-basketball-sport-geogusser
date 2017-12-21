@@ -1,6 +1,7 @@
 package ir.berimbasket.app.api.model
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 class Player (var id: Int,
               var username: String?,
@@ -20,8 +21,9 @@ class Player (var id: Int,
               var sex: String?,
               @field:SerializedName("coach")
               var coachName: String?,
-              var teamname: String?,
+              @field:SerializedName("teamname")
+              var teamName: String?,
               var experience: String?,
-              var post: Int?,
+              var post: String?,
               @field:SerializedName("telegramphone")
-              var phone: String?)
+              var phone: String?) : Serializable

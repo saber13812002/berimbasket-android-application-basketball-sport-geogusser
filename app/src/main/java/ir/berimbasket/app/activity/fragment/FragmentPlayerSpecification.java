@@ -1,137 +1,64 @@
 package ir.berimbasket.app.activity.fragment;
 
 
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
+import java.net.HttpURLConnection;
 import java.util.ArrayList;
+import java.util.List;
 
 import co.ronash.pushe.Pushe;
 import ir.berimbasket.app.R;
 import ir.berimbasket.app.adapter.AdapterPlayerSpecification;
-import ir.berimbasket.app.entity.EntityPlayer;
-import ir.berimbasket.app.network.HttpFunctions;
+import ir.berimbasket.app.api.WebApiClient;
+import ir.berimbasket.app.api.model.Player;
 import ir.berimbasket.app.util.PrefManager;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class FragmentPlayerSpecification extends Fragment {
 
-    private static String PLAYER_URL = "http://berimbasket.ir/bball/getPlayers.php";
-    private EntityPlayer entityPlayer;
     private View view;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_player_specification, container, false);
         this.view = view;
-        new GetPlayers().execute();
+        initPlayerList();
         return view;
     }
 
-
-    private class GetPlayers extends AsyncTask<Void, Void, Void> {
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-
-            HttpFunctions sh = new HttpFunctions(HttpFunctions.RequestType.GET);
-            PrefManager pref = new PrefManager(getContext());
-            String pusheId = Pushe.getPusheId(getContext());
-            String userName = pref.getUserName();
-            int userId = pref.getUserId();
-            String urlParams = String.format("id=%s&pusheid=%s&username=%s", userId, pusheId, userName);
-            String jsonStr = sh.makeServiceCall(PLAYER_URL + "?" + urlParams);
-            if (jsonStr != null) {
-                try {
-                    JSONArray locations = new JSONArray(jsonStr);
-
-                    for (int i = 0; i < locations.length(); i++) {
-                        JSONObject c = locations.getJSONObject(i);
-
-                        String id = c.getString("id");
-                        String username = c.getString("username");
-                        String namefa = c.getString("namefa");
-                        String address = c.getString("address");
-                        String uImage = c.getString("uImages");
-                        String uInstagramId = c.getString("uInstagramId");
-                        String uTelegramId = c.getString("uTelegramlId");
-                        String height = c.getString("height");
-                        String weight = c.getString("weight");
-                        String city = c.getString("city");
-                        String age = c.getString("age");
-                        String coach = c.getString("coach");
-                        String teamname = c.getString("teamname");
-                        String experience = c.getString("experience");
-                        String post = c.getString("post");
-                        String telegramPhone = c.getString("telegramphone");
-
-                        Log.i("name", id);
-
-                        entityPlayer = new EntityPlayer();
-                        // adding each child node to HashMap key => value
-
-                        entityPlayer.setId(id != "null" ? Integer.parseInt(id) : -1);
-                        entityPlayer.setUsername(username);
-                        entityPlayer.setName(namefa);
-                        entityPlayer.setAddress(address);
-                        entityPlayer.setProfileImage(uImage);
-                        entityPlayer.setInstagramId(uInstagramId);
-                        entityPlayer.setTelegramId(uTelegramId);
-                        entityPlayer.setHeight(height != "null" ? Integer.parseInt(height) : -1);
-                        entityPlayer.setWeight(weight != "null" ? Integer.parseInt(weight) : -1);
-                        entityPlayer.setCity(city);
-                        entityPlayer.setAge(age != "null" ? Integer.parseInt(age) : -1);
-                        entityPlayer.setCoachName(coach);
-                        entityPlayer.setTeamName(teamname);
-                        entityPlayer.setExperience(experience);
-                        entityPlayer.setPhone(telegramPhone);
-
+    private void initPlayerList() {
+        PrefManager pref = new PrefManager(getContext());
+        String pusheId = Pushe.getPusheId(getContext());
+        String userName = pref.getUserName();
+        int userId = pref.getUserId();
+        WebApiClient.getPlayerApi().getPlayers(userId, pusheId, userName).enqueue(new Callback<List<Player>>() {
+            @Override
+            public void onResponse(Call<List<Player>> call, Response<List<Player>> response) {
+                if (response.code() == HttpURLConnection.HTTP_OK) {
+                    List<Player> players = response.body();
+                    if (players != null && getView() != null) {
+                        initRecyclerPlayerSpec(getPlayerSpec(players.get(0)));
                     }
-                } catch (final JSONException e) {
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(getActivity(),
-                                    "Json parsing error: " + e.getMessage(),
-                                    Toast.LENGTH_LONG)
-                                    .show();
-                        }
-                    });
-
+                } else {
+                    // http call with incorrect params or other network error
                 }
-            } else {
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                    }
-                });
+            }
+
+            @Override
+            public void onFailure(Call<List<Player>> call, Throwable t) {
 
             }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-            initRecyclerPlayerSpec(getPlayerSpec(entityPlayer));
-        }
+        });
     }
 
     private void initRecyclerPlayerSpec(ArrayList<String> playerSpecList) {
@@ -149,7 +76,7 @@ public class FragmentPlayerSpecification extends Fragment {
 
     }
 
-    private ArrayList<String> getPlayerSpec(EntityPlayer entityPlayer) {
+    private ArrayList<String> getPlayerSpec(Player entityPlayer) {
 
         ArrayList<String> playerSpecList = new ArrayList<>();
         String specSeparator = getString(R.string.fragment_player_spec_separator);

@@ -14,12 +14,12 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import ir.berimbasket.app.R;
 import ir.berimbasket.app.activity.ActivityPlayer;
-import ir.berimbasket.app.entity.EntityPlayer;
+import ir.berimbasket.app.api.model.Player;
 
 /**
  * Created by mohammad hosein on 7/21/2017.
@@ -28,10 +28,10 @@ import ir.berimbasket.app.entity.EntityPlayer;
 public class AdapterPlayer extends RecyclerView.Adapter<AdapterPlayer.PlayerViewHolder> {
 
     private final Context context;
-    private final ArrayList<EntityPlayer> playerList;
+    private final List<Player> playerList;
     private Activity activity;
 
-    public AdapterPlayer(ArrayList<EntityPlayer> playerList, Context context, Activity activity) {
+    public AdapterPlayer(List<Player> playerList, Context context, Activity activity) {
         this.playerList = playerList;
         this.context = context;
         this.activity = activity;
@@ -80,8 +80,7 @@ public class AdapterPlayer extends RecyclerView.Adapter<AdapterPlayer.PlayerView
                         Pair<View, String> p2 = Pair.create(imgProfileView, "image");
                         ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, p1, p2);
                         context.startActivity(intent, options.toBundle());
-                    }
-                    else {
+                    } else {
                         context.startActivity(intent);
                     }
 
@@ -92,9 +91,9 @@ public class AdapterPlayer extends RecyclerView.Adapter<AdapterPlayer.PlayerView
         public void setData(int pos) {
             imgPlayerProfile.setImageResource(R.drawable.profile_default);
             txtPlayerName.setText(playerList.get(pos).getName());
-            EntityPlayer entityPlayer = playerList.get(getLayoutPosition());
+            String profilePic = playerList.get(getLayoutPosition()).getProfileImage();
             Picasso.with(context)
-                    .load("https://berimbasket.ir/" + entityPlayer.getProfileImage())
+                    .load("https://berimbasket.ir/" + profilePic)
                     .resize(120, 120)
                     .centerInside()
                     .placeholder(R.drawable.profile_default)
