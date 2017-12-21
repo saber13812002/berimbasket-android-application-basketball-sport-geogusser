@@ -12,7 +12,7 @@ import retrofit2.http.Query;
  * Endpoint to access stadium
  */
 
-public interface StadiumApi extends BerimBasket{
+public interface StadiumApi {
 
     @GET("getPlayGroundJson.php")
     Call<List<Stadium>> getStadiumCards(@Query("id") int id, @Query("pusheid") String pusheId,

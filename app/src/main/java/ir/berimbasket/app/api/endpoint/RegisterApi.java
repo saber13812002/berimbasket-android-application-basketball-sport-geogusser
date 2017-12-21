@@ -14,7 +14,7 @@ import retrofit2.http.Query;
  * Endpoint to register user
  */
 
-public interface RegisterApi extends BerimBasket {
+public interface RegisterApi  {
 
     @GET("getExistOrNotThisNewRequestedUsername.php")
     Call<List<CheckUsername>> checkUsername(@Query("mac") String mac, @Query("username") String username,

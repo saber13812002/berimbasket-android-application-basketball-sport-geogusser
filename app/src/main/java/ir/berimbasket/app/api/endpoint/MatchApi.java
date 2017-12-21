@@ -12,7 +12,7 @@ import retrofit2.http.Query;
  * Endpoint to access match
  */
 
-public interface MatchApi extends BerimBasket{
+public interface MatchApi {
 
     @GET("getScore.php")
     Call<List<Match>> getMatches(@Query("pusheid") String pusheId,

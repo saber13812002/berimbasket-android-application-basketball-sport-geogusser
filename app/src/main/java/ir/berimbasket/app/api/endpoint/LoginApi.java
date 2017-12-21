@@ -12,7 +12,7 @@ import retrofit2.http.Query;
  * Endpoint to login user
  */
 
-public interface LoginApi extends BerimBasket{
+public interface LoginApi {
 
     @GET("getStatusLoginByUsernamePassword.php")
     Call<List<Login>> login(@Query("mac") String mac, @Query("username") String username, @Query("password") String password,

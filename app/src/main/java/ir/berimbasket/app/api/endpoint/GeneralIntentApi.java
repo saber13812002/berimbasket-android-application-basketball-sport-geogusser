@@ -12,7 +12,7 @@ import retrofit2.http.Query;
  * Endpoint to get general intent link used in {@link ir.berimbasket.app.activity.ActivityBrowser}
  */
 
-public interface GeneralIntentApi extends BerimBasket{
+public interface GeneralIntentApi {
 
     @GET("getWebPageLinkByGeneralIntentByPusheId.php")
     Call<List<GeneralIntent>> getGeneralIntent(@Query("username") String username, @Query("pusheid") String pusheId);

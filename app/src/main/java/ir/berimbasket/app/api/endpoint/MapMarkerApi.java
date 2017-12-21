@@ -10,7 +10,7 @@ import retrofit2.http.Query;
  * Endpoint to access map markers and manipulate them
  */
 
-public interface MapMarkerApi extends BerimBasket {
+public interface MapMarkerApi  {
 
     @GET("set.php")
     Call<SetMarker> setMarker(@Query("token") String token, @Query("lat") String lat, @Query("long") String longitude,

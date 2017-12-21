@@ -10,7 +10,7 @@ import retrofit2.http.Query;
  * Endpoint to work with location stuffs
  */
 
-public interface LocationApi extends BerimBasket{
+public interface LocationApi {
 
     @GET("setLoc.php")
     Call<Location> setLocation(@Query("token") String token, @Query("lat") String lat, @Query("long") String longitude,

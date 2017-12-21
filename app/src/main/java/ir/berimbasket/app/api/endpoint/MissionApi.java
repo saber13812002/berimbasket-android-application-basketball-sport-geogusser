@@ -12,7 +12,7 @@ import retrofit2.http.Query;
  * Endpoint to access missions and manipulate it if needed
  */
 
-public interface MissionApi extends BerimBasket{
+public interface MissionApi {
 
     @GET("getMission.php")
     Call<List<Mission>> getMissions(@Query("user") String user, @Query("username") String username,

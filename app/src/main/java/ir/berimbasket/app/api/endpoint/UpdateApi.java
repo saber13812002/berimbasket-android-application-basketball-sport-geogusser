@@ -12,8 +12,6 @@ import retrofit2.http.Query;
 
 public interface UpdateApi {
 
-    String BASE_URL = "https://berimbasket.ir/app/";
-
     @GET("update.php")
     Call<Update> checkForUpdate(@Query("package") String packageName, @Query("version") String version,
                                 @Query("username") String username, @Query("pusheid") String pusheId);
