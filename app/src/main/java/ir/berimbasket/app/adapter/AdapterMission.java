@@ -104,7 +104,7 @@ public class AdapterMission extends RecyclerView.Adapter<AdapterMission.MissionV
         }
     }
 
-
+    // TODO: 12/21/2017 @mohammad1444 i don't know about this, when you saw this message tell me what it is
     private final String MISSION_DONE_URL = "berimbasket.ir/bball/www/setMissionDone.php?";
 
     private class RegisterMissionToUser extends AsyncTask<EntityMission, Void, String> {

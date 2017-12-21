@@ -12,6 +12,7 @@ public class EntityStadium implements Serializable{
     public static final int IMAGE_TYPE_PNG = 0;
     public static final int IMAGE_TYPE_JPG = 1;
 
+    // TODO: 12/21/2017 need notice
     private int id;
     private String title;
     private String latitude;
@@ -19,13 +20,13 @@ public class EntityStadium implements Serializable{
     private String type;
     private int zoomLevel;
     private String address;
-    private String[] images;
-    private int imageType;
+    private String[] images;  // wrong data type (must be same with api response)
+    private int imageType;  // redundant (can be inferred from other fields)
     private String telegramChannelId;
     private String instagramId;
     private String telegramGroupId;
     private String telegramAdminId;
-    private String thumbnail;
+    private String thumbnail;  // redundant (can be inferred from other fields)
 
     public String getTitle() {
         return title;
