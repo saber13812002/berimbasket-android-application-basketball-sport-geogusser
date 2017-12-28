@@ -17,11 +17,9 @@ import java.io.File;
 import java.util.Locale;
 
 import ir.berimbasket.app.R;
-import ir.berimbasket.app.exception.UnknownInstagramURL;
-import ir.berimbasket.app.exception.UnknownTelegramURL;
+import ir.berimbasket.app.ui.common.custom.AlertDialogCustom;
+import ir.berimbasket.app.ui.common.custom.ToastCustom;
 import ir.berimbasket.app.util.customtabs.CustomTabActivityHelper;
-import ir.berimbasket.app.view.CustomAlertDialog;
-import ir.berimbasket.app.view.CustomToast;
 
 /**
  * Created by Mahdi on 9/20/2017.
@@ -30,7 +28,7 @@ import ir.berimbasket.app.view.CustomToast;
 
 public class Redirect {
 
-    public static void sendToTelegram(Context context, String telegramUrl) throws UnknownTelegramURL{
+    public static void sendToTelegram(Context context, String telegramUrl) throws IllegalArgumentException {
         String regex = "http(s?)://(www\\.)?(t|telegram)\\.me/.+";
         if (telegramUrl.matches(regex)) {
             final String packageName = "org.telegram.messenger";
@@ -48,11 +46,11 @@ public class Redirect {
                 sendToMarketToInstallApp(packageName, context.getString(R.string.general_dialog_message_telegram_not_found), context);
             }
         } else {
-            throw new UnknownTelegramURL();
+            throw new IllegalArgumentException("Wrong telegram url");
         }
     }
 
-    public static void sendToInstagram(Context context, String instagramUrl) throws UnknownInstagramURL{
+    public static void sendToInstagram(Context context, String instagramUrl) throws IllegalArgumentException {
         String regex = "http(s?)://(www\\.)?(instagram)\\.com/.+";
         if (instagramUrl.matches(regex)) {
             String packageName = "com.instagram.android";
@@ -70,7 +68,7 @@ public class Redirect {
                 sendToMarketToInstallApp(packageName, context.getString(R.string.general_dialog_message_instagram_not_found), context);
             }
         } else {
-            throw new UnknownInstagramURL();
+            throw new IllegalArgumentException("Wrong instagram url");
         }
     }
 
@@ -108,7 +106,7 @@ public class Redirect {
     }
 
     public static void sendToMarketToInstallApp(final String packageName, final String message, final Context context) {
-        CustomAlertDialog customAlertDialog = new CustomAlertDialog(context);
+        AlertDialogCustom customAlertDialog = new AlertDialogCustom(context);
 
         AlertDialog dialog = new AlertDialog.Builder(context)
                 .setCustomTitle(customAlertDialog.getTitleText(context.getString(R.string.general_dialog_title_install_app)))
@@ -125,7 +123,7 @@ public class Redirect {
                                 context.startActivity(new Intent(Intent.ACTION_VIEW,
                                         Uri.parse("http://play.google.com/store/apps/details?id=" + packageName)));
                             } catch (ActivityNotFoundException e2) {
-                                new CustomToast(context.getString(R.string.general_dialog_message_google_play_not_found), context).showToast(true);
+                                new ToastCustom(context.getString(R.string.general_dialog_message_google_play_not_found), context).showToast(true);
                             }
                         }
                     }
@@ -141,7 +139,7 @@ public class Redirect {
 
     public static void sendToEnableDownloadManager(final Activity activity) {
 
-        CustomAlertDialog customAlertDialog = new CustomAlertDialog(activity);
+        AlertDialogCustom customAlertDialog = new AlertDialogCustom(activity);
         AlertDialog dialog = new AlertDialog.Builder(activity)
                 .setCustomTitle(customAlertDialog.getTitleText(activity.getString(R.string.general_dialog_title_guide)))
                 .setMessage(activity.getString(R.string.general_dialog_message_download_manager_not_enabled) + " "
@@ -161,7 +159,7 @@ public class Redirect {
                             activity.startActivity(intent);
 
                         } catch (ActivityNotFoundException e) {
-                            new CustomToast(activity.getString(R.string.general_dialog_message_download_manager_not_found), activity).showToast(true);
+                            new ToastCustom(activity.getString(R.string.general_dialog_message_download_manager_not_found), activity).showToast(true);
                         }
                     }
                 })

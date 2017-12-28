@@ -24,7 +24,7 @@
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 
     <application
-        android:name=".util.ApplicationLoader"
+        android:name=".ui.base.ApplicationLoader"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
@@ -60,25 +60,25 @@
             android:value="aHR0cDovLzNkOWJkMThjNDc0YjQ4Y2M5NWNlNzc5Nzk1NTM2NDQ3Ojc2ZmQ4MWVmZGI1OTQ3NWY5NDQ4OTFjMmJlODUyODEwQGNhLnB1c2hlLmlyLzExNjE2" />
 
         <activity
-            android:name=".activity.ActivityHome"
+            android:name=".ui.home.HomeActivity"
             android:label="@string/app_name" />
         <activity
-            android:name=".activity.ActivityLogin"
+            android:name=".ui.login.LoginActivity"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".activity.ActivityRegister"
+            android:name=".ui.register.RegisterActivity"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".activity.ActivityCreateStadium"
+            android:name=".ui.create_stadium.CreateStadiumActivity"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".activity.ActivitySetMarker"
+            android:name=".ui.set_marker.SetMarkerActivity"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".activity.ActivitySettings" >
+        <activity android:name=".ui.settings.SettingsActivity" >
 
         </activity>
         <activity
-            android:name=".activity.ActivityPlayer"
+            android:name=".ui.player.PlayerActivity"
             android:theme="@style/StatusTransparent" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -93,7 +93,7 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".activity.ActivityStadium"
+            android:name=".ui.stadium.StadiumActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <meta-data
@@ -131,7 +131,7 @@
 
         <service android:name="com.google.android.gms.analytics.CampaignTrackingService" />
 
-        <activity android:name=".activity.ActivitySplash">
+        <activity android:name=".ui.splash.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -149,14 +149,14 @@
                 android:resource="@xml/file_provider_paths" />
         </provider>
 
-        <receiver android:name=".downloadmanager.DownloadBroadCast">
+        <receiver android:name=".update.DownloadBroadCast">
             <intent-filter>
                 <action android:name="android.intent.action.DOWNLOAD_COMPLETE" />
             </intent-filter>
         </receiver>
 
-        <activity android:name=".activity.ActivityIntro" />
-        <activity android:name=".activity.ActivityBrowser" />
+        <activity android:name=".ui.intro.IntroActivity" />
+        <activity android:name=".ui.browser.BrowserActivity" />
 
         <service
             android:name=".util.PusheListener"

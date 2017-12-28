@@ -7,9 +7,11 @@ import android.os.Build;
 
 import java.util.Locale;
 
+import ir.berimbasket.app.data.pref.PrefManager;
+
 public class LocaleManager {
 
-    static Context setLocale(Context c) {
+    public static Context setLocale(Context c) {
         String lang = new PrefManager(c).getSettingsPrefLangList();
         return updateResources(c, lang);
     }
@@ -30,7 +32,7 @@ public class LocaleManager {
         return context;
     }
 
-    static Locale getLocale(Resources res) {
+    public static Locale getLocale(Resources res) {
         Configuration config = res.getConfiguration();
         return Build.VERSION.SDK_INT >= 24 ? config.getLocales().get(0) : config.locale;
     }

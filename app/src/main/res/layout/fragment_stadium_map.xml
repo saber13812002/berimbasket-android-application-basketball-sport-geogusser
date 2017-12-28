@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ir.berimbasket.app.activity.ActivityStadium">
+    tools:context="ir.berimbasket.app.ui.stadium.StadiumActivity">
 
     <com.google.android.gms.maps.MapView
         android:id="@+id/mapStadiumMark"

@@ -5,12 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#f9f9f9"
-    tools:context="ir.berimbasket.app.activity.fragment.FragmentProfile">
+    tools:context="ir.berimbasket.app.ui.home.profile.ProfileFragment">
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="ir.berimbasket.app.activity.ActivityHome"
+        tools:context="ir.berimbasket.app.ui.home.HomeActivity"
         tools:showIn="@layout/fragment_profile">
 
 
@@ -84,7 +84,7 @@
                 app:tabGravity="fill"
                 app:tabMode="fixed" />
 
-            <ir.berimbasket.app.view.WrapContentViewPager
+            <ir.berimbasket.app.ui.home.profile.WrapContentViewPager
                 android:id="@+id/pagerProfile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

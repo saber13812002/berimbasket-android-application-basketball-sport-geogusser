@@ -6,11 +6,11 @@
     android:layout_height="match_parent"
     android:clipToPadding="false"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="ir.berimbasket.app.activity.ActivitySettings"
+    tools:context="ir.berimbasket.app.ui.settings.SettingsActivity"
     tools:showIn="@layout/activity_settings">
 
     <fragment
-        android:name="ir.berimbasket.app.activity.fragment.FragmentSettings"
+        android:name="ir.berimbasket.app.ui.settings.SettingsFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:tag=".SettingsFragment" />

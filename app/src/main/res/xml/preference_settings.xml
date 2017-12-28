@@ -1,8 +1,8 @@
 <android.support.v7.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <ir.berimbasket.app.view.preference.CustomPreferenceCategory android:title="@string/pref_category_alerts">
+    <ir.berimbasket.app.ui.settings.preference.PreferenceCategoryCustom android:title="@string/pref_category_alerts">
 
-        <ir.berimbasket.app.view.preference.CustomSwitchPreferenceCompat
+        <ir.berimbasket.app.ui.settings.preference.SwitchPreferenceCompatCustom
             android:defaultValue="true"
             android:key="@string/key_pref_message_notification"
             android:summary="@string/pref_message_notification_summary"
@@ -10,7 +10,7 @@
 
         <Preference android:layout="@layout/item_preference_divider" />
 
-        <ir.berimbasket.app.view.preference.CustomSwitchPreferenceCompat
+        <ir.berimbasket.app.ui.settings.preference.SwitchPreferenceCompatCustom
             android:defaultValue="true"
             android:key="@string/key_pref_update_notification"
             android:summary="@string/pref_update_notification_summary"
@@ -19,11 +19,11 @@
 
         <Preference android:layout="@layout/item_preference_space" />
 
-    </ir.berimbasket.app.view.preference.CustomPreferenceCategory>
+    </ir.berimbasket.app.ui.settings.preference.PreferenceCategoryCustom>
 
-    <ir.berimbasket.app.view.preference.CustomPreferenceCategory android:title="@string/pref_category_city">
+    <ir.berimbasket.app.ui.settings.preference.PreferenceCategoryCustom android:title="@string/pref_category_city">
 
-        <ir.berimbasket.app.view.preference.CustomListPreference
+        <ir.berimbasket.app.ui.settings.preference.ListPreferenceCustom
             android:defaultValue="0a0"
             android:entries="@array/pref_state_list_names"
             android:entryValues="@array/pref_state_list_values"
@@ -35,11 +35,11 @@
 
         <Preference android:layout="@layout/item_preference_space" />
 
-    </ir.berimbasket.app.view.preference.CustomPreferenceCategory>
+    </ir.berimbasket.app.ui.settings.preference.PreferenceCategoryCustom>
 
-    <ir.berimbasket.app.view.preference.CustomPreferenceCategory android:title="@string/pref_category_lang">
+    <ir.berimbasket.app.ui.settings.preference.PreferenceCategoryCustom android:title="@string/pref_category_lang">
 
-        <ir.berimbasket.app.view.preference.CustomListPreference
+        <ir.berimbasket.app.ui.settings.preference.ListPreferenceCustom
             android:entries="@array/pref_lang_list_names"
             android:entryValues="@array/pref_lang_list_values"
             android:key="@string/key_pref_lang_list"
@@ -50,36 +50,36 @@
 
         <Preference android:layout="@layout/item_preference_space" />
 
-    </ir.berimbasket.app.view.preference.CustomPreferenceCategory>
+    </ir.berimbasket.app.ui.settings.preference.PreferenceCategoryCustom>
 
-    <ir.berimbasket.app.view.preference.CustomPreferenceCategory android:title="@string/pref_category_support">
+    <ir.berimbasket.app.ui.settings.preference.PreferenceCategoryCustom android:title="@string/pref_category_support">
 
-        <ir.berimbasket.app.view.preference.CustomPreference
+        <ir.berimbasket.app.ui.settings.preference.PreferenceCustom
             android:key="@string/key_pref_help"
             android:layout="@layout/item_preference_intent"
             android:title="@string/pref_help_title" />
         <Preference android:layout="@layout/item_preference_divider" />
 
-        <ir.berimbasket.app.view.preference.CustomPreference
+        <ir.berimbasket.app.ui.settings.preference.PreferenceCustom
             android:key="@string/key_pref_terms_and_services"
             android:layout="@layout/item_preference_intent"
             android:title="@string/pref_terms_and_services_title" />
         <Preference android:layout="@layout/item_preference_divider" />
 
-        <ir.berimbasket.app.view.preference.CustomPreference
+        <ir.berimbasket.app.ui.settings.preference.PreferenceCustom
             android:key="@string/key_pref_change_log"
             android:layout="@layout/item_preference_intent"
             android:title="@string/pref_change_log_title" />
 
         <Preference android:layout="@layout/item_preference_divider" />
 
-        <ir.berimbasket.app.view.preference.CustomPreference
+        <ir.berimbasket.app.ui.settings.preference.PreferenceCustom
             android:key="@string/key_pref_about_us"
             android:layout="@layout/item_preference_intent"
             android:title="@string/pref_about_us_title">
 
-        </ir.berimbasket.app.view.preference.CustomPreference>
+        </ir.berimbasket.app.ui.settings.preference.PreferenceCustom>
 
-    </ir.berimbasket.app.view.preference.CustomPreferenceCategory>
+    </ir.berimbasket.app.ui.settings.preference.PreferenceCategoryCustom>
 
 </android.support.v7.preference.PreferenceScreen>

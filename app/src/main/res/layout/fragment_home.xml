@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ir.berimbasket.app.activity.ActivityHome">
+    tools:context="ir.berimbasket.app.ui.home.HomeActivity">
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"

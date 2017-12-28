@@ -12,13 +12,13 @@ public class PusheListener extends PusheListenerService {
             String activityParameter = message.getString("ActivityParameter");
             Log.i("parameter", activityName);
             Log.i("parameter", activityParameter);
-            if (activityName.equals("ActivityBrowser")) {
-                Intent intent = new Intent(getApplicationContext(), ActivityBrowser.class);
+            if (activityName.equals("BrowserActivity")) {
+                Intent intent = new Intent(getApplicationContext(), BrowserActivity.class);
                 intent.putExtra("pushe_activity_extra", activityParameter);
                 getApplicationContext().startActivity(intent);
-            } else if (activityName.equals("ActivityPlayer")) {
+            } else if (activityName.equals("PlayerActivity")) {
 
-            } else if (activityName.equals("ActivityStadium")) {
+            } else if (activityName.equals("StadiumActivity")) {
 
             } else {
 

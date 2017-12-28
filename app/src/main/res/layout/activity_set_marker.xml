@@ -4,11 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="ir.berimbasket.app.activity.ActivitySetMarker">
+    tools:context="ir.berimbasket.app.ui.set_marker.SetMarkerActivity">
 
     <fragment
         android:id="@+id/mapFrag"
-        android:name="ir.berimbasket.app.activity.fragment.FragmentSetMarker"
+        android:name="ir.berimbasket.app.ui.set_marker.SetMarkerFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />

@@ -6,7 +6,7 @@
     android:background="#7ee3ba"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context="ir.berimbasket.app.activity.ActivitySplash">
+    tools:context="ir.berimbasket.app.ui.splash.SplashActivity">
 
     <pl.droidsonroids.gif.GifImageView
         android:layout_width="match_parent"
