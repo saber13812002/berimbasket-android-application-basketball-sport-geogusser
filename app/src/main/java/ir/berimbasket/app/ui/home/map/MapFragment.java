@@ -39,7 +39,7 @@ import ir.berimbasket.app.data.pref.PrefManager;
 import ir.berimbasket.app.service.GPSTracker;
 import ir.berimbasket.app.ui.base.ApplicationLoader;
 import ir.berimbasket.app.ui.home.HomeActivity;
-import ir.berimbasket.app.ui.set_marker.SetMarkerActivity;
+import ir.berimbasket.app.ui.landmark.LandmarkActivity;
 import ir.berimbasket.app.ui.stadium.StadiumActivity;
 
 public class MapFragment extends Fragment implements OnMapReadyCallback {
@@ -61,7 +61,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), SetMarkerActivity.class);
+                Intent intent = new Intent(getActivity(), LandmarkActivity.class);
                 CameraPosition position = map.getCameraPosition();
                 double cameraLat = position.target.latitude;
                 double cameraLong = position.target.longitude;

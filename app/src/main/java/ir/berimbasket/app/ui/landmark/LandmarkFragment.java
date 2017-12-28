@@ -1,4 +1,4 @@
-package ir.berimbasket.app.ui.set_marker;
+package ir.berimbasket.app.ui.landmark;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -24,7 +24,7 @@ import ir.berimbasket.app.service.GPSTracker;
  * Created by mohammad hosein on 6/26/2017.
  */
 
-public class SetMarkerFragment extends Fragment implements OnMapReadyCallback {
+public class LandmarkFragment extends Fragment implements OnMapReadyCallback {
 
     private MapView mapView;
     private double latitude = 35.723284;
@@ -40,7 +40,7 @@ public class SetMarkerFragment extends Fragment implements OnMapReadyCallback {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_set_marker, container, false);
+        return inflater.inflate(R.layout.fragment_landmark, container, false);
     }
 
     @Override
@@ -111,7 +111,7 @@ public class SetMarkerFragment extends Fragment implements OnMapReadyCallback {
         }
 
         // FIXME: 10/18/2017 use better oop compatible way to approach this
-        CameraPosition cameraPosition = ((SetMarkerActivity) getActivity()).getCameraPosition();
+        CameraPosition cameraPosition = ((LandmarkActivity) getActivity()).getCameraPosition();
         googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 
 //        googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {

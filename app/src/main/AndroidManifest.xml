@@ -69,10 +69,7 @@
             android:name=".ui.register.RegisterActivity"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".ui.create_stadium.CreateStadiumActivity"
-            android:theme="@style/AppTheme" />
-        <activity
-            android:name=".ui.set_marker.SetMarkerActivity"
+            android:name=".ui.landmark.LandmarkActivity"
             android:windowSoftInputMode="stateHidden" />
         <activity android:name=".ui.settings.SettingsActivity" >
 

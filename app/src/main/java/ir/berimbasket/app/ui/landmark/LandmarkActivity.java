@@ -1,4 +1,4 @@
-package ir.berimbasket.app.ui.set_marker;
+package ir.berimbasket.app.ui.landmark;
 
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
@@ -20,7 +20,7 @@ import ir.berimbasket.app.data.pref.PrefManager;
 import ir.berimbasket.app.ui.base.ApplicationLoader;
 import ir.berimbasket.app.ui.base.BaseActivity;
 
-public class SetMarkerActivity extends BaseActivity {
+public class LandmarkActivity extends BaseActivity {
 
     private ImageView btnSendLocation;
     private AppCompatEditText edtLocationName;
@@ -34,7 +34,7 @@ public class SetMarkerActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_set_marker);
+        setContentView(R.layout.activity_landmark);
         double latitude = getIntent().getDoubleExtra("camera_latitude", 35.723284);
         double longitude = getIntent().getDoubleExtra("camera_longitude", 51.441968);
         float zoom = getIntent().getFloatExtra("camera_zoom", 14.0f);
@@ -64,9 +64,9 @@ public class SetMarkerActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.mapFrag);
-                SetMarkerFragment setMarkerFragment = (SetMarkerFragment) fragment;
-                double latitude = setMarkerFragment.getLatitude();
-                double longitude = setMarkerFragment.getLongitude();
+                LandmarkFragment landmarkFragment = (LandmarkFragment) fragment;
+                double latitude = landmarkFragment.getLatitude();
+                double longitude = landmarkFragment.getLongitude();
                 Log.i("message", String.valueOf(latitude));
                 if (!edtLocationName.getText().toString().equals("")) {
                     PrefManager pref = new PrefManager(getApplicationContext());
@@ -95,7 +95,7 @@ public class SetMarkerActivity extends BaseActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            pDialog = new ProgressDialog(SetMarkerActivity.this);
+            pDialog = new ProgressDialog(LandmarkActivity.this);
             pDialog.setMessage(getString(R.string.general_please_wait));
             pDialog.setCancelable(false);
             pDialog.show();
@@ -114,7 +114,7 @@ public class SetMarkerActivity extends BaseActivity {
             super.onPostExecute(s);
             pDialog.cancel();
             Toast.makeText(getApplicationContext(), getString(R.string.activity_set_marker_toast_marker_successful), Toast.LENGTH_SHORT).show();
-            SetMarkerActivity.this.finish();
+            LandmarkActivity.this.finish();
         }
     }
 }
