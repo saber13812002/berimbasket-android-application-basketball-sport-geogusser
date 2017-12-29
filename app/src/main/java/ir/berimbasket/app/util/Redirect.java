@@ -31,20 +31,20 @@ public class Redirect {
     public static void sendToTelegram(Context context, String telegramUrl) throws IllegalArgumentException {
         String regex = "http(s?)://(www\\.)?(t|telegram)\\.me/.+";
         if (telegramUrl.matches(regex)) {
-            final String packageName = "org.telegram.messenger";
-            if (Redirect.isAppAvailable(context, packageName)) {
+//            final String packageName = "org.telegram.messenger";
+//            if (Redirect.isAppAvailable(context, packageName)) {
                 try {
                     Intent i = new Intent(Intent.ACTION_VIEW);
                     i.setData(Uri.parse(telegramUrl));
-                    i.setPackage(packageName);
+//                    i.setPackage(packageName);
                     i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(i);
                 } catch (ActivityNotFoundException e) {
                     // do nothing
                 }
-            } else {
-                sendToMarketToInstallApp(packageName, context.getString(R.string.general_dialog_message_telegram_not_found), context);
-            }
+//            } else {
+//                sendToMarketToInstallApp(packageName, context.getString(R.string.general_dialog_message_telegram_not_found), context);
+//            }
         } else {
             throw new IllegalArgumentException("Wrong telegram url");
         }
