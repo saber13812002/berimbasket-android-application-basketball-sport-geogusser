@@ -13,6 +13,12 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonParser;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -43,12 +49,12 @@ public class MainFragment extends Fragment implements View.OnClickListener {
 
     private AppCompatButton btnMorePlayer, btnMoreStadium, btnMoreMatch;
     private ProgressBar progressHome;
-    private static String STADIUM_URL = "https://berimbasket.ir/bball/getPlayGroundJson.php";
+    private final static String STADIUM_URL = "https://berimbasket.ir/bball/get.php";
     private static String MATCH_URL = "https://berimbasket.ir/bball/getScore.php";
     private static String MORE_MATCH_URL = "http://www.espn.com/nba/scoreboard";
     private static String MORE_PLAYER_URL = "https://berimbasket.ir/bball/www/players.php";
     private static String MORE_STADIUM_URL = "https://berimbasket.ir/bball/www/mains.php";
-    private static final String STADIUM_PHOTO_BASE_URL = "https://berimbasket.ir/bball/bots/playgroundphoto/";
+    private static final String STADIUM_PHOTO_BASE_URL = "https://berimbasket.ir";
     private int processCount = 0;
 
 
@@ -217,29 +223,33 @@ public class MainFragment extends Fragment implements View.OnClickListener {
             String jsonStr = sh.makeServiceCall(STADIUM_URL + "?" + urlParams);
             if (jsonStr != null) {
                 try {
-                    JSONArray locations = new JSONArray(jsonStr);
+                    JsonParser parser = new JsonParser();
+                    JsonElement element = parser.parse(jsonStr);
+                    JsonArray locations = element.getAsJsonArray();
 
-                    for (int i = 0; i < locations.length(); i++) {
-                        JSONObject c = locations.getJSONObject(i);
+                    for (int i = 0; i < locations.size(); i++) {
+                        JsonObject c = locations.get(i).getAsJsonObject();
 
-                        String id = c.getString("id");
-                        String title = c.getString("title");
-                        String latitude = c.getString("PlaygroundLatitude");
-                        String longitude = c.getString("PlaygroundLongitude");
-                        String type = c.getString("PlaygroundType");
-                        String zoomLevel = c.getString("ZoomLevel");
-                        String address = c.getString("address");
-                        String images = c.getString("PgImages");
-                        String thumb = null;
-                        if (images.contains("png")) {
-                            thumb = STADIUM_PHOTO_BASE_URL + images.split(".png")[0] + ".png";
-                        } else {
-                            thumb = STADIUM_PHOTO_BASE_URL + images.split(".jpg")[0] + ".jpg";
+                        String id = c.get("id").getAsString();
+                        String title = c.get("title").getAsString();
+                        String latitude = c.get("PlaygroundLatitude").getAsString();
+                        String longitude = c.get("PlaygroundLongitude").getAsString();
+                        String type = c.get("PlaygroundType").getAsString();
+                        String zoomLevel = c.get("ZoomLevel").getAsString();
+                        String address = c.get("address").getAsString();
+                        JsonArray imagesArray = c.get("images").getAsJsonArray();
+                        String[] images = new String[imagesArray.size()];
+                        for (int j = 0; j < imagesArray.size(); j++) {
+                            images[j] = imagesArray.get(j).getAsString();
                         }
-                        String instagramId = c.getString("PgInstagramId");
-                        String telegramChannelId = c.getString("PgTlgrmChannelId");
-                        String telegramGroupId = c.getString("PgTlgrmGroupJoinLink");
-                        String telegramAdminId = c.getString("PgTlgrmGroupAdminId");
+                        String thumb = "http://test";
+                        if (images.length != 0) {
+                                thumb = STADIUM_PHOTO_BASE_URL + images[0];
+                        }
+//                        String instagramId = c.getString("PgInstagramId");
+//                        String telegramChannelId = c.getString("PgTlgrmChannelId");
+//                        String telegramGroupId = c.getString("PgTlgrmGroupJoinLink");
+//                        String telegramAdminId = c.getString("PgTlgrmGroupAdminId");
 
                         EntityStadium entityStadium = new EntityStadium();
 
@@ -248,15 +258,17 @@ public class MainFragment extends Fragment implements View.OnClickListener {
                         entityStadium.setLatitude(latitude);
                         entityStadium.setLongitude(longitude);
                         entityStadium.setAddress(address);
-                        entityStadium.setTelegramGroupId(telegramGroupId);
-                        entityStadium.setTelegramChannelId(telegramChannelId);
-                        entityStadium.setTelegramAdminId(telegramAdminId);
-                        entityStadium.setInstagramId(instagramId);
-                        entityStadium.setImages(images.split("\\.[a-z]{3}"));
-                        if (images.contains("png")){
-                            entityStadium.setImageType(EntityStadium.IMAGE_TYPE_PNG);
-                        } else if (images.contains("jpg")) {
-                            entityStadium.setImageType(EntityStadium.IMAGE_TYPE_JPG);
+//                        entityStadium.setTelegramGroupId(telegramGroupId);
+//                        entityStadium.setTelegramChannelId(telegramChannelId);
+//                        entityStadium.setTelegramAdminId(telegramAdminId);
+//                        entityStadium.setInstagramId(instagramId);
+                        entityStadium.setImages(images);
+                        if (images.length != 0) {
+                            if (images[0].contains("png")){
+                                entityStadium.setImageType(EntityStadium.IMAGE_TYPE_PNG);
+                            } else if (images[0].contains("jpg")) {
+                                entityStadium.setImageType(EntityStadium.IMAGE_TYPE_JPG);
+                            }
                         }
                         entityStadium.setThumbnail(thumb);
                         entityStadium.setType(type);
@@ -266,7 +278,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
 
 
                     }
-                } catch (final JSONException e) {
+                } catch (final JsonParseException e) {
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {

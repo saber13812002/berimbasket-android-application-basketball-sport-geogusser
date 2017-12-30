@@ -85,7 +85,11 @@ public class StadiumAdapter extends RecyclerView.Adapter<StadiumAdapter.StadiumV
                 case R.id.cardStadiumItem:
                     Intent intent = new Intent(context, StadiumActivity.class);
                     intent.putExtra("stadiumDetail", stadiumList.get(getLayoutPosition()));
-                    intent.putExtra("stadiumLogoUrlPath", stadiumList.get(getLayoutPosition()).getImages()[0]);
+                    if (stadiumList.get(getLayoutPosition()).getImages().length != 0) {
+                        intent.putExtra("stadiumLogoUrlPath", stadiumList.get(getLayoutPosition()).getImages()[0]);
+                    } else {
+                        intent.putExtra("stadiumLogoUrlPath", "http://test");
+                    }
                     context.startActivity(intent);
                     break;
             }
