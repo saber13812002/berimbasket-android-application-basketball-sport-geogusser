@@ -1,4 +1,4 @@
-package ir.berimbasket.app.ui.home.profile;
+package ir.berimbasket.app.ui.common;
 
 import android.content.Context;
 import android.support.v4.view.ViewPager;

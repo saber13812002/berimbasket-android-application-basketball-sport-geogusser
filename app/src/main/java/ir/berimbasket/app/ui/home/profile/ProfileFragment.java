@@ -33,6 +33,7 @@ import ir.berimbasket.app.R;
 import ir.berimbasket.app.data.network.HttpFunctions;
 import ir.berimbasket.app.data.pref.PrefManager;
 import ir.berimbasket.app.ui.base.ApplicationLoader;
+import ir.berimbasket.app.ui.common.WrapContentViewPager;
 import ir.berimbasket.app.ui.login.LoginActivity;
 import ir.berimbasket.app.util.FontHelper;
 import ir.berimbasket.app.util.Redirect;

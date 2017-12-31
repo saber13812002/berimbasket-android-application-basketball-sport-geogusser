@@ -80,9 +80,9 @@
     <string name="activity_create_stadium_edt_address_hint">آدرس ورزشگاه به صورت دستی</string>
     <string name="activity_create_stadium_btn_address">آدرس ورزشگاه روی نقشه</string>
     <string name="activity_create_stadium_btn_add_image">اضافه کردن عکس های ورشگاه</string>
-    <string name="fragment_home_txt_more_player">بازیکنان</string>
-    <string name="fragment_home_txt_more_stadium">ورزشگاه ها</string>
-    <string name="fragment_home_txt_more_match">بازی ها</string>
+    <string name="fragment_main_tab_player">بازیکنان</string>
+    <string name="fragment_main_tab_stadium">ورزشگاه ها</string>
+    <string name="fragment_main_tab_match">بازی ها</string>
     <string name="fragment_profile_user_not_reg_message">وارد حساب کاربریت شو تا غافلگیر شی</string>
     <string name="fragment_profile_user_not_reg_btn">ورود به حساب کاربری</string>
     <string name="fragment_profile_txt_name_default">نام و نام خانوادگی</string>
@@ -206,4 +206,8 @@
     <string name="pref_category_lang">تنظیمات زبان</string>
     <string name="pref_lang_list_title">انتخاب زبان برنامه</string>
     <string name="activity_player_txt_player_name_loading">در حال بارگیری بازیکن</string>
+    <string name="item_stadium_list_phone">تلفن :</string>
+    <string name="item_stadium_list_address">آدرس :</string>
+    <string name="item_player_list_post_label">پست بازی :</string>
+    <string name="item_player_list_team_label">تیم :</string>
 </resources>

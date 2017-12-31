@@ -97,9 +97,9 @@
     <string name="activity_stadium_btn_add_image">Add Image</string>
 
     <!-- fragment -->
-    <string name="fragment_home_txt_more_match">Matches</string>
-    <string name="fragment_home_txt_more_player">Players</string>
-    <string name="fragment_home_txt_more_stadium">Stadiums</string>
+    <string name="fragment_main_tab_match">Matches</string>
+    <string name="fragment_main_tab_player">Players</string>
+    <string name="fragment_main_tab_stadium">Stadiums</string>
 
     <string name="fragment_intro_stadium_text">FIND STADIUM</string>
     <string name="fragment_intro_match_text">JOIN MATCH</string>
@@ -145,6 +145,12 @@
 
     <string name="item_player_spec_key_default">Height</string>
     <string name="item_player_spec_value_default">185 Centimeter</string>
+
+    <string name="item_stadium_list_phone">Phone :</string>
+    <string name="item_stadium_list_address">Address :</string>
+
+    <string name="item_player_list_post_label">Post :</string>
+    <string name="item_player_list_team_label">Team :</string>
 
     <!-- custom view -->
     <string name="custom_map_marker_default">Shahid Avini</string>
