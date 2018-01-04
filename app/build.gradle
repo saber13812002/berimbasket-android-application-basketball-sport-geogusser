@@ -48,8 +48,8 @@ android {
         applicationId "ir.berimbasket.app"
         minSdkVersion 17
         targetSdkVersion 26
-        versionCode 11
-        versionName "0.9.24"
+        versionCode 12
+        versionName "0.9.25"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         // icon substitute
         vectorDrawables.useSupportLibrary = true
