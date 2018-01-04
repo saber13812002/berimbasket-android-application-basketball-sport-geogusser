@@ -1,3 +1,6 @@
 package ir.berimbasket.app.data.network.model
 
-class GeneralIntent (var link: String?)
+import com.google.gson.annotations.SerializedName
+
+class GeneralIntent(@field:SerializedName("link")
+                    var link: String?)
