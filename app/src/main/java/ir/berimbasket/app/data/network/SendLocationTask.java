@@ -1,6 +1,8 @@
 package ir.berimbasket.app.data.network;
 
 import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 
 import co.ronash.pushe.Pushe;
@@ -25,9 +27,16 @@ public class SendLocationTask extends AsyncTask<EntityLocation, Void, Void> {
             PrefManager pref = new PrefManager(context);
             String pusheId = Pushe.getPusheId(context);
             String userName = pref.getUserName();
-            String url = URL_SET_LOCATION + String.format("?token=jkhfgkljhasfdlkh&lat=%s&long=%s&title=title&username=%s&pusheid=%s"
-                    , params[0].getLatitude(), params[0].getLongitude(), userName, pusheId);
-            httpFuncs.makeServiceCall(url);
+            try {
+                PackageInfo pInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
+                int version = pInfo.versionCode;
+                String url = URL_SET_LOCATION +
+                        String.format("?token=jkhfgkljhasfdlkh&lat=%s&long=%s&title=title&username=%s&pusheid=%s&version=%s"
+                        , params[0].getLatitude(), params[0].getLongitude(), userName, pusheId, version);
+                httpFuncs.makeServiceCall(url);
+            } catch (PackageManager.NameNotFoundException e) {
+                // do nothing
+            }
         }
         return null;
     }
