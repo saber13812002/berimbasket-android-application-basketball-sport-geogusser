@@ -10,8 +10,8 @@ import android.support.v7.preference.PreferenceFragmentCompat;
 
 import ir.berimbasket.app.R;
 import ir.berimbasket.app.data.pref.PrefManager;
-import ir.berimbasket.app.ui.base.ApplicationLoader;
 import ir.berimbasket.app.ui.splash.SplashActivity;
+import ir.berimbasket.app.util.AnalyticsHelper;
 import ir.berimbasket.app.util.LocaleManager;
 import ir.berimbasket.app.util.Redirect;
 
@@ -50,22 +50,22 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
         String key = preference.getKey();
         if (key.equals(help.getKey())) {
             // Tracking Event (Analytics)
-            ApplicationLoader.getInstance().trackEvent(getString(R.string.analytics_category_settings), getString(R.string.analytics_action_help), "");
+            AnalyticsHelper.getInstance().trackEvent(getString(R.string.analytics_category_settings), getString(R.string.analytics_action_help), "");
             Redirect.sendToCustomTab(getActivity(), URL_PREFERENCE_HELP);
             return true;
         } else if (key.equals(aboutUs.getKey())) {
             // Tracking Event (Analytics)
-            ApplicationLoader.getInstance().trackEvent(getString(R.string.analytics_category_settings), getString(R.string.analytics_action_about), "");
+            AnalyticsHelper.getInstance().trackEvent(getString(R.string.analytics_category_settings), getString(R.string.analytics_action_about), "");
             Redirect.sendToCustomTab(getActivity(), URL_PREFERENCE_ABOUT_US);
             return true;
         } else if (key.equals(terms.getKey())) {
             // Tracking Event (Analytics)
-            ApplicationLoader.getInstance().trackEvent(getString(R.string.analytics_category_settings), getString(R.string.analytics_action_terms), "");
+            AnalyticsHelper.getInstance().trackEvent(getString(R.string.analytics_category_settings), getString(R.string.analytics_action_terms), "");
             Redirect.sendToCustomTab(getActivity(), URL_PREFERENCE_TERMS_AND_SERVICES);
             return true;
         } else if (key.equals(changeLog.getKey())) {
             // Tracking Event (Analytics)
-            ApplicationLoader.getInstance().trackEvent(getString(R.string.analytics_category_settings), getString(R.string.analytics_action_change_log), "");
+            AnalyticsHelper.getInstance().trackEvent(getString(R.string.analytics_category_settings), getString(R.string.analytics_action_change_log), "");
             Redirect.sendToCustomTab(getActivity(), URL_PREFERENCE_CHANGE_LOG);
             return true;
         }

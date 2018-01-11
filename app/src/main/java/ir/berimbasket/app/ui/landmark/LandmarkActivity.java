@@ -17,8 +17,8 @@ import co.ronash.pushe.Pushe;
 import ir.berimbasket.app.R;
 import ir.berimbasket.app.data.network.HttpFunctions;
 import ir.berimbasket.app.data.pref.PrefManager;
-import ir.berimbasket.app.ui.base.ApplicationLoader;
 import ir.berimbasket.app.ui.base.BaseActivity;
+import ir.berimbasket.app.util.AnalyticsHelper;
 
 public class LandmarkActivity extends BaseActivity {
 
@@ -47,13 +47,6 @@ public class LandmarkActivity extends BaseActivity {
 
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        // Tracking the screen view (Analytics)
-        ApplicationLoader.getInstance().trackScreenView(getString(R.string.analytics_screen_set_marker));
-    }
-
     private void initViews() {
         btnSendLocation = (ImageView) findViewById(R.id.btnSendMarker);
         edtLocationName = (AppCompatEditText) findViewById(R.id.edtLocationName);
@@ -77,7 +70,7 @@ public class LandmarkActivity extends BaseActivity {
                             + "&pusheid=" + pusheId;
                     Url.replace(" ", "%20");
                     // Tracking Event (Analytics)
-                    ApplicationLoader.getInstance().trackEvent(getString(R.string.analytics_category_map),
+                    AnalyticsHelper.getInstance().trackEvent(getString(R.string.analytics_category_map),
                             getString(R.string.analytics_action_set_new_marker),
                             String.format("Location : lat=%s , long=%s", latitude, longitude));
                     new PostLocation().execute(Url);

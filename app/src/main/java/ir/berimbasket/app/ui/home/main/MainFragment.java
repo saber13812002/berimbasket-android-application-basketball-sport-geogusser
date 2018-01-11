@@ -8,8 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import ir.berimbasket.app.R;
-import ir.berimbasket.app.ui.base.ApplicationLoader;
 import ir.berimbasket.app.ui.common.WrapContentViewPager;
+import ir.berimbasket.app.util.AnalyticsHelper;
 import ir.berimbasket.app.util.FontHelper;
 
 /**
@@ -43,8 +43,8 @@ public class MainFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        // Tracking the screen view (Analytics)
-        ApplicationLoader.getInstance().trackScreenView(getString(R.string.analytics_screen_fragment_home));
+        // Track screen view (Analytics)
+        AnalyticsHelper.getInstance().trackScreenView(getContext(), this.getClass().getSimpleName());
     }
 
 }

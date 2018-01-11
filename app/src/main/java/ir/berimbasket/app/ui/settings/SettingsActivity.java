@@ -5,7 +5,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import ir.berimbasket.app.R;
-import ir.berimbasket.app.ui.base.ApplicationLoader;
 import ir.berimbasket.app.ui.base.BaseActivity;
 
 public class SettingsActivity extends BaseActivity {
@@ -27,13 +26,6 @@ public class SettingsActivity extends BaseActivity {
             finish();
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        // Tracking the screen view (Analytics)
-        ApplicationLoader.getInstance().trackScreenView(getString(R.string.analytics_screen_settings));
     }
 
     @Override

@@ -30,7 +30,6 @@ import ir.berimbasket.app.data.entity.EntityStadium;
 import ir.berimbasket.app.data.entity.EntityStadiumGallery;
 import ir.berimbasket.app.data.network.HttpFunctions;
 import ir.berimbasket.app.data.pref.PrefManager;
-import ir.berimbasket.app.ui.base.ApplicationLoader;
 import ir.berimbasket.app.ui.base.BaseActivity;
 import ir.berimbasket.app.util.Redirect;
 import ir.berimbasket.app.util.Telegram;
@@ -67,13 +66,6 @@ public class StadiumActivity extends BaseActivity {
             stadiumLogoUrl = getIntent().getStringExtra("stadiumLogoUrlPath");
             new GetStadium().execute(entityStadium.getId());
         }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        // Tracking the screen view (Analytics)
-        ApplicationLoader.getInstance().trackScreenView(getString(R.string.analytics_screen_stadium));
     }
 
     private void initToolbar() {

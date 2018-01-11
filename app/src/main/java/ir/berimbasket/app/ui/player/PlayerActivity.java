@@ -28,7 +28,6 @@ import ir.berimbasket.app.data.entity.EntitySocialAcc;
 import ir.berimbasket.app.data.network.WebApiClient;
 import ir.berimbasket.app.data.network.model.Player;
 import ir.berimbasket.app.data.pref.PrefManager;
-import ir.berimbasket.app.ui.base.ApplicationLoader;
 import ir.berimbasket.app.ui.base.BaseActivity;
 import ir.berimbasket.app.ui.common.PlayerSpecificationAdapter;
 import ir.berimbasket.app.util.Redirect;
@@ -139,14 +138,6 @@ public class PlayerActivity extends BaseActivity {
         ArrayList<String> playerSpecList = getPlayerSpec(player);
         initRecyclerPlayerSpec(playerSpecList);
         initRecyclerSocialAcc();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        // Tracking the screen view (Analytics)
-        ApplicationLoader.getInstance().trackScreenView(getString(R.string.analytics_screen_player));
-
     }
 
     @Override

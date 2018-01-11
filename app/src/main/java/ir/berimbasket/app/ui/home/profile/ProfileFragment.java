@@ -32,9 +32,9 @@ import co.ronash.pushe.Pushe;
 import ir.berimbasket.app.R;
 import ir.berimbasket.app.data.network.HttpFunctions;
 import ir.berimbasket.app.data.pref.PrefManager;
-import ir.berimbasket.app.ui.base.ApplicationLoader;
 import ir.berimbasket.app.ui.common.WrapContentViewPager;
 import ir.berimbasket.app.ui.login.LoginActivity;
+import ir.berimbasket.app.util.AnalyticsHelper;
 import ir.berimbasket.app.util.FontHelper;
 import ir.berimbasket.app.util.Redirect;
 import ir.berimbasket.app.util.Telegram;
@@ -187,8 +187,8 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        // Tracking the screen view (Analytics)
-        ApplicationLoader.getInstance().trackScreenView(getString(R.string.analytics_screen_fragment_profile));
+        // Track screen view (Analytics)
+        AnalyticsHelper.getInstance().trackScreenView(getContext(), this.getClass().getSimpleName());
         // invalidate fragment when login status changes (eg. return from login activity)
         PrefManager pref = new PrefManager(getContext());
         boolean loginStatus = pref.getIsLoggedIn();
@@ -213,7 +213,7 @@ public class ProfileFragment extends Fragment {
                         pref.putUserName(null);
                         pref.putPassword(null);
                         // Tracking Event (Analytics)
-                        ApplicationLoader.getInstance().trackEvent(getString(R.string.analytics_category_login), getString(R.string.analytics_action_log_out), "");
+                        AnalyticsHelper.getInstance().trackEvent(getString(R.string.analytics_category_login), getString(R.string.analytics_action_log_out), "");
                         getFragmentManager().beginTransaction().detach(ProfileFragment.this).attach(ProfileFragment.this).commitAllowingStateLoss();
                     }
                 })

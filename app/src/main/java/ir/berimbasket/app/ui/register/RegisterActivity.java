@@ -25,9 +25,9 @@ import co.ronash.pushe.Pushe;
 import ir.berimbasket.app.R;
 import ir.berimbasket.app.data.network.HttpFunctions;
 import ir.berimbasket.app.data.pref.PrefManager;
-import ir.berimbasket.app.ui.base.ApplicationLoader;
 import ir.berimbasket.app.ui.base.BaseActivity;
 import ir.berimbasket.app.ui.login.LoginActivity;
+import ir.berimbasket.app.util.AnalyticsHelper;
 import ir.berimbasket.app.util.Redirect;
 import ir.berimbasket.app.util.Telegram;
 import ir.berimbasket.app.util.TypefaceManager;
@@ -60,13 +60,6 @@ public class RegisterActivity extends BaseActivity {
         initFonts();
         initListeners();
         showRobotDialog();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        // Tracking the screen view (Analytics)
-        ApplicationLoader.getInstance().trackScreenView(getString(R.string.analytics_screen_register));
     }
 
     private void initViews() {
@@ -163,7 +156,7 @@ public class RegisterActivity extends BaseActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         Redirect.sendToTelegram(getApplicationContext(), REGISTER_BOT, Telegram.PUSHEID_BOT);
                         // Tracking Event (Analytics)
-                        ApplicationLoader.getInstance().trackEvent(getString(R.string.analytics_category_registration)
+                        AnalyticsHelper.getInstance().trackEvent(getString(R.string.analytics_category_registration)
                                 , getString(R.string.analytics_action_telegram_bot), "");
                     }
                 })
@@ -268,7 +261,7 @@ public class RegisterActivity extends BaseActivity {
             if (!registerError) {
                 Toast.makeText(getApplicationContext(), getString(R.string.activity_register_toast_register_successful), Toast.LENGTH_LONG).show();
                 // Tracking Event (Analytics)
-                ApplicationLoader.getInstance().trackEvent(getString(R.string.analytics_category_registration), getString(R.string.analytics_action_new_register), "");
+                AnalyticsHelper.getInstance().trackEvent(getString(R.string.analytics_category_registration), getString(R.string.analytics_action_new_register), "");
                 RegisterActivity.this.finish();
             }
             pDialog.cancel();

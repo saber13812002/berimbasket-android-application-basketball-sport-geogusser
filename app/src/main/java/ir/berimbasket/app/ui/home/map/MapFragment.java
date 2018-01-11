@@ -37,10 +37,10 @@ import ir.berimbasket.app.data.entity.EntityStadium;
 import ir.berimbasket.app.data.network.HttpFunctions;
 import ir.berimbasket.app.data.pref.PrefManager;
 import ir.berimbasket.app.service.GPSTracker;
-import ir.berimbasket.app.ui.base.ApplicationLoader;
 import ir.berimbasket.app.ui.home.HomeActivity;
 import ir.berimbasket.app.ui.landmark.LandmarkActivity;
 import ir.berimbasket.app.ui.stadium.StadiumActivity;
+import ir.berimbasket.app.util.AnalyticsHelper;
 
 public class MapFragment extends Fragment implements OnMapReadyCallback {
     private static String _URL = "https://berimbasket.ir/bball/get.php";
@@ -96,8 +96,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     public void onResume() {
         super.onResume();
         mapView.onResume();
-        // Tracking the screen view (Analytics)
-        ApplicationLoader.getInstance().trackScreenView(getString(R.string.analytics_screen_fragment_map));
+        // Track screen view (Analytics)
+        AnalyticsHelper.getInstance().trackScreenView(getContext(), this.getClass().getSimpleName());
         if (map != null) {
             // change camera location only when city filter is changed
             LatLng pre = new LatLng(this.latitude, this.longitude);

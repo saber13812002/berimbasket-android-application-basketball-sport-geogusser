@@ -8,7 +8,7 @@ import android.os.AsyncTask;
 import co.ronash.pushe.Pushe;
 import ir.berimbasket.app.data.entity.EntityLocation;
 import ir.berimbasket.app.data.pref.PrefManager;
-import ir.berimbasket.app.ui.base.ApplicationLoader;
+import ir.berimbasket.app.ui.base.BaseApplication;
 
 /**
  * Created by Mahdi on 9/20/2017.
@@ -22,7 +22,7 @@ public class SendLocationTask extends AsyncTask<EntityLocation, Void, Void> {
     @Override
     protected Void doInBackground(EntityLocation... params) {
         HttpFunctions httpFuncs = new HttpFunctions(HttpFunctions.RequestType.GET);
-        Context context = ApplicationLoader.getInstance().getApplicationContext();
+        Context context = BaseApplication.getInstance().getApplicationContext();
         if (context != null) {
             PrefManager pref = new PrefManager(context);
             String pusheId = Pushe.getPusheId(context);

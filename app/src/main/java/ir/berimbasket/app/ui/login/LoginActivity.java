@@ -23,9 +23,9 @@ import co.ronash.pushe.Pushe;
 import ir.berimbasket.app.R;
 import ir.berimbasket.app.data.network.HttpFunctions;
 import ir.berimbasket.app.data.pref.PrefManager;
-import ir.berimbasket.app.ui.base.ApplicationLoader;
 import ir.berimbasket.app.ui.base.BaseActivity;
 import ir.berimbasket.app.ui.register.RegisterActivity;
+import ir.berimbasket.app.util.AnalyticsHelper;
 import ir.berimbasket.app.util.Redirect;
 import ir.berimbasket.app.util.Telegram;
 import ir.berimbasket.app.util.TypefaceManager;
@@ -55,13 +55,6 @@ public class LoginActivity extends BaseActivity {
         initFonts();
         initListeners();
 
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        // Tracking the screen view (Analytics)
-        ApplicationLoader.getInstance().trackScreenView(getString(R.string.analytics_screen_login));
     }
 
     private void initViews() {
@@ -178,7 +171,7 @@ public class LoginActivity extends BaseActivity {
                 pref.putPassword(edtPassword.getText().toString());
                 pref.putIsLoggedIn(true);
                 // Tracking Event (Analytics)
-                ApplicationLoader.getInstance().trackEvent(getString(R.string.analytics_category_login),
+                AnalyticsHelper.getInstance().trackEvent(getString(R.string.analytics_category_login),
                         getString(R.string.analytics_action_log_on), "");
                 LoginActivity.this.finish();
                 // FIXME: 16/11/2017  after login fragment profile's childes fragment not showing

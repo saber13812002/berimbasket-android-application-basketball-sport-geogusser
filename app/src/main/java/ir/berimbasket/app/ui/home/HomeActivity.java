@@ -28,7 +28,6 @@ import ir.berimbasket.app.R;
 import ir.berimbasket.app.data.entity.EntityLocation;
 import ir.berimbasket.app.data.network.SendLocationTask;
 import ir.berimbasket.app.service.GPSTracker;
-import ir.berimbasket.app.ui.base.ApplicationLoader;
 import ir.berimbasket.app.ui.base.BaseActivity;
 import ir.berimbasket.app.ui.common.custom.TypefaceSpanCustom;
 import ir.berimbasket.app.ui.settings.SettingsActivity;
@@ -138,13 +137,6 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
             //the method we have create in activity
             applyFontToMenuItem(mi);
         }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        // Tracking the screen view (Analytics)
-        ApplicationLoader.getInstance().trackScreenView(getString(R.string.analytics_screen_home));
     }
 
     private void applyFontToMenuItem(MenuItem mi) {
