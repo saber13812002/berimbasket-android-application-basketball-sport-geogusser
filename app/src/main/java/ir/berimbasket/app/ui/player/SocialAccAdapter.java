@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import ir.berimbasket.app.R;
 import ir.berimbasket.app.data.entity.EntitySocialAcc;
 import ir.berimbasket.app.util.Redirect;
+import ir.berimbasket.app.util.Telegram;
 
 /**
  * Created by mohammad hosein on 7/21/2017.
@@ -71,7 +72,7 @@ public class SocialAccAdapter extends RecyclerView.Adapter<SocialAccAdapter.View
                             entitySocialAcc.getType() == EntitySocialAcc.SOCIAL_TYPE_TELEGRAM_GROUP ||
                             entitySocialAcc.getType() == EntitySocialAcc.SOCIAL_TYPE_TELEGRAM_USER) {
                         try {
-                            Redirect.sendToTelegram(context, entitySocialAcc.getLink());  // https://t.me/mamlekate
+                            Redirect.sendToTelegram(context, entitySocialAcc.getLink(), Telegram.CHAT);  // https://t.me/mamlekate
                         } catch (IllegalArgumentException unknownTelegramURL) {
                             // do nothing yet
                         }

@@ -37,6 +37,7 @@ import ir.berimbasket.app.ui.common.WrapContentViewPager;
 import ir.berimbasket.app.ui.login.LoginActivity;
 import ir.berimbasket.app.util.FontHelper;
 import ir.berimbasket.app.util.Redirect;
+import ir.berimbasket.app.util.Telegram;
 
 /**
  * Created by mohammad hosein on 5/1/2017.
@@ -117,7 +118,7 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 try {
-                    Redirect.sendToTelegram(getActivity(), UPLOAD_PHOTO_BOT);
+                    Redirect.sendToTelegram(getActivity(), UPLOAD_PHOTO_BOT, Telegram.DEFAULT_BOT);
                 } catch (IllegalArgumentException unknownTelegramURL) {
                     // do nothing yet
                 }
@@ -148,7 +149,7 @@ public class ProfileFragment extends Fragment {
                         break;
                     case R.id.menu_profile_info:
                         try {
-                            Redirect.sendToTelegram(getActivity(), UPDATE_USER_INFO_BOT);
+                            Redirect.sendToTelegram(getActivity(), UPDATE_USER_INFO_BOT, Telegram.DEFAULT_BOT);
                         } catch (IllegalArgumentException unknownTelegramURL) {
                             // do nothing yet
                         }
@@ -159,14 +160,14 @@ public class ProfileFragment extends Fragment {
 
                     case R.id.menu_profile_score:
                         try {
-                            Redirect.sendToTelegram(getActivity(), PROFILE_SCORE_INFO_BOT);
+                            Redirect.sendToTelegram(getActivity(), PROFILE_SCORE_INFO_BOT, Telegram.DEFAULT_BOT);
                         } catch (IllegalArgumentException unknownTelegramURL) {
                             // do nothing yet
                         }
                         break;
                     case R.id.menu_profile_team:
                         try {
-                            Redirect.sendToTelegram(getActivity(), PROFILE_TEAM_INFO_BOT);
+                            Redirect.sendToTelegram(getActivity(), PROFILE_TEAM_INFO_BOT, Telegram.DEFAULT_BOT);
                         } catch (IllegalArgumentException unknownTelegramURL) {
                             // do nothing yet
                         }

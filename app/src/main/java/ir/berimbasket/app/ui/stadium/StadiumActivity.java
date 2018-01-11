@@ -33,6 +33,7 @@ import ir.berimbasket.app.data.pref.PrefManager;
 import ir.berimbasket.app.ui.base.ApplicationLoader;
 import ir.berimbasket.app.ui.base.BaseActivity;
 import ir.berimbasket.app.util.Redirect;
+import ir.berimbasket.app.util.Telegram;
 
 public class StadiumActivity extends BaseActivity {
 
@@ -143,7 +144,8 @@ public class StadiumActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 try {
-                    Redirect.sendToTelegram(StadiumActivity.this, UPDATE_STADIUM_INFO_BOT + entityStadium.getId());
+                    Redirect.sendToTelegram(StadiumActivity.this, UPDATE_STADIUM_INFO_BOT + entityStadium.getId(),
+                            Telegram.DEFAULT_BOT);
                 } catch (IllegalArgumentException unknownTelegramURL) {
                     // do nothing yet
                 }
@@ -154,7 +156,8 @@ public class StadiumActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 try {
-                    Redirect.sendToTelegram(StadiumActivity.this, REPORT_STADIUM_BOT + entityStadium.getId());
+                    Redirect.sendToTelegram(StadiumActivity.this, REPORT_STADIUM_BOT + entityStadium.getId(),
+                            Telegram.DEFAULT_BOT);
                 } catch (IllegalArgumentException unknownTelegramURL) {
                     // do nothing yet
                 }
@@ -165,7 +168,8 @@ public class StadiumActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 try {
-                    Redirect.sendToTelegram(StadiumActivity.this, RESERVE_STADIUM_BOT + entityStadium.getId());
+                    Redirect.sendToTelegram(StadiumActivity.this, RESERVE_STADIUM_BOT + entityStadium.getId()
+                    , Telegram.DEFAULT_BOT);
                 } catch (IllegalArgumentException unknownTelegramURL) {
                     // do nothing yet
                 }
@@ -177,7 +181,8 @@ public class StadiumActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 try {
-                    Redirect.sendToTelegram(StadiumActivity.this, STADIUM_IMAGE_BOT + entityStadium.getId());
+                    Redirect.sendToTelegram(StadiumActivity.this, STADIUM_IMAGE_BOT + entityStadium.getId()
+                            , Telegram.DEFAULT_BOT);
                 } catch (IllegalArgumentException unknownTelegramURL) {
                     // do nothing yet
                 }

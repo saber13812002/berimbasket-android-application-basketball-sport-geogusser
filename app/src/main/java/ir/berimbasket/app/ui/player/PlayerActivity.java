@@ -32,6 +32,7 @@ import ir.berimbasket.app.ui.base.ApplicationLoader;
 import ir.berimbasket.app.ui.base.BaseActivity;
 import ir.berimbasket.app.ui.common.PlayerSpecificationAdapter;
 import ir.berimbasket.app.util.Redirect;
+import ir.berimbasket.app.util.Telegram;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -115,7 +116,8 @@ public class PlayerActivity extends BaseActivity {
             public void onClick(View view) {
                 try {
                     if (player != null) {
-                        Redirect.sendToTelegram(PlayerActivity.this, REPORT_PLAYER_BOT + player.getId());
+                        Redirect.sendToTelegram(PlayerActivity.this, REPORT_PLAYER_BOT + player.getId(),
+                                Telegram.DEFAULT_BOT);
                     }
                 } catch (IllegalArgumentException unknownTelegramURL) {
                     // to nothing yet

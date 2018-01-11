@@ -27,6 +27,7 @@ import ir.berimbasket.app.ui.base.ApplicationLoader;
 import ir.berimbasket.app.ui.base.BaseActivity;
 import ir.berimbasket.app.ui.register.RegisterActivity;
 import ir.berimbasket.app.util.Redirect;
+import ir.berimbasket.app.util.Telegram;
 import ir.berimbasket.app.util.TypefaceManager;
 
 /**
@@ -111,7 +112,7 @@ public class LoginActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 try {
-                    Redirect.sendToTelegram(LoginActivity.this, "https://t.me/berimbasket/263");
+                    Redirect.sendToTelegram(LoginActivity.this, "https://t.me/berimbasket/263", Telegram.POST);
                 } catch (IllegalArgumentException unknownTelegramURL) {
                     // do nothing yet
                 }

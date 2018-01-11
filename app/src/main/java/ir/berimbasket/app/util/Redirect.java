@@ -16,6 +16,7 @@ import android.support.v4.content.FileProvider;
 import java.io.File;
 import java.util.Locale;
 
+import co.ronash.pushe.Pushe;
 import ir.berimbasket.app.R;
 import ir.berimbasket.app.ui.common.custom.AlertDialogCustom;
 import ir.berimbasket.app.ui.common.custom.ToastCustom;
@@ -28,7 +29,14 @@ import ir.berimbasket.app.util.customtabs.CustomTabActivityHelper;
 
 public class Redirect {
 
-    public static void sendToTelegram(Context context, String telegramUrl) throws IllegalArgumentException {
+    public static void sendToTelegram(Context context, String telegramUrl, Telegram type) throws IllegalArgumentException {
+        switch (type) {
+            case PUSHEID_BOT:
+                String pusheId = Pushe.getPusheId(context);
+                telegramUrl += "?start=" + pusheId;
+                break;
+        }
+
         String regex = "http(s?)://(www\\.)?(t|telegram)\\.me/.+";
         if (telegramUrl.matches(regex)) {
 //            final String packageName = "org.telegram.messenger";

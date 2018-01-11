@@ -5,7 +5,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -29,6 +28,8 @@ import ir.berimbasket.app.data.pref.PrefManager;
 import ir.berimbasket.app.ui.base.ApplicationLoader;
 import ir.berimbasket.app.ui.base.BaseActivity;
 import ir.berimbasket.app.ui.login.LoginActivity;
+import ir.berimbasket.app.util.Redirect;
+import ir.berimbasket.app.util.Telegram;
 import ir.berimbasket.app.util.TypefaceManager;
 
 
@@ -160,12 +161,10 @@ public class RegisterActivity extends BaseActivity {
                 .setMessage(getString(R.string.general_dialog_message_bot_register))
                 .setPositiveButton(getString(R.string.general_dialog_option_bot_link), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        String pusheId = Pushe.getPusheId(getApplicationContext());
-                        Intent telegram = new Intent(Intent.ACTION_VIEW, Uri.parse(REGISTER_BOT + "?pusheid=" + pusheId));
+                        Redirect.sendToTelegram(getApplicationContext(), REGISTER_BOT, Telegram.PUSHEID_BOT);
                         // Tracking Event (Analytics)
                         ApplicationLoader.getInstance().trackEvent(getString(R.string.analytics_category_registration)
                                 , getString(R.string.analytics_action_telegram_bot), "");
-                        startActivity(telegram);
                     }
                 })
                 .setNegativeButton(getString(R.string.general_dialog_option_cancel), new DialogInterface.OnClickListener() {
