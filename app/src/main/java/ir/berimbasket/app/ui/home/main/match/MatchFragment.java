@@ -23,6 +23,7 @@ import ir.berimbasket.app.R;
 import ir.berimbasket.app.data.entity.EntityMatchScore;
 import ir.berimbasket.app.data.network.HttpFunctions;
 import ir.berimbasket.app.data.pref.PrefManager;
+import ir.berimbasket.app.util.AnalyticsHelper;
 import ir.berimbasket.app.util.Redirect;
 
 public class MatchFragment extends Fragment implements MatchAdapter.MatchListListener {
@@ -59,6 +60,13 @@ public class MatchFragment extends Fragment implements MatchAdapter.MatchListLis
         new GetMatch().execute();
 
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Track screen view (Analytics)
+        AnalyticsHelper.getInstance().trackScreenView(getContext(), this.getClass().getSimpleName());
     }
 
     @Override

@@ -20,6 +20,7 @@ import ir.berimbasket.app.data.network.WebApiClient;
 import ir.berimbasket.app.data.network.model.Player;
 import ir.berimbasket.app.data.pref.PrefManager;
 import ir.berimbasket.app.ui.player.PlayerActivity;
+import ir.berimbasket.app.util.AnalyticsHelper;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -52,6 +53,13 @@ public class PlayerFragment extends Fragment implements PlayerAdapter.PlayerList
         initPlayerList();
 
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Track screen view (Analytics)
+        AnalyticsHelper.getInstance().trackScreenView(getContext(), this.getClass().getSimpleName());
     }
 
     @Override

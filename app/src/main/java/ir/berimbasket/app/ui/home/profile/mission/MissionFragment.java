@@ -24,6 +24,7 @@ import ir.berimbasket.app.R;
 import ir.berimbasket.app.data.entity.EntityMission;
 import ir.berimbasket.app.data.network.HttpFunctions;
 import ir.berimbasket.app.data.pref.PrefManager;
+import ir.berimbasket.app.util.AnalyticsHelper;
 
 public class MissionFragment extends Fragment {
 
@@ -34,6 +35,13 @@ public class MissionFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_missions, container, false);
         new GetMissions().execute();
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Track screen view (Analytics)
+        AnalyticsHelper.getInstance().trackScreenView(getContext(), this.getClass().getSimpleName());
     }
 
     private void initRecyclerMission(View view, ArrayList<EntityMission> missionList) {

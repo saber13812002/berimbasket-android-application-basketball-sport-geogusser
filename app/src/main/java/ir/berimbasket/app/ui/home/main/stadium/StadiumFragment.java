@@ -27,6 +27,7 @@ import ir.berimbasket.app.data.entity.EntityStadium;
 import ir.berimbasket.app.data.network.HttpFunctions;
 import ir.berimbasket.app.data.pref.PrefManager;
 import ir.berimbasket.app.ui.stadium.StadiumActivity;
+import ir.berimbasket.app.util.AnalyticsHelper;
 
 public class StadiumFragment extends Fragment implements StadiumAdapter.StadiumListListener {
 
@@ -59,6 +60,13 @@ public class StadiumFragment extends Fragment implements StadiumAdapter.StadiumL
         new GetStadium().execute();
 
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Track screen view (Analytics)
+        AnalyticsHelper.getInstance().trackScreenView(getContext(), this.getClass().getSimpleName());
     }
 
     @Override
