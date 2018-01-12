@@ -3,7 +3,6 @@ package ir.berimbasket.app.ui.home.profile;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,7 +10,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.PopupMenu;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
@@ -24,13 +22,13 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import java.net.HttpURLConnection;
+import java.util.List;
 
 import co.ronash.pushe.Pushe;
 import ir.berimbasket.app.R;
-import ir.berimbasket.app.data.network.HttpFunctions;
+import ir.berimbasket.app.data.network.WebApiClient;
+import ir.berimbasket.app.data.network.model.Player;
 import ir.berimbasket.app.data.pref.PrefManager;
 import ir.berimbasket.app.ui.common.WrapContentViewPager;
 import ir.berimbasket.app.ui.login.LoginActivity;
@@ -38,6 +36,9 @@ import ir.berimbasket.app.util.AnalyticsHelper;
 import ir.berimbasket.app.util.FontHelper;
 import ir.berimbasket.app.util.Redirect;
 import ir.berimbasket.app.util.Telegram;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by mohammad hosein on 5/1/2017.
@@ -45,20 +46,15 @@ import ir.berimbasket.app.util.Telegram;
 
 public class ProfileFragment extends Fragment {
 
-    private static String PLAYER_URL = "http://berimbasket.ir/bball/getPlayers.php";
-
-    TextView txtProfileName;
-    AppCompatButton btnScoreProfile, btnProfileTeam;
     private static final String PROFILE_SCORE_INFO_BOT = "http://t.me/berimbasketScorebot";
     private static final String PROFILE_TEAM_INFO_BOT = "http://t.me/berimbasketScorebot";
     private static final String UPDATE_USER_INFO_BOT = "https://t.me/berimbasketprofilebot";
     private static final String UPLOAD_PHOTO_BOT = "http://t.me/berimbasketProfilebot";
+
     private static boolean isLoggedIn;
-    private ProfilePagerAdapter profilePagerAdapter;
     private TabLayout tabProfile;
     private WrapContentViewPager pagerProfile;
-    private FloatingActionButton fabProfileMenu, fabChangeAvatar;
-    private static ImageView imgProfileImage;
+    private ImageView imgProfileImage;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -70,7 +66,7 @@ public class ProfileFragment extends Fragment {
         final Context context = inflater.getContext();
         PrefManager pref = new PrefManager(getContext());
         isLoggedIn = pref.getIsLoggedIn();
-        View rootView = null;
+        View rootView;
         if (isLoggedIn) {
             // user logged in
             rootView = inflater.inflate(R.layout.fragment_profile, container, false);
@@ -79,10 +75,9 @@ public class ProfileFragment extends Fragment {
             initTabProduct();
 
             imgProfileImage = rootView.findViewById(R.id.imgPlayerProfile);
-            txtProfileName = rootView.findViewById(R.id.txtProfileName);
+            TextView txtProfileName = rootView.findViewById(R.id.txtProfileName);
             txtProfileName.setText(pref.getUserName());
-            new GetPlayer(getContext()).execute();
-
+            initPlayer();
         } else {
             //user not logged in
             rootView = inflater.inflate(R.layout.fragment_profile_not_registered, container, false);
@@ -104,8 +99,8 @@ public class ProfileFragment extends Fragment {
     private void initViews(View view) {
         pagerProfile = view.findViewById(R.id.pagerProfile);
         tabProfile = view.findViewById(R.id.tabProfile);
-        fabProfileMenu = view.findViewById(R.id.fabProfileMenu);
-        fabChangeAvatar = view.findViewById(R.id.fabChangeAvatar);
+        final FloatingActionButton fabProfileMenu = view.findViewById(R.id.fabProfileMenu);
+        FloatingActionButton fabChangeAvatar = view.findViewById(R.id.fabChangeAvatar);
 
         fabProfileMenu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -127,7 +122,7 @@ public class ProfileFragment extends Fragment {
     }
 
     private void initProductPager() {
-        profilePagerAdapter = new ProfilePagerAdapter(getContext(), getActivity().getSupportFragmentManager());
+        ProfilePagerAdapter profilePagerAdapter = new ProfilePagerAdapter(getContext(), getActivity().getSupportFragmentManager());
         pagerProfile.setAdapter(profilePagerAdapter);
         pagerProfile.setOffscreenPageLimit(3);
     }
@@ -225,73 +220,35 @@ public class ProfileFragment extends Fragment {
                 .show();
     }
 
-    private static String userImage;
-
-    private static class GetPlayer extends AsyncTask<Void, Void, Void> {
-
-        Context context;
-
-        GetPlayer(Context context) {
-            this.context = context;
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-
-            HttpFunctions sh = new HttpFunctions(HttpFunctions.RequestType.GET);
-            PrefManager pref = new PrefManager(context);
-            String pusheId = Pushe.getPusheId(context);
-            String userName = pref.getUserName();
-            int userId = pref.getUserId();
-            String urlParams = String.format("id=%s&pusheid=%s&username=%s", userId, pusheId, userName);
-            String jsonStr = sh.makeServiceCall(PLAYER_URL + "?" + urlParams);
-            if (jsonStr != null) {
-                try {
-                    JSONArray locations = new JSONArray(jsonStr);
-
-                    for (int i = 0; i < locations.length(); i++) {
-                        JSONObject c = locations.getJSONObject(i);
-
-                        String id = c.getString("id");
-                        String username = c.getString("username");
-                        String namefa = c.getString("namefa");
-                        String address = c.getString("address");
-                        userImage = c.getString("uImages");
-                        String uInstagramId = c.getString("uInstagramId");
-                        String uTelegramId = c.getString("uTelegramlId");
-                        String height = c.getString("height");
-                        String weight = c.getString("weight");
-                        String city = c.getString("city");
-                        String age = c.getString("age");
-                        String coach = c.getString("coach");
-                        String teamname = c.getString("teamname");
-                        String experience = c.getString("experience");
-                        String post = c.getString("post");
-                        String telegramPhone = c.getString("telegramphone");
+    private void initPlayer() {
+        PrefManager pref = new PrefManager(getContext());
+        String userName = pref.getUserName();
+        int userId = pref.getUserId();
+        String pusheId = Pushe.getPusheId(getContext());
+        WebApiClient.getPlayerApi().getPlayers(userId, pusheId, userName).enqueue(new Callback<List<Player>>() {
+            @Override
+            public void onResponse(Call<List<Player>> call, Response<List<Player>> response) {
+                if (response.code() == HttpURLConnection.HTTP_OK) {
+                    List<Player> players = response.body();
+                    if (players != null) {
+                        Picasso.with(getContext())
+                                .load("https://berimbasket.ir" + players.get(0).getProfileImage())
+                                .resize(120, 120)
+                                .centerInside()
+                                .placeholder(R.drawable.profile_default)
+                                .error(R.drawable.profile_default)
+                                .into(imgProfileImage);
                     }
-                } catch (final JSONException e) {
-                   e.printStackTrace();
+                } else {
+                    // http call with incorrect params or other network error
                 }
             }
-            return null;
-        }
 
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-            Picasso.with(context)
-                    .load("https://berimbasket.ir" + userImage)
-                    .resize(120, 120)
-                    .centerInside()
-                    .placeholder(R.drawable.profile_default)
-                    .error(R.drawable.profile_default)
-                    .into(imgProfileImage);
-        }
+            @Override
+            public void onFailure(Call<List<Player>> call, Throwable t) {
+
+            }
+        });
     }
 
 }
