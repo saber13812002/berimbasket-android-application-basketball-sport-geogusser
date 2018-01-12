@@ -13,24 +13,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ir.berimbasket.app.R;
-import ir.berimbasket.app.data.entity.EntityMatchScore;
+import ir.berimbasket.app.data.network.model.Match;
 
 class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.ViewHolder> {
 
-    private List<EntityMatchScore> dataSource;
+    private List<Match> dataSource;
     private MatchListListener listener;
 
     interface MatchListListener {
-        void onMatchItemClick(EntityMatchScore matchScore);
+        void onMatchItemClick(Match matchScore);
     }
 
-    MatchAdapter(List<EntityMatchScore> items, MatchListListener listener) {
+    MatchAdapter(List<Match> items, MatchListListener listener) {
         dataSource = items;
         this.listener = listener;
     }
 
     MatchAdapter(MatchListListener listener) {
-        this(new ArrayList<EntityMatchScore>(), listener);
+        this(new ArrayList<Match>(), listener);
     }
 
     @Override
@@ -43,7 +43,7 @@ class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
 
-        EntityMatchScore entityMatchScore = dataSource.get(position);
+        Match entityMatchScore = dataSource.get(position);
         holder.txtHomeName.setText(entityMatchScore.getHomeName());
         holder.txtAwayName.setText(entityMatchScore.getAwayName());
         holder.txtHomeScore.setText(String.valueOf(entityMatchScore.getHomeScore()));
@@ -103,7 +103,7 @@ class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.ViewHolder> {
         }
     }
 
-    void swapDataSource(List<EntityMatchScore> dataSource) {
+    void swapDataSource(List<Match> dataSource) {
         this.dataSource = dataSource;
         notifyDataSetChanged();
     }
