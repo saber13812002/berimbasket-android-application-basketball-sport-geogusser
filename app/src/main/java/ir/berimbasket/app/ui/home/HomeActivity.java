@@ -2,6 +2,7 @@ package ir.berimbasket.app.ui.home;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -25,13 +26,16 @@ import com.crashlytics.android.Crashlytics;
 import co.ronash.pushe.Pushe;
 import io.fabric.sdk.android.Fabric;
 import ir.berimbasket.app.R;
-import ir.berimbasket.app.data.network.SendLocationTask;
+import ir.berimbasket.app.data.network.WebApiClient;
+import ir.berimbasket.app.data.pref.PrefManager;
 import ir.berimbasket.app.service.GPSTracker;
 import ir.berimbasket.app.ui.base.BaseActivity;
 import ir.berimbasket.app.ui.common.custom.TypefaceSpanCustom;
-import ir.berimbasket.app.ui.common.entity.LocationEntity;
 import ir.berimbasket.app.ui.settings.SettingsActivity;
 import ir.berimbasket.app.util.TypefaceManager;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class HomeActivity extends BaseActivity implements View.OnClickListener {
 
@@ -184,7 +188,26 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
             if (gps.canGetLocation()) {
                 double latitude = gps.getLatitude();
                 double longitude = gps.getLongitude();
-                new SendLocationTask().execute(new LocationEntity(latitude, longitude));
+                PrefManager pref = new PrefManager(getApplicationContext());
+                String pusheId = Pushe.getPusheId(getApplicationContext());
+                String userName = pref.getUserName();
+                try {
+                    PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+                    int version = pInfo.versionCode;
+                    WebApiClient.getLocationApi().setLocation("jkhfgkljhasfdlkh", String.valueOf(latitude),
+                            String.valueOf(longitude), "title", userName, pusheId, String.valueOf(version)).
+                            enqueue(new Callback<Void>() {
+                                @Override
+                                public void onResponse(Call<Void> call, Response<Void> response) {
+                                }
+
+                                @Override
+                                public void onFailure(Call<Void> call, Throwable t) {
+                                }
+                            });
+                } catch (PackageManager.NameNotFoundException e) {
+                    // do nothing
+                }
             } else {
                 // Can't get location.
                 // GPS or network is not enabled.
