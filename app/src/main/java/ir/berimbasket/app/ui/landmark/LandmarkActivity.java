@@ -1,7 +1,6 @@
 package ir.berimbasket.app.ui.landmark;
 
 import android.app.ProgressDialog;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatEditText;
@@ -13,12 +12,17 @@ import android.widget.Toast;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 
+import java.net.HttpURLConnection;
+
 import co.ronash.pushe.Pushe;
 import ir.berimbasket.app.R;
-import ir.berimbasket.app.data.network.HttpFunctions;
+import ir.berimbasket.app.data.network.WebApiClient;
 import ir.berimbasket.app.data.pref.PrefManager;
 import ir.berimbasket.app.ui.base.BaseActivity;
 import ir.berimbasket.app.util.AnalyticsHelper;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class LandmarkActivity extends BaseActivity {
 
@@ -48,8 +52,8 @@ public class LandmarkActivity extends BaseActivity {
     }
 
     private void initViews() {
-        btnSendLocation = (ImageView) findViewById(R.id.btnSendMarker);
-        edtLocationName = (AppCompatEditText) findViewById(R.id.edtLocationName);
+        btnSendLocation = findViewById(R.id.btnSendMarker);
+        edtLocationName = findViewById(R.id.edtLocationName);
     }
 
     private void initListeners() {
@@ -62,19 +66,11 @@ public class LandmarkActivity extends BaseActivity {
                 double longitude = landmarkFragment.getLongitude();
                 Log.i("message", String.valueOf(latitude));
                 if (!edtLocationName.getText().toString().equals("")) {
-                    PrefManager pref = new PrefManager(getApplicationContext());
-                    String pusheId = Pushe.getPusheId(getApplicationContext());
-                    String userName = pref.getUserName();
-                    String Url = "http://berimbasket.ir/bball/set.php?token=jkhfgkljhasfdlkh&lat="
-                            + latitude + "&long=" + longitude + "&title=" + edtLocationName.getText() + "&username=" + userName
-                            + "&pusheid=" + pusheId;
-                    Url.replace(" ", "%20");
                     // Tracking Event (Analytics)
                     AnalyticsHelper.getInstance().trackEvent(getString(R.string.analytics_category_map),
                             getString(R.string.analytics_action_set_new_marker),
                             String.format("Location : lat=%s , long=%s", latitude, longitude));
-                    new PostLocation().execute(Url);
-
+                    setMarker(String.valueOf(latitude), String.valueOf(longitude), edtLocationName.getText().toString());
                 } else {
                     Toast.makeText(getApplicationContext(), getString(R.string.activity_set_marker_toast_stadium_name_error), Toast.LENGTH_SHORT).show();
                 }
@@ -83,31 +79,28 @@ public class LandmarkActivity extends BaseActivity {
         });
     }
 
-    private class PostLocation extends AsyncTask<String, Void, String> {
+    private void setMarker(String latitude, String longitude, String title) {
+        pDialog = new ProgressDialog(LandmarkActivity.this);
+        pDialog.setMessage(getString(R.string.general_please_wait));
+        pDialog.setCancelable(false);
+        pDialog.show();
+        PrefManager pref = new PrefManager(getApplicationContext());
+        String pusheId = Pushe.getPusheId(getApplicationContext());
+        String userName = pref.getUserName();
+        WebApiClient.getSetMarkerApi().setMarker("jkhfgkljhasfdlkh", latitude, longitude, title, userName, pusheId).enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.code() == HttpURLConnection.HTTP_OK) {
+                    pDialog.cancel();
+                    Toast.makeText(getApplicationContext(), getString(R.string.activity_set_marker_toast_marker_successful), Toast.LENGTH_SHORT).show();
+                    LandmarkActivity.this.finish();
+                }
+            }
 
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            pDialog = new ProgressDialog(LandmarkActivity.this);
-            pDialog.setMessage(getString(R.string.general_please_wait));
-            pDialog.setCancelable(false);
-            pDialog.show();
-        }
-
-        @Override
-        protected String doInBackground(String... strings) {
-            HttpFunctions sh = new HttpFunctions(HttpFunctions.RequestType.POST);
-            // Making a request to url and getting response
-            String hg = sh.makeServiceCall(strings[0]);
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-            pDialog.cancel();
-            Toast.makeText(getApplicationContext(), getString(R.string.activity_set_marker_toast_marker_successful), Toast.LENGTH_SHORT).show();
-            LandmarkActivity.this.finish();
-        }
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                pDialog.cancel();
+            }
+        });
     }
 }
