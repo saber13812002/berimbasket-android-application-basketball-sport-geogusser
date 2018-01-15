@@ -210,4 +210,5 @@
     <string name="item_stadium_list_address">آدرس :</string>
     <string name="item_player_list_post_label">پست بازی :</string>
     <string name="item_player_list_team_label">تیم :</string>
+    <string name="activity_stadium_txt_stadium_name_loading">در حال بارگیری ورزشگاه</string>
 </resources>

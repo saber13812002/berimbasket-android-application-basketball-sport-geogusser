@@ -13,24 +13,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ir.berimbasket.app.R;
-import ir.berimbasket.app.data.entity.EntityStadium;
+import ir.berimbasket.app.data.network.model.Stadium;
 
 class StadiumAdapter extends RecyclerView.Adapter<StadiumAdapter.ViewHolder> {
 
-    private List<EntityStadium> dataSource;
+    private List<Stadium> dataSource;
     private StadiumListListener listener;
 
     interface StadiumListListener {
-        void onStadiumItemClick(EntityStadium stadium);
+        void onStadiumItemClick(Stadium stadium);
     }
 
-    StadiumAdapter(List<EntityStadium> items, StadiumListListener listener) {
+    StadiumAdapter(List<Stadium> items, StadiumListListener listener) {
         dataSource = items;
         this.listener = listener;
     }
 
     StadiumAdapter(StadiumListListener listener) {
-        this(new ArrayList<EntityStadium>(), listener);
+        this(new ArrayList<Stadium>(), listener);
     }
 
     @Override
@@ -46,14 +46,16 @@ class StadiumAdapter extends RecyclerView.Adapter<StadiumAdapter.ViewHolder> {
         holder.txtStadiumName.setText(String.valueOf(dataSource.get(position).getTitle()));
         holder.txtStadiumPhone.setText("-");
         holder.txtStadiumAddress.setText(dataSource.get(position).getAddress());
-        EntityStadium entityStadium = dataSource.get(position);
-        Picasso.with(holder.view.getContext())
-                .load(entityStadium.getThumbnail())
-                .resize(130, 130)
-                .placeholder(R.drawable.stadium1)
-                .error(R.drawable.stadium1)
-                .centerInside()
-                .into(holder.imgStadiumImage);
+        Stadium stadium = dataSource.get(position);
+        if (stadium.getImages() != null && stadium.getImages().size() != 0) {
+            Picasso.with(holder.view.getContext())
+                    .load(stadium.getImages().get(0))
+                    .resize(130, 130)
+                    .placeholder(R.drawable.stadium1)
+                    .error(R.drawable.stadium1)
+                    .centerInside()
+                    .into(holder.imgStadiumImage);
+        }
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -86,7 +88,7 @@ class StadiumAdapter extends RecyclerView.Adapter<StadiumAdapter.ViewHolder> {
         }
     }
 
-    void swapDataSource(List<EntityStadium> list) {
+    void swapDataSource(List<Stadium> list) {
         this.dataSource = list;
         notifyDataSetChanged();
     }

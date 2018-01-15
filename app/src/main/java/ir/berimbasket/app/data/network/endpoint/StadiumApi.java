@@ -14,10 +14,6 @@ import retrofit2.http.Query;
 
 public interface StadiumApi {
 
-    @GET("getPlayGroundJson.php")
-    Call<List<Stadium>> getStadiumCards(@Query("id") int id, @Query("pusheid") String pusheId,
-                                        @Query("username") String username);
-
     @GET("get.php")
     Call<List<Stadium>> getStadium(@Query("id") int id, @Query("pusheid") String pusheId,
                                    @Query("username") String username);

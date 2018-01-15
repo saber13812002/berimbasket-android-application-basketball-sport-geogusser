@@ -11,21 +11,21 @@ import com.google.maps.android.clustering.ClusterItem;
 
 public class MyClusterItem implements ClusterItem {
     private final LatLng mPosition;
-    private String id;
+    private int id;
     private String mTitle;
     private String mSnippet;
 
-    public MyClusterItem(double lat, double lng, String id) {
+    public MyClusterItem(double lat, double lng, int id) {
         mPosition = new LatLng(lat, lng);
         this.id = id;
     }
 
-    public MyClusterItem(double lat, double lng, String id, String title) {
+    public MyClusterItem(double lat, double lng, int id, String title) {
         this(lat, lng, id);
         mTitle = title;
     }
 
-    public MyClusterItem(double lat, double lng, String id, String title, String snippet) {
+    public MyClusterItem(double lat, double lng, int id, String title, String snippet) {
         this(lat, lng, id);
         mTitle = title;
         mSnippet = snippet;
@@ -44,7 +44,7 @@ public class MyClusterItem implements ClusterItem {
         return mSnippet;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 }

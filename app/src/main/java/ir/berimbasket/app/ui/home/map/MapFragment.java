@@ -5,17 +5,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.LocationManager;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -25,39 +22,38 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.maps.android.clustering.ClusterManager;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
+import java.net.HttpURLConnection;
 import java.util.ArrayList;
+import java.util.List;
 
 import co.ronash.pushe.Pushe;
 import ir.berimbasket.app.R;
-import ir.berimbasket.app.data.entity.EntityStadium;
-import ir.berimbasket.app.data.network.HttpFunctions;
+import ir.berimbasket.app.data.network.WebApiClient;
+import ir.berimbasket.app.data.network.model.Stadium;
 import ir.berimbasket.app.data.pref.PrefManager;
 import ir.berimbasket.app.service.GPSTracker;
-import ir.berimbasket.app.ui.home.HomeActivity;
+import ir.berimbasket.app.ui.common.entity.StadiumBaseEntity;
 import ir.berimbasket.app.ui.landmark.LandmarkActivity;
 import ir.berimbasket.app.ui.stadium.StadiumActivity;
 import ir.berimbasket.app.util.AnalyticsHelper;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MapFragment extends Fragment implements OnMapReadyCallback {
-    private static String _URL = "https://berimbasket.ir/bball/get.php";
     double latitude = 35.723284;
     double longitude = 51.441968;
     GoogleMap map;
     private MapView mapView;
     private LocationManager locationManager;
-    private ArrayList<EntityStadium> locationList;
-    private String TAG = HomeActivity.class.getSimpleName();
+    private ArrayList<Stadium> locationList;
     private ClusterManager<MyClusterItem> clusterManager;
 
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_map, container, false);
 
-        FloatingActionButton fab = (FloatingActionButton) v.findViewById(R.id.fabAddLocation);
+        FloatingActionButton fab = v.findViewById(R.id.fabAddLocation);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -147,7 +143,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             map.setOnCameraIdleListener(clusterManager);
             map.setOnMarkerClickListener(clusterManager);
             clusterManager.setOnClusterItemClickListener(clusterItemClickListener);
-            new GetLocations().execute();
+            getLocations(getContext());
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -160,12 +156,12 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 @Override
                 public boolean onClusterItemClick(MyClusterItem myClusterItem) {
                     try {
-                        EntityStadium stadium = new EntityStadium();
                         LatLng latLng = myClusterItem.getPosition();
-                        stadium.setLatitude(String.valueOf(latLng.latitude));
-                        stadium.setLongitude(String.valueOf(latLng.longitude));
-                        stadium.setTitle(myClusterItem.getTitle());
-                        stadium.setId(Integer.parseInt(myClusterItem.getId()));
+                        String latitude = String.valueOf(latLng.latitude);
+                        String longitude = String.valueOf(latLng.longitude);
+                        String title = myClusterItem.getTitle();
+                        int id = myClusterItem.getId();
+                        StadiumBaseEntity stadium = new StadiumBaseEntity(id, title, latitude, longitude);
                         Intent intent = new Intent(getActivity(), StadiumActivity.class);
                         intent.putExtra("stadiumDetail", stadium);
                         startActivity(intent);
@@ -176,123 +172,46 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 }
             };
 
-    private class GetLocations extends AsyncTask<Void, Void, Void> {
+    private void getLocations(Context context) {
+        GPSTracker gps = new GPSTracker(getActivity());
+        // Check if GPS enabled
+        if (gps.canGetLocation()) {
 
+            latitude = gps.getLatitude();
+            longitude = gps.getLongitude();
 
-        private String pusheId;
-        private String userName;
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            // Showing progress dialog
-            GPSTracker gps = new GPSTracker(getActivity());
-
-            // Check if GPS enabled
-            if (gps.canGetLocation()) {
-
-                latitude = gps.getLatitude();
-                longitude = gps.getLongitude();
-
-            } else {
-                // Can't get location.
-                // GPS or network is not enabled.
-                // Ask user to enable GPS/network in settings.
-                gps.showSettingsAlert();
-            }
-
-            pusheId = Pushe.getPusheId(getContext());
-            userName = new PrefManager(getContext()).getUserName();
+        } else {
+            // Can't get location.
+            // GPS or network is not enabled.
+            // Ask user to enable GPS/network in settings.
+            gps.showSettingsAlert();
         }
 
-        @Override
-        protected Void doInBackground(Void... arg0) {
-            HttpFunctions sh = new HttpFunctions(HttpFunctions.RequestType.GET);
-
-            // Making a request to _URL and getting response
-            String urlParams = String.format("id=0&pusheid=%s&username=%s", pusheId, userName);
-            String jsonStr = sh.makeServiceCall(_URL + "?" + urlParams);
-            Log.e(TAG, "Response from _URL: " + jsonStr);
-
-            if (jsonStr != null) {
-                try {
-                    // Getting JSON Array node
-                    JSONArray locations = new JSONArray(jsonStr);
-
-                    // looping through All Contacts
-                    for (int i = 0; i < locations.length(); i++) {
-                        JSONObject c = locations.getJSONObject(i);
-
-                        String id = c.getString("id");
-                        String title = c.getString("title");
-                        String latitude = c.getString("PlaygroundLatitude");
-                        String longitude = c.getString("PlaygroundLongitude");
-                        String type = c.getString("PlaygroundType");
-
-                        // tmp hash map for single contact
-                        EntityStadium entityStadium = new EntityStadium();
-
-                        // adding each child node to HashMap key => value
-                        entityStadium.setId(Integer.parseInt(id));
-                        entityStadium.setTitle(title);
-                        entityStadium.setLatitude(latitude);
-                        entityStadium.setLongitude(longitude);
-                        entityStadium.setType(type);
-
-                        // adding contact to contact list
-                        locationList.add(entityStadium);
-                    }
-                } catch (final JSONException e) {
-                    Log.e(TAG, "Json parsing error: " + e.getMessage());
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(getActivity(),
-                                    "Json parsing error: " + e.getMessage(),
-                                    Toast.LENGTH_LONG)
-                                    .show();
+        String pusheId = Pushe.getPusheId(context);
+        String userName = new PrefManager(context).getUserName();
+        WebApiClient.getStadiumApi().getStadium(0, pusheId, userName).enqueue(new Callback<List<Stadium>>() {
+            @Override
+            public void onResponse(Call<List<Stadium>> call, Response<List<Stadium>> response) {
+                if (response.code() == HttpURLConnection.HTTP_OK) {
+                    List<Stadium> stadiums = response.body();
+                    if (stadiums != null && getView() != null) {
+                        for (Stadium stadium : stadiums) {
+                            MyClusterItem item = new MyClusterItem(Double.parseDouble(stadium.getLatitude()),
+                                    Double.parseDouble(stadium.getLongitude()), stadium.getId(), stadium.getTitle());
+                            clusterManager.addItem(item);
                         }
-                    });
-
-                }
-            } else {
-                Log.e(TAG, "Couldn't get json from server.");
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(getActivity(),
-                                "Couldn't get json from server. Check LogCat for possible errors!",
-                                Toast.LENGTH_LONG)
-                                .show();
+                        setCameraLocation();
                     }
-                });
-
+                } else {
+                    // http call with incorrect params or other network error
+                }
             }
 
-            return null;
-        }
+            @Override
+            public void onFailure(Call<List<Stadium>> call, Throwable t) {
 
-        @Override
-        protected void onPostExecute(Void result) {
-            super.onPostExecute(result);
-            // Dismiss the progress dialog
-            for (int i = 0; i < locationList.size(); i++) {
-                EntityStadium entityStadium = locationList.get(i);
-                String id = String.valueOf(entityStadium.getId());
-                String title = entityStadium.getTitle();
-                String latitude = entityStadium.getLatitude();
-                String longitude = entityStadium.getLongitude();
-
-                MyClusterItem item = new MyClusterItem(Double.parseDouble(latitude), Double.parseDouble(longitude), id, title);
-                clusterManager.addItem(item);
             }
-
-            if (getView() != null) {
-                setCameraLocation();
-            }
-
-        }
-
+        });
     }
 
     /**

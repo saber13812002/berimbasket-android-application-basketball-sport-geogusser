@@ -24,12 +24,12 @@ import java.util.List;
 
 import co.ronash.pushe.Pushe;
 import ir.berimbasket.app.R;
-import ir.berimbasket.app.data.entity.EntitySocialAcc;
 import ir.berimbasket.app.data.network.WebApiClient;
 import ir.berimbasket.app.data.network.model.Player;
 import ir.berimbasket.app.data.pref.PrefManager;
 import ir.berimbasket.app.ui.base.BaseActivity;
 import ir.berimbasket.app.ui.common.PlayerSpecificationAdapter;
+import ir.berimbasket.app.ui.common.entity.SocialAccEntity;
 import ir.berimbasket.app.util.Redirect;
 import ir.berimbasket.app.util.Telegram;
 import retrofit2.Call;
@@ -168,18 +168,18 @@ public class PlayerActivity extends BaseActivity {
 
 
         playerSpecList.add(getString(R.string.activity_player_spec_telegram) + " " + specSeparator + " " + player.getTelegramId());
-        EntitySocialAcc entitySocialTelegram = new EntitySocialAcc();
+        SocialAccEntity entitySocialTelegram = new SocialAccEntity();
         entitySocialTelegram.setId(0);
         entitySocialTelegram.setImageResId(R.drawable.ic_social_telegram);
-        entitySocialTelegram.setType(EntitySocialAcc.SOCIAL_TYPE_TELEGRAM_USER);
+        entitySocialTelegram.setType(SocialAccEntity.SOCIAL_TYPE_TELEGRAM_USER);
         entitySocialTelegram.setLink("https://t.me/" + player.getTelegramId());
         socialAccList.add(entitySocialTelegram);
 
         playerSpecList.add(getString(R.string.activity_player_spec_instagram) + " " + specSeparator + " " + player.getInstagramId());
-        EntitySocialAcc entitySocialInstagram = new EntitySocialAcc();
+        SocialAccEntity entitySocialInstagram = new SocialAccEntity();
         entitySocialInstagram.setId(0);
         entitySocialInstagram.setImageResId(R.drawable.ic_social_instagram);
-        entitySocialInstagram.setType(EntitySocialAcc.SOCIAL_TYPE_INSTAGRAM);
+        entitySocialInstagram.setType(SocialAccEntity.SOCIAL_TYPE_INSTAGRAM);
         entitySocialInstagram.setLink("https://instagram.com/_u/" + player.getInstagramId());
         socialAccList.add(entitySocialInstagram);
 
@@ -187,7 +187,7 @@ public class PlayerActivity extends BaseActivity {
         return playerSpecList;
     }
 
-    ArrayList<EntitySocialAcc> socialAccList = new ArrayList<>();
+    ArrayList<SocialAccEntity> socialAccList = new ArrayList<>();
 
     private void initRecyclerPlayerSpec(ArrayList<String> playerSpecList) {
 

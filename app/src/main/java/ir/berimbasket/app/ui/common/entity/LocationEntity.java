@@ -1,16 +1,16 @@
-package ir.berimbasket.app.data.entity;
+package ir.berimbasket.app.ui.common.entity;
 
 /**
  * Created by Mahdi on 9/20/2017.
  * used as a container for location items
  */
 
-public class EntityLocation {
+public class LocationEntity {
 
     private double latitude;
     private double longitude;
 
-    public EntityLocation(double latitude, double longitude) {
+    public LocationEntity(double latitude, double longitude) {
         this.latitude = latitude;
         this.longitude = longitude;
     }

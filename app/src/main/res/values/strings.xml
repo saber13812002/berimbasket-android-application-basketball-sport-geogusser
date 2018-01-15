@@ -59,6 +59,8 @@
     <string name="activity_stadium_txt_rim_number_default">Rim Number: 2</string>
     <string name="activity_stadium_btn_complete_detail">Complete Info</string>
     <string name="activity_stadium_txt_lines_default">Lines: +</string>
+    <string name="activity_stadium_txt_stadium_name_loading">Loading Stadium</string>
+
 
     <string name="activity_create_stadium_edt_address_hint">Stadium manual address</string>
     <string name="activity_create_stadium_btn_address">Stadium location on map</string>

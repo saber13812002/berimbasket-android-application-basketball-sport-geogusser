@@ -1,6 +1,6 @@
 package ir.berimbasket.app.ui.stadium;
 
-import android.os.AsyncTask;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -13,43 +13,32 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
+import java.net.HttpURLConnection;
+import java.util.List;
 
 import co.ronash.pushe.Pushe;
 import de.hdodenhof.circleimageview.CircleImageView;
 import ir.berimbasket.app.R;
-import ir.berimbasket.app.data.entity.EntityStadium;
-import ir.berimbasket.app.data.entity.EntityStadiumGallery;
-import ir.berimbasket.app.data.network.HttpFunctions;
+import ir.berimbasket.app.data.network.WebApiClient;
+import ir.berimbasket.app.data.network.model.Stadium;
 import ir.berimbasket.app.data.pref.PrefManager;
 import ir.berimbasket.app.ui.base.BaseActivity;
+import ir.berimbasket.app.ui.common.entity.StadiumBaseEntity;
 import ir.berimbasket.app.util.Redirect;
 import ir.berimbasket.app.util.Telegram;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class StadiumActivity extends BaseActivity {
 
-    TextView txtStadiumName, txtStadiumTel, txtStadiumAddress, txtStadiumRound, txtTelegramChannel, txtInstagramId,
-            txtDetailSection, txtRoof, txtDistance2Parking, txtRimHeight, txtRimNumber, txtSpotlight, txtFence, txtParking,
-            txtBasketNet, txtScoreLine, txtLines;
-    AppCompatButton btnCompleteStadiumDetail, btnAddImage;
-    CircleImageView imgStadiumLogo;
-    EntityStadium entityStadium;
-    String stadiumLogoUrl;
-    private ImageView btnReportStadium, btnReserveStadium;
     private static final String UPDATE_STADIUM_INFO_BOT = "https://t.me/berimbasketProfilebot?start=-";
     private static final String REPORT_STADIUM_BOT = "https://t.me/berimbasketreportbot?start=-";
     private static final String RESERVE_STADIUM_BOT = "https://t.me/Berimbasketreservebot?start=";
     private static final String STADIUM_IMAGE_BOT = "https://t.me/berimbasketuploadbot?start=";
-    private static final String STADIUM_PHOTO_BASE_URL = "https://berimbasket.ir/bball/bots/playgroundphoto/";
-    private static final String STADIUM_URL = "https://berimbasket.ir/bball/get.php?id=";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,13 +47,14 @@ public class StadiumActivity extends BaseActivity {
         initToolbar();
         String pusheStadiumId = getIntent().getStringExtra("pushe_activity_extra");
         if (pusheStadiumId != null) {
-            new GetStadium().execute(Integer.parseInt(pusheStadiumId));
+            TextView txtStadiumName = findViewById(R.id.txtStadiumName);
+            txtStadiumName.setText(R.string.activity_stadium_txt_stadium_name_loading);
+            initStadiumList(Integer.parseInt(pusheStadiumId), getApplicationContext(), true);
             // FIXME: 12/13/2017 send another param for logo
-            stadiumLogoUrl = "http://test";
         } else {
-            entityStadium = (EntityStadium) getIntent().getSerializableExtra("stadiumDetail");
-            stadiumLogoUrl = getIntent().getStringExtra("stadiumLogoUrlPath");
-            new GetStadium().execute(entityStadium.getId());
+            StadiumBaseEntity stadiumBase = (StadiumBaseEntity) getIntent().getSerializableExtra("stadiumDetail");
+            initStadiumBaseInfo(stadiumBase);
+            initStadiumList(stadiumBase.getId(), getApplicationContext(), false);
         }
     }
 
@@ -76,67 +66,61 @@ public class StadiumActivity extends BaseActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
     }
 
-    // FIXME: 11/22/2017 use another entity for this class
-    private void setStadiumInfo(EntityStadium entityStadium, String roof, String distance2Parking, String rimHeight,
-                                String rimNumber, String spotlight, String fence, String parking, String basketNet,
-                                String scoreLine, String lines) {
+    private void initViewsAndListeners(final Stadium stadium) {
+
+        TextView txtStadiumTel = findViewById(R.id.txtStadiumTel);
+        TextView txtStadiumAddress = findViewById(R.id.txtStadiumAddress);
+        TextView txtStadiumRound = findViewById(R.id.txtStadiumRound);
+        TextView txtTelegramChannel = findViewById(R.id.txtTelegramChannel);
+        TextView txtInstagramId = findViewById(R.id.txtInstagramId);
+        TextView txtDetailSection = findViewById(R.id.txtDetailSection);
+        TextView txtRoof = findViewById(R.id.txtRoof);
+        TextView txtDistance2Parking = findViewById(R.id.txtDistance2Parking);
+        TextView txtRimHeight = findViewById(R.id.txtRimHeight);
+        TextView txtRimNumber = findViewById(R.id.txtRimNumber);
+        TextView txtSpotlight = findViewById(R.id.txtSpotlight);
+        TextView txtFence = findViewById(R.id.txtFence);
+        TextView txtParking = findViewById(R.id.txtParking);
+        TextView txtBasketNet = findViewById(R.id.txtBasketNet);
+        TextView txtScoreLine = findViewById(R.id.txtScoreLine);
+        TextView txtLines = findViewById(R.id.txtLines);
+        ImageView btnReportStadium = findViewById(R.id.btnReportStadium);
+        ImageView btnReserveStadium = findViewById(R.id.btnReserveStadium);
+        AppCompatButton btnAddImage = findViewById(R.id.btnAddImage);
+        AppCompatButton btnCompleteStadiumDetail = findViewById(R.id.btnCompleteStadiumDetail);
+        CircleImageView imgStadiumLogo = findViewById(R.id.imgStadiumLogo);
+        if (stadium.getImages() != null && stadium.getImages().size() != 0) {
+            Picasso.with(StadiumActivity.this)
+                    .load(stadium.getImages().get(0))
+                    .resize(100, 100)
+                    .placeholder(R.drawable.stadium1)
+                    .error(R.drawable.stadium1)
+                    .centerInside()
+                    .into(imgStadiumLogo);
+        }
+
         String specSeparator = getString(R.string.activity_stadium_spec_separator);
-        txtStadiumName.setText(entityStadium.getTitle());
         txtStadiumTel.setText(getString(R.string.activity_stadium_spec_phone) + " " + specSeparator + " " + "-");
-        txtStadiumAddress.setText(getString(R.string.activity_stadium_spec_address) + " " + specSeparator + " " + entityStadium.getAddress());
+        txtStadiumAddress.setText(getString(R.string.activity_stadium_spec_address) + " " + specSeparator + " " + stadium.getAddress());
         txtStadiumRound.setText(getString(R.string.activity_stadium_spec_work_time) + " " + specSeparator + " " + "-");
-        txtTelegramChannel.setText(getString(R.string.activity_stadium_spec_telegram_channel) + " " + specSeparator + " " + entityStadium.getTelegramChannelId());
-        txtInstagramId.setText(getString(R.string.activity_stadium_spec_instagram) + " " + specSeparator + " " + entityStadium.getInstagramId());
-        txtRoof.setText(getString(R.string.activity_stadium_spec_roof) + " " + specSeparator + " " + roof);
-        txtDistance2Parking.setText(getString(R.string.activity_stadium_spec_distance_2_parking) + " " + specSeparator + " " + distance2Parking);
-        txtRimHeight.setText(getString(R.string.activity_stadium_spec_rim_height) + " " + specSeparator + " " + rimHeight);
-        txtRimNumber.setText(getString(R.string.activity_stadium_spec_rim_number) + " " + specSeparator + " " + rimNumber);
-        txtSpotlight.setText(getString(R.string.activity_stadium_spec_spotlight) + " " + specSeparator + " " + spotlight);
-        txtFence.setText(getString(R.string.activity_stadium_spec_fence) + " " + specSeparator + " " + fence);
-        txtParking.setText(getString(R.string.activity_stadium_spec_parking) + " " + specSeparator + " " + parking);
-        txtBasketNet.setText(getString(R.string.activity_stadium_spec_basket_net) + " " + specSeparator + " " + basketNet);
-        txtScoreLine.setText(getString(R.string.activity_stadium_spec_score_line) + " " + specSeparator + " " + scoreLine);
-        txtLines.setText(getString(R.string.activity_stadium_spec_lines) + " " + specSeparator + " " + lines);
-    }
-
-    private void initViewsAndListeners() {
-
-        txtStadiumName = findViewById(R.id.txtStadiumName);
-        txtStadiumTel = findViewById(R.id.txtStadiumTel);
-        txtStadiumAddress = findViewById(R.id.txtStadiumAddress);
-        txtStadiumRound = findViewById(R.id.txtStadiumRound);
-        txtTelegramChannel = findViewById(R.id.txtTelegramChannel);
-        txtInstagramId = findViewById(R.id.txtInstagramId);
-        txtDetailSection = findViewById(R.id.txtDetailSection);
-        txtRoof = findViewById(R.id.txtRoof);
-        txtDistance2Parking = findViewById(R.id.txtDistance2Parking);
-        txtRimHeight = findViewById(R.id.txtRimHeight);
-        txtRimNumber = findViewById(R.id.txtRimNumber);
-        txtSpotlight = findViewById(R.id.txtSpotlight);
-        txtFence = findViewById(R.id.txtFence);
-        txtParking = findViewById(R.id.txtParking);
-        txtBasketNet = findViewById(R.id.txtBasketNet);
-        txtScoreLine = findViewById(R.id.txtScoreLine);
-        txtLines = findViewById(R.id.txtLines);
-        imgStadiumLogo = findViewById(R.id.imgStadiumLogo);
-        btnReportStadium = findViewById(R.id.btnReportStadium);
-        btnReserveStadium = findViewById(R.id.btnReserveStadium);
-        btnAddImage = findViewById(R.id.btnAddImage);
-        Picasso.with(StadiumActivity.this)
-                .load("https://berimbasket.ir/" + stadiumLogoUrl)
-                .resize(100, 100)
-                .placeholder(R.drawable.stadium1)
-                .error(R.drawable.stadium1)
-                .centerInside()
-                .into(imgStadiumLogo);
-
-        btnCompleteStadiumDetail = findViewById(R.id.btnCompleteStadiumDetail);
+        txtTelegramChannel.setText(getString(R.string.activity_stadium_spec_telegram_channel) + " " + specSeparator + " " + stadium.getTelegramChannelId());
+        txtInstagramId.setText(getString(R.string.activity_stadium_spec_instagram) + " " + specSeparator + " " + stadium.getInstagramId());
+        txtRoof.setText(getString(R.string.activity_stadium_spec_roof) + " " + specSeparator + " " + stadium.getRoof());
+        txtDistance2Parking.setText(getString(R.string.activity_stadium_spec_distance_2_parking) + " " + specSeparator + " " + stadium.getDistance2parking());
+        txtRimHeight.setText(getString(R.string.activity_stadium_spec_rim_height) + " " + specSeparator + " " + stadium.getRimHeight());
+        txtRimNumber.setText(getString(R.string.activity_stadium_spec_rim_number) + " " + specSeparator + " " + stadium.getRimNumber());
+        txtSpotlight.setText(getString(R.string.activity_stadium_spec_spotlight) + " " + specSeparator + " " + stadium.getSpotlight());
+        txtFence.setText(getString(R.string.activity_stadium_spec_fence) + " " + specSeparator + " " + stadium.getFence());
+        txtParking.setText(getString(R.string.activity_stadium_spec_parking) + " " + specSeparator + " " + stadium.getParking());
+        txtBasketNet.setText(getString(R.string.activity_stadium_spec_basket_net) + " " + specSeparator + " " + stadium.getBasketNet());
+        txtScoreLine.setText(getString(R.string.activity_stadium_spec_score_line) + " " + specSeparator + " " + stadium.getScoreline());
+        txtLines.setText(getString(R.string.activity_stadium_spec_lines) + " " + specSeparator + " " + stadium.getLines());
 
         btnCompleteStadiumDetail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try {
-                    Redirect.sendToTelegram(StadiumActivity.this, UPDATE_STADIUM_INFO_BOT + entityStadium.getId(),
+                    Redirect.sendToTelegram(StadiumActivity.this, UPDATE_STADIUM_INFO_BOT + stadium.getId(),
                             Telegram.DEFAULT_BOT);
                 } catch (IllegalArgumentException unknownTelegramURL) {
                     // do nothing yet
@@ -148,7 +132,7 @@ public class StadiumActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 try {
-                    Redirect.sendToTelegram(StadiumActivity.this, REPORT_STADIUM_BOT + entityStadium.getId(),
+                    Redirect.sendToTelegram(StadiumActivity.this, REPORT_STADIUM_BOT + stadium.getId(),
                             Telegram.DEFAULT_BOT);
                 } catch (IllegalArgumentException unknownTelegramURL) {
                     // do nothing yet
@@ -160,7 +144,7 @@ public class StadiumActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 try {
-                    Redirect.sendToTelegram(StadiumActivity.this, RESERVE_STADIUM_BOT + entityStadium.getId()
+                    Redirect.sendToTelegram(StadiumActivity.this, RESERVE_STADIUM_BOT + stadium.getId()
                     , Telegram.DEFAULT_BOT);
                 } catch (IllegalArgumentException unknownTelegramURL) {
                     // do nothing yet
@@ -173,44 +157,23 @@ public class StadiumActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 try {
-                    Redirect.sendToTelegram(StadiumActivity.this, STADIUM_IMAGE_BOT + entityStadium.getId()
+                    Redirect.sendToTelegram(StadiumActivity.this, STADIUM_IMAGE_BOT + stadium.getId()
                             , Telegram.DEFAULT_BOT);
                 } catch (IllegalArgumentException unknownTelegramURL) {
                     // do nothing yet
                 }
             }
         });
-    }
 
-
-    private void initStadiumMap() {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        StadiumMapFragment stadiumMapFragment = new StadiumMapFragment();
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("stadiumDetail", entityStadium);
-        stadiumMapFragment.setArguments(bundle);
-        fragmentTransaction.replace(R.id.mapContainer, stadiumMapFragment);
-        fragmentTransaction.commit();
-    }
-
-
-    private void initGalleryRecycler() {
-        String[] galleryImages = entityStadium.getImages();
-        ArrayList<EntityStadiumGallery> stadiumGalleryList = new ArrayList<>();
-        for (int i = 0; i < galleryImages.length; i++) {
-            EntityStadiumGallery entityStadiumGallery = new EntityStadiumGallery();
-            entityStadiumGallery.setId(i);
-            if (entityStadium.getImageType() == EntityStadium.IMAGE_TYPE_JPG) {
-                entityStadiumGallery.setUrl(STADIUM_PHOTO_BASE_URL + galleryImages[i] + ".jpg");
-            } else {
-                entityStadiumGallery.setUrl(STADIUM_PHOTO_BASE_URL + galleryImages[i] + ".png");
-            }
-            stadiumGalleryList.add(entityStadiumGallery);
+        // stadium gallery
+        List<String> galleryImages = stadium.getImages();
+        if (galleryImages.size() == 0) {
+            galleryImages.add("http://berimbasket.ir/bball/bots/playgroundphoto/123423743522345.jpg");
+            galleryImages.add("http://berimbasket.ir/bball/bots/playgroundphoto/123423743522345.jpg");
+            galleryImages.add("http://berimbasket.ir/bball/bots/playgroundphoto/123423743522345.jpg");
         }
-
         RecyclerView recyclerView = findViewById(R.id.recyclerStadiumGallery);
-        StadiumGalleryAdapter stadiumGalleryAdapter = new StadiumGalleryAdapter(stadiumGalleryList, this);
+        StadiumGalleryAdapter stadiumGalleryAdapter = new StadiumGalleryAdapter(galleryImages, this);
         recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setAdapter(stadiumGalleryAdapter);
 
@@ -219,9 +182,24 @@ public class StadiumActivity extends BaseActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
 
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-
     }
 
+
+    private void initStadiumBaseInfo(StadiumBaseEntity stadiumBase) {
+        // stadium title
+        TextView txtStadiumName = findViewById(R.id.txtStadiumName);
+        txtStadiumName.setText(stadiumBase.getTitle());
+
+        // stadium map
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        StadiumMapFragment stadiumMapFragment = new StadiumMapFragment();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("stadiumDetail", stadiumBase);
+        stadiumMapFragment.setArguments(bundle);
+        fragmentTransaction.replace(R.id.mapContainer, stadiumMapFragment);
+        fragmentTransaction.commit();
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -231,105 +209,32 @@ public class StadiumActivity extends BaseActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
-    private class GetStadium extends AsyncTask<Integer, Void, Void> {
-
-        String roof, distance2Parking, rimHeight, rimNumber, spotlight, fence, parking, basketNet, scoreLine, lines;
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
-        @Override
-        protected Void doInBackground(Integer... stadiumId) {
-            HttpFunctions sh = new HttpFunctions(HttpFunctions.RequestType.GET);
-
-            PrefManager pref = new PrefManager(getApplicationContext());
-            String pusheId = Pushe.getPusheId(getApplicationContext());
-            String userName = pref.getUserName();
-            String jsonStr = sh.makeServiceCall(STADIUM_URL + stadiumId[0] + "&username=" + userName + "&pusheid=" + pusheId);
-            if (jsonStr != null) {
-                try {
-                    JSONArray locations = new JSONArray(jsonStr);
-
-                    for (int i = 0; i < locations.length(); i++) {
-                        JSONObject c = locations.getJSONObject(i);
-
-                        String id = c.getString("id");
-                        String title = c.getString("title");
-                        String latitude = c.getString("PlaygroundLatitude");
-                        String longitude = c.getString("PlaygroundLongitude");
-                        String type = c.getString("PlaygroundType");
-                        String zoomLevel = c.getString("ZoomLevel");
-                        String address = c.getString("address");
-                        String images = c.getString("PgImages");
-                        String instagramId = c.getString("PgInstagramId");
-                        String telegramChannelId = c.getString("PgTlgrmChannelId");
-                        String telegramGroupId = c.getString("PgTlgrmGroupJoinLink");
-                        String telegramAdminId = c.getString("PgTlgrmGroupAdminId");
-                        roof = c.getString("roof");
-                        distance2Parking = c.getString("distance2parking");
-                        rimHeight = c.getString("rimHeight");
-                        rimNumber = c.getString("rimNumber");
-                        spotlight = c.getString("spotlight");
-                        fence = c.getString("fence");
-                        parking = c.getString("parking");
-                        basketNet = c.getString("basketnet");
-                        scoreLine = c.getString("scoreline");
-                        lines = c.getString("lines");
-
-                        entityStadium = new EntityStadium();
-
-                        entityStadium.setId(id != "null" ? Integer.parseInt(id) : -1);
-                        entityStadium.setTitle(title);
-                        entityStadium.setLatitude(latitude);
-                        entityStadium.setLongitude(longitude);
-                        entityStadium.setAddress(address);
-                        entityStadium.setTelegramGroupId(telegramGroupId);
-                        entityStadium.setTelegramChannelId(telegramChannelId);
-                        entityStadium.setTelegramAdminId(telegramAdminId);
-                        entityStadium.setInstagramId(instagramId);
-                        entityStadium.setImages(images.split("\\.[a-z]{3}"));
-                        if (images.contains("png")){
-                            entityStadium.setImageType(EntityStadium.IMAGE_TYPE_PNG);
-                        } else if (images.contains("jpg")) {
-                            entityStadium.setImageType(EntityStadium.IMAGE_TYPE_JPG);
+    private void initStadiumList(final int stadiumId, Context context, final boolean fromScratch) {
+        String pusheId = Pushe.getPusheId(context);
+        String userName = new PrefManager(context).getUserName();
+        WebApiClient.getStadiumApi().getStadium(stadiumId, pusheId, userName).enqueue(new Callback<List<Stadium>>() {
+            @Override
+            public void onResponse(Call<List<Stadium>> call, Response<List<Stadium>> response) {
+                if (response.code() == HttpURLConnection.HTTP_OK) {
+                    List<Stadium> stadiums = response.body();
+                    if (stadiums != null) {
+                        Stadium stadium = stadiums.get(0);
+                        if (fromScratch) {
+                            StadiumBaseEntity entity = new StadiumBaseEntity(stadium.getId(), stadium.getTitle(),
+                                    stadium.getLatitude(), stadium.getLongitude());
+                            initStadiumBaseInfo(entity);
                         }
-                        entityStadium.setType(type);
-                        entityStadium.setZoomLevel(zoomLevel != "null" ? Integer.parseInt(zoomLevel) : -1);
-
+                        initViewsAndListeners(stadiums.get(0));
                     }
-                } catch (final JSONException e) {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(StadiumActivity.this,
-                                    "Json parsing error: " + e.getMessage(),
-                                    Toast.LENGTH_LONG)
-                                    .show();
-                        }
-                    });
-
+                } else {
+                    // http call with incorrect params or other network error
                 }
             }
-            return null;
-        }
 
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
+            @Override
+            public void onFailure(Call<List<Stadium>> call, Throwable t) {
 
-            initViewsAndListeners();
-            initStadiumMap();
-            try {
-                initGalleryRecycler();
-            } catch (Exception e) {
-                e.printStackTrace();
             }
-            setStadiumInfo(entityStadium, roof, distance2Parking, rimHeight, rimNumber, spotlight, fence, parking
-                    , basketNet, scoreLine, lines);
-        }
+        });
     }
-
 }

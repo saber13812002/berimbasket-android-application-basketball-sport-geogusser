@@ -25,11 +25,11 @@ import com.crashlytics.android.Crashlytics;
 import co.ronash.pushe.Pushe;
 import io.fabric.sdk.android.Fabric;
 import ir.berimbasket.app.R;
-import ir.berimbasket.app.data.entity.EntityLocation;
 import ir.berimbasket.app.data.network.SendLocationTask;
 import ir.berimbasket.app.service.GPSTracker;
 import ir.berimbasket.app.ui.base.BaseActivity;
 import ir.berimbasket.app.ui.common.custom.TypefaceSpanCustom;
+import ir.berimbasket.app.ui.common.entity.LocationEntity;
 import ir.berimbasket.app.ui.settings.SettingsActivity;
 import ir.berimbasket.app.util.TypefaceManager;
 
@@ -184,7 +184,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
             if (gps.canGetLocation()) {
                 double latitude = gps.getLatitude();
                 double longitude = gps.getLongitude();
-                new SendLocationTask().execute(new EntityLocation(latitude, longitude));
+                new SendLocationTask().execute(new LocationEntity(latitude, longitude));
             } else {
                 // Can't get location.
                 // GPS or network is not enabled.

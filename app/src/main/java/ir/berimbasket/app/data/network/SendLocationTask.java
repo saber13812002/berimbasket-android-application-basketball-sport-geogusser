@@ -6,21 +6,21 @@ import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 
 import co.ronash.pushe.Pushe;
-import ir.berimbasket.app.data.entity.EntityLocation;
 import ir.berimbasket.app.data.pref.PrefManager;
 import ir.berimbasket.app.ui.base.BaseApplication;
+import ir.berimbasket.app.ui.common.entity.LocationEntity;
 
 /**
  * Created by Mahdi on 9/20/2017.
  * send user location to server
  */
 
-public class SendLocationTask extends AsyncTask<EntityLocation, Void, Void> {
+public class SendLocationTask extends AsyncTask<LocationEntity, Void, Void> {
 
     private final static String URL_SET_LOCATION = "https://berimbasket.ir/bball/setLoc.php";
 
     @Override
-    protected Void doInBackground(EntityLocation... params) {
+    protected Void doInBackground(LocationEntity... params) {
         HttpFunctions httpFuncs = new HttpFunctions(HttpFunctions.RequestType.GET);
         Context context = BaseApplication.getInstance().getApplicationContext();
         if (context != null) {

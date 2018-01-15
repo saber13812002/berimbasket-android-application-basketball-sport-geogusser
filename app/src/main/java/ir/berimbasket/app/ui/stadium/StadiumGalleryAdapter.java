@@ -9,10 +9,9 @@ import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import ir.berimbasket.app.R;
-import ir.berimbasket.app.data.entity.EntityStadiumGallery;
 
 /**
  * Created by mohammad hosein on 21/09/2017.
@@ -20,11 +19,11 @@ import ir.berimbasket.app.data.entity.EntityStadiumGallery;
 
 public class StadiumGalleryAdapter extends RecyclerView.Adapter<StadiumGalleryAdapter.ViewHolderStadiumGallery> {
 
-    ArrayList<EntityStadiumGallery> galleryList;
+    List<String> dataSource;
     Context context;
 
-    public StadiumGalleryAdapter(ArrayList<EntityStadiumGallery> galleryList, Context context) {
-        this.galleryList = galleryList;
+    public StadiumGalleryAdapter(List<String> dataSource, Context context) {
+        this.dataSource = dataSource;
         this.context = context;
     }
 
@@ -46,7 +45,7 @@ public class StadiumGalleryAdapter extends RecyclerView.Adapter<StadiumGalleryAd
 
     @Override
     public int getItemCount() {
-        return galleryList.size();
+        return dataSource.size();
     }
 
 
@@ -61,7 +60,7 @@ public class StadiumGalleryAdapter extends RecyclerView.Adapter<StadiumGalleryAd
 
         public void setData(int position) {
             Picasso.with(context)
-                    .load(galleryList.get(position).getUrl())
+                    .load(dataSource.get(position))
                     .resize(120, 120)
                     .centerInside()
                     .placeholder(R.drawable.profile_default)

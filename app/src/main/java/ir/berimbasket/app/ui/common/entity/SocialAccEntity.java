@@ -1,10 +1,10 @@
-package ir.berimbasket.app.data.entity;
+package ir.berimbasket.app.ui.common.entity;
 
 /**
  * Created by mohammad hosein on 16/11/2017.
  */
 
-public class EntitySocialAcc {
+public class SocialAccEntity {
 
     public static final int SOCIAL_TYPE_INSTAGRAM = 1;
     public static final int SOCIAL_TYPE_TELEGRAM_CHANNEL = 2;

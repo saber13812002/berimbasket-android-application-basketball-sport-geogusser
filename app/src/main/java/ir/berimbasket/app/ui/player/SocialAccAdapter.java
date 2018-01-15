@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import java.util.ArrayList;
 
 import ir.berimbasket.app.R;
-import ir.berimbasket.app.data.entity.EntitySocialAcc;
+import ir.berimbasket.app.ui.common.entity.SocialAccEntity;
 import ir.berimbasket.app.util.Redirect;
 import ir.berimbasket.app.util.Telegram;
 
@@ -21,9 +21,9 @@ import ir.berimbasket.app.util.Telegram;
 public class SocialAccAdapter extends RecyclerView.Adapter<SocialAccAdapter.ViewHolderSocialAcc> {
 
     private final Context context;
-    private final ArrayList<EntitySocialAcc> socialAccList;
+    private final ArrayList<SocialAccEntity> socialAccList;
 
-    public SocialAccAdapter(ArrayList<EntitySocialAcc> socialAccList, Context context) {
+    public SocialAccAdapter(ArrayList<SocialAccEntity> socialAccList, Context context) {
         this.socialAccList = socialAccList;
         this.context = context;
     }
@@ -57,22 +57,22 @@ public class SocialAccAdapter extends RecyclerView.Adapter<SocialAccAdapter.View
         }
 
         public void setData(int position) {
-            final EntitySocialAcc entitySocialAcc = socialAccList.get(position);
-            btnSocialAcc.setImageResource(entitySocialAcc.getImageResId());
+            final SocialAccEntity socialAccEntity = socialAccList.get(position);
+            btnSocialAcc.setImageResource(socialAccEntity.getImageResId());
             btnSocialAcc.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (entitySocialAcc.getType() == EntitySocialAcc.SOCIAL_TYPE_INSTAGRAM) {
+                    if (socialAccEntity.getType() == SocialAccEntity.SOCIAL_TYPE_INSTAGRAM) {
                         try {
-                            Redirect.sendToInstagram(context, entitySocialAcc.getLink());  // https://instagram.com/_u/javaherisaber
+                            Redirect.sendToInstagram(context, socialAccEntity.getLink());  // https://instagram.com/_u/javaherisaber
                         } catch (IllegalArgumentException unknownInstagramURL) {
                             // do nothing yet
                         }
-                    } else if (entitySocialAcc.getType() == EntitySocialAcc.SOCIAL_TYPE_TELEGRAM_CHANNEL ||
-                            entitySocialAcc.getType() == EntitySocialAcc.SOCIAL_TYPE_TELEGRAM_GROUP ||
-                            entitySocialAcc.getType() == EntitySocialAcc.SOCIAL_TYPE_TELEGRAM_USER) {
+                    } else if (socialAccEntity.getType() == SocialAccEntity.SOCIAL_TYPE_TELEGRAM_CHANNEL ||
+                            socialAccEntity.getType() == SocialAccEntity.SOCIAL_TYPE_TELEGRAM_GROUP ||
+                            socialAccEntity.getType() == SocialAccEntity.SOCIAL_TYPE_TELEGRAM_USER) {
                         try {
-                            Redirect.sendToTelegram(context, entitySocialAcc.getLink(), Telegram.CHAT);  // https://t.me/mamlekate
+                            Redirect.sendToTelegram(context, socialAccEntity.getLink(), Telegram.CHAT);  // https://t.me/mamlekate
                         } catch (IllegalArgumentException unknownTelegramURL) {
                             // do nothing yet
                         }
