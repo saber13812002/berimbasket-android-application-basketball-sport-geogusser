@@ -21,7 +21,8 @@ public interface RegisterApi  {
                                             @Query("pusheid") String pusheId);
 
     @GET("setPasswordForThisUsername.php")
-    Call<List<Register>> register(@Query("username") String username,
+    Call<List<Register>> register(@Query("mac") String mac,
+                                  @Query("username") String username,
                                   @Query("password") String password,
                                   @Query("pusheid") String pusheId);
 

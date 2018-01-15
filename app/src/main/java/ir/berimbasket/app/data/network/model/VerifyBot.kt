@@ -5,4 +5,4 @@ import com.google.gson.annotations.SerializedName
 class VerifyBot(@field:SerializedName("id")
                 var id: Int,
                 @field:SerializedName("SignupStatus")
-                var status: Boolean?)
+                var status: Boolean)

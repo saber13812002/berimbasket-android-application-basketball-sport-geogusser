@@ -5,7 +5,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
@@ -17,13 +16,15 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import java.net.HttpURLConnection;
+import java.util.List;
 
 import co.ronash.pushe.Pushe;
 import ir.berimbasket.app.R;
-import ir.berimbasket.app.data.network.HttpFunctions;
+import ir.berimbasket.app.data.network.WebApiClient;
+import ir.berimbasket.app.data.network.model.CheckUsername;
+import ir.berimbasket.app.data.network.model.Register;
+import ir.berimbasket.app.data.network.model.VerifyBot;
 import ir.berimbasket.app.data.pref.PrefManager;
 import ir.berimbasket.app.ui.base.BaseActivity;
 import ir.berimbasket.app.ui.login.LoginActivity;
@@ -31,17 +32,14 @@ import ir.berimbasket.app.util.AnalyticsHelper;
 import ir.berimbasket.app.util.Redirect;
 import ir.berimbasket.app.util.Telegram;
 import ir.berimbasket.app.util.TypefaceManager;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class RegisterActivity extends BaseActivity {
 
-    private final String VERIFY_URL = "http://berimbasket.ir/bball/getSignupStatusByVerificationCodeAndMAC.php";
-    private final String USER_URL = "http://berimbasket.ir/bball/getExistOrNotThisNewRequestedUsername.php";
-    private final String REGISTER_URL = "http://berimbasket.ir/bball/setPasswordForThisUsername.php?mac=1a2b3c4d5e6f&username=allstar33&password=@ll$tar33";
     private static final String REGISTER_BOT = "https://telegram.me/berimbasketbot";
-    private final String USER_ERROR = "userError";
-    private final String VERIFY_ERROR = "verifyError";
-    private final String REGISTER_ERROR = "registerError";
     EditText edtUsername, edtVerifyCode, edtPassword, edtPasswordRepeat;
     TextInputLayout inputUsername, inputVerifyCode, inputPassword, inputPasswordRepeat;
     ProgressDialog pDialog;
@@ -125,7 +123,7 @@ public class RegisterActivity extends BaseActivity {
                 } else if (!edtPassword.getText().toString().equals(edtPasswordRepeat.getText().toString())) {
                     Toast.makeText(getApplicationContext(), getString(R.string.activity_register_toast_wrong_password), Toast.LENGTH_LONG).show();
                 } else {
-                    new ValidateUsername().execute();
+                    registerUser(edtVerifyCode.getText().toString(), edtUsername.getText().toString(), edtPassword.getText().toString());
                 }
 
             }
@@ -169,102 +167,74 @@ public class RegisterActivity extends BaseActivity {
                 .show();
     }
 
-    private String completeUserUrl(String userUrl) {
+    private void registerUser(final String code, final String username, final String password) {
+        pDialog.setMessage(getString(R.string.general_progress_dialog_checking_info));
+        pDialog.setCancelable(false);
+        pDialog.show();
         PrefManager pref = new PrefManager(getApplicationContext());
-        String pusheId = Pushe.getPusheId(getApplicationContext());
-        String deviceId = pref.getDeviceID();
-        userUrl = userUrl + "?" + "mac=" + deviceId + "&username=" + edtUsername.getText().toString() + "&pusheid=" + pusheId;
-        return userUrl;
-    }
+        final String pusheId = Pushe.getPusheId(getApplicationContext());
+        final String deviceId = pref.getDeviceID();
+        WebApiClient.getRegisterApi().checkUsername(deviceId, username, pusheId).enqueue(new Callback<List<CheckUsername>>() {
+            @Override
+            public void onResponse(Call<List<CheckUsername>> call, Response<List<CheckUsername>> response) {
+                if (response.code() == HttpURLConnection.HTTP_OK) {
+                    List<CheckUsername> checkUsernameList = response.body();
+                    if (checkUsernameList != null) {
+                        if (checkUsernameList.get(0).getExist()) {
+                            edtUsername.setError(getString(R.string.activity_register_edt_username_error));
+                            pDialog.cancel();
+                        } else {
+                            WebApiClient.getRegisterApi().verifyBotCode(deviceId, code, pusheId, username).enqueue(new Callback<List<VerifyBot>>() {
+                                @Override
+                                public void onResponse(Call<List<VerifyBot>> call, Response<List<VerifyBot>> response) {
+                                    if (response.code() == HttpURLConnection.HTTP_OK) {
+                                        List<VerifyBot> verifyBotList = response.body();
+                                        if (verifyBotList != null) {
+                                            if (!verifyBotList.get(0).getStatus()) {
+                                                edtVerifyCode.setError(getString(R.string.activity_register_edt_verify_error));
+                                                pDialog.cancel();
+                                            } else {
+                                                WebApiClient.getRegisterApi().register(deviceId, username, password, pusheId).enqueue(new Callback<List<Register>>() {
+                                                    @Override
+                                                    public void onResponse(Call<List<Register>> call, Response<List<Register>> response) {
+                                                        pDialog.cancel();
+                                                        if (response.code() == HttpURLConnection.HTTP_OK) {
+                                                            List<Register> registerList = response.body();
+                                                            if (registerList != null) {
+                                                                if (registerList.get(0).getPasswordSet()) {
+                                                                    Toast.makeText(getApplicationContext(), getString(R.string.activity_register_toast_register_successful), Toast.LENGTH_LONG).show();
+                                                                    // Tracking Event (Analytics)
+                                                                    AnalyticsHelper.getInstance().trackEvent(getString(R.string.analytics_category_registration), getString(R.string.analytics_action_new_register), "");
+                                                                    RegisterActivity.this.finish();
+                                                                }
+                                                            }
+                                                        }
+                                                    }
 
-    private String completeVerifyUrl(String verifyUrl) {
-        PrefManager pref = new PrefManager(getApplicationContext());
-        String pusheId = Pushe.getPusheId(getApplicationContext());
-        String userName = pref.getUserName();
-        String deviceId = pref.getDeviceID();
-        String code = edtVerifyCode.getText().toString();
-        String urlParams = String.format("mac=%s&code=%s&pusheid=%s&username=%s", deviceId, code, pusheId, userName);
-        verifyUrl = verifyUrl + "?" + urlParams;
-        return verifyUrl;
-    }
+                                                    @Override
+                                                    public void onFailure(Call<List<Register>> call, Throwable t) {
+                                                        pDialog.cancel();
+                                                    }
+                                                });
+                                            }
+                                        }
+                                    }
+                                }
 
-    private String completeRegisterUrl(String registerUrl) {
-        PrefManager pref = new PrefManager(getApplicationContext());
-        String pusheId = Pushe.getPusheId(getApplicationContext());
-        registerUrl = registerUrl + pref.getDeviceID() + "&username=" + edtUsername.getText().toString()
-                + "&password=" + edtPassword.getText().toString() + "&pusheid=" + pusheId;
-        return registerUrl;
-    }
-
-    private class ValidateUsername extends AsyncTask<Void, Void, Bundle> {
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            pDialog.setMessage(getString(R.string.general_progress_dialog_checking_info));
-            pDialog.setCancelable(false);
-            pDialog.show();
-        }
-
-        @Override
-        protected Bundle doInBackground(Void... voids) {
-            String userUrl = completeUserUrl(USER_URL);
-            HttpFunctions httpFunctions = new HttpFunctions(HttpFunctions.RequestType.GET);
-            String userJson = httpFunctions.makeServiceCall(userUrl);
-            Bundle errorBundle = new Bundle();
-            try {
-                JSONArray arrayUser = new JSONArray(userJson);
-                JSONObject userObj = arrayUser.getJSONObject(0);
-                boolean userExist = (boolean) userObj.get("exist");
-                if (userExist) {
-                    errorBundle.putBoolean(USER_ERROR, true);
-                } else {
-                    String verifyUrl = completeVerifyUrl(VERIFY_URL);
-                    String verifyJson = httpFunctions.makeServiceCall(verifyUrl);
-                    JSONArray arrayVerify = new JSONArray(verifyJson);
-                    JSONObject verifyObj = arrayVerify.getJSONObject(0);
-                    boolean verifyState = (boolean) verifyObj.get("SignupStatus");
-                    if (!verifyState) {
-                        errorBundle.putBoolean(VERIFY_ERROR, true);
-                    } else {
-                        String registerUrl = completeRegisterUrl(REGISTER_URL);
-                        String registerJson = httpFunctions.makeServiceCall(registerUrl);
-                        JSONArray arrayRegister = new JSONArray(registerJson);
-                        JSONObject registerObj = arrayRegister.getJSONObject(0);
-                        boolean registerState = (boolean) registerObj.get("passwordset");
-                        if (registerState) {
-                            errorBundle.putBoolean(REGISTER_ERROR, false);
+                                @Override
+                                public void onFailure(Call<List<VerifyBot>> call, Throwable t) {
+                                    pDialog.cancel();
+                                }
+                            });
                         }
                     }
-
                 }
-            } catch (JSONException e) {
-                e.printStackTrace();
             }
-            return errorBundle;
-        }
 
-        @Override
-        protected void onPostExecute(Bundle result) {
-            super.onPostExecute(result);
-            edtUsername.setError(getString(R.string.activity_register_edt_username_error));
-            boolean userError = result.getBoolean(USER_ERROR, false);
-            boolean verifyError = result.getBoolean(VERIFY_ERROR, false);
-            boolean registerError = result.getBoolean(REGISTER_ERROR, true);
-
-            if (userError) {
-                edtUsername.setError(getString(R.string.activity_register_edt_username_error));
+            @Override
+            public void onFailure(Call<List<CheckUsername>> call, Throwable t) {
+                pDialog.cancel();
             }
-            if (verifyError) {
-                edtVerifyCode.setError(getString(R.string.activity_register_edt_verify_error));
-            }
-            if (!registerError) {
-                Toast.makeText(getApplicationContext(), getString(R.string.activity_register_toast_register_successful), Toast.LENGTH_LONG).show();
-                // Tracking Event (Analytics)
-                AnalyticsHelper.getInstance().trackEvent(getString(R.string.analytics_category_registration), getString(R.string.analytics_action_new_register), "");
-                RegisterActivity.this.finish();
-            }
-            pDialog.cancel();
-        }
+        });
     }
 }
