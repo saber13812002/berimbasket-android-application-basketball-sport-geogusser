@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatDelegate;
@@ -15,13 +14,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import java.net.HttpURLConnection;
+import java.util.List;
 
 import co.ronash.pushe.Pushe;
 import ir.berimbasket.app.R;
-import ir.berimbasket.app.data.network.HttpFunctions;
+import ir.berimbasket.app.data.network.WebApiClient;
+import ir.berimbasket.app.data.network.model.Login;
 import ir.berimbasket.app.data.pref.PrefManager;
 import ir.berimbasket.app.ui.base.BaseActivity;
 import ir.berimbasket.app.ui.register.RegisterActivity;
@@ -29,13 +28,15 @@ import ir.berimbasket.app.util.AnalyticsHelper;
 import ir.berimbasket.app.util.Redirect;
 import ir.berimbasket.app.util.Telegram;
 import ir.berimbasket.app.util.TypefaceManager;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A login screen that offers login via email/password.
  */
 public class LoginActivity extends BaseActivity {
 
-    private final String LOGIN_URL = "http://berimbasket.ir/bball/getStatusLoginByUsernamePassword.php";
     AppCompatButton btnLogin;
     TextView btnRegisterPage, btnTelegramTut;
     ProgressDialog pDialog;
@@ -58,13 +59,13 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void initViews() {
-        edtUsername = (EditText) findViewById(R.id.edtUsername);
-        edtPassword = (EditText) findViewById(R.id.edtPassword);
-        inputUsername = (TextInputLayout) findViewById(R.id.inputUsername);
-        inputPassword = (TextInputLayout) findViewById(R.id.inputPassword);
-        btnLogin = (AppCompatButton) findViewById(R.id.btnLogin);
-        btnRegisterPage = (TextView) findViewById(R.id.btnRegActivity);
-        btnTelegramTut = (TextView) findViewById(R.id.btnTelegramTut);
+        edtUsername = findViewById(R.id.edtUsername);
+        edtPassword = findViewById(R.id.edtPassword);
+        inputUsername = findViewById(R.id.inputUsername);
+        inputPassword = findViewById(R.id.inputPassword);
+        btnLogin = findViewById(R.id.btnLogin);
+        btnRegisterPage = findViewById(R.id.btnRegActivity);
+        btnTelegramTut = findViewById(R.id.btnTelegramTut);
         pDialog = new ProgressDialog(LoginActivity.this);
 
         Drawable imgUser = getResources().getDrawable(R.drawable.ic_login_user);
@@ -89,7 +90,7 @@ public class LoginActivity extends BaseActivity {
                         || edtPassword.getText().toString().equals("")) {
                     Toast.makeText(getApplicationContext(), R.string.activity_login_toast_fill_all_fields, Toast.LENGTH_LONG).show();
                 } else {
-                    new UserLoginTask().execute();
+                    loginUser(edtUsername.getText().toString(), edtPassword.getText().toString());
                 }
             }
         });
@@ -120,67 +121,46 @@ public class LoginActivity extends BaseActivity {
         inputPassword.setTypeface(typeface);
     }
 
-    private String completeLoginUrl(String loginUrl) {
+    private void loginUser(String username, String password) {
+        pDialog.setMessage(getString(R.string.general_progress_dialog_logging_in));
+        pDialog.setCancelable(false);
+        pDialog.show();
         PrefManager pref = new PrefManager(getApplicationContext());
         String pusheId = Pushe.getPusheId(getApplicationContext());
-        loginUrl = loginUrl + "?" + "mac=" + pref.getDeviceID() + "&username=" + edtUsername.getText().toString()
-                + "&password=" + edtPassword.getText().toString() + "&pusheid=" + pusheId;
-        return loginUrl;
-    }
-
-    /**
-     * Represents an asynchronous login/registration task used to authenticate
-     * the user.
-     */
-    private class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            pDialog.setMessage(getString(R.string.general_progress_dialog_logging_in));
-            pDialog.setCancelable(false);
-            pDialog.show();
-        }
-
-        @Override
-        protected Boolean doInBackground(Void... params) {
-            HttpFunctions httpFunctions = new HttpFunctions(HttpFunctions.RequestType.GET);
-            String jsonLogin = httpFunctions.makeServiceCall(completeLoginUrl(LOGIN_URL));
-            try {
-                JSONArray arrayLogin = new JSONArray(jsonLogin);
-                JSONObject loginObj = arrayLogin.getJSONObject(0);
-                boolean loginResult = loginObj.getBoolean("login");
-                int userId = loginObj.getInt("id");
-                PrefManager pref = new PrefManager(getApplicationContext());
-                pref.putUserID(userId);
-                return loginResult;
-
-            } catch (JSONException e) {
-                e.printStackTrace();
+        String deviceId = pref.getDeviceID();
+        WebApiClient.getLoginApi().login(deviceId, username, password, pusheId).enqueue(new Callback<List<Login>>() {
+            @Override
+            public void onResponse(Call<List<Login>> call, Response<List<Login>> response) {
+                pDialog.cancel();
+                if (response.code() == HttpURLConnection.HTTP_OK) {
+                    List<Login> logins = response.body();
+                    if (logins != null) {
+                        Login login = logins.get(0);
+                        PrefManager pref = new PrefManager(getApplicationContext());
+                        pref.putUserID(login.getId());
+                        if (login.getLogin()) {
+                            Toast.makeText(LoginActivity.this, getString(R.string.activity_login_toast_successful), Toast.LENGTH_LONG).show();
+                            pref.putUserName(edtUsername.getText().toString());
+                            pref.putPassword(edtPassword.getText().toString());
+                            pref.putIsLoggedIn(true);
+                            // Tracking Event (Analytics)
+                            AnalyticsHelper.getInstance().trackEvent(getString(R.string.analytics_category_login),
+                                    getString(R.string.analytics_action_log_on), "");
+                            LoginActivity.this.finish();
+                        } else {
+                            edtUsername.setError(getString(R.string.activity_login_edt_username_error));
+                        }
+                    }
+                } else {
+                    // http call with incorrect params or other network error
+                }
             }
-            return false;
-        }
 
-
-        @Override
-        protected void onPostExecute(final Boolean success) {
-            if (success) {
-                Toast.makeText(LoginActivity.this, getString(R.string.activity_login_toast_successful), Toast.LENGTH_LONG).show();
-                PrefManager pref = new PrefManager(getApplicationContext());
-                pref.putUserName(edtUsername.getText().toString());
-                pref.putPassword(edtPassword.getText().toString());
-                pref.putIsLoggedIn(true);
-                // Tracking Event (Analytics)
-                AnalyticsHelper.getInstance().trackEvent(getString(R.string.analytics_category_login),
-                        getString(R.string.analytics_action_log_on), "");
-                LoginActivity.this.finish();
-                // FIXME: 16/11/2017  after login fragment profile's childes fragment not showing
-            } else {
-                edtUsername.setError(getString(R.string.activity_login_edt_username_error));
+            @Override
+            public void onFailure(Call<List<Login>> call, Throwable t) {
+                pDialog.cancel();
             }
-            pDialog.cancel();
-        }
-
+        });
     }
 }
 
