@@ -5,9 +5,9 @@ import com.google.gson.annotations.SerializedName
 class Update(@field:SerializedName("code")
              var code: Int,
              @field:SerializedName("status")
-             var status: String?,
+             var status: String,
              @field:SerializedName("version")
-             var version: Int?,
+             var version: Int,
              @field:SerializedName("apk_url")
              var apkUrl: String?,
              @field:SerializedName("file_name")

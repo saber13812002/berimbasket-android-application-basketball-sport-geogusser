@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -16,27 +15,26 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.widget.Toast;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-
+import java.net.HttpURLConnection;
 import java.util.Locale;
 
 import co.ronash.pushe.Pushe;
 import ir.berimbasket.app.R;
 import ir.berimbasket.app.data.network.Connectivity;
-import ir.berimbasket.app.data.network.HttpFunctions;
+import ir.berimbasket.app.data.network.WebApiClient;
+import ir.berimbasket.app.data.network.model.Update;
 import ir.berimbasket.app.data.pref.PrefManager;
 import ir.berimbasket.app.ui.base.BaseActivity;
 import ir.berimbasket.app.ui.common.custom.AlertDialogCustom;
 import ir.berimbasket.app.ui.home.HomeActivity;
 import ir.berimbasket.app.ui.intro.IntroActivity;
 import ir.berimbasket.app.update.DownloadApkUpdate;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class SplashActivity extends BaseActivity {
 
-    private static final String URL_API_UPDATE = "https://berimbasket.ir/app/update.php";
     private static final int KEY_WRITE_EXTERNAL_STORAGE = 1;
     // api update fields
     private int apkVersion;
@@ -58,7 +56,7 @@ public class SplashActivity extends BaseActivity {
             boolean needForUpdate = pref.getSettingsPrefUpdateNotification();
             if (needForUpdate) {
                 if (Connectivity.isConnected(this)) {
-                    new UpdateTask().execute();
+                    updateTask();
                 } else {
                     Toast.makeText(this, getString(R.string.general_toast_no_internet), Toast.LENGTH_LONG).show();
                 }
@@ -75,118 +73,97 @@ public class SplashActivity extends BaseActivity {
 
     }
 
-    private class UpdateTask extends AsyncTask<Void, Integer, Integer> {
-
-        @Override
-        protected Integer doInBackground(Void... params) {
-            try {
-                // prepare url params
-                String url_params = "";
-                try {
-                    PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
-                    int version = pInfo.versionCode;
-                    url_params = "package=" + getPackageName() + "&version=" + String.valueOf(version);
-                } catch (PackageManager.NameNotFoundException e) {
-                    // do nothing
-                }
-                PrefManager pref = new PrefManager(getApplicationContext());
-                String pusheId = Pushe.getPusheId(getApplicationContext());
-                String userName = pref.getUserName();
-                url_params += "&username=" + userName + "&pusheid=" + pusheId;
-                // call web service
-                HttpFunctions httpFunctions = new HttpFunctions(HttpFunctions.RequestType.GET);
-                String response = httpFunctions.makeServiceCall(URL_API_UPDATE + "?" + url_params);
-                JsonParser parser = new JsonParser();
-                JsonElement element = parser.parse(response);
-                JsonObject root = element.getAsJsonObject();
-
-                // parse json
-                if (root != null) {
-                    int code = root.get("code").getAsInt();
-                    if (code == 200) {
-                        return 200;  // ok
-                    } else if (code == 300) {
-                        apkVersion = root.get("version").getAsInt();
-                        apkUrl = root.get("apk_url").getAsString();
-                        fileName = root.get("file_name").getAsString();
-                        fileSizeByte = root.get("file_size_byte").getAsString();
-                        JsonArray chLog = root.get("change_log").getAsJsonArray();
-                        if (chLog != null && chLog.size() > 0) {
-                            for (int i = 0; i < chLog.size(); i++) {
-                                changeLog += "* " + chLog.get(i).getAsString() + "\n";
-                            }
-                        }
-                        return 300;  // update
-                    } else {
-                        return 400;  // error
-                    }
-                }
-            } catch (Exception e) {
-                // do nothing yet
-            }
-            return 400;
-        }
-
-        @Override
-        protected void onPostExecute(Integer result) {
-            super.onPostExecute(result);
-            if (result == 200 || result == 400) {
-                goToActivityHome();
-            } else if (result == 300) {
-                final PrefManager prefs = new PrefManager(SplashActivity.this);
-                int savedVersion = prefs.getUpdateVersion();
-                if (apkVersion > savedVersion) {
-
-                    AlertDialogCustom customAlertDialog = new AlertDialogCustom(SplashActivity.this);
-
-                    AlertDialog dialog = new AlertDialog.Builder(SplashActivity.this)
-                            .setCustomTitle(customAlertDialog.getTitleText(getString(R.string.general_dialog_title_update)))
-                            .setMessage(getString(R.string.general_dialog_message_update))
-                            .setCancelable(false)
-                            .setPositiveButton(getString(R.string.general_dialog_option_yes), new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    if (Build.VERSION.SDK_INT >= 23) {
-                                        // Here, thisActivity is the current activity
-                                        if (ContextCompat.checkSelfPermission(SplashActivity.this,
-                                                Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                                                != PackageManager.PERMISSION_GRANTED) {
-
-                                            ActivityCompat.requestPermissions(SplashActivity.this,
-                                                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                                                    KEY_WRITE_EXTERNAL_STORAGE);
-
-                                            // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
-                                            // app-defined int constant. The callback method gets the
-                                            // result of the request.
-                                        } else {
-                                            downloadApk();
-                                        }
-                                    } else {
-                                        downloadApk();
+    private void updateTask() {
+        try {
+            PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+            PrefManager pref = new PrefManager(getApplicationContext());
+            String packageName = getPackageName();
+            String version = String.valueOf(pInfo.versionCode);
+            String userName = pref.getUserName();
+            String pusheId = Pushe.getPusheId(getApplicationContext());
+            WebApiClient.getUpdateApi().checkForUpdate(packageName, version, userName, pusheId).enqueue(new Callback<Update>() {
+                @Override
+                public void onResponse(Call<Update> call, Response<Update> response) {
+                    if (response.code() == HttpURLConnection.HTTP_OK) {
+                        Update update = response.body();
+                        if (update != null) {
+                            if (update.getCode() == 200 || update.getCode() == 400) {
+                                goToActivityHome();
+                            } else if (update.getCode() == 300) {
+                                apkVersion = update.getVersion();
+                                apkUrl = update.getApkUrl();
+                                fileName = update.getFileName();
+                                fileSizeByte = update.getFileSizeByte();
+                                if (update.getChangeLog() != null && update.getChangeLog().size() > 0) {
+                                    for (int i = 0; i < update.getChangeLog().size(); i++) {
+                                        changeLog += "* " + update.getChangeLog().get(i) + "\n";
                                     }
                                 }
-                            })
-                            .setNegativeButton(getString(R.string.general_dialog_option_no), new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    dialog.dismiss();
+                                final PrefManager prefs = new PrefManager(SplashActivity.this);
+                                int savedVersion = prefs.getUpdateVersion();
+                                if (apkVersion > savedVersion) {
+
+                                    AlertDialogCustom customAlertDialog = new AlertDialogCustom(SplashActivity.this);
+
+                                    AlertDialog dialog = new AlertDialog.Builder(SplashActivity.this)
+                                            .setCustomTitle(customAlertDialog.getTitleText(getString(R.string.general_dialog_title_update)))
+                                            .setMessage(getString(R.string.general_dialog_message_update))
+                                            .setCancelable(false)
+                                            .setPositiveButton(getString(R.string.general_dialog_option_yes), new DialogInterface.OnClickListener() {
+                                                public void onClick(DialogInterface dialog, int id) {
+                                                    if (Build.VERSION.SDK_INT >= 23) {
+                                                        // Here, thisActivity is the current activity
+                                                        if (ContextCompat.checkSelfPermission(SplashActivity.this,
+                                                                Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                                                                != PackageManager.PERMISSION_GRANTED) {
+
+                                                            ActivityCompat.requestPermissions(SplashActivity.this,
+                                                                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                                                                    KEY_WRITE_EXTERNAL_STORAGE);
+
+                                                            // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
+                                                            // app-defined int constant. The callback method gets the
+                                                            // result of the request.
+                                                        } else {
+                                                            downloadApk();
+                                                        }
+                                                    } else {
+                                                        downloadApk();
+                                                    }
+                                                }
+                                            })
+                                            .setNegativeButton(getString(R.string.general_dialog_option_no), new DialogInterface.OnClickListener() {
+                                                public void onClick(DialogInterface dialog, int id) {
+                                                    dialog.dismiss();
+                                                    goToActivityHome();
+                                                }
+                                            })
+                                            .setNeutralButton(getString(R.string.general_dialog_option_dont_show_again), new DialogInterface.OnClickListener() {
+
+                                                public void onClick(DialogInterface dialog, int id) {
+                                                    prefs.putUpdateVersion(apkVersion);
+                                                    dialog.dismiss();
+                                                    goToActivityHome();
+                                                }
+                                            })
+                                            .show();
+
+                                    customAlertDialog.setDialogStyle(dialog);
+                                } else {
                                     goToActivityHome();
                                 }
-                            })
-                            .setNeutralButton(getString(R.string.general_dialog_option_dont_show_again), new DialogInterface.OnClickListener() {
-
-                                public void onClick(DialogInterface dialog, int id) {
-                                    prefs.putUpdateVersion(apkVersion);
-                                    dialog.dismiss();
-                                    goToActivityHome();
-                                }
-                            })
-                            .show();
-
-                    customAlertDialog.setDialogStyle(dialog);
-                } else {
-                    goToActivityHome();
+                            }
+                        }
+                    }
                 }
-            }
+
+                @Override
+                public void onFailure(Call<Update> call, Throwable t) {
+
+                }
+            });
+        } catch (PackageManager.NameNotFoundException e) {
+            // do nothing
         }
     }
 
