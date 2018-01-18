@@ -14,17 +14,17 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AlertDialog;
 import android.util.Log;
 
 import ir.berimbasket.app.R;
+import ir.berimbasket.app.ui.common.custom.AlertDialogCustom;
 
 public class GPSTracker extends Service implements LocationListener {
 
     // The minimum distance to change Updates in meters
     private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 10; // 10 meters
     // The minimum time between updates in milliseconds
-    private static final long MIN_TIME_BW_UPDATES = 1000 * 60 * 1; // 1 minute
+    private static final long MIN_TIME_BW_UPDATES = 1000 * 60; // 1 minute
     private final Context mContext;
     // Declaring a Location Manager
     protected LocationManager locationManager;
@@ -61,7 +61,7 @@ public class GPSTracker extends Service implements LocationListener {
             } else {
                 this.canGetLocation = true;
                 if (isNetworkEnabled) {
-                    if (ActivityCompat.checkSelfPermission((Activity) mContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission((Activity) mContext, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission((Activity) mContext, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                         //    ActivityCompat#requestPermissions
                         // here to request the missing permissions, and then overriding
                         //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
@@ -161,31 +161,25 @@ public class GPSTracker extends Service implements LocationListener {
      * On pressing the Settings button it will launch Settings Options.
      */
     public void showSettingsAlert() {
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
-
-        // Setting Dialog Title
-        alertDialog.setTitle(mContext.getString(R.string.general_dialog_title_settings));
-
-        // Setting Dialog Message
-        alertDialog.setMessage(mContext.getString(R.string.general_dialog_message_gps_not_enabled));
-
-        // On pressing the Settings button.
-        alertDialog.setPositiveButton(mContext.getString(R.string.general_dialog_option_settings), new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                mContext.startActivity(intent);
-            }
-        });
-
-        // On pressing the cancel button
-        alertDialog.setNegativeButton(mContext.getString(R.string.general_dialog_option_cancel), new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        });
-
-        // Showing Alert Message
-        alertDialog.show();
+        AlertDialogCustom customAlertDialog = new AlertDialogCustom(mContext);
+        android.app.AlertDialog dialog = new android.app.AlertDialog.Builder(mContext)
+                .setCustomTitle(customAlertDialog.getTitleText(mContext.getString(R.string.general_dialog_option_settings)))
+                .setMessage(R.string.general_dialog_message_gps_not_enabled)
+                .setCancelable(true)
+                .setPositiveButton(R.string.general_dialog_option_settings, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                        mContext.startActivity(intent);
+                    }
+                })
+                .setNegativeButton(R.string.general_dialog_option_cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                }).show();
+        customAlertDialog.setDialogStyle(dialog);
     }
 
 

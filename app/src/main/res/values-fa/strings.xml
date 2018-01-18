@@ -214,4 +214,5 @@
     <string name="activity_intro_start_text">شروع</string>
     <string name="fragment_intro_preference_lang_spinner_prompt">زبان برنامه</string>
     <string name="fragment_intro_preference_location_spinner_prompt">مکان پیشفرض</string>
+    <string name="general_dialog_message_location_permission">برای نمایش نقشه به مجوز دسترسی مکان نیاز است، از طریق دکمه زیر این دسترسی را فعال کنید</string>
 </resources>

@@ -114,9 +114,7 @@ public class PrefManager extends SecureSharedPreferences {
 
     public String getSettingsPrefStateList() {
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
-        // FIXME: 12/18/2017 set based on phone location
-//        return pref.getString(context.getString(R.string.key_pref_state_list), "0a0");  // 0a0 means based on phone location
-        return pref.getString(context.getString(R.string.key_pref_state_list), "35.6891980a51.3889740");
+        return pref.getString(context.getString(R.string.key_pref_state_list), "0a0");  // 0a0 means based on phone location
     }
 
     public void putSettingsPrefStateList(String value) {

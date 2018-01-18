@@ -197,9 +197,8 @@
         <item>فارسی</item>
     </string-array>
 
-    <!-- FIXME: 12/18/2017 set based on phone location -->
     <string-array name="pref_state_list_values" translatable="false">
-        <item>35.6891980a51.3889740</item>
+        <item>0a0</item>
         <item>37.5498060a45.0786280</item>
         <item>38.0962390a46.2738010</item>
         <item>38.2537360a38.2537360</item>
@@ -292,6 +291,7 @@
     <string name="general_dialog_message_update">New version available, Install now ?</string>
     <string name="general_dialog_message_log_out">Are you sure you want to logout ?</string>
     <string name="general_dialog_message_gps_not_enabled">GPS is not enable, enable it using below button</string>
+    <string name="general_dialog_message_location_permission">In order to show map we need the Location permission, enable it from button below</string>
 
     <string name="general_dialog_option_bot_link">TelegramBot link</string>
     <string name="general_dialog_option_cancel">Cancel</string>
