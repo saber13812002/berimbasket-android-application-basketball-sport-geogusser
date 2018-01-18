@@ -3,12 +3,12 @@ package ir.berimbasket.app.ui.intro;
 import android.support.annotation.NonNull;
 
 import com.cleveroad.slidingtutorial.Direction;
-import com.cleveroad.slidingtutorial.PageFragment;
+import com.cleveroad.slidingtutorial.PageSupportFragment;
 import com.cleveroad.slidingtutorial.TransformItem;
 
 import ir.berimbasket.app.R;
 
-public class StadiumIntroFragment extends PageFragment {
+public class StadiumIntroFragment extends PageSupportFragment {
 
 	@Override
 	protected int getLayoutResId() {

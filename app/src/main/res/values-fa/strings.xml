@@ -38,7 +38,7 @@
     <string name="activity_player_spec_phone_number">شماره تلفن</string>
     <string name="activity_player_default_name">جردن باروز</string>
     <string name="activity_splash_loading_message">بریم بسکت</string>
-    <string name="activity_intro_skip_text">بزن بریم</string>
+    <string name="activity_intro_next_text">بعدی</string>
     <string name="activity_set_marker_toast_stadium_name_error">لطفا نام ورزشگاه را وارد کنید</string>
     <string name="activity_set_marker_toast_marker_successful">نقطه مد نظر شما با موفقیت ثبت شد</string>
     <string name="activity_set_marker_edt_location_hint">نام ورزشگاه</string>
@@ -211,4 +211,7 @@
     <string name="item_player_list_post_label">پست بازی :</string>
     <string name="item_player_list_team_label">تیم :</string>
     <string name="activity_stadium_txt_stadium_name_loading">در حال بارگیری ورزشگاه</string>
+    <string name="activity_intro_start_text">شروع</string>
+    <string name="fragment_intro_preference_lang_spinner_prompt">زبان برنامه</string>
+    <string name="fragment_intro_preference_location_spinner_prompt">مکان پیشفرض</string>
 </resources>

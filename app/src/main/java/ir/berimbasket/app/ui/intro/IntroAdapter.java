@@ -1,42 +1,53 @@
 package ir.berimbasket.app.ui.intro;
 
-import android.app.Fragment;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewPager;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.cleveroad.slidingtutorial.Direction;
 import com.cleveroad.slidingtutorial.IndicatorOptions;
 import com.cleveroad.slidingtutorial.OnTutorialPageChangeListener;
 import com.cleveroad.slidingtutorial.PageOptions;
 import com.cleveroad.slidingtutorial.TransformItem;
-import com.cleveroad.slidingtutorial.TutorialFragment;
 import com.cleveroad.slidingtutorial.TutorialOptions;
 import com.cleveroad.slidingtutorial.TutorialPageOptionsProvider;
 import com.cleveroad.slidingtutorial.TutorialPageProvider;
+import com.cleveroad.slidingtutorial.TutorialSupportFragment;
 
 import ir.berimbasket.app.R;
 import ir.berimbasket.app.data.pref.PrefManager;
 import ir.berimbasket.app.ui.home.HomeActivity;
 
-public class IntroAdapter extends TutorialFragment
+public class IntroAdapter extends TutorialSupportFragment
         implements OnTutorialPageChangeListener {
 
-    private static final int TOTAL_PAGES = 3;
+    private static final int TOTAL_PAGES = 4;
+    private int currentPosition;
+    private TextView txtSkip;
 
     private final View.OnClickListener mOnSkipClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            PrefManager pref = new PrefManager(getActivity());
-            pref.putIntroPassed(true);
-            Intent intent = new Intent(getActivity(), HomeActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            getActivity().startActivity(intent);
-            getActivity().finish();
+            if (currentPosition != (TOTAL_PAGES - 1)) {
+                ViewPager pager = getViewPager();
+                pager.setCurrentItem(currentPosition + 1, true);
+            } else {
+                PrefManager pref = new PrefManager(getActivity());
+                pref.putIntroPassed(true);
+                Intent intent = new Intent(getActivity(), HomeActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                getActivity().startActivity(intent);
+                getActivity().finish();
+            }
         }
     };
 
@@ -80,6 +91,11 @@ public class IntroAdapter extends TutorialFragment
                     };
                     break;
                 }
+                case 3: {
+                    pageLayoutResId = R.layout.fragment_intro_preference;
+                    tutorialItems = new TransformItem[] {};
+                    break;
+                }
                 default: {
                     throw new IllegalArgumentException("Unknown position: " + position);
                 }
@@ -100,6 +116,8 @@ public class IntroAdapter extends TutorialFragment
                     return new StadiumIntroFragment();
                 case 2:
                     return new MatchIntroFragment();
+                case 3:
+                    return new PreferenceIntroFragment();
                 default:
                     throw new IllegalArgumentException("Unknown position: " + position);
             }
@@ -116,9 +134,19 @@ public class IntroAdapter extends TutorialFragment
                     ContextCompat.getColor(getActivity(), android.R.color.holo_blue_dark),
                     ContextCompat.getColor(getActivity(), android.R.color.holo_green_dark),
                     ContextCompat.getColor(getActivity(), android.R.color.holo_orange_dark),
+                    ContextCompat.getColor(getActivity(), android.R.color.holo_purple)
             };
         }
         addOnTutorialPageChangeListener(this);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View root = super.onCreateView(inflater, container, savedInstanceState);
+        if (root != null) {
+            txtSkip = root.findViewById(R.id.tvSkipCustom);
+        }
+        return root;
     }
 
     @Override
@@ -166,5 +194,12 @@ public class IntroAdapter extends TutorialFragment
     }
 
     @Override
-    public void onPageChanged(int position) {}
+    public void onPageChanged(int position) {
+        currentPosition = position;
+        if (position == (TOTAL_PAGES - 1)) {
+            txtSkip.setText(R.string.activity_intro_start_text);
+        } else {
+            txtSkip.setText(R.string.activity_intro_next_text);
+        }
+    }
 }

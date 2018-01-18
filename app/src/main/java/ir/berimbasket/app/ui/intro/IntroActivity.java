@@ -11,10 +11,9 @@ public class IntroActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro);
-        IntroAdapter adapter = new IntroAdapter();
-        getFragmentManager()
+        getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.frameIntroContainer, adapter)
+                .replace(R.id.frameIntroContainer, new IntroAdapter())
                 .commit();
     }
 }

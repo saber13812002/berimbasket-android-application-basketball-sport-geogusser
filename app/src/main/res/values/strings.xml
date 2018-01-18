@@ -69,7 +69,8 @@
 
     <string name="activity_splash_loading_message">Berim Basket</string>
 
-    <string name="activity_intro_skip_text">Let\'s go</string>
+    <string name="activity_intro_next_text">Next</string>
+    <string name="activity_intro_start_text">Start</string>
 
     <string name="activity_set_marker_edt_location_hint">Stadium Name</string>
 
@@ -106,6 +107,8 @@
     <string name="fragment_intro_stadium_text">FIND STADIUM</string>
     <string name="fragment_intro_match_text">JOIN MATCH</string>
     <string name="fragment_intro_player_text">BECOME PLAYER</string>
+    <string name="fragment_intro_preference_lang_spinner_prompt">Choose a language</string>
+    <string name="fragment_intro_preference_location_spinner_prompt">Choose a location</string>
 
     <string name="fragment_profile_user_not_reg_message">Login to your account to get surprised</string>
     <string name="fragment_profile_user_not_reg_btn">Login to user account</string>

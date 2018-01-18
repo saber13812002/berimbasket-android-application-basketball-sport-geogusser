@@ -1,0 +1,57 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="ir.berimbasket.app.ui.intro.PreferenceIntroFragment">
+
+    <GridLayout
+        android:layout_centerInParent="true"
+        android:columnCount="2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <Spinner
+            android:id="@+id/fragmentIntroPreference_spinnerLang"
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:layout_column="0"
+            android:layout_row="0"
+            android:background="@color/colorWhite"
+            android:gravity="start"
+            android:entries="@array/pref_lang_list_names"
+            android:prompt="@string/fragment_intro_preference_lang_spinner_prompt" />
+
+        <ImageView
+            android:layout_height="30dp"
+            android:layout_width="30dp"
+            android:layout_column="1"
+            android:layout_row="0"
+            android:layout_marginStart="10dp"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/ic_default_language"
+            android:scaleType="centerCrop"/>
+
+        <Spinner
+            android:id="@+id/fragmentIntroPreference_spinnerState"
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:layout_column="0"
+            android:layout_row="1"
+            android:layout_marginTop="10dp"
+            android:background="@color/colorWhite"
+            android:entries="@array/pref_state_list_names"
+            android:prompt="@string/fragment_intro_preference_location_spinner_prompt" />
+
+        <ImageView
+            android:layout_height="30dp"
+            android:layout_width="30dp"
+            android:layout_column="1"
+            android:layout_row="1"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/ic_default_location"
+            android:scaleType="centerCrop"/>
+    </GridLayout>
+
+</RelativeLayout>
