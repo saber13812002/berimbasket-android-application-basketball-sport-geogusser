@@ -134,7 +134,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             map.setOnCameraIdleListener(clusterManager);
             map.setOnMarkerClickListener(clusterManager);
             clusterManager.setOnClusterItemClickListener(clusterItemClickListener);
-            sendUserLocationToServer(latitude, longitude, getContext());
             getLocations(getContext());
         }
     }
@@ -183,6 +182,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                                     Double.parseDouble(stadium.getLongitude()), stadium.getId(), stadium.getTitle());
                             clusterManager.addItem(item);
                         }
+                        updateHomeLocation();
                         setCameraLocation();
                     }
                 } else {
@@ -224,29 +224,33 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
      * Change map location based on city that selected in setting
      */
     private void setCameraLocation() {
-        updateHomeLocation();
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(MapFragment.this.latitude, MapFragment.this.longitude), 14.0f));
     }
 
     private void updateHomeLocation() {
         PrefManager pref = new PrefManager(getContext());
         String latLong = pref.getSettingsPrefStateList();
-
         if (Double.parseDouble(latLong.split("a")[0]) != 0) {
             this.latitude = Double.parseDouble(latLong.split("a")[0]);
             this.longitude = Double.parseDouble(latLong.split("a")[1]);
-        } else {
-            GPSTracker gps = new GPSTracker(getActivity());
-            // Check if GPS enabled
-            if (gps.canGetLocation()) {
-                latitude = gps.getLatitude();
-                longitude = gps.getLongitude();
-            } else {
-                // Can't get location.
-                // GPS or network is not enabled.
-                // Ask user to enable GPS/network in settings.
-                gps.showSettingsAlert();
-            }
         }
+
+        GPSTracker gps = new GPSTracker(getActivity());
+        // Check if GPS enabled
+        if (gps.canGetLocation()) {
+            double latitude = gps.getLatitude();
+            double longitude = gps.getLongitude();
+            sendUserLocationToServer(latitude, longitude, getContext());
+            if (Double.parseDouble(latLong.split("a")[0]) == 0) {
+                this.latitude = latitude;
+                this.longitude = longitude;
+            }
+        } else {
+            // Can't get location.
+            // GPS or network is not enabled.
+            // Ask user to enable GPS/network in settings.
+            gps.showSettingsAlert();
+        }
+
     }
 }
