@@ -14,5 +14,6 @@ public interface LocationApi {
     @GET("setLoc.php")
     Call<Void> setLocation(@Query("token") String token, @Query("lat") String lat, @Query("long") String longitude,
                                @Query("title") String title, @Query("username") String username, @Query("pusheid") String pusheId,
-                               @Query("version") String version);
+                               @Query("version") String version,
+                               @Query("lang") String lang);
 }

@@ -21,6 +21,7 @@ import ir.berimbasket.app.data.network.model.Player;
 import ir.berimbasket.app.data.pref.PrefManager;
 import ir.berimbasket.app.ui.common.PlayerSpecificationAdapter;
 import ir.berimbasket.app.util.AnalyticsHelper;
+import ir.berimbasket.app.util.LocaleManager;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -49,7 +50,8 @@ public class SpecificationFragment extends Fragment {
         String pusheId = Pushe.getPusheId(getContext());
         String userName = pref.getUserName();
         int userId = pref.getUserId();
-        WebApiClient.getPlayerApi().getPlayers(userId, pusheId, userName).enqueue(new Callback<List<Player>>() {
+        String lang = LocaleManager.getLocale(getContext()).getLanguage();
+        WebApiClient.getPlayerApi().getPlayers(userId, pusheId, userName, lang).enqueue(new Callback<List<Player>>() {
             @Override
             public void onResponse(Call<List<Player>> call, Response<List<Player>> response) {
                 if (response.code() == HttpURLConnection.HTTP_OK) {

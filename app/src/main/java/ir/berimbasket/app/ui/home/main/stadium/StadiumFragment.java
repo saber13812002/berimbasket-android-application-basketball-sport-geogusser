@@ -22,6 +22,7 @@ import ir.berimbasket.app.data.pref.PrefManager;
 import ir.berimbasket.app.ui.common.entity.StadiumBaseEntity;
 import ir.berimbasket.app.ui.stadium.StadiumActivity;
 import ir.berimbasket.app.util.AnalyticsHelper;
+import ir.berimbasket.app.util.LocaleManager;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -76,8 +77,9 @@ public class StadiumFragment extends Fragment implements StadiumAdapter.StadiumL
     private void initStadiumList() {
         String pusheId = Pushe.getPusheId(getContext());
         String userName = new PrefManager(getContext()).getUserName();
+        String lang = LocaleManager.getLocale(getContext()).getLanguage();
         progress.setVisibility(View.VISIBLE);
-        WebApiClient.getStadiumApi().getStadium(0, pusheId, userName).enqueue(new Callback<List<Stadium>>() {
+        WebApiClient.getStadiumApi().getStadium(0, pusheId, userName, lang).enqueue(new Callback<List<Stadium>>() {
             @Override
             public void onResponse(Call<List<Stadium>> call, Response<List<Stadium>> response) {
                 progress.setVisibility(View.INVISIBLE);

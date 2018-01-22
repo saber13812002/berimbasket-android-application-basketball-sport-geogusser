@@ -34,6 +34,7 @@ import ir.berimbasket.app.ui.common.WrapContentViewPager;
 import ir.berimbasket.app.ui.login.LoginActivity;
 import ir.berimbasket.app.util.AnalyticsHelper;
 import ir.berimbasket.app.util.FontHelper;
+import ir.berimbasket.app.util.LocaleManager;
 import ir.berimbasket.app.util.Redirect;
 import ir.berimbasket.app.util.Telegram;
 import retrofit2.Call;
@@ -225,7 +226,8 @@ public class ProfileFragment extends Fragment {
         String userName = pref.getUserName();
         int userId = pref.getUserId();
         String pusheId = Pushe.getPusheId(getContext());
-        WebApiClient.getPlayerApi().getPlayers(userId, pusheId, userName).enqueue(new Callback<List<Player>>() {
+        String lang = LocaleManager.getLocale(getContext()).getLanguage();
+        WebApiClient.getPlayerApi().getPlayers(userId, pusheId, userName, lang).enqueue(new Callback<List<Player>>() {
             @Override
             public void onResponse(Call<List<Player>> call, Response<List<Player>> response) {
                 if (response.code() == HttpURLConnection.HTTP_OK) {

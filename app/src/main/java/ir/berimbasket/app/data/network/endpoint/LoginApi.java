@@ -16,5 +16,6 @@ public interface LoginApi {
 
     @GET("getStatusLoginByUsernamePassword.php")
     Call<List<Login>> login(@Query("mac") String mac, @Query("username") String username, @Query("password") String password,
-                            @Query("pusheid") String pusheId);
+                            @Query("pusheid") String pusheId,
+                            @Query("lang") String lang);
 }

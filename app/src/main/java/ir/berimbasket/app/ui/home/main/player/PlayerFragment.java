@@ -21,6 +21,7 @@ import ir.berimbasket.app.data.network.model.Player;
 import ir.berimbasket.app.data.pref.PrefManager;
 import ir.berimbasket.app.ui.player.PlayerActivity;
 import ir.berimbasket.app.util.AnalyticsHelper;
+import ir.berimbasket.app.util.LocaleManager;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -72,8 +73,9 @@ public class PlayerFragment extends Fragment implements PlayerAdapter.PlayerList
     private void initPlayerList() {
         String pusheId = Pushe.getPusheId(getContext());
         String userName = new PrefManager(getContext()).getUserName();
+        String lang = LocaleManager.getLocale(getContext()).getLanguage();
         progress.setVisibility(View.VISIBLE);
-        WebApiClient.getPlayerApi().getPlayers(0, pusheId, userName).enqueue(new Callback<List<Player>>() {
+        WebApiClient.getPlayerApi().getPlayers(0, pusheId, userName, lang).enqueue(new Callback<List<Player>>() {
             @Override
             public void onResponse(Call<List<Player>> call, Response<List<Player>> response) {
                 progress.setVisibility(View.INVISIBLE);

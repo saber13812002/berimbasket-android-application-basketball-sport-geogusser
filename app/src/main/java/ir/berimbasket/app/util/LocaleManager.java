@@ -32,8 +32,8 @@ public class LocaleManager {
         return context;
     }
 
-    public static Locale getLocale(Resources res) {
-        Configuration config = res.getConfiguration();
+    public static Locale getLocale(Context context) {
+        Configuration config = context.getResources().getConfiguration();
         return Build.VERSION.SDK_INT >= 24 ? config.getLocales().get(0) : config.locale;
     }
 }

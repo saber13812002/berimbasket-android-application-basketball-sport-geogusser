@@ -13,5 +13,7 @@ public interface MapMarkerApi  {
 
     @GET("set.php")
     Call<Void> setMarker(@Query("token") String token, @Query("lat") String lat, @Query("long") String longitude,
-                              @Query("title") String title, @Query("username") String username, @Query("pusheid") String pusheId);
+                         @Query("title") String title, @Query("username") String username,
+                         @Query("pusheid") String pusheId,
+                         @Query("lang") String lang);
 }

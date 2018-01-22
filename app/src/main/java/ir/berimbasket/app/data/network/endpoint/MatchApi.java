@@ -16,5 +16,6 @@ public interface MatchApi {
 
     @GET("getScore.php")
     Call<List<Match>> getMatches(@Query("pusheid") String pusheId,
-                                 @Query("username") String username);
+                                 @Query("username") String username,
+                                 @Query("lang") String lang);
 }

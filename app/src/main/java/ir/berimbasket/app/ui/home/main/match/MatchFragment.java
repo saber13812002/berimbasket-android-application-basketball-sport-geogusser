@@ -19,6 +19,7 @@ import ir.berimbasket.app.data.network.WebApiClient;
 import ir.berimbasket.app.data.network.model.Match;
 import ir.berimbasket.app.data.pref.PrefManager;
 import ir.berimbasket.app.util.AnalyticsHelper;
+import ir.berimbasket.app.util.LocaleManager;
 import ir.berimbasket.app.util.Redirect;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -74,8 +75,9 @@ public class MatchFragment extends Fragment implements MatchAdapter.MatchListLis
     private void initMatchList() {
         String pusheId = Pushe.getPusheId(getContext());
         String userName = new PrefManager(getContext()).getUserName();
+        String lang = LocaleManager.getLocale(getContext()).getLanguage();
         progress.setVisibility(View.VISIBLE);
-        WebApiClient.getMatchApi().getMatches(pusheId, userName).enqueue(new Callback<List<Match>>() {
+        WebApiClient.getMatchApi().getMatches(pusheId, userName, lang).enqueue(new Callback<List<Match>>() {
             @Override
             public void onResponse(Call<List<Match>> call, Response<List<Match>> response) {
                 progress.setVisibility(View.INVISIBLE);

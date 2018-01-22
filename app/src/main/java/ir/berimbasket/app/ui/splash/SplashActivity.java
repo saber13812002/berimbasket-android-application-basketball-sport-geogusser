@@ -29,6 +29,7 @@ import ir.berimbasket.app.ui.common.custom.AlertDialogCustom;
 import ir.berimbasket.app.ui.home.HomeActivity;
 import ir.berimbasket.app.ui.intro.IntroActivity;
 import ir.berimbasket.app.update.DownloadApkUpdate;
+import ir.berimbasket.app.util.LocaleManager;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -81,7 +82,8 @@ public class SplashActivity extends BaseActivity {
             String version = String.valueOf(pInfo.versionCode);
             String userName = pref.getUserName();
             String pusheId = Pushe.getPusheId(getApplicationContext());
-            WebApiClient.getUpdateApi().checkForUpdate(packageName, version, userName, pusheId).enqueue(new Callback<Update>() {
+            String lang = LocaleManager.getLocale(getApplicationContext()).getLanguage();
+            WebApiClient.getUpdateApi().checkForUpdate(packageName, version, userName, pusheId, lang).enqueue(new Callback<Update>() {
                 @Override
                 public void onResponse(Call<Update> call, Response<Update> response) {
                     if (response.code() == HttpURLConnection.HTTP_OK) {

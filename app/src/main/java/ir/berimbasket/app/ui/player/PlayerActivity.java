@@ -30,6 +30,7 @@ import ir.berimbasket.app.data.pref.PrefManager;
 import ir.berimbasket.app.ui.base.BaseActivity;
 import ir.berimbasket.app.ui.common.PlayerSpecificationAdapter;
 import ir.berimbasket.app.ui.common.entity.SocialAccEntity;
+import ir.berimbasket.app.util.LocaleManager;
 import ir.berimbasket.app.util.Redirect;
 import ir.berimbasket.app.util.Telegram;
 import retrofit2.Call;
@@ -87,8 +88,9 @@ public class PlayerActivity extends BaseActivity {
     private void initPlayer(int id, Context context) {
         String pusheId = Pushe.getPusheId(context);
         String userName = new PrefManager(context).getUserName();
+        String lang = LocaleManager.getLocale(context).getLanguage();
         progress.setVisibility(View.VISIBLE);
-        WebApiClient.getPlayerApi().getPlayers(id, pusheId, userName).enqueue(new Callback<List<Player>>() {
+        WebApiClient.getPlayerApi().getPlayers(id, pusheId, userName, lang).enqueue(new Callback<List<Player>>() {
             @Override
             public void onResponse(Call<List<Player>> call, Response<List<Player>> response) {
                 if (response.code() == HttpURLConnection.HTTP_OK) {

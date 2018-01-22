@@ -35,6 +35,7 @@ import ir.berimbasket.app.ui.common.entity.StadiumBaseEntity;
 import ir.berimbasket.app.ui.landmark.LandmarkActivity;
 import ir.berimbasket.app.ui.stadium.StadiumActivity;
 import ir.berimbasket.app.util.AnalyticsHelper;
+import ir.berimbasket.app.util.LocaleManager;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -171,7 +172,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private void getLocations(Context context) {
         String pusheId = Pushe.getPusheId(context);
         String userName = new PrefManager(context).getUserName();
-        WebApiClient.getStadiumApi().getStadium(0, pusheId, userName).enqueue(new Callback<List<Stadium>>() {
+        String lang = LocaleManager.getLocale(context).getLanguage();
+        WebApiClient.getStadiumApi().getStadium(0, pusheId, userName, lang).enqueue(new Callback<List<Stadium>>() {
             @Override
             public void onResponse(Call<List<Stadium>> call, Response<List<Stadium>> response) {
                 if (response.code() == HttpURLConnection.HTTP_OK) {
@@ -201,12 +203,13 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         PrefManager pref = new PrefManager(context);
         String pusheId = Pushe.getPusheId(context);
         String userName = pref.getUserName();
+        String lang = LocaleManager.getLocale(context).getLanguage();
         try {
             PackageInfo pInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
             int version = pInfo.versionCode;
             WebApiClient.getLocationApi().setLocation("jkhfgkljhasfdlkh", String.valueOf(latitude),
-                    String.valueOf(longitude), "title", userName, pusheId, String.valueOf(version)).
-                    enqueue(new Callback<Void>() {
+                    String.valueOf(longitude), "title", userName, pusheId, String.valueOf(version), lang)
+                    .enqueue(new Callback<Void>() {
                         @Override
                         public void onResponse(Call<Void> call, Response<Void> response) {
                         }

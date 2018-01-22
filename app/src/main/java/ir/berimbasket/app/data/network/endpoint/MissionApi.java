@@ -16,5 +16,6 @@ public interface MissionApi {
 
     @GET("getMission.php")
     Call<List<Mission>> getMissions(@Query("user") String user, @Query("username") String username,
-                                    @Query("pusheid") String pusheId);
+                                    @Query("pusheid") String pusheId,
+                                    @Query("lang") String lang);
 }

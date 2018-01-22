@@ -20,6 +20,7 @@ import ir.berimbasket.app.data.network.WebApiClient;
 import ir.berimbasket.app.data.pref.PrefManager;
 import ir.berimbasket.app.ui.base.BaseActivity;
 import ir.berimbasket.app.util.AnalyticsHelper;
+import ir.berimbasket.app.util.LocaleManager;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -87,7 +88,9 @@ public class LandmarkActivity extends BaseActivity {
         PrefManager pref = new PrefManager(getApplicationContext());
         String pusheId = Pushe.getPusheId(getApplicationContext());
         String userName = pref.getUserName();
-        WebApiClient.getSetMarkerApi().setMarker("jkhfgkljhasfdlkh", latitude, longitude, title, userName, pusheId).enqueue(new Callback<Void>() {
+        String lang = LocaleManager.getLocale(getApplicationContext()).getLanguage();
+        WebApiClient.getSetMarkerApi().setMarker("jkhfgkljhasfdlkh", latitude, longitude, title, userName, pusheId, lang)
+                .enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.code() == HttpURLConnection.HTTP_OK) {

@@ -16,5 +16,6 @@ public interface StadiumApi {
 
     @GET("get.php")
     Call<List<Stadium>> getStadium(@Query("id") int id, @Query("pusheid") String pusheId,
-                                   @Query("username") String username);
+                                   @Query("username") String username,
+                                   @Query("lang") String lang);
 }

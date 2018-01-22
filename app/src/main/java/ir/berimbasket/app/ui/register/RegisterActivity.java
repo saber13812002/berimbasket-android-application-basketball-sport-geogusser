@@ -29,6 +29,7 @@ import ir.berimbasket.app.data.pref.PrefManager;
 import ir.berimbasket.app.ui.base.BaseActivity;
 import ir.berimbasket.app.ui.login.LoginActivity;
 import ir.berimbasket.app.util.AnalyticsHelper;
+import ir.berimbasket.app.util.LocaleManager;
 import ir.berimbasket.app.util.Redirect;
 import ir.berimbasket.app.util.Telegram;
 import ir.berimbasket.app.util.TypefaceManager;
@@ -174,7 +175,8 @@ public class RegisterActivity extends BaseActivity {
         PrefManager pref = new PrefManager(getApplicationContext());
         final String pusheId = Pushe.getPusheId(getApplicationContext());
         final String deviceId = pref.getDeviceID();
-        WebApiClient.getRegisterApi().checkUsername(deviceId, username, pusheId).enqueue(new Callback<List<CheckUsername>>() {
+        final String lang = LocaleManager.getLocale(getApplicationContext()).getLanguage();
+        WebApiClient.getRegisterApi().checkUsername(deviceId, username, pusheId, lang).enqueue(new Callback<List<CheckUsername>>() {
             @Override
             public void onResponse(Call<List<CheckUsername>> call, Response<List<CheckUsername>> response) {
                 if (response.code() == HttpURLConnection.HTTP_OK) {
@@ -184,7 +186,7 @@ public class RegisterActivity extends BaseActivity {
                             edtUsername.setError(getString(R.string.activity_register_edt_username_error));
                             pDialog.cancel();
                         } else {
-                            WebApiClient.getRegisterApi().verifyBotCode(deviceId, code, pusheId, username).enqueue(new Callback<List<VerifyBot>>() {
+                            WebApiClient.getRegisterApi().verifyBotCode(deviceId, code, pusheId, username, lang).enqueue(new Callback<List<VerifyBot>>() {
                                 @Override
                                 public void onResponse(Call<List<VerifyBot>> call, Response<List<VerifyBot>> response) {
                                     if (response.code() == HttpURLConnection.HTTP_OK) {
@@ -194,7 +196,8 @@ public class RegisterActivity extends BaseActivity {
                                                 edtVerifyCode.setError(getString(R.string.activity_register_edt_verify_error));
                                                 pDialog.cancel();
                                             } else {
-                                                WebApiClient.getRegisterApi().register(deviceId, username, password, pusheId).enqueue(new Callback<List<Register>>() {
+                                                WebApiClient.getRegisterApi().register(deviceId, username, password, pusheId, lang)
+                                                        .enqueue(new Callback<List<Register>>() {
                                                     @Override
                                                     public void onResponse(Call<List<Register>> call, Response<List<Register>> response) {
                                                         pDialog.cancel();

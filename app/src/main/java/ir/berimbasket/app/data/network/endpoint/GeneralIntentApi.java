@@ -16,5 +16,7 @@ import retrofit2.http.Query;
 public interface GeneralIntentApi {
 
     @GET("getWebPageLinkByGeneralIntentByPusheId.php")
-    Call<List<GeneralIntent>> getGeneralIntent(@Query("username") String username, @Query("pusheid") String pusheId);
+    Call<List<GeneralIntent>> getGeneralIntent(@Query("username") String username,
+                                               @Query("pusheid") String pusheId,
+                                               @Query("lang") String lang);
 }

@@ -27,6 +27,7 @@ import ir.berimbasket.app.data.network.model.Stadium;
 import ir.berimbasket.app.data.pref.PrefManager;
 import ir.berimbasket.app.ui.base.BaseActivity;
 import ir.berimbasket.app.ui.common.entity.StadiumBaseEntity;
+import ir.berimbasket.app.util.LocaleManager;
 import ir.berimbasket.app.util.Redirect;
 import ir.berimbasket.app.util.Telegram;
 import retrofit2.Call;
@@ -212,7 +213,8 @@ public class StadiumActivity extends BaseActivity {
     private void initStadiumList(final int stadiumId, Context context, final boolean fromScratch) {
         String pusheId = Pushe.getPusheId(context);
         String userName = new PrefManager(context).getUserName();
-        WebApiClient.getStadiumApi().getStadium(stadiumId, pusheId, userName).enqueue(new Callback<List<Stadium>>() {
+        String lang = LocaleManager.getLocale(context).getLanguage();
+        WebApiClient.getStadiumApi().getStadium(stadiumId, pusheId, userName, lang).enqueue(new Callback<List<Stadium>>() {
             @Override
             public void onResponse(Call<List<Stadium>> call, Response<List<Stadium>> response) {
                 if (response.code() == HttpURLConnection.HTTP_OK) {

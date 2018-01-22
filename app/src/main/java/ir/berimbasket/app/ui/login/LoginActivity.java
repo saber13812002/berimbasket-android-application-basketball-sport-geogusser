@@ -25,6 +25,7 @@ import ir.berimbasket.app.data.pref.PrefManager;
 import ir.berimbasket.app.ui.base.BaseActivity;
 import ir.berimbasket.app.ui.register.RegisterActivity;
 import ir.berimbasket.app.util.AnalyticsHelper;
+import ir.berimbasket.app.util.LocaleManager;
 import ir.berimbasket.app.util.Redirect;
 import ir.berimbasket.app.util.Telegram;
 import ir.berimbasket.app.util.TypefaceManager;
@@ -128,7 +129,8 @@ public class LoginActivity extends BaseActivity {
         PrefManager pref = new PrefManager(getApplicationContext());
         String pusheId = Pushe.getPusheId(getApplicationContext());
         String deviceId = pref.getDeviceID();
-        WebApiClient.getLoginApi().login(deviceId, username, password, pusheId).enqueue(new Callback<List<Login>>() {
+        String lang = LocaleManager.getLocale(getApplicationContext()).getLanguage();
+        WebApiClient.getLoginApi().login(deviceId, username, password, pusheId, lang).enqueue(new Callback<List<Login>>() {
             @Override
             public void onResponse(Call<List<Login>> call, Response<List<Login>> response) {
                 pDialog.cancel();

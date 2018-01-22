@@ -19,6 +19,7 @@ import ir.berimbasket.app.data.network.WebApiClient;
 import ir.berimbasket.app.data.network.model.Mission;
 import ir.berimbasket.app.data.pref.PrefManager;
 import ir.berimbasket.app.util.AnalyticsHelper;
+import ir.berimbasket.app.util.LocaleManager;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -56,7 +57,8 @@ public class MissionFragment extends Fragment {
     private void initMissions() {
         String pusheId = Pushe.getPusheId(getContext());
         String userName = new PrefManager(getContext()).getUserName();
-        WebApiClient.getMissionApi().getMissions(userName, userName, pusheId).enqueue(new Callback<List<Mission>>() {
+        String lang = LocaleManager.getLocale(getContext()).getLanguage();
+        WebApiClient.getMissionApi().getMissions(userName, userName, pusheId, lang).enqueue(new Callback<List<Mission>>() {
             @Override
             public void onResponse(Call<List<Mission>> call, Response<List<Mission>> response) {
                 if (response.code() == HttpURLConnection.HTTP_OK) {

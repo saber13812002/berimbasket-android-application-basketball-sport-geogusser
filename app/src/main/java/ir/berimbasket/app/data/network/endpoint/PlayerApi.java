@@ -15,5 +15,8 @@ import retrofit2.http.Query;
 public interface PlayerApi {
 
     @GET("getPlayers.php")
-    Call<List<Player>> getPlayers(@Query("id") int id, @Query("pusheid") String pusheId, @Query("username") String username);
+    Call<List<Player>> getPlayers(@Query("id") int id,
+                                  @Query("pusheid") String pusheId,
+                                  @Query("username") String username,
+                                  @Query("lang") String lang);
 }

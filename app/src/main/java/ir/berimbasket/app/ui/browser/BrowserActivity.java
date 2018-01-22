@@ -15,6 +15,7 @@ import ir.berimbasket.app.data.network.model.GeneralIntent;
 import ir.berimbasket.app.data.pref.PrefManager;
 import ir.berimbasket.app.ui.base.BaseActivity;
 import ir.berimbasket.app.ui.home.HomeActivity;
+import ir.berimbasket.app.util.LocaleManager;
 import ir.berimbasket.app.util.Redirect;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -33,7 +34,8 @@ public class BrowserActivity extends BaseActivity {
         PrefManager pref = new PrefManager(context);
         String userName = pref.getUserName();
         String pusheId = Pushe.getPusheId(context);
-        WebApiClient.getGeneralIntentApi().getGeneralIntent(userName, pusheId).enqueue(new Callback<List<GeneralIntent>>() {
+        String lang = LocaleManager.getLocale(context).getLanguage();
+        WebApiClient.getGeneralIntentApi().getGeneralIntent(userName, pusheId, lang).enqueue(new Callback<List<GeneralIntent>>() {
             @Override
             public void onResponse(Call<List<GeneralIntent>> call, Response<List<GeneralIntent>> response) {
                 if (response.code() == HttpURLConnection.HTTP_OK) {
