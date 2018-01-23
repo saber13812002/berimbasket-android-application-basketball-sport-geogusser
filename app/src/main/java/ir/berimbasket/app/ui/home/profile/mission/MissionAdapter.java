@@ -1,6 +1,9 @@
 package ir.berimbasket.app.ui.home.profile.mission;
 
 import android.content.Context;
+import android.net.Uri;
+import android.support.customtabs.CustomTabsIntent;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -54,20 +57,9 @@ class MissionAdapter extends RecyclerView.Adapter<MissionAdapter.MissionViewHold
         holder.cardMissionItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                if (dataSource.get(holder.getLayoutPosition()).getLock() == 0)
-//                    new RegisterMissionToUser(new AsyncResponse() {
-//
-//                        @Override
-//                        public void processFinish(String output) {
-//                            if (!output.equals("")) {
-//                                // TODO: 04/10/2017 Uncomment this part of code when isDone in missionDoneUrl added
-////                            dataSource.get(holder.getLayoutPosition()).setIsLock(1);
-////                            holder.imgMissionLock.setVisibility(View.VISIBLE);
-////                            holder.txtMissionScore.setVisibility(View.INVISIBLE);
-////                            notifyItemChanged(holder.getLayoutPosition());
-//                            }
-//                        }
-//                    }).execute(dataSource.get(holder.getLayoutPosition()));
+                if (dataSource.get(holder.getLayoutPosition()).getLock() == 0) {
+                    missionClickAction(dataSource.get(holder.getLayoutPosition()).getLink());
+                }
             }
         });
     }
@@ -95,13 +87,13 @@ class MissionAdapter extends RecyclerView.Adapter<MissionAdapter.MissionViewHold
         }
     }
 
-//    private void setMissionDone(String missionLink) {
-//        Uri missionUri = Uri.parse(missionLink);
-//        CustomTabsIntent.Builder intentBuilder = new CustomTabsIntent.Builder();
-//        intentBuilder.setToolbarColor(ContextCompat.getColor(context, R.color.colorPrimary));
-//        intentBuilder.setSecondaryToolbarColor(ContextCompat.getColor(context, R.color.colorPrimaryDark));
-//        CustomTabsIntent customTabsIntent = intentBuilder.build();
-//        customTabsIntent.launchUrl(context, missionUri);
-//    }
+    private void missionClickAction(String missionLink) {
+        Uri missionUri = Uri.parse(missionLink);
+        CustomTabsIntent.Builder intentBuilder = new CustomTabsIntent.Builder();
+        intentBuilder.setToolbarColor(ContextCompat.getColor(context, R.color.colorPrimary));
+        intentBuilder.setSecondaryToolbarColor(ContextCompat.getColor(context, R.color.colorPrimaryDark));
+        CustomTabsIntent customTabsIntent = intentBuilder.build();
+        customTabsIntent.launchUrl(context, missionUri);
+    }
 
 }

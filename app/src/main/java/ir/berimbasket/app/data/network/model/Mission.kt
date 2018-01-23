@@ -13,4 +13,4 @@ class Mission(@field:SerializedName("id")
               @field:SerializedName("level")
               var level: Int?,
               @field:SerializedName("lock")
-              var lock: Int?)
+              var lock: Int)
