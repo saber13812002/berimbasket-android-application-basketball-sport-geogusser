@@ -29,7 +29,6 @@ import ir.berimbasket.app.data.network.model.Player;
 import ir.berimbasket.app.data.pref.PrefManager;
 import ir.berimbasket.app.ui.base.BaseActivity;
 import ir.berimbasket.app.ui.common.PlayerSpecificationAdapter;
-import ir.berimbasket.app.ui.common.entity.SocialAccEntity;
 import ir.berimbasket.app.util.LocaleManager;
 import ir.berimbasket.app.util.Redirect;
 import ir.berimbasket.app.util.Telegram;
@@ -37,11 +36,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class PlayerActivity extends BaseActivity {
+public class PlayerActivity extends BaseActivity implements SocialAccAdapter.SocialAccListener{
 
     // TODO: 12/13/2017 this class breaks oop rules (there are so many bound in fields and methods) 
 
     private static final String REPORT_PLAYER_BOT = "https://t.me/berimbasketreportbot?start=";
+    private static final String EXTERNAL_WEB_PROFILE_URL = "http://berimbasket.ir/bball/www/player.php?id=";
 
     private ProgressBar progress;
     private TextView txtPlayerName;
@@ -135,6 +135,13 @@ public class PlayerActivity extends BaseActivity {
                 .error(R.drawable.profile_default)
                 .into(imgProfileImageView);
 
+        imgProfileImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Redirect.sendToCustomTab(PlayerActivity.this, EXTERNAL_WEB_PROFILE_URL + player.getId());
+            }
+        });
+
         txtPlayerName.setText(player.getName());
 
         ArrayList<String> playerSpecList = getPlayerSpec(player);
@@ -185,6 +192,13 @@ public class PlayerActivity extends BaseActivity {
         entitySocialInstagram.setLink("https://instagram.com/_u/" + player.getInstagramId());
         socialAccList.add(entitySocialInstagram);
 
+        SocialAccEntity webExternalLink = new SocialAccEntity();
+        webExternalLink.setId(0);
+        webExternalLink.setImageResId(R.drawable.ic_external_link);
+        webExternalLink.setType(SocialAccEntity.SOCIAL_TYPE_WEB_PROFILE);
+        webExternalLink.setLink(EXTERNAL_WEB_PROFILE_URL + player.getId());
+        socialAccList.add(webExternalLink);
+
         playerSpecList.add(getString(R.string.activity_player_spec_phone_number) + " " + specSeparator + " " + player.getPhone());
         return playerSpecList;
     }
@@ -221,4 +235,24 @@ public class PlayerActivity extends BaseActivity {
 
     }
 
+    @Override
+    public void onSocialItemClick(SocialAccEntity entity) {
+        if (entity.getType() == SocialAccEntity.SOCIAL_TYPE_INSTAGRAM) {
+            try {
+                Redirect.sendToInstagram(getApplicationContext(), entity.getLink());  // https://instagram.com/_u/javaherisaber
+            } catch (IllegalArgumentException unknownInstagramURL) {
+                // do nothing yet
+            }
+        } else if (entity.getType() == SocialAccEntity.SOCIAL_TYPE_TELEGRAM_CHANNEL ||
+                entity.getType() == SocialAccEntity.SOCIAL_TYPE_TELEGRAM_GROUP ||
+                entity.getType() == SocialAccEntity.SOCIAL_TYPE_TELEGRAM_USER) {
+            try {
+                Redirect.sendToTelegram(getApplicationContext(), entity.getLink(), Telegram.CHAT);  // https://t.me/mamlekate
+            } catch (IllegalArgumentException unknownTelegramURL) {
+                // do nothing yet
+            }
+        } else if (entity.getType() == SocialAccEntity.SOCIAL_TYPE_WEB_PROFILE) {
+            Redirect.sendToCustomTab(PlayerActivity.this, entity.getLink());
+        }
+    }
 }

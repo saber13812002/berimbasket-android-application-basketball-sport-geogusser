@@ -1,4 +1,4 @@
-package ir.berimbasket.app.ui.common.entity;
+package ir.berimbasket.app.ui.player;
 
 /**
  * Created by mohammad hosein on 16/11/2017.
@@ -10,6 +10,7 @@ public class SocialAccEntity {
     public static final int SOCIAL_TYPE_TELEGRAM_CHANNEL = 2;
     public static final int SOCIAL_TYPE_TELEGRAM_GROUP = 3;
     public static final int SOCIAL_TYPE_TELEGRAM_USER = 4;
+    public static final int SOCIAL_TYPE_WEB_PROFILE = 5;
 
     private int id;
     private int imageResId;
