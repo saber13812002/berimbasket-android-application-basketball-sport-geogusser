@@ -34,12 +34,15 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class StadiumActivity extends BaseActivity {
+public class StadiumActivity extends BaseActivity implements StadiumGalleryAdapter.StadiumGalleryListener {
 
     private static final String UPDATE_STADIUM_INFO_BOT = "https://t.me/berimbasketProfilebot?start=-";
     private static final String REPORT_STADIUM_BOT = "https://t.me/berimbasketreportbot?start=-";
     private static final String RESERVE_STADIUM_BOT = "https://t.me/Berimbasketreservebot?start=";
     private static final String STADIUM_IMAGE_BOT = "https://t.me/berimbasketuploadbot?start=";
+
+    private static final String EXTERNAL_WEB_STADIUM_URL = "http://berimbasket.ir/bball/www/instagram.php?id=";
+    private int stadiumId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +71,8 @@ public class StadiumActivity extends BaseActivity {
     }
 
     private void initViewsAndListeners(final Stadium stadium) {
+
+        this.stadiumId = stadium.getId();
 
         TextView txtStadiumTel = findViewById(R.id.txtStadiumTel);
         TextView txtStadiumAddress = findViewById(R.id.txtStadiumAddress);
@@ -99,6 +104,13 @@ public class StadiumActivity extends BaseActivity {
                     .centerInside()
                     .into(imgStadiumLogo);
         }
+
+        imgStadiumLogo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Redirect.sendToCustomTab(StadiumActivity.this, EXTERNAL_WEB_STADIUM_URL + stadium.getId());
+            }
+        });
 
         String specSeparator = getString(R.string.activity_stadium_spec_separator);
         txtStadiumTel.setText(getString(R.string.activity_stadium_spec_phone) + " " + specSeparator + " " + "-");
@@ -238,5 +250,10 @@ public class StadiumActivity extends BaseActivity {
 
             }
         });
+    }
+
+    @Override
+    public void onGalleryItemClick(String imageUrl) {
+        Redirect.sendToCustomTab(StadiumActivity.this, EXTERNAL_WEB_STADIUM_URL + stadiumId);
     }
 }
