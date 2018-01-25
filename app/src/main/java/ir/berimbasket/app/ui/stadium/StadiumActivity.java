@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import java.net.HttpURLConnection;
+import java.util.ArrayList;
 import java.util.List;
 
 import co.ronash.pushe.Pushe;
@@ -26,6 +27,7 @@ import ir.berimbasket.app.data.network.WebApiClient;
 import ir.berimbasket.app.data.network.model.Stadium;
 import ir.berimbasket.app.data.pref.PrefManager;
 import ir.berimbasket.app.ui.base.BaseActivity;
+import ir.berimbasket.app.ui.common.PlayerSpecificationAdapter;
 import ir.berimbasket.app.ui.common.entity.StadiumBaseEntity;
 import ir.berimbasket.app.util.LocaleManager;
 import ir.berimbasket.app.util.Redirect;
@@ -69,22 +71,6 @@ public class StadiumActivity extends BaseActivity {
 
     private void initViewsAndListeners(final Stadium stadium) {
 
-        TextView txtStadiumTel = findViewById(R.id.txtStadiumTel);
-        TextView txtStadiumAddress = findViewById(R.id.txtStadiumAddress);
-        TextView txtStadiumRound = findViewById(R.id.txtStadiumRound);
-        TextView txtTelegramChannel = findViewById(R.id.txtTelegramChannel);
-        TextView txtInstagramId = findViewById(R.id.txtInstagramId);
-        TextView txtDetailSection = findViewById(R.id.txtDetailSection);
-        TextView txtRoof = findViewById(R.id.txtRoof);
-        TextView txtDistance2Parking = findViewById(R.id.txtDistance2Parking);
-        TextView txtRimHeight = findViewById(R.id.txtRimHeight);
-        TextView txtRimNumber = findViewById(R.id.txtRimNumber);
-        TextView txtSpotlight = findViewById(R.id.txtSpotlight);
-        TextView txtFence = findViewById(R.id.txtFence);
-        TextView txtParking = findViewById(R.id.txtParking);
-        TextView txtBasketNet = findViewById(R.id.txtBasketNet);
-        TextView txtScoreLine = findViewById(R.id.txtScoreLine);
-        TextView txtLines = findViewById(R.id.txtLines);
         ImageView btnReportStadium = findViewById(R.id.btnReportStadium);
         ImageView btnReserveStadium = findViewById(R.id.btnReserveStadium);
         AppCompatButton btnAddImage = findViewById(R.id.btnAddImage);
@@ -100,22 +86,11 @@ public class StadiumActivity extends BaseActivity {
                     .into(imgStadiumLogo);
         }
 
-        String specSeparator = getString(R.string.activity_stadium_spec_separator);
-        txtStadiumTel.setText(getString(R.string.activity_stadium_spec_phone) + " " + specSeparator + " " + "-");
-        txtStadiumAddress.setText(getString(R.string.activity_stadium_spec_address) + " " + specSeparator + " " + stadium.getAddress());
-        txtStadiumRound.setText(getString(R.string.activity_stadium_spec_work_time) + " " + specSeparator + " " + "-");
-        txtTelegramChannel.setText(getString(R.string.activity_stadium_spec_telegram_channel) + " " + specSeparator + " " + stadium.getTelegramChannelId());
-        txtInstagramId.setText(getString(R.string.activity_stadium_spec_instagram) + " " + specSeparator + " " + stadium.getInstagramId());
-        txtRoof.setText(getString(R.string.activity_stadium_spec_roof) + " " + specSeparator + " " + stadium.getRoof());
-        txtDistance2Parking.setText(getString(R.string.activity_stadium_spec_distance_2_parking) + " " + specSeparator + " " + stadium.getDistance2parking());
-        txtRimHeight.setText(getString(R.string.activity_stadium_spec_rim_height) + " " + specSeparator + " " + stadium.getRimHeight());
-        txtRimNumber.setText(getString(R.string.activity_stadium_spec_rim_number) + " " + specSeparator + " " + stadium.getRimNumber());
-        txtSpotlight.setText(getString(R.string.activity_stadium_spec_spotlight) + " " + specSeparator + " " + stadium.getSpotlight());
-        txtFence.setText(getString(R.string.activity_stadium_spec_fence) + " " + specSeparator + " " + stadium.getFence());
-        txtParking.setText(getString(R.string.activity_stadium_spec_parking) + " " + specSeparator + " " + stadium.getParking());
-        txtBasketNet.setText(getString(R.string.activity_stadium_spec_basket_net) + " " + specSeparator + " " + stadium.getBasketNet());
-        txtScoreLine.setText(getString(R.string.activity_stadium_spec_score_line) + " " + specSeparator + " " + stadium.getScoreline());
-        txtLines.setText(getString(R.string.activity_stadium_spec_lines) + " " + specSeparator + " " + stadium.getLines());
+
+
+        initStadiumSpecRecycler(stadium);
+
+
 
         btnCompleteStadiumDetail.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -146,7 +121,7 @@ public class StadiumActivity extends BaseActivity {
             public void onClick(View view) {
                 try {
                     Redirect.sendToTelegram(StadiumActivity.this, RESERVE_STADIUM_BOT + stadium.getId()
-                    , Telegram.DEFAULT_BOT);
+                            , Telegram.DEFAULT_BOT);
                 } catch (IllegalArgumentException unknownTelegramURL) {
                     // do nothing yet
                 }
@@ -202,6 +177,20 @@ public class StadiumActivity extends BaseActivity {
         fragmentTransaction.commit();
     }
 
+
+    private void initStadiumSpecRecycler(final Stadium stadium){
+        RecyclerView recyclerView = findViewById(R.id.recyclerStadiumSpec);
+        StadiumSpecificationAdapter stadiumSpecificationAdapter = new StadiumSpecificationAdapter(getStadiumSpecListValue(stadium), getStadiumSpecListKey(), this);
+        recyclerView.setNestedScrollingEnabled(false);
+        recyclerView.setAdapter(stadiumSpecificationAdapter);
+
+        LinearLayoutManager llm = new LinearLayoutManager(this);
+        llm.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(llm);
+
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
@@ -238,5 +227,50 @@ public class StadiumActivity extends BaseActivity {
 
             }
         });
+    }
+
+    private ArrayList<String> getStadiumSpecListKey() {
+
+        ArrayList<String> stadiumSpecListKey = new ArrayList<>();
+
+        stadiumSpecListKey.add(getString(R.string.activity_stadium_spec_phone));
+        stadiumSpecListKey.add(getString(R.string.activity_stadium_spec_address));
+        stadiumSpecListKey.add(getString(R.string.activity_stadium_spec_work_time));
+        stadiumSpecListKey.add(getString(R.string.activity_stadium_spec_telegram_channel));
+        stadiumSpecListKey.add(getString(R.string.activity_stadium_spec_instagram));
+        stadiumSpecListKey.add(getString(R.string.activity_stadium_spec_roof));
+        stadiumSpecListKey.add(getString(R.string.activity_stadium_spec_distance_2_parking));
+        stadiumSpecListKey.add(getString(R.string.activity_stadium_spec_rim_height));
+        stadiumSpecListKey.add(getString(R.string.activity_stadium_spec_rim_number));
+        stadiumSpecListKey.add(getString(R.string.activity_stadium_spec_spotlight));
+        stadiumSpecListKey.add(getString(R.string.activity_stadium_spec_fence));
+        stadiumSpecListKey.add(getString(R.string.activity_stadium_spec_parking));
+        stadiumSpecListKey.add(getString(R.string.activity_stadium_spec_basket_net));
+        stadiumSpecListKey.add(getString(R.string.activity_stadium_spec_score_line));
+        stadiumSpecListKey.add(getString(R.string.activity_stadium_spec_lines));
+
+        return stadiumSpecListKey;
+    }
+
+    private ArrayList<String> getStadiumSpecListValue(final Stadium stadium) {
+
+        ArrayList<String> stadiumSpecListValue = new ArrayList<>();
+
+        stadiumSpecListValue.add("-");
+        stadiumSpecListValue.add(stadium.getAddress());
+        stadiumSpecListValue.add("-");
+        stadiumSpecListValue.add(stadium.getTelegramChannelId());
+        stadiumSpecListValue.add(stadium.getInstagramId());
+        stadiumSpecListValue.add(stadium.getRoof());
+        stadiumSpecListValue.add(stadium.getDistance2parking());
+        stadiumSpecListValue.add(stadium.getRimHeight());
+        stadiumSpecListValue.add(stadium.getRimNumber());
+        stadiumSpecListValue.add(stadium.getSpotlight());
+        stadiumSpecListValue.add(stadium.getFence());
+        stadiumSpecListValue.add(stadium.getParking());
+        stadiumSpecListValue.add(stadium.getBasketNet());
+        stadiumSpecListValue.add(stadium.getScoreline());
+        stadiumSpecListValue.add(stadium.getLines());
+        return stadiumSpecListValue;
     }
 }

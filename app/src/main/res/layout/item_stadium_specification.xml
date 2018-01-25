@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/txtSpecKey"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/yekan"
+            android:gravity="start"
+            android:padding="15dp"
+            android:text="@string/item_stadium_spec_key_default"
+            android:textColor="@color/colorPrimary"
+            android:textSize="15sp" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_weight="0.005"
+            android:layout_height="match_parent"
+            android:background="@color/colorLightGrey"/>
+
+        <TextView
+            android:id="@+id/txtSpecValue"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:fontFamily="@font/yekan"
+            android:gravity="left"
+            android:padding="15dp"
+            android:text="@string/item_stadium_spec_value_default"
+            android:textColor="@color/colorDarkGrey"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:background="@color/colorLightGrey"/>
+
+</LinearLayout>

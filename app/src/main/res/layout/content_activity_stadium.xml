@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -24,8 +24,8 @@
                 android:id="@+id/imgStadiumLogo"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:layout_centerHorizontal="true"
                 android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
                 android:src="@drawable/stadium1" />
 
             <TextView
@@ -42,24 +42,24 @@
 
 
             <!--<RatingBar-->
-                <!--android:id="@+id/ratingStadiumRate"-->
-                <!--style="?android:attr/ratingBarStyleSmall"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginTop="6dp"-->
-                <!--android:layout_toLeftOf="@id/imgStadiumLogo"-->
-                <!--android:isIndicator="false"-->
-                <!--android:max="5"-->
-                <!--android:numStars="5"-->
-                <!--android:progress="4"-->
-                <!--android:progressTint="@color/colorGold"-->
-                <!--android:visibility="gone" />-->
+            <!--android:id="@+id/ratingStadiumRate"-->
+            <!--style="?android:attr/ratingBarStyleSmall"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="6dp"-->
+            <!--android:layout_toLeftOf="@id/imgStadiumLogo"-->
+            <!--android:isIndicator="false"-->
+            <!--android:max="5"-->
+            <!--android:numStars="5"-->
+            <!--android:progress="4"-->
+            <!--android:progressTint="@color/colorGold"-->
+            <!--android:visibility="gone" />-->
             <LinearLayout
-                android:orientation="horizontal"
-                android:gravity="center"
-                android:layout_below="@id/txtStadiumName"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txtStadiumName"
+                android:gravity="center"
+                android:orientation="horizontal">
 
                 <android.support.v7.widget.AppCompatButton
                     android:id="@+id/btnCompleteStadiumDetail"
@@ -116,145 +116,16 @@
             android:layout_margin="10dp"
             android:background="@color/colorLightGrey" />
 
-        <LinearLayout
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerStadiumSpec"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="start"
-            android:orientation="vertical"
-            android:padding="15dp">
-
-            <TextView
-                android:id="@+id/txtDetailSection"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/yekan"
-                android:text="@string/activity_stadium_txt_detail"
-                android:textColor="@color/colorPrimary" />
-
-            <TextView
-                android:id="@+id/txtStadiumTel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/yekan"
-                android:padding="10dp"
-                android:text="@string/activity_stadium_txt_phone_default" />
-
-            <TextView
-                android:id="@+id/txtStadiumAddress"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/yekan"
-                android:padding="10dp"
-                android:text="@string/activity_stadium_txt_address_default" />
-
-            <TextView
-                android:id="@+id/txtStadiumRound"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/yekan"
-                android:padding="10dp"
-                android:text="@string/activity_stadium_txt_round_default" />
-
-            <TextView
-                android:id="@+id/txtTelegramChannel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/yekan"
-                android:padding="10dp"
-                android:text="@string/activity_stadium_txt_telegram_channel_default" />
-
-            <TextView
-                android:id="@+id/txtInstagramId"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/yekan"
-                android:padding="10dp"
-                android:text="@string/activity_stadium_txt_instagram_default" />
-
-            <TextView
-                android:id="@+id/txtRoof"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/yekan"
-                android:padding="10dp"
-                android:text="@string/activity_stadium_txt_root_default" />
-
-            <TextView
-                android:id="@+id/txtDistance2Parking"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/yekan"
-                android:padding="10dp"
-                android:text="@string/activity_stadium_txt_distance_2_parking_default" />
-
-            <TextView
-                android:id="@+id/txtRimHeight"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/yekan"
-                android:padding="10dp"
-                android:text="@string/activity_stadium_txt_rim_height" />
-
-            <TextView
-                android:id="@+id/txtRimNumber"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/yekan"
-                android:padding="10dp"
-                android:text="@string/activity_stadium_txt_rim_number_default" />
-
-            <TextView
-                android:id="@+id/txtSpotlight"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/yekan"
-                android:padding="10dp"
-                android:text="@string/activity_stadium_txt_spotlight_default" />
-
-            <TextView
-                android:id="@+id/txtFence"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/yekan"
-                android:padding="10dp"
-                android:text="@string/activity_stadium_txt_fence_default" />
-
-            <TextView
-                android:id="@+id/txtParking"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/yekan"
-                android:padding="10dp"
-                android:text="@string/activity_stadium_txt_parking_default" />
-
-            <TextView
-                android:id="@+id/txtBasketNet"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/yekan"
-                android:padding="10dp"
-                android:text="@string/activity_stadium_txt_basket_net_default" />
-
-            <TextView
-                android:id="@+id/txtScoreLine"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/yekan"
-                android:padding="10dp"
-                android:text="@string/activity_stadium_txt_score_line_default" />
-
-            <TextView
-                android:id="@+id/txtLines"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/yekan"
-                android:padding="10dp"
-                android:text="@string/activity_stadium_txt_lines_default" />
-
-        </LinearLayout>
+            android:layout_marginTop="5dp"
+            android:scrollbars="horizontal" />
 
     </LinearLayout>
 
-</ScrollView>
+</android.support.v4.widget.NestedScrollView>
 
 
