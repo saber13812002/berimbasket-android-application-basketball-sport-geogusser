@@ -154,22 +154,22 @@ public class PlayerActivity extends BaseActivity {
     private ArrayList<String> getPlayerSpec(Player player) {
 
         ArrayList<String> playerSpecList = new ArrayList<>();
-        String specSeparator = getString(R.string.activity_player_spec_separator);
-        playerSpecList.add(getString(R.string.activity_player_spec_name) + " " + specSeparator + " " + player.getName());
-        playerSpecList.add(getString(R.string.activity_player_spec_age) + " " + specSeparator + " " + String.valueOf(player.getAge()));
-        playerSpecList.add(getString(R.string.activity_player_spec_city) + " " + specSeparator + player.getCity());
-        playerSpecList.add(getString(R.string.activity_player_spec_height) + " " + specSeparator + " " + String.valueOf(player.getHeight()));
-        playerSpecList.add(getString(R.string.activity_player_spec_weight) + " " + specSeparator + " " + String.valueOf(player.getWeight()));
-        playerSpecList.add(getString(R.string.activity_player_spec_address) + " " + specSeparator + " " + player.getAddress());
-        playerSpecList.add(getString(R.string.activity_player_spec_experience) + " " + specSeparator + " " + player.getExperience());
-        playerSpecList.add(getString(R.string.activity_player_spec_head_coach) + " " + specSeparator + " " + player.getCoachName());
-        playerSpecList.add(getString(R.string.activity_player_spec_team) + " " + specSeparator + " " + player.getTeamName());
-        playerSpecList.add(getString(R.string.activity_player_spec_user_name) + " " + specSeparator + " " + player.getUsername());
-        playerSpecList.add(getString(R.string.activity_player_spec_game_post) + " " + specSeparator + " " + String.valueOf(player.getPost()));
+
+        playerSpecList.add(player.getName());
+        playerSpecList.add(String.valueOf(player.getAge()));
+        playerSpecList.add(player.getCity());
+        playerSpecList.add(String.valueOf(player.getHeight()));
+        playerSpecList.add(String.valueOf(player.getWeight()));
+        playerSpecList.add(player.getAddress());
+        playerSpecList.add(player.getExperience());
+        playerSpecList.add(player.getCoachName());
+        playerSpecList.add(player.getTeamName());
+        playerSpecList.add(player.getUsername());
+        playerSpecList.add(String.valueOf(player.getPost()));
 //        playerSpecList.add("" + entityPlayer.getProfileImage());
 
 
-        playerSpecList.add(getString(R.string.activity_player_spec_telegram) + " " + specSeparator + " " + player.getTelegramId());
+        playerSpecList.add(player.getTelegramId());
         SocialAccEntity entitySocialTelegram = new SocialAccEntity();
         entitySocialTelegram.setId(0);
         entitySocialTelegram.setImageResId(R.drawable.ic_social_telegram);
@@ -177,7 +177,7 @@ public class PlayerActivity extends BaseActivity {
         entitySocialTelegram.setLink("https://t.me/" + player.getTelegramId());
         socialAccList.add(entitySocialTelegram);
 
-        playerSpecList.add(getString(R.string.activity_player_spec_instagram) + " " + specSeparator + " " + player.getInstagramId());
+        playerSpecList.add(player.getInstagramId());
         SocialAccEntity entitySocialInstagram = new SocialAccEntity();
         entitySocialInstagram.setId(0);
         entitySocialInstagram.setImageResId(R.drawable.ic_social_instagram);
@@ -185,8 +185,30 @@ public class PlayerActivity extends BaseActivity {
         entitySocialInstagram.setLink("https://instagram.com/_u/" + player.getInstagramId());
         socialAccList.add(entitySocialInstagram);
 
-        playerSpecList.add(getString(R.string.activity_player_spec_phone_number) + " " + specSeparator + " " + player.getPhone());
+        playerSpecList.add(player.getPhone());
         return playerSpecList;
+    }
+
+    private ArrayList<String> getPlayerSpecKey() {
+
+        ArrayList<String> playerSpecListKey = new ArrayList<>();
+        String specSeparator = getString(R.string.fragment_player_spec_separator);
+        playerSpecListKey.add(getString(R.string.fragment_player_spec_name));
+        playerSpecListKey.add(getString(R.string.fragment_player_spec_age));
+        playerSpecListKey.add(getString(R.string.fragment_player_spec_city));
+        playerSpecListKey.add(getString(R.string.fragment_player_spec_height));
+        playerSpecListKey.add(getString(R.string.fragment_player_spec_weight));
+        playerSpecListKey.add(getString(R.string.fragment_player_spec_address));
+        playerSpecListKey.add(getString(R.string.fragment_player_spec_experience));
+        playerSpecListKey.add(getString(R.string.fragment_player_spec_head_coach));
+        playerSpecListKey.add(getString(R.string.fragment_player_spec_team));
+        playerSpecListKey.add(getString(R.string.fragment_player_spec_user_name));
+        playerSpecListKey.add(getString(R.string.fragment_player_spec_post));
+        //playerSpecListKey.add("" + entityPlayer.getProfileImage());
+        playerSpecListKey.add(getString(R.string.fragment_player_spec_telegram));
+        playerSpecListKey.add(getString(R.string.fragment_player_spec_instagram));
+        playerSpecListKey.add(getString(R.string.fragment_player_spec_phone_number));
+        return playerSpecListKey;
     }
 
     ArrayList<SocialAccEntity> socialAccList = new ArrayList<>();
@@ -194,13 +216,13 @@ public class PlayerActivity extends BaseActivity {
     private void initRecyclerPlayerSpec(ArrayList<String> playerSpecList) {
 
         RecyclerView recyclerView = findViewById(R.id.recyclerPlayerSpec);
-        PlayerSpecificationAdapter playerSpecificationAdapter = new PlayerSpecificationAdapter(playerSpecList, this);
+        PlayerSpecificationAdapter playerSpecificationAdapter = new PlayerSpecificationAdapter(playerSpecList, getPlayerSpecKey(), this);
         recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setAdapter(playerSpecificationAdapter);
 
-        GridLayoutManager glm = new GridLayoutManager(this, 2);
-        glm.setOrientation(GridLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(glm);
+        LinearLayoutManager llm = new LinearLayoutManager(this);
+        llm.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(llm);
 
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 

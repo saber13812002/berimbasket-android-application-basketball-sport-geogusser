@@ -1,44 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/cardMissionItem"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="8dp"
-    android:layout_marginStart="5dp"
-    android:layout_marginEnd="5dp"
-    app:cardBackgroundColor="@color/colorPrimary"
-    app:cardCornerRadius="5dp">
+    android:orientation="vertical">
 
-    <LinearLayout
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:orientation="vertical"
-        android:padding="5dp">
+        android:background="@color/colorWhite"
+        android:orientation="horizontal">
 
-        <!-- fixme: set value of this view to real key in code (instead of numbers) -->
         <TextView
             android:id="@+id/txtSpecKey"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:fontFamily="@font/yekan"
-            android:gravity="center_vertical"
+            android:gravity="start"
+            android:padding="15dp"
             android:text="@string/item_player_spec_key_default"
-            android:textSize="18sp"
-            android:visibility="gone"
-            android:textColor="@color/colorWhite" />
+            android:textColor="@color/colorPrimary"
+            android:textSize="15sp" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_weight="0.005"
+            android:layout_height="match_parent"
+            android:background="@color/colorLightGrey"/>
 
         <TextView
             android:id="@+id/txtSpecValue"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="2"
             android:fontFamily="@font/yekan"
-            android:textColor="@color/colorWhite"
-            android:textSize="18sp"
-            android:gravity="center_vertical"
-            android:text="@string/item_player_spec_value_default" />
+            android:gravity="left"
+            android:padding="15dp"
+            android:text="@string/item_player_spec_value_default"
+            android:textColor="@color/colorDarkGrey"
+            android:textSize="14sp" />
 
     </LinearLayout>
 
-</android.support.v7.widget.CardView>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:background="@color/colorLightGrey"/>
+
+</LinearLayout>

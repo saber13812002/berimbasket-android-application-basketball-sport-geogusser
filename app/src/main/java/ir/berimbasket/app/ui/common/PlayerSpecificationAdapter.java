@@ -18,10 +18,11 @@ import ir.berimbasket.app.R;
 public class PlayerSpecificationAdapter extends RecyclerView.Adapter<PlayerSpecificationAdapter.PlayerSpecViewHolder> {
 
     private final Context context;
-    private final ArrayList<String> playerSpecList;
+    private final ArrayList<String> playerSpecList, playerListKey;
 
-    public PlayerSpecificationAdapter(ArrayList<String> playerList, Context context) {
-        this.playerSpecList = playerList;
+    public PlayerSpecificationAdapter(ArrayList<String> playerListValue, ArrayList<String> playerListKey, Context context) {
+        this.playerSpecList = playerListValue;
+        this.playerListKey = playerListKey;
         this.context = context;
     }
 
@@ -29,8 +30,7 @@ public class PlayerSpecificationAdapter extends RecyclerView.Adapter<PlayerSpeci
     public PlayerSpecificationAdapter.PlayerSpecViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.item_player_specification, parent, false);
-        PlayerSpecificationAdapter.PlayerSpecViewHolder holder = new PlayerSpecificationAdapter.PlayerSpecViewHolder(view);
-        return holder;
+        return new PlayerSpecViewHolder(view);
     }
 
     @Override
@@ -46,23 +46,21 @@ public class PlayerSpecificationAdapter extends RecyclerView.Adapter<PlayerSpeci
 
     class PlayerSpecViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        TextView txtSpecNum, txtSpecValue;
+        TextView txtSpecValue, txtSpecKey;
 
         PlayerSpecViewHolder(View itemView) {
             super(itemView);
-            this.txtSpecNum = (TextView) itemView.findViewById(R.id.txtSpecKey);
-            this.txtSpecValue = (TextView) itemView.findViewById(R.id.txtSpecValue);
+            this.txtSpecValue = itemView.findViewById(R.id.txtSpecValue);
+            this.txtSpecKey = itemView.findViewById(R.id.txtSpecKey);
         }
 
         public void setData(int position) {
-            txtSpecNum.setText(String.valueOf(position));
             txtSpecValue.setText(playerSpecList.get(position));
+            txtSpecKey.setText(playerListKey.get(position));
         }
 
         @Override
         public void onClick(View view) {
-//            switch (view.getId()) {
-//            }
         }
     }
 }
