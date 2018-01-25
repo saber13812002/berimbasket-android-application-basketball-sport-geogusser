@@ -21,7 +21,8 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
     private final static String URL_PREFERENCE_TERMS_AND_SERVICES = "http://berimbasket.ir/terms";
     private final static String URL_PREFERENCE_ABOUT_US = "http://berimbasket.ir/about";
     private final static String URL_PREFERENCE_CHANGE_LOG = "http://berimbasket.ir/changelog";
-    private Preference help, aboutUs, terms, changeLog, commentMyket;
+    private final static String URL_PREFERENCE_CONTACT_US = "http://berimbasket.ir/contact-us";
+    private Preference help, aboutUs, terms, changeLog, commentMyket, contactUs;
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
@@ -40,12 +41,14 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
         terms = findPreference(getString(R.string.key_pref_terms_and_services));
         changeLog = findPreference(getString(R.string.key_pref_change_log));
         commentMyket = findPreference(getString(R.string.key_pref_comment_myket));
+        contactUs = findPreference(getString(R.string.key_pref_contact_us));
 
         help.setOnPreferenceClickListener(this);
         aboutUs.setOnPreferenceClickListener(this);
         terms.setOnPreferenceClickListener(this);
         changeLog.setOnPreferenceClickListener(this);
         commentMyket.setOnPreferenceClickListener(this);
+        contactUs.setOnPreferenceClickListener(this);
     }
 
     @Override
@@ -74,6 +77,8 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
         } else if (key.equals(commentMyket.getKey())) {
             AnalyticsHelper.getInstance().trackEvent(getString(R.string.analytics_category_settings), getString(R.string.analytics_action_comment_myket), "");
             Redirect.sendToMyketForComment(getActivity());
+        } else if (key.equals(contactUs.getKey())) {
+            Redirect.sendToCustomTab(getActivity(), URL_PREFERENCE_CONTACT_US);
         }
         return false;
     }
