@@ -58,6 +58,16 @@
             android:key="@string/key_pref_help"
             android:layout="@layout/item_preference_intent"
             android:title="@string/pref_help_title" />
+
+        <Preference android:layout="@layout/item_preference_divider" />
+
+        <ir.berimbasket.app.ui.settings.preference.PreferenceCustom
+            android:key="@string/key_pref_comment_myket"
+            android:layout="@layout/item_preference_intent"
+            android:title="@string/pref_comment_myket_title">
+
+        </ir.berimbasket.app.ui.settings.preference.PreferenceCustom>
+
         <Preference android:layout="@layout/item_preference_divider" />
 
         <ir.berimbasket.app.ui.settings.preference.PreferenceCustom

@@ -174,6 +174,7 @@
     <string name="pref_change_log_title">ChangeLog</string>
     <string name="pref_about_us_title">About</string>
     <string name="pref_lang_list_title">Select Language</string>
+    <string name="pref_comment_myket_title">Comment us on myket</string>
 
     <string name="key_pref_update_notification" translatable="false">pref_update_notification</string>
     <string name="key_pref_message_notification" translatable="false">pref_message_notification</string>
@@ -183,6 +184,7 @@
     <string name="key_pref_about_us" translatable="false">pref_about_us</string>
     <string name="key_pref_state_list" translatable="false">pref_state_list</string>
     <string name="key_pref_lang_list" translatable="false">pref_lang_list</string>
+    <string name="key_pref_comment_myket" translatable="false">pref_comment_myket</string>
 
     <string name="pref_update_notification_summary">Get informed of app\'s update</string>
     <string name="pref_message_notification_summary">Get informed of news and special offers</string>
@@ -340,6 +342,7 @@
     <string name="analytics_action_about" translatable="false">Click About</string>
     <string name="analytics_action_terms" translatable="false">Click TermsAndServices</string>
     <string name="analytics_action_change_log" translatable="false">Click ChangeLog</string>
+    <string name="analytics_action_comment_myket" translatable="false">Click Comment Myket</string>
 
     <!-- menu -->
     <string name="menu_fragment_profile_team">My Team</string>

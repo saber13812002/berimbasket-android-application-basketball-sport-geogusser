@@ -122,6 +122,7 @@
     <string name="pref_terms_and_services_title">شرایط استفاده</string>
     <string name="pref_change_log_title">تغییرات اخیر</string>
     <string name="pref_about_us_title">درباره ما</string>
+    <string name="pref_comment_myket_title">ارسال نظر در مایکت</string>
     <string name="pref_state_list_title">انتخاب استان نمایش داده شده در نقشه</string>
     <string name="pref_update_notification_summary">با فعالسازی این قسمت بروزرسانی های برنامه به شما اطلاع داده میشود تا بتوانید از آخرین نسخه برنامه استفاده کنید</string>
     <string name="pref_message_notification_summary">با فعالسازی این قسمت شما میتوانید از آخرین اخبار و پیشنهادات ویژه برنامه آگاه شوید</string>

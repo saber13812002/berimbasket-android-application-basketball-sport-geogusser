@@ -21,7 +21,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
     private final static String URL_PREFERENCE_TERMS_AND_SERVICES = "http://berimbasket.ir/terms";
     private final static String URL_PREFERENCE_ABOUT_US = "http://berimbasket.ir/about";
     private final static String URL_PREFERENCE_CHANGE_LOG = "http://berimbasket.ir/changelog";
-    private Preference help, aboutUs, terms, changeLog;
+    private Preference help, aboutUs, terms, changeLog, commentMyket;
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
@@ -39,10 +39,13 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
         aboutUs = findPreference(getString(R.string.key_pref_about_us));
         terms = findPreference(getString(R.string.key_pref_terms_and_services));
         changeLog = findPreference(getString(R.string.key_pref_change_log));
+        commentMyket = findPreference(getString(R.string.key_pref_comment_myket));
+
         help.setOnPreferenceClickListener(this);
         aboutUs.setOnPreferenceClickListener(this);
         terms.setOnPreferenceClickListener(this);
         changeLog.setOnPreferenceClickListener(this);
+        commentMyket.setOnPreferenceClickListener(this);
     }
 
     @Override
@@ -68,9 +71,14 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
             AnalyticsHelper.getInstance().trackEvent(getString(R.string.analytics_category_settings), getString(R.string.analytics_action_change_log), "");
             Redirect.sendToCustomTab(getActivity(), URL_PREFERENCE_CHANGE_LOG);
             return true;
+        } else if (key.equals(commentMyket.getKey())) {
+            AnalyticsHelper.getInstance().trackEvent(getString(R.string.analytics_category_settings), getString(R.string.analytics_action_comment_myket), "");
+            Redirect.sendToMyketForComment(getActivity());
         }
         return false;
     }
+
+
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {

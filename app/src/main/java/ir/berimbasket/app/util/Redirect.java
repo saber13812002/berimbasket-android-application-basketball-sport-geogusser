@@ -192,4 +192,12 @@ public class Redirect {
             return false;
         }
     }
+
+    public static void sendToMyketForComment(final Context  context) {
+        String url= "http://myket.ir/app/ir.berimbasket.app";
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse(url));
+        context.startActivity(intent);
+    }
 }
