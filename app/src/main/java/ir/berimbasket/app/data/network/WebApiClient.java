@@ -12,12 +12,14 @@ import ir.berimbasket.app.data.network.endpoint.MapMarkerApi;
 import ir.berimbasket.app.data.network.endpoint.MatchApi;
 import ir.berimbasket.app.data.network.endpoint.MissionApi;
 import ir.berimbasket.app.data.network.endpoint.PlayerApi;
+import ir.berimbasket.app.data.network.endpoint.QuestionApi;
 import ir.berimbasket.app.data.network.endpoint.RegisterApi;
 import ir.berimbasket.app.data.network.endpoint.StadiumApi;
 import ir.berimbasket.app.data.network.endpoint.UpdateApi;
 import ir.berimbasket.app.data.network.gson.BooleanDefaultAdapter;
 import ir.berimbasket.app.data.network.gson.IntegerDefaultAdapter;
 import ir.berimbasket.app.data.network.gson.StringDefaultAdapter;
+import ir.berimbasket.app.data.network.model.Question;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -31,6 +33,11 @@ public class WebApiClient {
     public static MissionApi getMissionApi() {
         return buildSimpleClient(BerimBasket.BBAL_BASE_URL)
                 .create(MissionApi.class);
+    }
+
+    public static QuestionApi getQuestionApi() {
+        return buildSimpleClient(BerimBasket.BBAL_BASE_URL)
+                .create(QuestionApi.class);
     }
 
     public static FeedbackApi postFeedbackApi() {

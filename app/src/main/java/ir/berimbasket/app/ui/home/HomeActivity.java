@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
@@ -21,10 +22,15 @@ import com.crashlytics.android.Crashlytics;
 import co.ronash.pushe.Pushe;
 import io.fabric.sdk.android.Fabric;
 import ir.berimbasket.app.R;
+import ir.berimbasket.app.data.network.WebApiClient;
+import ir.berimbasket.app.data.network.model.Question;
 import ir.berimbasket.app.ui.base.BaseActivity;
 import ir.berimbasket.app.ui.common.custom.TypefaceSpanCustom;
 import ir.berimbasket.app.ui.settings.SettingsActivity;
 import ir.berimbasket.app.util.TypefaceManager;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class HomeActivity extends BaseActivity implements View.OnClickListener {
 
@@ -93,6 +99,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
         initToolbar();
         initViews();
         initListeners();
+        checkQuestion();
 
         navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -160,4 +167,22 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
                 break;
         }
     }
+
+    private void checkQuestion() {
+        String pusheid = Pushe.getPusheId(getApplicationContext());
+
+        WebApiClient.getQuestionApi().getQuestion(pusheid).enqueue(new Callback<Question>() {
+            @Override
+            public void onResponse(Call<Question> call, Response<Question> response) {
+                Question question = response.body();
+            }
+
+            @Override
+            public void onFailure(Call<Question> call, Throwable t) {
+                Log.i("responseBodyNow", t.getMessage());
+            }
+        });
+    }
+
+
 }
