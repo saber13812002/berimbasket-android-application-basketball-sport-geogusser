@@ -17,6 +17,7 @@ import co.ronash.pushe.Pushe;
 import ir.berimbasket.app.R;
 import ir.berimbasket.app.data.network.WebApiClient;
 import ir.berimbasket.app.ui.base.BaseActivity;
+import ir.berimbasket.app.util.EditTextHelper;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -40,8 +41,9 @@ public class DeveloperContactActivity extends BaseActivity {
         btnSendMessage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (isEmpty(edtContent) || isEmpty(edtMobile) || isEmpty(edtSubject)) {
+                if (EditTextHelper.isEmpty(edtContent) || EditTextHelper.isEmpty(edtMobile) || EditTextHelper.isEmpty(edtSubject)) {
                     Toast.makeText(DeveloperContactActivity.this, R.string.activity_developer_contact_toast_message_fill_edittext, Toast.LENGTH_LONG).show();
+                    EditTextHelper.promptEmpty(DeveloperContactActivity.this);
                 } else {
                     Map<String, String> requestBody = new HashMap<>();
                     requestBody.put("mobile", edtMobile.getText().toString());
@@ -52,16 +54,16 @@ public class DeveloperContactActivity extends BaseActivity {
                         @Override
                         public void onResponse(Call<Void> call, Response<Void> response) {
                             if (response.code() == HttpURLConnection.HTTP_OK) {
-                                Toast.makeText(DeveloperContactActivity.this, R.string.activity_developer_contact_toast_message_successfull_send, Toast.LENGTH_LONG).show();
-                                emptyEditText(edtContent, edtMobile, edtSubject);
+                                Toast.makeText(DeveloperContactActivity.this, R.string.activity_developer_contact_toast_message_successful_send, Toast.LENGTH_LONG).show();
+                                EditTextHelper.emptyEditText(edtContent, edtMobile, edtSubject);
                             } else {
-                                Toast.makeText(DeveloperContactActivity.this, R.string.activity_developer_contact_toast_message_try_again, Toast.LENGTH_SHORT).show();
+                                EditTextHelper.promptTryAgain(DeveloperContactActivity.this);
                             }
                         }
 
                         @Override
                         public void onFailure(Call<Void> call, Throwable t) {
-                            Toast.makeText(DeveloperContactActivity.this, R.string.activity_developer_contact_toast_message_webservice_fail, Toast.LENGTH_LONG).show();
+                            EditTextHelper.promptTryLater(DeveloperContactActivity.this);
                         }
                     });
                 }
@@ -81,13 +83,4 @@ public class DeveloperContactActivity extends BaseActivity {
 
     }
 
-    private boolean isEmpty(EditText editText) {
-        return editText.getText().toString().trim().length() == 0;
-    }
-
-    private void emptyEditText(EditText... edt) {
-        for (EditText editText : edt) {
-            editText.setText("");
-        }
-    }
 }

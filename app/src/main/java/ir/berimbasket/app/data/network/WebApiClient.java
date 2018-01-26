@@ -3,6 +3,7 @@ package ir.berimbasket.app.data.network;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import ir.berimbasket.app.data.network.endpoint.AnswerApi;
 import ir.berimbasket.app.data.network.endpoint.BerimBasket;
 import ir.berimbasket.app.data.network.endpoint.FeedbackApi;
 import ir.berimbasket.app.data.network.endpoint.GeneralIntentApi;
@@ -38,6 +39,11 @@ public class WebApiClient {
     public static QuestionApi getQuestionApi() {
         return buildSimpleClient(BerimBasket.BBAL_BASE_URL)
                 .create(QuestionApi.class);
+    }
+
+    public static AnswerApi sendAnswerApi() {
+        return buildSimpleClient(BerimBasket.BBAL_BASE_URL)
+                .create(AnswerApi.class);
     }
 
     public static FeedbackApi postFeedbackApi() {

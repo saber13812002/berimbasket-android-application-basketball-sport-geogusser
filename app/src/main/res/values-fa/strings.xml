@@ -227,8 +227,12 @@
     <string name="activity_developer_contact_btn_send_email">ارسال پیام به توسعه دهنده از طریق ایمیل
     \n berimbasket@gmail.com</string>
     <string name="activity_developer_contact_toast_message_fill_edittext">لطفا تمامی موارد را پر کنید</string>
-    <string name="activity_developer_contact_toast_message_successfull_send">پیام شما با موفقیت ارسال شد.</string>
+    <string name="activity_developer_contact_toast_message_successful_send">پیام شما با موفقیت ارسال شد.</string>
     <string name="activity_developer_contact_toast_message_try_again">مشکلی در ارسال پیام شما به وجود آمده، لطفا دوباره امتحان کنید.</string>
     <string name="activity_developer_contact_toast_message_webservice_fail">مشکلی در ارسال پیام شما به وجود آمده، لطفا بعدا امتحان کنید.</string>
+    <string name="activity_home_get_answer_dialog_title">سوال امروز شما!</string>
+    <string name="activity_home_get_answer_dialog_btn_yes">ارسال پاسخ</string>
+    <string name="activity_home_get_answer_dialog_btn_no">لغو</string>
+    <string name="activity_home_send_answer_prompt_successful">پاسخ شما با موفقیت ارسال شد.</string>
 
 </resources>

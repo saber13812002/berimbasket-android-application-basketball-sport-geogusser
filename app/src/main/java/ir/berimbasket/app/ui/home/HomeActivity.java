@@ -1,11 +1,13 @@
 package ir.berimbasket.app.ui.home;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
 import android.text.Spannable;
@@ -15,9 +17,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
+
+import java.net.HttpURLConnection;
+import java.util.HashMap;
+import java.util.Map;
 
 import co.ronash.pushe.Pushe;
 import io.fabric.sdk.android.Fabric;
@@ -27,6 +35,7 @@ import ir.berimbasket.app.data.network.model.Question;
 import ir.berimbasket.app.ui.base.BaseActivity;
 import ir.berimbasket.app.ui.common.custom.TypefaceSpanCustom;
 import ir.berimbasket.app.ui.settings.SettingsActivity;
+import ir.berimbasket.app.util.EditTextHelper;
 import ir.berimbasket.app.util.TypefaceManager;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -174,7 +183,10 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
         WebApiClient.getQuestionApi().getQuestion(pusheid).enqueue(new Callback<Question>() {
             @Override
             public void onResponse(Call<Question> call, Response<Question> response) {
-                Question question = response.body();
+                if (response.code() == HttpURLConnection.HTTP_OK) {
+                    final Question question = response.body();
+                    getAnswer(question);
+                }
             }
 
             @Override
@@ -184,5 +196,55 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
         });
     }
 
+    private void getAnswer(final Question question) {
+        final AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        final EditText editText = new EditText(HomeActivity.this);
+        alert.setMessage(question.getTitle());
+        alert.setTitle(R.string.activity_home_get_answer_dialog_title);
+        alert.setView(editText);
+        alert.setPositiveButton(R.string.activity_home_get_answer_dialog_btn_yes, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                if (!EditTextHelper.isEmpty(editText)) {
+                    String answer = editText.getText().toString();
+                    sendAnswer(answer, question);
+                } else {
+                    EditTextHelper.promptEmpty(HomeActivity.this);
+                }
+            }
+        });
 
+        alert.setNegativeButton(R.string.activity_home_get_answer_dialog_btn_no, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+
+            }
+        });
+        alert.setCancelable(false);
+        alert.show();
+    }
+
+    private void sendAnswer(final String answer, final Question question) {
+        Map<String, String> answerBody = new HashMap<>();
+        answerBody.put("answer", answer);
+        answerBody.put("Schema", question.getSchema());
+        answerBody.put("table", question.getTable());
+
+        String pusheid = Pushe.getPusheId(HomeActivity.this);
+        WebApiClient.sendAnswerApi().sendAnswer(pusheid, answerBody).enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.code() == HttpURLConnection.HTTP_OK) {
+                    Toast.makeText(HomeActivity.this, R.string.activity_home_send_answer_prompt_successful, Toast.LENGTH_LONG).show();
+                    Log.i("response code", String.valueOf(response.code()));
+                } else {
+                    EditTextHelper.promptTryAgain(HomeActivity.this);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                EditTextHelper.promptTryLater(HomeActivity.this);
+            }
+        });
+
+    }
 }
