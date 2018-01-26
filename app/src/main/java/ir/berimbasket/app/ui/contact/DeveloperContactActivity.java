@@ -76,7 +76,7 @@ public class DeveloperContactActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
-                        "mailto", getString(R.string.developer_email_uri), null));
+                        "mailto", getString(R.string.activity_developer_email_uri), null));
                 emailIntent.putExtra(Intent.EXTRA_SUBJECT, edtSubject.getText().toString());
                 emailIntent.putExtra(Intent.EXTRA_TEXT, edtContent.getText().toString());
                 startActivity(Intent.createChooser(emailIntent, "Send email..."));

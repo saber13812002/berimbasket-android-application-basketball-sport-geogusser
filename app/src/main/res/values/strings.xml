@@ -6,6 +6,10 @@
     <string name="activity_home_navigation_home">Home</string>
     <string name="activity_home_navigation_profile">Profile</string>
     <string name="activity_home_navigation_map">Map</string>
+    <string name="activity_home_get_answer_dialog_title">Your today Question!</string>
+    <string name="activity_home_get_answer_dialog_btn_yes">Send</string>
+    <string name="activity_home_get_answer_dialog_btn_no">Cancel</string>
+    <string name="activity_home_send_answer_prompt_successful">Your message has been sent successfully</string>
 
     <string name="activity_login_edt_password_hint">Password</string>
     <string name="activity_login_btn_sign_in">Login</string>
@@ -99,6 +103,19 @@
     <string name="activity_stadium_txt_score_line_default">Score Line: +</string>
     <string name="activity_stadium_btn_add_image">Add Image</string>
 
+    <string name="activity_developer_contact_edt_mobile_hint">Mobile Number</string>
+    <string name="activity_developer_contact_edt_subject_hint">Subject</string>
+    <string name="activity_developer_contact_edt_content_hint">Message</string>
+    <string name="activity_developer_contact_btn_send">Send</string>
+    <string name="activity_developer_contact_txt_developer_name">Developer : Masoud Tabatabaee</string>
+    <string name="activity_developer_contact_btn_send_email">Send Message via email
+    \n berimbasket@gmail.com</string>
+    <string name="activity_developer_email_uri" translatable="false">berimbasket@gmail.com</string>
+    <string name="activity_developer_contact_toast_message_fill_edittext">Please fill all fields</string>
+    <string name="activity_developer_contact_toast_message_successful_send">Your message has been sent successfully</string>
+    <string name="activity_developer_contact_toast_message_try_again">Please try again</string>
+    <string name="activity_developer_contact_toast_message_webservice_fail">Try again later</string>
+
     <!-- fragment -->
     <string name="fragment_main_tab_match">Matches</string>
     <string name="fragment_main_tab_player">Players</string>
@@ -153,6 +170,8 @@
 
     <string name="item_stadium_list_phone">Phone :</string>
     <string name="item_stadium_list_address">Address :</string>
+    <string name="item_stadium_spec_value_default" translatable="false">\@mohammad</string>
+    <string name="item_stadium_spec_key_default" translatable="false">Instagram</string>
 
     <string name="item_player_list_post_label">Post :</string>
     <string name="item_player_list_team_label">Team :</string>
@@ -364,24 +383,6 @@
     <string name="entity_match_score_away_default">Esteghlal</string>
     <string name="entity_match_score_home_default">Perspolis</string>
     <string name="entity_match_score_data_default">End</string>
-    <string name="item_stadium_spec_value_default">\@mohammad</string>
-    <string name="item_stadium_spec_key_default">Instagram</string>
-    <string name="activity_developer_contact_edt_mobile_hint">Mobile Number</string>
-    <string name="activity_developer_contact_edt_subject_hint">Subject</string>
-    <string name="activity_developer_contact_edt_content_hint">Message</string>
-    <string name="activity_developer_contact_btn_send">Send</string>
-    <string name="activity_developer_contact_txt_developer_name">Developer : Masoud Tabatabaee</string>
-    <string name="activity_developer_contact_btn_send_email">Send Message via email
-    \n berimbasket@gmail.com</string>
-    <string name="developer_email_uri">berimbasket@gmail.com</string>
-    <string name="activity_developer_contact_toast_message_fill_edittext">Please fill all fields</string>
-    <string name="activity_developer_contact_toast_message_successful_send">Your message has been sent successfully</string>
-    <string name="activity_developer_contact_toast_message_try_again">Please try again</string>
-    <string name="activity_developer_contact_toast_message_webservice_fail">Try again later</string>
-    <string name="activity_home_get_answer_dialog_title">Your today Question!</string>
-    <string name="activity_home_get_answer_dialog_btn_yes">Send</string>
-    <string name="activity_home_get_answer_dialog_btn_no">Cancel</string>
-    <string name="activity_home_send_answer_prompt_successful">Your message has been sent successfully</string>
 
 
 </resources>
