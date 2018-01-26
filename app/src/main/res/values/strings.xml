@@ -176,6 +176,7 @@
     <string name="pref_lang_list_title">Select Language</string>
     <string name="pref_comment_myket_title">Comment us on myket</string>
     <string name="pref_contact_us_title">Contact us</string>
+    <string name="pref_contact_developer_title">Contact developer</string>
 
     <string name="key_pref_update_notification" translatable="false">pref_update_notification</string>
     <string name="key_pref_message_notification" translatable="false">pref_message_notification</string>
@@ -187,6 +188,7 @@
     <string name="key_pref_lang_list" translatable="false">pref_lang_list</string>
     <string name="key_pref_comment_myket" translatable="false">pref_comment_myket</string>
     <string name="key_pref_contact_us" translatable="false">pref_contact_us</string>
+    <string name="key_pref_contact_developer" translatable="false">pref_contact_developer</string>
 
     <string name="pref_update_notification_summary">Get informed of app\'s update</string>
     <string name="pref_message_notification_summary">Get informed of news and special offers</string>
@@ -364,6 +366,18 @@
     <string name="entity_match_score_data_default">End</string>
     <string name="item_stadium_spec_value_default">\@mohammad</string>
     <string name="item_stadium_spec_key_default">Instagram</string>
+    <string name="activity_developer_contact_edt_mobile_hint">Mobile Number</string>
+    <string name="activity_developer_contact_edt_subject_hint">Subject</string>
+    <string name="activity_developer_contact_edt_content_hint">Message</string>
+    <string name="activity_developer_contact_btn_send">Send</string>
+    <string name="activity_developer_contact_txt_developer_name">Developer : Masoud Tabatabaee</string>
+    <string name="activity_developer_contact_btn_send_email">Send Message via email
+    \n berimbasket@gmail.com</string>
+    <string name="developer_email_uri">berimbasket@gmail.com</string>
+    <string name="activity_developer_contact_toast_message_fill_edittext">Please fill all fields</string>
+    <string name="activity_developer_contact_toast_message_successfull_send">Your message sent successfully</string>
+    <string name="activity_developer_contact_toast_message_try_again">Please try again</string>
+    <string name="activity_developer_contact_toast_message_webservice_fail">Try again later</string>
 
 
 </resources>

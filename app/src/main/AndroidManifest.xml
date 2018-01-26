@@ -25,11 +25,11 @@
 
     <application
         android:name=".ui.base.BaseApplication"
+        android:configChanges="locale"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:configChanges="locale"
         android:theme="@style/AppTheme">
         <receiver android:name="co.ronash.pushe.receiver.UpdateReceiver">
             <intent-filter>
@@ -71,9 +71,7 @@
         <activity
             android:name=".ui.landmark.LandmarkActivity"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".ui.settings.SettingsActivity" >
-
-        </activity>
+        <activity android:name=".ui.settings.SettingsActivity"></activity>
         <activity
             android:name=".ui.player.PlayerActivity"
             android:theme="@style/StatusTransparent" />
@@ -163,6 +161,7 @@
             </intent-filter>
         </service>
 
+        <activity android:name=".ui.contact.DeveloperContactActivity"></activity>
     </application>
 
 </manifest>
