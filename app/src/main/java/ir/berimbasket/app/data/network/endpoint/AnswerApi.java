@@ -15,5 +15,5 @@ import retrofit2.http.Query;
 public interface AnswerApi {
     @Headers("Content-Type: application/json")
     @POST("www/setAnswer.php")
-    Call<Void> sendAnswer(@Query("pusheid") String pusheid, @Body Map<String, String> body);
+    Call<Void> sendAnswer(@Query("pusheid") String pusheid, @Query("username") String username, @Body Map<String, String> body);
 }

@@ -16,6 +16,7 @@ import java.util.Map;
 import co.ronash.pushe.Pushe;
 import ir.berimbasket.app.R;
 import ir.berimbasket.app.data.network.WebApiClient;
+import ir.berimbasket.app.data.pref.PrefManager;
 import ir.berimbasket.app.ui.base.BaseActivity;
 import ir.berimbasket.app.util.EditTextHelper;
 import retrofit2.Call;
@@ -50,7 +51,8 @@ public class DeveloperContactActivity extends BaseActivity {
                     requestBody.put("subject", edtSubject.getText().toString());
                     requestBody.put("content", edtContent.getText().toString());
                     String pusheid = Pushe.getPusheId(getApplicationContext());
-                    WebApiClient.postFeedbackApi().sendFeedback(pusheid, requestBody).enqueue(new Callback<Void>() {
+                    String username = new PrefManager(getApplicationContext()).getUserName();
+                    WebApiClient.postFeedbackApi().sendFeedback(pusheid, username, requestBody).enqueue(new Callback<Void>() {
                         @Override
                         public void onResponse(Call<Void> call, Response<Void> response) {
                             if (response.code() == HttpURLConnection.HTTP_OK) {

@@ -15,5 +15,5 @@ import retrofit2.http.Query;
 public interface FeedbackApi {
     @Headers("Content-Type: application/json")
     @POST("www/feedback.php")
-    Call<Void> sendFeedback(@Query("pusheid") String pusheid, @Body Map<String, String> body);
+    Call<Void> sendFeedback(@Query("pusheid") String pusheid, @Query("username") String username, @Body Map<String, String> body);
 }

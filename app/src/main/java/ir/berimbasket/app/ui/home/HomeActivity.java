@@ -32,6 +32,7 @@ import io.fabric.sdk.android.Fabric;
 import ir.berimbasket.app.R;
 import ir.berimbasket.app.data.network.WebApiClient;
 import ir.berimbasket.app.data.network.model.Question;
+import ir.berimbasket.app.data.pref.PrefManager;
 import ir.berimbasket.app.ui.base.BaseActivity;
 import ir.berimbasket.app.ui.common.custom.TypefaceSpanCustom;
 import ir.berimbasket.app.ui.settings.SettingsActivity;
@@ -179,8 +180,9 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
 
     private void checkQuestion() {
         String pusheid = Pushe.getPusheId(getApplicationContext());
+        String userName = new PrefManager(getApplicationContext()).getUserName();
 
-        WebApiClient.getQuestionApi().getQuestion(pusheid).enqueue(new Callback<Question>() {
+        WebApiClient.getQuestionApi().getQuestion(pusheid, userName).enqueue(new Callback<Question>() {
             @Override
             public void onResponse(Call<Question> call, Response<Question> response) {
                 if (response.code() == HttpURLConnection.HTTP_OK) {
@@ -229,7 +231,8 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
         answerBody.put("table", question.getTable());
 
         String pusheid = Pushe.getPusheId(HomeActivity.this);
-        WebApiClient.sendAnswerApi().sendAnswer(pusheid, answerBody).enqueue(new Callback<Void>() {
+        String username = new PrefManager(getApplicationContext()).getUserName();
+        WebApiClient.sendAnswerApi().sendAnswer(pusheid, username, answerBody).enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.code() == HttpURLConnection.HTTP_OK) {
