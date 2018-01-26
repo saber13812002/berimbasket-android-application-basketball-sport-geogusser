@@ -20,7 +20,6 @@ import ir.berimbasket.app.data.network.endpoint.UpdateApi;
 import ir.berimbasket.app.data.network.gson.BooleanDefaultAdapter;
 import ir.berimbasket.app.data.network.gson.IntegerDefaultAdapter;
 import ir.berimbasket.app.data.network.gson.StringDefaultAdapter;
-import ir.berimbasket.app.data.network.model.Question;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -97,19 +96,17 @@ public class WebApiClient {
     }
 
     private static Retrofit buildSimpleClient(String baseUrl) {
-        return new Retrofit.Builder()
-                .baseUrl(baseUrl)
-                .addConverterFactory(GsonConverterFactory.create(buildGson()))
-                .build();
-    }
-
-    private static Gson buildGson() {
-        return new GsonBuilder()
+        Gson gsonAdapter = new GsonBuilder()
                 .registerTypeAdapter(Integer.class, new IntegerDefaultAdapter())
                 .registerTypeAdapter(int.class, new IntegerDefaultAdapter())
                 .registerTypeAdapter(String.class, new StringDefaultAdapter())
                 .registerTypeAdapter(boolean.class, new BooleanDefaultAdapter())
                 .registerTypeAdapter(Boolean.class, new BooleanDefaultAdapter())
                 .create();
+        return new Retrofit.Builder()
+                .baseUrl(baseUrl)
+                .addConverterFactory(GsonConverterFactory.create(gsonAdapter))
+                .build();
     }
+
 }

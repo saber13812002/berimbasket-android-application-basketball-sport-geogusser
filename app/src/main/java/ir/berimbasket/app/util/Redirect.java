@@ -61,20 +61,20 @@ public class Redirect {
     public static void sendToInstagram(Context context, String instagramUrl) throws IllegalArgumentException {
         String regex = "http(s?)://(www\\.)?(instagram)\\.com/.+";
         if (instagramUrl.matches(regex)) {
-            String packageName = "com.instagram.android";
-            if (Redirect.isAppAvailable(context, packageName)) {
+//            String packageName = "com.instagram.android";
+//            if (Redirect.isAppAvailable(context, packageName)) {
                 try {
                     Intent i = new Intent(Intent.ACTION_VIEW);
                     i.setData(Uri.parse(instagramUrl));
-                    i.setPackage(packageName);
+//                    i.setPackage(packageName);
                     i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(i);
                 } catch (ActivityNotFoundException e) {
                     // do nothing
                 }
-            } else {
-                sendToMarketToInstallApp(packageName, context.getString(R.string.general_dialog_message_instagram_not_found), context);
-            }
+//            } else {
+//                sendToMarketToInstallApp(packageName, context.getString(R.string.general_dialog_message_instagram_not_found), context);
+//            }
         } else {
             throw new IllegalArgumentException("Wrong instagram url");
         }
