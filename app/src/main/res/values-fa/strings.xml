@@ -122,6 +122,9 @@
     <string name="pref_terms_and_services_title">شرایط استفاده</string>
     <string name="pref_change_log_title">تغییرات اخیر</string>
     <string name="pref_about_us_title">درباره ما</string>
+    <string name="pref_comment_myket_title">ارسال نظر در مایکت</string>
+    <string name="pref_contact_us_title">تماس با ما</string>
+    <string name="pref_contact_developer_title">تماس با توسعه دهنده</string>
     <string name="pref_state_list_title">انتخاب استان نمایش داده شده در نقشه</string>
     <string name="pref_update_notification_summary">با فعالسازی این قسمت بروزرسانی های برنامه به شما اطلاع داده میشود تا بتوانید از آخرین نسخه برنامه استفاده کنید</string>
     <string name="pref_message_notification_summary">با فعالسازی این قسمت شما میتوانید از آخرین اخبار و پیشنهادات ویژه برنامه آگاه شوید</string>
@@ -215,4 +218,21 @@
     <string name="fragment_intro_preference_lang_spinner_prompt">زبان برنامه</string>
     <string name="fragment_intro_preference_location_spinner_prompt">مکان پیشفرض</string>
     <string name="general_dialog_message_location_permission">برای نمایش نقشه به مجوز دسترسی مکان نیاز است، از طریق دکمه زیر این دسترسی را فعال کنید</string>
+
+    <string name="activity_developer_contact_edt_mobile_hint">شماره موبایل</string>
+    <string name="activity_developer_contact_edt_subject_hint">عنوان پیام</string>
+    <string name="activity_developer_contact_edt_content_hint">متن پیام</string>
+    <string name="activity_developer_contact_btn_send">ارسال پیام</string>
+    <string name="activity_developer_contact_txt_developer_name">توسعه دهنده : مهندس مسعود طباطبایی</string>
+    <string name="activity_developer_contact_btn_send_email">ارسال پیام به توسعه دهنده از طریق ایمیل
+    \n berimbasket@gmail.com</string>
+    <string name="activity_developer_contact_toast_message_fill_edittext">لطفا تمامی موارد را پر کنید</string>
+    <string name="activity_developer_contact_toast_message_successful_send">پیام شما با موفقیت ارسال شد.</string>
+    <string name="activity_developer_contact_toast_message_try_again">مشکلی در ارسال پیام شما به وجود آمده، لطفا دوباره امتحان کنید.</string>
+    <string name="activity_developer_contact_toast_message_webservice_fail">مشکلی در ارسال پیام شما به وجود آمده، لطفا بعدا امتحان کنید.</string>
+    <string name="activity_home_get_answer_dialog_title">سوال امروز شما!</string>
+    <string name="activity_home_get_answer_dialog_btn_yes">ارسال پاسخ</string>
+    <string name="activity_home_get_answer_dialog_btn_no">لغو</string>
+    <string name="activity_home_send_answer_prompt_successful">پاسخ شما با موفقیت ارسال شد.</string>
+
 </resources>

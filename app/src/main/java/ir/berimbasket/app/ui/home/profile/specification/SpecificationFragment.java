@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -74,13 +75,13 @@ public class SpecificationFragment extends Fragment {
     private void initRecyclerPlayerSpec(ArrayList<String> playerSpecList) {
 
         RecyclerView recyclerView = view.findViewById(R.id.recyclerPlayerSpec);
-        PlayerSpecificationAdapter playerSpecificationAdapter = new PlayerSpecificationAdapter(playerSpecList, getActivity());
+        PlayerSpecificationAdapter playerSpecificationAdapter = new PlayerSpecificationAdapter(playerSpecList, getPlayerSpecKey(), getActivity());
         recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setAdapter(playerSpecificationAdapter);
 
-        GridLayoutManager glm = new GridLayoutManager(getActivity(), 2);
-        glm.setOrientation(GridLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(glm);
+        LinearLayoutManager llm = new LinearLayoutManager(getActivity());
+        llm.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(llm);
 
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
@@ -90,23 +91,44 @@ public class SpecificationFragment extends Fragment {
 
         ArrayList<String> playerSpecList = new ArrayList<>();
         String specSeparator = getString(R.string.fragment_player_spec_separator);
-        playerSpecList.add(getString(R.string.fragment_player_spec_name) + " " + specSeparator + " " + entityPlayer.getName());
-        playerSpecList.add(getString(R.string.fragment_player_spec_age) + " " + specSeparator + " " + String.valueOf(entityPlayer.getAge()));
-        playerSpecList.add(getString(R.string.fragment_player_spec_city) + " " + specSeparator + " " + entityPlayer.getCity());
-        playerSpecList.add(getString(R.string.fragment_player_spec_height) + " " + specSeparator + " " + String.valueOf(entityPlayer.getHeight()));
-        playerSpecList.add(getString(R.string.fragment_player_spec_weight) + " " + specSeparator + " " + String.valueOf(entityPlayer.getWeight()));
-        playerSpecList.add(getString(R.string.fragment_player_spec_address) + " " + specSeparator + " " + entityPlayer.getAddress());
-        playerSpecList.add(getString(R.string.fragment_player_spec_experience) + " " + specSeparator + " " + entityPlayer.getExperience());
-        playerSpecList.add(getString(R.string.fragment_player_spec_head_coach) + " " + specSeparator + " " + entityPlayer.getCoachName());
-        playerSpecList.add(getString(R.string.fragment_player_spec_team) + " " + specSeparator + " " + entityPlayer.getTeamName());
-        playerSpecList.add(getString(R.string.fragment_player_spec_user_name) + " " + specSeparator + " " + entityPlayer.getUsername());
-        playerSpecList.add(getString(R.string.fragment_player_spec_post) + " " + specSeparator + " " + String.valueOf(entityPlayer.getPost()));
-//        playerSpecList.add("" + entityPlayer.getProfileImage());
-        playerSpecList.add(getString(R.string.fragment_player_spec_telegram) + " " + specSeparator + " " + entityPlayer.getTelegramId());
-        playerSpecList.add(getString(R.string.fragment_player_spec_instagram) + " " + specSeparator + " " + entityPlayer.getInstagramId());
-        playerSpecList.add(getString(R.string.fragment_player_spec_phone_number) + " " + specSeparator + " " + entityPlayer.getPhone());
+        playerSpecList.add(entityPlayer.getName());
+        playerSpecList.add(String.valueOf(entityPlayer.getAge()));
+        playerSpecList.add(entityPlayer.getCity());
+        playerSpecList.add(String.valueOf(entityPlayer.getHeight()));
+        playerSpecList.add(String.valueOf(entityPlayer.getWeight()));
+        playerSpecList.add(entityPlayer.getAddress());
+        playerSpecList.add(entityPlayer.getExperience());
+        playerSpecList.add(entityPlayer.getCoachName());
+        playerSpecList.add(entityPlayer.getTeamName());
+        playerSpecList.add(entityPlayer.getUsername());
+        playerSpecList.add(String.valueOf(entityPlayer.getPost()));
+        //playerSpecList.add("" + entityPlayer.getProfileImage());
+        playerSpecList.add(entityPlayer.getTelegramId());
+        playerSpecList.add(entityPlayer.getInstagramId());
+        playerSpecList.add(entityPlayer.getPhone());
         return playerSpecList;
     }
 
+    private ArrayList<String> getPlayerSpecKey() {
+
+        ArrayList<String> playerSpecListKey = new ArrayList<>();
+        String specSeparator = getString(R.string.fragment_player_spec_separator);
+        playerSpecListKey.add(getString(R.string.fragment_player_spec_name));
+        playerSpecListKey.add(getString(R.string.fragment_player_spec_age));
+        playerSpecListKey.add(getString(R.string.fragment_player_spec_city));
+        playerSpecListKey.add(getString(R.string.fragment_player_spec_height));
+        playerSpecListKey.add(getString(R.string.fragment_player_spec_weight));
+        playerSpecListKey.add(getString(R.string.fragment_player_spec_address));
+        playerSpecListKey.add(getString(R.string.fragment_player_spec_experience));
+        playerSpecListKey.add(getString(R.string.fragment_player_spec_head_coach));
+        playerSpecListKey.add(getString(R.string.fragment_player_spec_team));
+        playerSpecListKey.add(getString(R.string.fragment_player_spec_user_name));
+        playerSpecListKey.add(getString(R.string.fragment_player_spec_post));
+        //playerSpecListKey.add("" + entityPlayer.getProfileImage());
+        playerSpecListKey.add(getString(R.string.fragment_player_spec_telegram));
+        playerSpecListKey.add(getString(R.string.fragment_player_spec_instagram));
+        playerSpecListKey.add(getString(R.string.fragment_player_spec_phone_number));
+        return playerSpecListKey;
+    }
 
 }

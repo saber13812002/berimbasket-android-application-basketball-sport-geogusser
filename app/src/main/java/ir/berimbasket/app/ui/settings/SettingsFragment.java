@@ -10,6 +10,7 @@ import android.support.v7.preference.PreferenceFragmentCompat;
 
 import ir.berimbasket.app.R;
 import ir.berimbasket.app.data.pref.PrefManager;
+import ir.berimbasket.app.ui.contact.DeveloperContactActivity;
 import ir.berimbasket.app.ui.splash.SplashActivity;
 import ir.berimbasket.app.util.AnalyticsHelper;
 import ir.berimbasket.app.util.LocaleManager;
@@ -21,7 +22,8 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
     private final static String URL_PREFERENCE_TERMS_AND_SERVICES = "http://berimbasket.ir/terms";
     private final static String URL_PREFERENCE_ABOUT_US = "http://berimbasket.ir/about";
     private final static String URL_PREFERENCE_CHANGE_LOG = "http://berimbasket.ir/changelog";
-    private Preference help, aboutUs, terms, changeLog;
+    private final static String URL_PREFERENCE_CONTACT_US = "http://berimbasket.ir/contact-us";
+    private Preference help, aboutUs, terms, changeLog, commentMyket, contactUs, contactDeveloper;
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
@@ -39,10 +41,17 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
         aboutUs = findPreference(getString(R.string.key_pref_about_us));
         terms = findPreference(getString(R.string.key_pref_terms_and_services));
         changeLog = findPreference(getString(R.string.key_pref_change_log));
+        commentMyket = findPreference(getString(R.string.key_pref_comment_myket));
+        contactUs = findPreference(getString(R.string.key_pref_contact_us));
+        contactDeveloper = findPreference(getString(R.string.key_pref_contact_developer));
+
         help.setOnPreferenceClickListener(this);
         aboutUs.setOnPreferenceClickListener(this);
         terms.setOnPreferenceClickListener(this);
         changeLog.setOnPreferenceClickListener(this);
+        commentMyket.setOnPreferenceClickListener(this);
+        contactUs.setOnPreferenceClickListener(this);
+        contactDeveloper.setOnPreferenceClickListener(this);
     }
 
     @Override
@@ -68,9 +77,18 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
             AnalyticsHelper.getInstance().trackEvent(getString(R.string.analytics_category_settings), getString(R.string.analytics_action_change_log), "");
             Redirect.sendToCustomTab(getActivity(), URL_PREFERENCE_CHANGE_LOG);
             return true;
+        } else if (key.equals(commentMyket.getKey())) {
+            AnalyticsHelper.getInstance().trackEvent(getString(R.string.analytics_category_settings), getString(R.string.analytics_action_comment_myket), "");
+            Redirect.sendToMyketForComment(getActivity());
+        } else if (key.equals(contactUs.getKey())) {
+            Redirect.sendToCustomTab(getActivity(), URL_PREFERENCE_CONTACT_US);
+        } else if (key.equals(contactDeveloper.getKey())) {
+            Intent intent = new Intent(getActivity(), DeveloperContactActivity.class);
+            startActivity(intent);
         }
         return false;
     }
+
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {

@@ -3,7 +3,9 @@ package ir.berimbasket.app.data.network;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import ir.berimbasket.app.data.network.endpoint.AnswerApi;
 import ir.berimbasket.app.data.network.endpoint.BerimBasket;
+import ir.berimbasket.app.data.network.endpoint.FeedbackApi;
 import ir.berimbasket.app.data.network.endpoint.GeneralIntentApi;
 import ir.berimbasket.app.data.network.endpoint.LocationApi;
 import ir.berimbasket.app.data.network.endpoint.LoginApi;
@@ -11,12 +13,14 @@ import ir.berimbasket.app.data.network.endpoint.MapMarkerApi;
 import ir.berimbasket.app.data.network.endpoint.MatchApi;
 import ir.berimbasket.app.data.network.endpoint.MissionApi;
 import ir.berimbasket.app.data.network.endpoint.PlayerApi;
+import ir.berimbasket.app.data.network.endpoint.QuestionApi;
 import ir.berimbasket.app.data.network.endpoint.RegisterApi;
 import ir.berimbasket.app.data.network.endpoint.StadiumApi;
 import ir.berimbasket.app.data.network.endpoint.UpdateApi;
 import ir.berimbasket.app.data.network.gson.BooleanDefaultAdapter;
 import ir.berimbasket.app.data.network.gson.IntegerDefaultAdapter;
 import ir.berimbasket.app.data.network.gson.StringDefaultAdapter;
+import ir.berimbasket.app.data.network.model.Question;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -30,6 +34,21 @@ public class WebApiClient {
     public static MissionApi getMissionApi() {
         return buildSimpleClient(BerimBasket.BBAL_BASE_URL)
                 .create(MissionApi.class);
+    }
+
+    public static QuestionApi getQuestionApi() {
+        return buildSimpleClient(BerimBasket.BBAL_BASE_URL)
+                .create(QuestionApi.class);
+    }
+
+    public static AnswerApi sendAnswerApi() {
+        return buildSimpleClient(BerimBasket.BBAL_BASE_URL)
+                .create(AnswerApi.class);
+    }
+
+    public static FeedbackApi postFeedbackApi() {
+        return buildSimpleClient(BerimBasket.BBAL_BASE_URL)
+                .create(FeedbackApi.class);
     }
 
     public static GeneralIntentApi getGeneralIntentApi() {
@@ -85,12 +104,12 @@ public class WebApiClient {
     }
 
     private static Gson buildGson() {
-            return new GsonBuilder()
-                    .registerTypeAdapter(Integer.class, new IntegerDefaultAdapter())
-                    .registerTypeAdapter(int.class, new IntegerDefaultAdapter())
-                    .registerTypeAdapter(String.class, new StringDefaultAdapter())
-                    .registerTypeAdapter(boolean.class, new BooleanDefaultAdapter())
-                    .registerTypeAdapter(Boolean.class, new BooleanDefaultAdapter())
-                    .create();
+        return new GsonBuilder()
+                .registerTypeAdapter(Integer.class, new IntegerDefaultAdapter())
+                .registerTypeAdapter(int.class, new IntegerDefaultAdapter())
+                .registerTypeAdapter(String.class, new StringDefaultAdapter())
+                .registerTypeAdapter(boolean.class, new BooleanDefaultAdapter())
+                .registerTypeAdapter(Boolean.class, new BooleanDefaultAdapter())
+                .create();
     }
 }

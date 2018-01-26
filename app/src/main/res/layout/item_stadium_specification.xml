@@ -18,7 +18,7 @@
             android:fontFamily="@font/yekan"
             android:gravity="start"
             android:padding="15dp"
-            android:text="@string/item_player_spec_key_default"
+            android:text="@string/item_stadium_spec_key_default"
             android:textColor="@color/colorPrimary"
             android:textSize="15sp" />
 
@@ -36,7 +36,7 @@
             android:fontFamily="@font/yekan"
             android:gravity="left"
             android:padding="15dp"
-            android:text="@string/item_player_spec_value_default"
+            android:text="@string/item_stadium_spec_value_default"
             android:textColor="@color/colorDarkGrey"
             android:textSize="14sp" />
 

@@ -5,8 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="10dp"
-    android:layout_marginLeft="10dp"
-    android:layout_marginRight="10dp"
     app:cardBackgroundColor="@color/colorDarkGrey"
     app:cardCornerRadius="5dp">
 
@@ -23,10 +21,10 @@
             android:layout_centerHorizontal="true"
             android:layout_marginEnd="10dp"
             android:layout_marginStart="10dp"
-            android:maxLines="1"
-            android:ellipsize="end"
             android:layout_marginTop="2dp"
+            android:ellipsize="end"
             android:fontFamily="@font/yekan"
+            android:maxLines="1"
             android:textColor="@color/colorGold"
             android:textSize="12sp" />
 
@@ -51,9 +49,9 @@
             android:layout_centerInParent="true"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:textColor="@color/colorGold"
             android:fontFamily="@font/yekan"
-            android:text="@string/item_match_score_separator" />
+            android:text="@string/item_match_score_separator"
+            android:textColor="@color/colorGold" />
 
         <TextView
             android:id="@+id/txtHomeScore"
@@ -83,9 +81,9 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
             android:layout_marginStart="26dp"
-            android:layout_alignParentStart="true"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -99,11 +97,11 @@
                 android:id="@+id/txtHomeName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textStyle="bold"
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/yekan"
+                android:text="@string/entity_match_score_home_default"
                 android:textColor="@color/colorWhite"
-                android:text="@string/entity_match_score_home_default" />
+                android:textStyle="bold" />
 
 
         </LinearLayout>
@@ -111,9 +109,9 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_marginEnd="26dp"
-            android:layout_alignParentEnd="true"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -128,10 +126,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:textStyle="bold"
-                android:textColor="@color/colorWhite"
                 android:fontFamily="@font/yekan"
-                android:text="@string/entity_match_score_away_default" />
+                android:text="@string/entity_match_score_away_default"
+                android:textColor="@color/colorWhite"
+                android:textStyle="bold" />
 
         </LinearLayout>
 
