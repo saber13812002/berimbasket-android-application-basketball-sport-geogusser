@@ -3,6 +3,8 @@ package ir.berimbasket.app.data.network;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.util.concurrent.TimeUnit;
+
 import ir.berimbasket.app.data.network.endpoint.AnswerApi;
 import ir.berimbasket.app.data.network.endpoint.BerimBasket;
 import ir.berimbasket.app.data.network.endpoint.FeedbackApi;
@@ -20,6 +22,7 @@ import ir.berimbasket.app.data.network.endpoint.UpdateApi;
 import ir.berimbasket.app.data.network.gson.BooleanDefaultAdapter;
 import ir.berimbasket.app.data.network.gson.IntegerDefaultAdapter;
 import ir.berimbasket.app.data.network.gson.StringDefaultAdapter;
+import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -96,6 +99,10 @@ public class WebApiClient {
     }
 
     private static Retrofit buildSimpleClient(String baseUrl) {
+        OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                .readTimeout(60, TimeUnit.SECONDS)
+                .connectTimeout(60, TimeUnit.SECONDS)
+                .build();
         Gson gsonAdapter = new GsonBuilder()
                 .registerTypeAdapter(Integer.class, new IntegerDefaultAdapter())
                 .registerTypeAdapter(int.class, new IntegerDefaultAdapter())
@@ -106,6 +113,7 @@ public class WebApiClient {
         return new Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .addConverterFactory(GsonConverterFactory.create(gsonAdapter))
+                .client(okHttpClient)
                 .build();
     }
 
