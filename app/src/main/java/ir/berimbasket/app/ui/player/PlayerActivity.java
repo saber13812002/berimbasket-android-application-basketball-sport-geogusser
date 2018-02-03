@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -138,7 +137,8 @@ public class PlayerActivity extends BaseActivity implements SocialAccAdapter.Soc
         imgProfileImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Redirect.sendToCustomTab(PlayerActivity.this, EXTERNAL_WEB_PROFILE_URL + player.getId());
+                String pusheId = Pushe.getPusheId(getApplicationContext());
+                Redirect.sendToCustomTab(PlayerActivity.this, EXTERNAL_WEB_PROFILE_URL + player.getId() + "&pusheid=" + pusheId);
             }
         });
 
@@ -192,11 +192,12 @@ public class PlayerActivity extends BaseActivity implements SocialAccAdapter.Soc
         entitySocialInstagram.setLink("https://instagram.com/_u/" + player.getInstagramId());
         socialAccList.add(entitySocialInstagram);
 
+        String pusheId = Pushe.getPusheId(getApplicationContext());
         SocialAccEntity webExternalLink = new SocialAccEntity();
         webExternalLink.setId(0);
         webExternalLink.setImageResId(R.drawable.ic_external_link);
         webExternalLink.setType(SocialAccEntity.SOCIAL_TYPE_WEB_PROFILE);
-        webExternalLink.setLink(EXTERNAL_WEB_PROFILE_URL + player.getId());
+        webExternalLink.setLink(EXTERNAL_WEB_PROFILE_URL + player.getId() + "&pusheid=" + pusheId);
         socialAccList.add(webExternalLink);
 
         playerSpecList.add(player.getPhone());

@@ -27,7 +27,6 @@ import ir.berimbasket.app.data.network.WebApiClient;
 import ir.berimbasket.app.data.network.model.Stadium;
 import ir.berimbasket.app.data.pref.PrefManager;
 import ir.berimbasket.app.ui.base.BaseActivity;
-import ir.berimbasket.app.ui.common.PlayerSpecificationAdapter;
 import ir.berimbasket.app.ui.common.entity.StadiumBaseEntity;
 import ir.berimbasket.app.util.LocaleManager;
 import ir.berimbasket.app.util.Redirect;
@@ -94,7 +93,8 @@ public class StadiumActivity extends BaseActivity implements StadiumGalleryAdapt
         imgStadiumLogo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Redirect.sendToCustomTab(StadiumActivity.this, EXTERNAL_WEB_STADIUM_URL + stadium.getId());
+                String pusheId = Pushe.getPusheId(getApplicationContext());
+                Redirect.sendToCustomTab(StadiumActivity.this, EXTERNAL_WEB_STADIUM_URL + stadium.getId() + "&pusheid=" + pusheId);
             }
         });
 
@@ -239,7 +239,8 @@ public class StadiumActivity extends BaseActivity implements StadiumGalleryAdapt
 
     @Override
     public void onGalleryItemClick(String imageUrl) {
-        Redirect.sendToCustomTab(StadiumActivity.this, EXTERNAL_WEB_STADIUM_URL + stadiumId);
+        String pusheId = Pushe.getPusheId(getApplicationContext());
+        Redirect.sendToCustomTab(StadiumActivity.this, EXTERNAL_WEB_STADIUM_URL + stadiumId + "&pusheid=" + pusheId);
     }
 
     private ArrayList<String> getStadiumSpecListKey() {
