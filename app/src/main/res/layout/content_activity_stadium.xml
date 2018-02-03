@@ -103,6 +103,16 @@
             android:layout_margin="10dp"
             android:background="@color/colorLightGrey" />
 
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/btnGalleryMore"
+            style="@style/BrandButtonStyle"
+            android:layout_gravity="end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:fontFamily="@font/yekan"
+            android:text="@string/general_more" />
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerStadiumGallery"
             android:layout_width="wrap_content"

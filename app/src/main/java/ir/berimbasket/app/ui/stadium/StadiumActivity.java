@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -79,6 +80,7 @@ public class StadiumActivity extends BaseActivity implements StadiumGalleryAdapt
         ImageView btnReserveStadium = findViewById(R.id.btnReserveStadium);
         AppCompatButton btnAddImage = findViewById(R.id.btnAddImage);
         AppCompatButton btnCompleteStadiumDetail = findViewById(R.id.btnCompleteStadiumDetail);
+        Button btnGalleryMore = findViewById(R.id.btnGalleryMore);
         CircleImageView imgStadiumLogo = findViewById(R.id.imgStadiumLogo);
         if (stadium.getImages() != null && stadium.getImages().size() != 0) {
             Picasso.with(StadiumActivity.this)
@@ -91,6 +93,14 @@ public class StadiumActivity extends BaseActivity implements StadiumGalleryAdapt
         }
 
         imgStadiumLogo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String pusheId = Pushe.getPusheId(getApplicationContext());
+                Redirect.sendToCustomTab(StadiumActivity.this, EXTERNAL_WEB_STADIUM_URL + stadium.getId() + "&pusheid=" + pusheId);
+            }
+        });
+
+        btnGalleryMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String pusheId = Pushe.getPusheId(getApplicationContext());
