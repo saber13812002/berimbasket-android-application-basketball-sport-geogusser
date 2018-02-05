@@ -64,7 +64,7 @@
     <string name="activity_stadium_btn_complete_detail">Complete Info</string>
     <string name="activity_stadium_txt_lines_default">Lines: +</string>
     <string name="activity_stadium_txt_stadium_name_loading">Loading Stadium</string>
-
+    <string name="activity_stadium_btn_more_pics">more pictures</string>
 
     <string name="activity_create_stadium_edt_address_hint">Stadium manual address</string>
     <string name="activity_create_stadium_btn_address">Stadium location on map</string>
@@ -383,6 +383,5 @@
     <string name="entity_match_score_away_default">Esteghlal</string>
     <string name="entity_match_score_home_default">Perspolis</string>
     <string name="entity_match_score_data_default">End</string>
-
 
 </resources>

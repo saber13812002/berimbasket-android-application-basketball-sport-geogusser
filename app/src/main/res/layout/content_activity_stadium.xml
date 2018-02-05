@@ -111,7 +111,7 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
             android:fontFamily="@font/yekan"
-            android:text="@string/general_more" />
+            android:text="@string/activity_stadium_btn_more_pics" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerStadiumGallery"

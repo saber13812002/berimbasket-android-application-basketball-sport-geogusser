@@ -234,5 +234,6 @@
     <string name="activity_home_get_answer_dialog_btn_yes">ارسال پاسخ</string>
     <string name="activity_home_get_answer_dialog_btn_no">لغو</string>
     <string name="activity_home_send_answer_prompt_successful">پاسخ شما با موفقیت ارسال شد.</string>
+    <string name="activity_stadium_btn_more_pics">تصاویر بیشتر</string>
 
 </resources>
