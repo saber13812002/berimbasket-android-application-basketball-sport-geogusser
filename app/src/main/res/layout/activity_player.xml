@@ -55,15 +55,28 @@
                 android:focusableInTouchMode="true"
                 android:orientation="vertical">
 
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/imgPlayerProfile"
-                    android:layout_width="124dp"
-                    android:layout_height="124dp"
-                    android:layout_gravity="center"
+                <FrameLayout
                     android:layout_marginTop="30dp"
-                    android:src="@drawable/profile_default"
-                    app:civ_border_color="@color/colorPrimary"
-                    app:civ_border_width="2dp" />
+                    android:layout_gravity="center"
+                    android:layout_width="124dp"
+                    android:layout_height="124dp">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/imgPlayerProfile"
+                        android:layout_width="124dp"
+                        android:layout_height="124dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/profile_default"
+                        app:civ_border_color="@color/colorPrimary"
+                        app:civ_border_width="2dp" />
+
+                    <ImageView
+                        android:layout_gravity="right"
+                        android:layout_margin="20dp"
+                        android:src="@drawable/ic_external_link_white"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp" />
+                </FrameLayout>
 
                 <TextView
                     android:id="@+id/txtPlayerName"

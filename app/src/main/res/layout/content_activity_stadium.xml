@@ -20,19 +20,32 @@
             android:layout_marginTop="10dp"
             android:padding="5dp">
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/imgStadiumLogo"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+            <FrameLayout
+                android:id="@+id/frameStadiumLogo"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:src="@drawable/stadium1" />
+                android:layout_width="100dp"
+                android:layout_height="100dp">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/imgStadiumLogo"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/stadium1" />
+
+                <ImageView
+                    android:layout_gravity="right"
+                    android:layout_margin="15dp"
+                    android:src="@drawable/ic_external_link_white"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp" />
+            </FrameLayout>
 
             <TextView
                 android:id="@+id/txtStadiumName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/imgStadiumLogo"
+                android:layout_below="@+id/frameStadiumLogo"
                 android:layout_centerHorizontal="true"
                 android:layout_margin="5dp"
                 android:fontFamily="@font/yekan"
