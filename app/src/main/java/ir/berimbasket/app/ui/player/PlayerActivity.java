@@ -195,7 +195,7 @@ public class PlayerActivity extends BaseActivity implements SocialAccAdapter.Soc
         String pusheId = Pushe.getPusheId(getApplicationContext());
         SocialAccEntity webExternalLink = new SocialAccEntity();
         webExternalLink.setId(0);
-        webExternalLink.setImageResId(R.drawable.ic_external_link);
+        webExternalLink.setImageResId(R.drawable.ic_external_link_black);
         webExternalLink.setType(SocialAccEntity.SOCIAL_TYPE_WEB_PROFILE);
         webExternalLink.setLink(EXTERNAL_WEB_PROFILE_URL + player.getId() + "&pusheid=" + pusheId);
         socialAccList.add(webExternalLink);

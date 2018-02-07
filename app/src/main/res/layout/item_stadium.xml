@@ -115,6 +115,12 @@
 
         </GridLayout>
 
+        <ImageView
+            android:layout_gravity="top"
+            android:src="@drawable/ic_three_dots_black_vertical"
+            android:layout_width="20dp"
+            android:layout_height="60dp" />
+
     </LinearLayout>
 
 </android.support.v7.widget.CardView>
