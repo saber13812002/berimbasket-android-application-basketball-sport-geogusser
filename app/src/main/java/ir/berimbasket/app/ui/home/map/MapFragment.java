@@ -4,11 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +24,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.maps.android.clustering.ClusterManager;
 
 import java.net.HttpURLConnection;
+import java.util.ArrayList;
 import java.util.List;
 
 import co.ronash.pushe.Pushe;
@@ -45,14 +48,22 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     double latitude = 35.6891980;
     double longitude = 51.3889740;
     GoogleMap map;
+    private LatLng currentMapViewCenter;
     private MapView mapView;
     private ClusterManager<MyClusterItem> clusterManager;
-    public static final int ACCESS_FINE_LOCATION = 1;
+    private List<Pair<String, String>> markers;
+
+    private static final int ACCESS_FINE_LOCATION = 1;
+    private static final float GOOGLE_MAP_DEFAULT_ZOOM_LEVEL = 14.0f;
+    private static final float GOOGLE_MAP_DEFAULT_RADIUS = 25000.0f;  // meters
+    private static final float WEB_SERVICE_LOAD_ZOOM_LEVEL = 10.0f;
+    private static final int WEB_SERVICE_RADIUS = 12;  // Kilometers
 
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_map, container, false);
 
+        markers = new ArrayList<>();
         FloatingActionButton fab = v.findViewById(R.id.fabAddLocation);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -135,7 +146,24 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             map.setOnCameraIdleListener(clusterManager);
             map.setOnMarkerClickListener(clusterManager);
             clusterManager.setOnClusterItemClickListener(clusterItemClickListener);
-            getLocations(getContext());
+            updateHomeLocation();
+            setCameraLocation();
+            currentMapViewCenter = new LatLng(this.latitude, this.longitude);
+            getLocations(getContext(), currentMapViewCenter.latitude, currentMapViewCenter.longitude);
+            map.setOnCameraMoveListener(new GoogleMap.OnCameraMoveListener() {
+                @Override
+                public void onCameraMove() {
+                    CameraPosition cameraPosition = map.getCameraPosition();
+                    LatLng latLng = cameraPosition.target;
+                    float[] distanceResults = new float[10];
+                    Location.distanceBetween(currentMapViewCenter.latitude, currentMapViewCenter.longitude, latLng.latitude,
+                            latLng.longitude, distanceResults);
+                    if(cameraPosition.zoom >= WEB_SERVICE_LOAD_ZOOM_LEVEL && distanceResults[0] > GOOGLE_MAP_DEFAULT_RADIUS) {
+                        currentMapViewCenter = latLng;
+                        getLocations(getContext(), currentMapViewCenter.latitude, currentMapViewCenter.longitude);
+                    }
+                }
+            });
         }
     }
 
@@ -169,11 +197,12 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         }
     }
 
-    private void getLocations(Context context) {
+    private void getLocations(Context context, double lat, double lng) {
         String pusheId = Pushe.getPusheId(context);
         String userName = new PrefManager(context).getUserName();
         String lang = LocaleManager.getLocale(context).getLanguage();
-        WebApiClient.getStadiumApi().getStadium(0, pusheId, userName, lang).enqueue(new Callback<List<Stadium>>() {
+        WebApiClient.getStadiumApi().getStadiumsV2ForMap(String.valueOf(lat), String.valueOf(lng), WEB_SERVICE_RADIUS,
+                "json", pusheId, userName, lang).enqueue(new Callback<List<Stadium>>() {
             @Override
             public void onResponse(Call<List<Stadium>> call, Response<List<Stadium>> response) {
                 if (response.code() == HttpURLConnection.HTTP_OK) {
@@ -182,10 +211,13 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                         for (Stadium stadium : stadiums) {
                             MyClusterItem item = new MyClusterItem(Double.parseDouble(stadium.getLatitude()),
                                     Double.parseDouble(stadium.getLongitude()), stadium.getId(), stadium.getTitle());
-                            clusterManager.addItem(item);
+                            Pair<String, String> marker = new Pair<>(stadium.getLatitude(), stadium.getLongitude());
+                            if (!markers.contains(marker)) {
+                                markers.add(marker);
+                                clusterManager.addItem(item);
+                                clusterManager.cluster();
+                            }
                         }
-                        updateHomeLocation();
-                        setCameraLocation();
                     }
                 } else {
                     // http call with incorrect params or other network error
@@ -227,7 +259,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
      * Change map location based on city that selected in setting
      */
     private void setCameraLocation() {
-        map.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(MapFragment.this.latitude, MapFragment.this.longitude), 14.0f));
+        map.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(MapFragment.this.latitude, MapFragment.this.longitude), GOOGLE_MAP_DEFAULT_ZOOM_LEVEL));
     }
 
     private void updateHomeLocation() {

@@ -18,4 +18,10 @@ public interface StadiumApi {
     Call<List<Stadium>> getStadium(@Query("id") int id, @Query("pusheid") String pusheId,
                                    @Query("username") String username,
                                    @Query("lang") String lang);
+
+    @GET("getPlayGroundsV2.php")
+    Call<List<Stadium>> getStadiumsV2ForMap(@Query("lat") String latitude, @Query("long") String longitude,
+                                            @Query("radius") int radius, @Query("format") String format,
+                                            @Query("pusheid") String pusheid, @Query("username") String username,
+                                            @Query("lang") String lang);
 }
