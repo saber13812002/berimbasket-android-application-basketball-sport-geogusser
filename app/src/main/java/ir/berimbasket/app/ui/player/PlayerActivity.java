@@ -44,8 +44,7 @@ public class PlayerActivity extends BaseActivity implements SocialAccAdapter.Soc
 
     private ProgressBar progress;
     private TextView txtPlayerName;
-    private ImageView btnReportPlayer;
-    private ImageView imgProfileImageView;
+    private ImageView btnReportPlayer, imgProfileImageView, imgCoach;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +61,7 @@ public class PlayerActivity extends BaseActivity implements SocialAccAdapter.Soc
         progress = findViewById(R.id.progressPlayer);
         btnReportPlayer = findViewById(R.id.btnReportPlayer);
         imgProfileImageView = findViewById(R.id.imgPlayerProfile);
+        imgCoach = findViewById(R.id.imgCoach);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             imgProfileImageView.setTransitionName("image");
             txtPlayerName.setTransitionName("name");
@@ -133,6 +133,9 @@ public class PlayerActivity extends BaseActivity implements SocialAccAdapter.Soc
                 .placeholder(R.drawable.profile_default)
                 .error(R.drawable.profile_default)
                 .into(imgProfileImageView);
+        if (player.getPriority() > 6) {
+            imgCoach.setVisibility(View.VISIBLE);
+        }
 
         imgProfileImageView.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -17,14 +17,29 @@
         android:gravity="start"
         android:orientation="horizontal">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/imgPlayerProfile"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+        <FrameLayout
             android:layout_margin="15dp"
-            android:src="@drawable/profile_default"
-            app:civ_border_color="@color/colorPrimary"
-            app:civ_border_width="2dp" />
+            android:layout_width="100dp"
+            android:layout_height="100dp">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imgPlayerProfile"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/profile_default"
+                app:civ_border_color="@color/colorPrimary"
+                app:civ_border_width="2dp" />
+
+            <ImageView
+                android:id="@+id/imgCoach"
+                android:layout_gravity="right"
+                android:layout_margin="5dp"
+                android:src="@drawable/ic_coach"
+                android:visibility="gone"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                tools:visibility="visible"/>
+        </FrameLayout>
 
         <GridLayout
             android:layout_width="0dp"

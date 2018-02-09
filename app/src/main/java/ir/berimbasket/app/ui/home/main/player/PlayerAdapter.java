@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -54,7 +55,9 @@ class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.ViewHolder> {
                 .placeholder(R.drawable.profile_default)
                 .error(R.drawable.profile_default)
                 .into(holder.imgPlayerProfile);
-
+        if (dataSource.get(position).getPriority() > 6) {
+            holder.imgCoach.setVisibility(View.VISIBLE);
+        }
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,6 +78,7 @@ class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.ViewHolder> {
     class ViewHolder extends RecyclerView.ViewHolder {
         View view;
         TextView txtPlayerName, txtPost, txtTeam;
+        ImageView imgCoach;
         CircleImageView imgPlayerProfile;
 
         ViewHolder(View view) {
@@ -84,6 +88,7 @@ class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.ViewHolder> {
             this.txtPost = view.findViewById(R.id.txtPlayerPost);
             this.txtTeam = view.findViewById(R.id.txtPlayerTeam);
             this.imgPlayerProfile = view.findViewById(R.id.imgPlayerProfile);
+            this.imgCoach = view.findViewById(R.id.imgCoach);
         }
     }
 

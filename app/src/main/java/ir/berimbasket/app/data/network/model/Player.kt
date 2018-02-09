@@ -5,6 +5,8 @@ import java.io.Serializable
 
 class Player (@field:SerializedName("id")
               var id: Int,
+              @field:SerializedName("priority")
+              var priority: Int,
               @field:SerializedName("username")
               var username: String?,
               @field:SerializedName("namefa")

@@ -55,7 +55,7 @@ public class ProfileFragment extends Fragment {
     private static boolean isLoggedIn;
     private TabLayout tabProfile;
     private WrapContentViewPager pagerProfile;
-    private ImageView imgProfileImage;
+    private ImageView imgProfileImage, imgCoach;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -76,6 +76,7 @@ public class ProfileFragment extends Fragment {
             initTabProduct();
 
             imgProfileImage = rootView.findViewById(R.id.imgPlayerProfile);
+            imgCoach = rootView.findViewById(R.id.imgCoach);
             TextView txtProfileName = rootView.findViewById(R.id.txtProfileName);
             txtProfileName.setText(pref.getUserName());
             initPlayer();
@@ -240,6 +241,9 @@ public class ProfileFragment extends Fragment {
                                 .placeholder(R.drawable.profile_default)
                                 .error(R.drawable.profile_default)
                                 .into(imgProfileImage);
+                        if (players.get(0).getPriority() > 6) {
+                            imgCoach.setVisibility(View.VISIBLE);
+                        }
                     }
                 } else {
                     // http call with incorrect params or other network error
