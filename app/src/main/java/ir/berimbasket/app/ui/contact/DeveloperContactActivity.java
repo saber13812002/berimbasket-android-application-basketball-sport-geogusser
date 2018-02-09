@@ -19,6 +19,7 @@ import ir.berimbasket.app.data.network.WebApiClient;
 import ir.berimbasket.app.data.pref.PrefManager;
 import ir.berimbasket.app.ui.base.BaseActivity;
 import ir.berimbasket.app.util.EditTextHelper;
+import ir.berimbasket.app.util.LocaleManager;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -52,7 +53,8 @@ public class DeveloperContactActivity extends BaseActivity {
                     requestBody.put("content", edtContent.getText().toString());
                     String pusheid = Pushe.getPusheId(getApplicationContext());
                     String username = new PrefManager(getApplicationContext()).getUserName();
-                    WebApiClient.postFeedbackApi().sendFeedback(pusheid, username, requestBody).enqueue(new Callback<Void>() {
+                    String lang = LocaleManager.getLocale(getApplicationContext()).getLanguage();
+                    WebApiClient.postFeedbackApi().sendFeedback(pusheid, username, requestBody, lang).enqueue(new Callback<Void>() {
                         @Override
                         public void onResponse(Call<Void> call, Response<Void> response) {
                             if (response.code() == HttpURLConnection.HTTP_OK) {

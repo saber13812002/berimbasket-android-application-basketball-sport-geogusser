@@ -11,5 +11,6 @@ import retrofit2.http.Query;
 
 public interface QuestionApi {
     @GET("www/getQuestion.php")
-    Call<Question> getQuestion(@Query("pusheid") String pusheid, @Query("username") String username);
+    Call<Question> getQuestion(@Query("pusheid") String pusheid, @Query("username") String username,
+                               @Query("lang") String lang);
 }

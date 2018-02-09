@@ -37,6 +37,7 @@ import ir.berimbasket.app.ui.base.BaseActivity;
 import ir.berimbasket.app.ui.common.custom.TypefaceSpanCustom;
 import ir.berimbasket.app.ui.settings.SettingsActivity;
 import ir.berimbasket.app.util.EditTextHelper;
+import ir.berimbasket.app.util.LocaleManager;
 import ir.berimbasket.app.util.TypefaceManager;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -181,8 +182,8 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
     private void checkQuestion() {
         String pusheid = Pushe.getPusheId(getApplicationContext());
         String userName = new PrefManager(getApplicationContext()).getUserName();
-
-        WebApiClient.getQuestionApi().getQuestion(pusheid, userName).enqueue(new Callback<Question>() {
+        String lang = LocaleManager.getLocale(getApplicationContext()).getLanguage();
+        WebApiClient.getQuestionApi().getQuestion(pusheid, userName, lang).enqueue(new Callback<Question>() {
             @Override
             public void onResponse(Call<Question> call, Response<Question> response) {
                 if (response.code() == HttpURLConnection.HTTP_OK) {
@@ -232,7 +233,8 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
 
         String pusheid = Pushe.getPusheId(HomeActivity.this);
         String username = new PrefManager(getApplicationContext()).getUserName();
-        WebApiClient.sendAnswerApi().sendAnswer(pusheid, username, answerBody).enqueue(new Callback<Void>() {
+        String lang = LocaleManager.getLocale(getApplicationContext()).getLanguage();
+        WebApiClient.sendAnswerApi().sendAnswer(pusheid, username, answerBody, lang).enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.code() == HttpURLConnection.HTTP_OK) {
