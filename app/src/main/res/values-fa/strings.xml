@@ -223,7 +223,7 @@
     <string name="activity_developer_contact_edt_subject_hint">عنوان پیام</string>
     <string name="activity_developer_contact_edt_content_hint">متن پیام</string>
     <string name="activity_developer_contact_btn_send">ارسال پیام</string>
-    <string name="activity_developer_contact_txt_developer_name">توسعه دهنده : مهندس مسعود طباطبایی</string>
+    <string name="activity_developer_contact_txt_developer_name">توسعه دهنده : مهندس صابر طباطبایی</string>
     <string name="activity_developer_contact_btn_send_email">ارسال پیام به توسعه دهنده از طریق ایمیل
     \n berimbasket@gmail.com</string>
     <string name="activity_developer_contact_toast_message_fill_edittext">لطفا تمامی موارد را پر کنید</string>
@@ -235,5 +235,7 @@
     <string name="activity_home_get_answer_dialog_btn_no">لغو</string>
     <string name="activity_home_send_answer_prompt_successful">پاسخ شما با موفقیت ارسال شد.</string>
     <string name="activity_stadium_btn_more_pics">تصاویر بیشتر</string>
+
+    <string name="activity_notification_toolbar_title">اعلان ها</string>
 
 </resources>

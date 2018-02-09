@@ -35,6 +35,7 @@ import ir.berimbasket.app.data.network.model.Question;
 import ir.berimbasket.app.data.pref.PrefManager;
 import ir.berimbasket.app.ui.base.BaseActivity;
 import ir.berimbasket.app.ui.common.custom.TypefaceSpanCustom;
+import ir.berimbasket.app.ui.notification.NotificationActivity;
 import ir.berimbasket.app.ui.settings.SettingsActivity;
 import ir.berimbasket.app.util.EditTextHelper;
 import ir.berimbasket.app.util.LocaleManager;
@@ -50,7 +51,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
     }
 
     private ViewPager homePager;
-    private ImageView btnUser, btnSetting;
+    private ImageView btnSetting, btnNotification;
     private BottomNavigationView navigation;
     private MenuItem prevMenuItem;
 
@@ -161,10 +162,12 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
 
     private void initViews() {
         btnSetting = findViewById(R.id.btnSetting);
+        btnNotification = findViewById(R.id.btnNotification);
     }
 
     private void initListeners() {
         btnSetting.setOnClickListener(this);
+        btnNotification.setOnClickListener(this);
     }
 
     @Override
@@ -173,6 +176,11 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
             case R.id.btnSetting:
                 Intent goToSetting = new Intent(this, SettingsActivity.class);
                 startActivity(goToSetting);
+                break;
+
+            case R.id.btnNotification:
+                Intent goToNotification = new Intent(this, NotificationActivity.class);
+                startActivity(goToNotification);
                 break;
             default:
                 break;

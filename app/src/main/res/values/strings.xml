@@ -107,7 +107,7 @@
     <string name="activity_developer_contact_edt_subject_hint">Subject</string>
     <string name="activity_developer_contact_edt_content_hint">Message</string>
     <string name="activity_developer_contact_btn_send">Send</string>
-    <string name="activity_developer_contact_txt_developer_name">Developer : Masoud Tabatabaee</string>
+    <string name="activity_developer_contact_txt_developer_name">Developer : Saber Tabatabaee</string>
     <string name="activity_developer_contact_btn_send_email">Send Message via email
     \n berimbasket@gmail.com</string>
     <string name="activity_developer_email_uri" translatable="false">berimbasket@gmail.com</string>
@@ -383,5 +383,7 @@
     <string name="entity_match_score_away_default">Esteghlal</string>
     <string name="entity_match_score_home_default">Perspolis</string>
     <string name="entity_match_score_data_default">End</string>
+    <string name="title_activity_notification">NotificationActivity</string>
+    <string name="activity_notification_toolbar_title">Notifications</string>
 
 </resources>
