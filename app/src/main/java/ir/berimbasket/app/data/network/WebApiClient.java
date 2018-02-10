@@ -14,6 +14,7 @@ import ir.berimbasket.app.data.network.endpoint.LoginApi;
 import ir.berimbasket.app.data.network.endpoint.MapMarkerApi;
 import ir.berimbasket.app.data.network.endpoint.MatchApi;
 import ir.berimbasket.app.data.network.endpoint.MissionApi;
+import ir.berimbasket.app.data.network.endpoint.NotificationApi;
 import ir.berimbasket.app.data.network.endpoint.PlayerApi;
 import ir.berimbasket.app.data.network.endpoint.QuestionApi;
 import ir.berimbasket.app.data.network.endpoint.RegisterApi;
@@ -96,6 +97,11 @@ public class WebApiClient {
     public static LocationApi getLocationApi() {
         return buildSimpleClient(BerimBasket.BBAL_BASE_URL)
                 .create(LocationApi.class);
+    }
+
+    public static NotificationApi getNotificationApi() {
+        return buildSimpleClient(BerimBasket.BBAL_BASE_URL)
+                .create(NotificationApi.class);
     }
 
     private static Retrofit buildSimpleClient(String baseUrl) {

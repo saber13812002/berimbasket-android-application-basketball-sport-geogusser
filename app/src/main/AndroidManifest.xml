@@ -164,7 +164,6 @@
         <activity android:name=".ui.contact.DeveloperContactActivity" />
         <activity
             android:name=".ui.notification.NotificationActivity"
-            android:label="@string/title_activity_notification"
             android:theme="@style/AppTheme" />
     </application>
 
