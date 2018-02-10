@@ -32,7 +32,7 @@ public class Time {
             } else {
                 String[] monthNames = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
                 return monthNames[gregorian.get(Calendar.MONTH)] + " " + gregorian.get(Calendar.DAY_OF_MONTH) + " " + gregorian.get(Calendar.YEAR) +
-                        " at " + gregorian.get(Calendar.HOUR_OF_DAY) + ":" + gregorian.get(Calendar.MINUTE) + " " + gregorian.get(Calendar.SECOND);
+                        " at " + gregorian.get(Calendar.HOUR_OF_DAY) + ":" + gregorian.get(Calendar.MINUTE) + ":" + gregorian.get(Calendar.SECOND);
             }
         } catch (Exception e) {
             return timestamp;
