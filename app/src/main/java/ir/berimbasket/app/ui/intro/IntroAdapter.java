@@ -45,7 +45,7 @@ public class IntroAdapter extends TutorialSupportFragment
                 PrefManager pref = new PrefManager(getActivity());
                 pref.putIntroPassed(true);
                 Intent intent = new Intent(getActivity(), HomeActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 getActivity().startActivity(intent);
                 getActivity().finish();
             }

@@ -10,6 +10,13 @@
     <string name="activity_home_get_answer_dialog_btn_yes">Send</string>
     <string name="activity_home_get_answer_dialog_btn_no">Cancel</string>
     <string name="activity_home_send_answer_prompt_successful">Your message has been sent successfully</string>
+    <string name="activity_home_navigation_showcase">Application main screens:\nHome screen\nStadiums location on map\n
+    User profile\n**Touch below area to start**</string>
+    <string name="activity_home_showcase_btn_settings_title">Settings</string>
+    <string name="activity_home_showcase_btn_settings_description">Default city, Language, Update, Support, &#8230;</string>
+    <string name="activity_home_showcase_btn_notification_title">Notifications</string>
+    <string name="activity_home_showcase_btn_notification_description">Notifications, events and messages history </string>
+
 
     <string name="activity_login_edt_password_hint">Password</string>
     <string name="activity_login_btn_sign_in">Login</string>
