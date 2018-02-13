@@ -25,6 +25,7 @@ import com.cleveroad.slidingtutorial.TutorialSupportFragment;
 
 import ir.berimbasket.app.R;
 import ir.berimbasket.app.data.pref.PrefManager;
+import ir.berimbasket.app.ui.common.PermissionsRequest;
 import ir.berimbasket.app.ui.home.HomeActivity;
 
 public class IntroAdapter extends TutorialSupportFragment
@@ -44,7 +45,7 @@ public class IntroAdapter extends TutorialSupportFragment
                 PrefManager pref = new PrefManager(getActivity());
                 pref.putIntroPassed(true);
                 Intent intent = new Intent(getActivity(), HomeActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 getActivity().startActivity(intent);
                 getActivity().finish();
             }
@@ -198,6 +199,7 @@ public class IntroAdapter extends TutorialSupportFragment
         currentPosition = position;
         if (position == (TOTAL_PAGES - 1)) {
             txtSkip.setText(R.string.activity_intro_start_text);
+            PermissionsRequest.checkAccessFineLocationPermission(getContext(), IntroAdapter.this, 1000);
         } else {
             txtSkip.setText(R.string.activity_intro_next_text);
         }
