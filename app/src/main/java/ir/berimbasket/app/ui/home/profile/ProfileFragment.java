@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.PopupMenu;
 import android.view.LayoutInflater;
@@ -30,7 +31,6 @@ import ir.berimbasket.app.R;
 import ir.berimbasket.app.data.network.WebApiClient;
 import ir.berimbasket.app.data.network.model.Player;
 import ir.berimbasket.app.data.pref.PrefManager;
-import ir.berimbasket.app.ui.common.WrapContentViewPager;
 import ir.berimbasket.app.ui.login.LoginActivity;
 import ir.berimbasket.app.util.AnalyticsHelper;
 import ir.berimbasket.app.util.FontHelper;
@@ -54,7 +54,7 @@ public class ProfileFragment extends Fragment {
 
     private static boolean isLoggedIn;
     private TabLayout tabProfile;
-    private WrapContentViewPager pagerProfile;
+    private ViewPager pagerProfile;
     private ImageView imgProfileImage, imgCoach;
 
     @Override

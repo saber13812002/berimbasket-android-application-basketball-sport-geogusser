@@ -1,18 +1,18 @@
-package ir.berimbasket.app.ui.common;
+package ir.berimbasket.app.ui.common.custom;
 
 import android.content.Context;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.View;
 
-public class WrapContentViewPager extends ViewPager {
+public class ViewPagerContentWrapper extends ViewPagerRTL {
 
-    public WrapContentViewPager(Context context) {
+    public ViewPagerContentWrapper(Context context) {
         super(context);
         initPageChangeListener();
     }
 
-    public WrapContentViewPager(Context context, AttributeSet attrs) {
+    public ViewPagerContentWrapper(Context context, AttributeSet attrs) {
         super(context, attrs);
         initPageChangeListener();
     }
@@ -36,5 +36,4 @@ public class WrapContentViewPager extends ViewPager {
         }
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
-
 }

@@ -25,7 +25,7 @@
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
 
-            <ir.berimbasket.app.ui.common.WrapContentViewPager
+            <ir.berimbasket.app.ui.common.custom.ViewPagerContentWrapper
                 android:id="@+id/pagerMain"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

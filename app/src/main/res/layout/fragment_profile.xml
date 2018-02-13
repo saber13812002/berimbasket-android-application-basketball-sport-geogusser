@@ -99,7 +99,7 @@
                 app:tabGravity="fill"
                 app:tabMode="fixed" />
 
-            <ir.berimbasket.app.ui.common.WrapContentViewPager
+            <ir.berimbasket.app.ui.common.custom.ViewPagerContentWrapper
                 android:id="@+id/pagerProfile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
