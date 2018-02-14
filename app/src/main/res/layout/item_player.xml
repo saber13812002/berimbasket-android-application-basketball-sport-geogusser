@@ -8,6 +8,7 @@
     android:layout_marginBottom="10dp"
     android:clickable="true"
     android:focusable="true"
+    android:foreground="?attr/selectableItemBackgroundBorderless"
     app:cardCornerRadius="5dp"
     app:cardPreventCornerOverlap="true">
 

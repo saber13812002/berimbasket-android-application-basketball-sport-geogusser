@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,6 +61,7 @@ public class StadiumFragment extends Fragment implements StadiumAdapter.StadiumL
         recyclerView.setLayoutManager(layoutManager);
         adapter = new StadiumAdapter(this);
         recyclerView.setAdapter(adapter);
+        recyclerView.setNestedScrollingEnabled(false);
         recyclerView.addOnScrollListener(scrollListener);
 
         loadStadiumList(0, PAGE_COUNT);
@@ -77,6 +79,7 @@ public class StadiumFragment extends Fragment implements StadiumAdapter.StadiumL
                 horizontalProgressBar.setVisibility(View.VISIBLE);
                 loading = true;
                 loadStadiumList(from, PAGE_COUNT);
+                Log.d("VarzeshBoard", "loading more");
                 from += PAGE_COUNT;
             }
         }
@@ -110,7 +113,6 @@ public class StadiumFragment extends Fragment implements StadiumAdapter.StadiumL
             latitude = String.valueOf(gps.getLatitude());
             longitude = String.valueOf(gps.getLongitude());
         }
-        circularProgressBar.setVisibility(View.VISIBLE);
 
         WebApiClient.getStadiumApi().getStadiumsV2List(latitude, longitude, from, num, "json", pusheId, userName, lang).enqueue(new Callback<List<Stadium>>() {
             @Override
