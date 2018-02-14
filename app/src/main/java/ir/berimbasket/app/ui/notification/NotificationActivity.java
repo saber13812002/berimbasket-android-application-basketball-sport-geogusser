@@ -26,7 +26,7 @@ import retrofit2.Response;
 public class NotificationActivity extends BaseActivity implements NotificationAdapter.NotificationListListener {
 
     private static final String NOTIFICATION_TYPE_BROWSER = "browser";
-    private static final int PAGE_COUNT = 10;
+    private static final int PAGE_COUNT = 20;
     private boolean loading;
     private boolean isLastPage;
     private int from;

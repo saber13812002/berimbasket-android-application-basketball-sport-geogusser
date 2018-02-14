@@ -19,6 +19,7 @@ import ir.berimbasket.app.R;
 import ir.berimbasket.app.data.network.WebApiClient;
 import ir.berimbasket.app.data.network.model.Stadium;
 import ir.berimbasket.app.data.pref.PrefManager;
+import ir.berimbasket.app.service.GPSTracker;
 import ir.berimbasket.app.ui.common.entity.StadiumBaseEntity;
 import ir.berimbasket.app.ui.stadium.StadiumActivity;
 import ir.berimbasket.app.util.AnalyticsHelper;
@@ -29,9 +30,14 @@ import retrofit2.Response;
 
 public class StadiumFragment extends Fragment implements StadiumAdapter.StadiumListListener {
 
+    private static final int PAGE_COUNT = 20;
+    private boolean loading;
+    private boolean isLastPage;
+    private int from;
 
     private StadiumAdapter adapter;
-    private ProgressBar progress;
+    private ProgressBar circularProgressBar, horizontalProgressBar;
+    private LinearLayoutManager layoutManager;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -44,19 +50,37 @@ public class StadiumFragment extends Fragment implements StadiumAdapter.StadiumL
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_stadium_list, container, false);
-        progress = view.findViewById(R.id.progressStadium);
+        circularProgressBar = view.findViewById(R.id.progressStadium);
+        circularProgressBar.setVisibility(View.VISIBLE);
+        horizontalProgressBar = view.findViewById(R.id.progressBarHorizontal);
         RecyclerView recyclerView = view.findViewById(R.id.recyclerStadium);
 
         Context context = view.getContext();
-        recyclerView.setLayoutManager(new LinearLayoutManager(context));
+        layoutManager = new LinearLayoutManager(context);
+        recyclerView.setLayoutManager(layoutManager);
         adapter = new StadiumAdapter(this);
         recyclerView.setAdapter(adapter);
-        recyclerView.setNestedScrollingEnabled(false);
+        recyclerView.addOnScrollListener(scrollListener);
 
-        initStadiumList();
+        loadStadiumList(0, PAGE_COUNT);
+        from += PAGE_COUNT;
 
         return view;
     }
+
+    private RecyclerView.OnScrollListener scrollListener = new RecyclerView.OnScrollListener() {
+        @Override
+        public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+            super.onScrollStateChanged(recyclerView, newState);
+            int lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition();
+            if (lastVisibleItemPosition == adapter.getItemCount() - 1 && !loading && !isLastPage) {
+                horizontalProgressBar.setVisibility(View.VISIBLE);
+                loading = true;
+                loadStadiumList(from, PAGE_COUNT);
+                from += PAGE_COUNT;
+            }
+        }
+    };
 
     @Override
     public void onResume() {
@@ -74,19 +98,34 @@ public class StadiumFragment extends Fragment implements StadiumAdapter.StadiumL
         startActivity(intent);
     }
 
-    private void initStadiumList() {
+    private void loadStadiumList(int from, int num) {
         String pusheId = Pushe.getPusheId(getContext());
         String userName = new PrefManager(getContext()).getUserName();
         String lang = LocaleManager.getLocale(getContext()).getLanguage();
-        progress.setVisibility(View.VISIBLE);
-        WebApiClient.getStadiumApi().getStadium(0, pusheId, userName, lang).enqueue(new Callback<List<Stadium>>() {
+        String latitude = "0";
+        String longitude = "0";
+        GPSTracker gps = new GPSTracker(getActivity());
+        // Check if GPS enabled
+        if (gps.canGetLocation()) {
+            latitude = String.valueOf(gps.getLatitude());
+            longitude = String.valueOf(gps.getLongitude());
+        }
+        circularProgressBar.setVisibility(View.VISIBLE);
+
+        WebApiClient.getStadiumApi().getStadiumsV2List(latitude, longitude, from, num, "json", pusheId, userName, lang).enqueue(new Callback<List<Stadium>>() {
             @Override
             public void onResponse(Call<List<Stadium>> call, Response<List<Stadium>> response) {
-                progress.setVisibility(View.INVISIBLE);
+                loading = false;
+                horizontalProgressBar.setVisibility(View.INVISIBLE);
+                if (circularProgressBar.getVisibility() == View.VISIBLE) {
+                    circularProgressBar.setVisibility(View.GONE);
+                }
                 if (response.code() == HttpURLConnection.HTTP_OK) {
                     List<Stadium> stadiums = response.body();
-                    if (stadiums != null && getView() != null) {
-                        adapter.swapDataSource(stadiums);
+                    if (stadiums != null && getView() != null && stadiums.size() != 0) {
+                        adapter.addItems(stadiums);
+                    } else {
+                        isLastPage = true;
                     }
                 } else {
                     // http call with incorrect params or other network error
@@ -95,7 +134,9 @@ public class StadiumFragment extends Fragment implements StadiumAdapter.StadiumL
 
             @Override
             public void onFailure(Call<List<Stadium>> call, Throwable t) {
-                progress.setVisibility(View.INVISIBLE);
+                loading = false;
+                circularProgressBar.setVisibility(View.INVISIBLE);
+                horizontalProgressBar.setVisibility(View.INVISIBLE);
             }
         });
     }

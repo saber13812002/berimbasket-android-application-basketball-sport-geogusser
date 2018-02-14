@@ -92,4 +92,10 @@ class StadiumAdapter extends RecyclerView.Adapter<StadiumAdapter.ViewHolder> {
         this.dataSource = list;
         notifyDataSetChanged();
     }
+
+    void addItems(List<Stadium> list) {
+        int lastPosition = dataSource.size();
+        dataSource.addAll(list);
+        notifyItemRangeInserted(lastPosition, list.size());
+    }
 }

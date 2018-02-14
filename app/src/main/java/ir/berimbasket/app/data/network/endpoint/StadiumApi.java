@@ -24,4 +24,9 @@ public interface StadiumApi {
                                             @Query("radius") int radius, @Query("format") String format,
                                             @Query("pusheid") String pusheid, @Query("username") String username,
                                             @Query("lang") String lang);
+    @GET("getPlayGroundsV2.php")
+    Call<List<Stadium>> getStadiumsV2List(@Query("lat") String latitude, @Query("long") String longitude,
+                                          @Query("from") int from, @Query("num") int num, @Query("format") String format,
+                                          @Query("pusheid") String pusheid, @Query("username") String username,
+                                          @Query("lang") String lang);
 }
