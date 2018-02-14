@@ -15,10 +15,23 @@
         app:tabGravity="fill"
         app:tabMode="fixed" />
 
-    <ir.berimbasket.app.ui.common.custom.ViewPagerContentWrapper
-        android:id="@+id/pagerMain"
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_height="wrap_content"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ir.berimbasket.app.ui.common.custom.ViewPagerContentWrapper
+                android:id="@+id/pagerMain"
+                android:layout_width="match_parent"
+                android:layout_height="0dp" />
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
 
 </LinearLayout>
