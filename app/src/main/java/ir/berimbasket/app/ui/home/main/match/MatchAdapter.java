@@ -107,4 +107,10 @@ class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.ViewHolder> {
         this.dataSource = dataSource;
         notifyDataSetChanged();
     }
+
+    void addItems(List<Match> list) {
+        int lastPosition = dataSource.size();
+        dataSource.addAll(list);
+        notifyItemRangeInserted(lastPosition, list.size());
+    }
 }

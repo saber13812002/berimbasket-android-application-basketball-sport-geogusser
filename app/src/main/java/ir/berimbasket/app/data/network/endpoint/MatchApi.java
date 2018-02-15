@@ -18,4 +18,10 @@ public interface MatchApi {
     Call<List<Match>> getMatches(@Query("pusheid") String pusheId,
                                  @Query("username") String username,
                                  @Query("lang") String lang);
+    @GET("getScoresV2.php")
+    Call<List<Match>> getMatchesV2(@Query("from") int from, @Query("num") int num,
+                                   @Query("format") String format,
+                                   @Query("pusheid") String pusheId,
+                                   @Query("username") String username,
+                                   @Query("lang") String lang);
 }
