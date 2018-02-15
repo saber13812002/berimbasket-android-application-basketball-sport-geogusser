@@ -57,7 +57,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private static final float GOOGLE_MAP_DEFAULT_ZOOM_LEVEL = 14.0f;
     private static final float GOOGLE_MAP_DEFAULT_RADIUS = 25000.0f;  // meters
     private static final float WEB_SERVICE_LOAD_ZOOM_LEVEL = 10.0f;
-    private static final int WEB_SERVICE_RADIUS = 25;  // Kilometers
+    private static final int WEB_SERVICE_RADIUS = 25000;  // meters
 
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
