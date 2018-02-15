@@ -19,4 +19,11 @@ public interface PlayerApi {
                                   @Query("pusheid") String pusheId,
                                   @Query("username") String username,
                                   @Query("lang") String lang);
+
+    @GET("getPlayersV2.php")
+    Call<List<Player>> getPlayersV2(@Query("from") int from, @Query("num") int num,
+                                  @Query("format") String format,
+                                  @Query("pusheid") String pusheId,
+                                  @Query("username") String username,
+                                  @Query("lang") String lang);
 }

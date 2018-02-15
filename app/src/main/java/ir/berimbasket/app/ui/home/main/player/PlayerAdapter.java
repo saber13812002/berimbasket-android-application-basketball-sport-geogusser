@@ -96,4 +96,10 @@ class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.ViewHolder> {
         this.dataSource = list;
         notifyDataSetChanged();
     }
+
+    void addItems(List<Player> list) {
+        int lastPosition = dataSource.size();
+        dataSource.addAll(list);
+        notifyItemRangeInserted(lastPosition, list.size());
+    }
 }

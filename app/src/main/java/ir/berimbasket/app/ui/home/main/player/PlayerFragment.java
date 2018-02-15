@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,8 +29,14 @@ import retrofit2.Response;
 
 public class PlayerFragment extends Fragment implements PlayerAdapter.PlayerListListener {
 
+    private static final int PAGE_COUNT = 20;
+    private boolean loading;
+    private boolean isLastPage;
+    private int from;
+
     private PlayerAdapter adapter;
-    private ProgressBar progress;
+    private ProgressBar circularProgressBar, horizontalProgressBar;
+    private LinearLayoutManager layoutManager;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -42,19 +49,39 @@ public class PlayerFragment extends Fragment implements PlayerAdapter.PlayerList
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_player_list, container, false);
-        progress = view.findViewById(R.id.progressPlayer);
+        circularProgressBar = view.findViewById(R.id.progressPlayer);
+        circularProgressBar.setVisibility(View.VISIBLE);
+        horizontalProgressBar = view.findViewById(R.id.progressBarHorizontal);
         RecyclerView recyclerView = view.findViewById(R.id.recyclerPlayer);
 
         Context context = view.getContext();
-        recyclerView.setLayoutManager(new LinearLayoutManager(context));
+        layoutManager = new LinearLayoutManager(context);
+        recyclerView.setLayoutManager(layoutManager);
         adapter = new PlayerAdapter(this);
         recyclerView.setAdapter(adapter);
         recyclerView.setNestedScrollingEnabled(false);
+        recyclerView.addOnScrollListener(scrollListener);
 
-        initPlayerList();
+        loadPlayerList(0, PAGE_COUNT);
+        from += PAGE_COUNT;
 
         return view;
     }
+
+    private RecyclerView.OnScrollListener scrollListener = new RecyclerView.OnScrollListener() {
+        @Override
+        public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+            super.onScrollStateChanged(recyclerView, newState);
+            int lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition();
+            if (lastVisibleItemPosition == adapter.getItemCount() - 1 && !loading && !isLastPage) {
+                horizontalProgressBar.setVisibility(View.VISIBLE);
+                loading = true;
+                loadPlayerList(from, PAGE_COUNT);
+                Log.d("VarzeshBoard", "loading more");
+                from += PAGE_COUNT;
+            }
+        }
+    };
 
     @Override
     public void onResume() {
@@ -70,19 +97,23 @@ public class PlayerFragment extends Fragment implements PlayerAdapter.PlayerList
         startActivity(intent);
     }
 
-    private void initPlayerList() {
+    private void loadPlayerList(int from, int num) {
         String pusheId = Pushe.getPusheId(getContext());
         String userName = new PrefManager(getContext()).getUserName();
         String lang = LocaleManager.getLocale(getContext()).getLanguage();
-        progress.setVisibility(View.VISIBLE);
-        WebApiClient.getPlayerApi().getPlayers(0, pusheId, userName, lang).enqueue(new Callback<List<Player>>() {
+        circularProgressBar.setVisibility(View.VISIBLE);
+        WebApiClient.getPlayerApi().getPlayersV2(from, num, "json", pusheId, userName, lang).enqueue(new Callback<List<Player>>() {
             @Override
             public void onResponse(Call<List<Player>> call, Response<List<Player>> response) {
-                progress.setVisibility(View.INVISIBLE);
+                loading = false;
+                horizontalProgressBar.setVisibility(View.INVISIBLE);
+                circularProgressBar.setVisibility(View.INVISIBLE);
                 if (response.code() == HttpURLConnection.HTTP_OK) {
                     List<Player> players = response.body();
-                    if (players != null && getView() != null) {
-                        adapter.swapDataSource(players);
+                    if (players != null && getView() != null && players.size() != 0) {
+                        adapter.addItems(players);
+                    } else {
+                        isLastPage = true;
                     }
                 } else {
                     // http call with incorrect params or other network error
@@ -91,8 +122,9 @@ public class PlayerFragment extends Fragment implements PlayerAdapter.PlayerList
 
             @Override
             public void onFailure(Call<List<Player>> call, Throwable t) {
-                progress.setVisibility(View.INVISIBLE);
-            }
+                loading = false;
+                circularProgressBar.setVisibility(View.INVISIBLE);
+                horizontalProgressBar.setVisibility(View.INVISIBLE);            }
         });
     }
 }

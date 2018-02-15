@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -15,17 +15,20 @@
         app:layoutManager="LinearLayoutManager"
         tools:listitem="@layout/item_player" />
 
-    <FrameLayout
-        android:layout_centerInParent="true"
+    <ProgressBar
+        android:id="@+id/progressPlayer"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="invisible" />
 
-        <ProgressBar
-            android:id="@+id/progressPlayer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:visibility="invisible" />
-    </FrameLayout>
+    <ProgressBar
+        android:id="@+id/progressBarHorizontal"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:layout_gravity="bottom"
+        android:indeterminate="true"
+        android:visibility="invisible" />
 
-</RelativeLayout>
+</FrameLayout>

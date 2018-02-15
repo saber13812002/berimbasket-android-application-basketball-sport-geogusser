@@ -15,9 +15,9 @@ class Player (@field:SerializedName("id")
               var address: String?,
               @field:SerializedName("uImages")
               var profileImage: String?,
-              @field:SerializedName("uInstagramId")
+              @field:SerializedName("instagram")
               var instagramId: String?,
-              @field:SerializedName("uTelegramlId")
+              @field:SerializedName("telegram")
               var telegramId: String?,
               @field:SerializedName("height")
               var height: Int?,
