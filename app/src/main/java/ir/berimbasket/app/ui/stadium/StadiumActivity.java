@@ -38,7 +38,7 @@ import retrofit2.Response;
 
 public class StadiumActivity extends BaseActivity implements StadiumGalleryAdapter.StadiumGalleryListener {
 
-    private static final String UPDATE_STADIUM_INFO_BOT = "https://t.me/berimbasketProfilebot?start=-";
+    private static final String UPDATE_STADIUM_INFO_BOT = "https://t.me/berimbasketmapbot?start=";
     private static final String REPORT_STADIUM_BOT = "https://t.me/berimbasketreportbot?start=-";
     private static final String RESERVE_STADIUM_BOT = "https://t.me/Berimbasketreservebot?start=";
     private static final String STADIUM_IMAGE_BOT = "https://t.me/berimbasketuploadbot?start=";
