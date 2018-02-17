@@ -17,6 +17,11 @@ import android.widget.Toast;
 import java.net.HttpURLConnection;
 import java.util.List;
 
+import co.mobiwise.materialintro.animation.MaterialIntroListener;
+import co.mobiwise.materialintro.shape.Focus;
+import co.mobiwise.materialintro.shape.FocusGravity;
+import co.mobiwise.materialintro.shape.ShapeType;
+import co.mobiwise.materialintro.view.MaterialIntroView;
 import co.ronash.pushe.Pushe;
 import ir.berimbasket.app.R;
 import ir.berimbasket.app.data.network.WebApiClient;
@@ -57,7 +62,40 @@ public class LoginActivity extends BaseActivity {
         initFonts();
         initListeners();
 
+        new MaterialIntroView.Builder(this)
+                .enableDotAnimation(true)
+                .setFocusGravity(FocusGravity.CENTER)
+                .enableIcon(false)
+                .setFocusType(Focus.NORMAL)
+                .setDelayMillis(500)
+                .enableFadeAnimation(true)
+                .performClick(false)
+                .setShape(ShapeType.RECTANGLE)
+                .setTarget(btnRegisterPage)
+                .setUsageId("login_don't_have_account") //THIS SHOULD BE UNIQUE ID
+                .dismissOnTouch(true)
+                .setListener(btnRegisterShowcaseListener)
+                .show();
     }
+
+    private MaterialIntroListener btnRegisterShowcaseListener = new MaterialIntroListener() {
+        @Override
+        public void onUserClicked(String s) {
+            new MaterialIntroView.Builder(LoginActivity.this)
+                    .enableDotAnimation(true)
+                    .setFocusGravity(FocusGravity.CENTER)
+                    .enableIcon(false)
+                    .setFocusType(Focus.NORMAL)
+                    .setDelayMillis(500)
+                    .enableFadeAnimation(true)
+                    .performClick(false)
+                    .setShape(ShapeType.RECTANGLE)
+                    .setTarget(btnTelegramTut)
+                    .setUsageId("login_telegram_tut") //THIS SHOULD BE UNIQUE ID
+                    .dismissOnTouch(true)
+                    .show();
+        }
+    };
 
     private void initViews() {
         edtUsername = findViewById(R.id.edtUsername);
