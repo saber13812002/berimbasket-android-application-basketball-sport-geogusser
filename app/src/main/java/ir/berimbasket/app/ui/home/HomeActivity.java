@@ -2,11 +2,11 @@ package ir.berimbasket.app.ui.home;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatDelegate;
@@ -159,16 +159,16 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
                     .enableRevealAnimation(false)
                     .performClick(false)
                     .fadeinTextDuration(400)
-                    .headingTvColor(Color.parseColor("#eb273f"))
+                    .headingTvColor(ResourcesCompat.getColor(getResources(), R.color.colorPrimary, null))
                     .headingTvSize(32)
                     .headingTvText(getString(R.string.activity_home_showcase_btn_settings_title))
-                    .subHeadingTvColor(Color.parseColor("#ffffff"))
+                    .subHeadingTvColor(ResourcesCompat.getColor(getResources(), R.color.showcaseSubHeadingTVColor, null))
                     .subHeadingTvSize(16)
                     .subHeadingTvText(getString(R.string.activity_home_showcase_btn_settings_description))
-                    .maskColor(Color.parseColor("#dc000000"))
+                    .maskColor(ResourcesCompat.getColor(getResources(), R.color.showcaseMaskColor, null))
                     .target(btnSetting)
                     .lineAnimDuration(400)
-                    .lineAndArcColor(Color.parseColor("#eb273f"))
+                    .lineAndArcColor(ResourcesCompat.getColor(getResources(), R.color.colorPrimary, null))
                     .dismissOnTouch(true)
                     .dismissOnBackPress(true)
                     .enableDismissAfterShown(true)
@@ -186,16 +186,16 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
                     .enableRevealAnimation(false)
                     .performClick(false)
                     .fadeinTextDuration(400)
-                    .headingTvColor(Color.parseColor("#eb273f"))
+                    .headingTvColor(ResourcesCompat.getColor(getResources(), R.color.colorPrimary, null))
                     .headingTvSize(32)
                     .headingTvText(getString(R.string.activity_home_showcase_btn_notification_title))
-                    .subHeadingTvColor(Color.parseColor("#ffffff"))
+                    .subHeadingTvColor(ResourcesCompat.getColor(getResources(), R.color.showcaseSubHeadingTVColor, null))
                     .subHeadingTvSize(16)
                     .subHeadingTvText(getString(R.string.activity_home_showcase_btn_notification_description))
-                    .maskColor(Color.parseColor("#dc000000"))
+                    .maskColor(ResourcesCompat.getColor(getResources(), R.color.showcaseMaskColor, null))
                     .target(btnNotification)
                     .lineAnimDuration(400)
-                    .lineAndArcColor(Color.parseColor("#eb273f"))
+                    .lineAndArcColor(ResourcesCompat.getColor(getResources(), R.color.colorPrimary, null))
                     .dismissOnTouch(true)
                     .dismissOnBackPress(true)
                     .enableDismissAfterShown(true)

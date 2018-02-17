@@ -12,5 +12,7 @@
     <color name="toolbarColor">#FFFF5722</color>
     <color name="vectorPressPrimary">#FFFFFFFF</color>
     <color name="vectorPressPrimaryDark">#FFEAEAEA</color>
+    <color name="showcaseSubHeadingTVColor">#ffffff</color>
+    <color name="showcaseMaskColor">#dc000000</color>
 
 </resources>
