@@ -10,6 +10,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.res.ResourcesCompat;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +23,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.maps.android.clustering.ClusterManager;
+import com.wooplr.spotlight.SpotlightView;
 
 import java.net.HttpURLConnection;
 import java.util.ArrayList;
@@ -58,14 +60,15 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private static final float GOOGLE_MAP_DEFAULT_RADIUS = 25000.0f;  // meters
     private static final float WEB_SERVICE_LOAD_ZOOM_LEVEL = 10.0f;
     private static final int WEB_SERVICE_RADIUS = 25000;  // meters
+    private FloatingActionButton fabAddLocation;
 
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_map, container, false);
 
         markers = new ArrayList<>();
-        FloatingActionButton fab = v.findViewById(R.id.fabAddLocation);
-        fab.setOnClickListener(new View.OnClickListener() {
+        fabAddLocation = v.findViewById(R.id.fabAddLocation);
+        fabAddLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), LandmarkActivity.class);
@@ -110,6 +113,33 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             if (!pre.equals(after)) {
                 setCameraLocation();
             }
+        }
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            new SpotlightView.Builder(getActivity())
+                    .introAnimationDuration(400)
+                    .enableRevealAnimation(false)
+                    .performClick(false)
+                    .fadeinTextDuration(400)
+                    .headingTvColor(ResourcesCompat.getColor(getResources(), R.color.colorPrimary, null))
+                    .headingTvSize(32)
+                    .headingTvText(getString(R.string.fragment_map_main_showcase_new_location_title))
+                    .subHeadingTvColor(ResourcesCompat.getColor(getResources(), R.color.showcaseSubHeadingTVColor, null))
+                    .subHeadingTvSize(16)
+                    .subHeadingTvText(getString(R.string.fragment_map_main_showcase_new_location_description))
+                    .maskColor(ResourcesCompat.getColor(getResources(), R.color.showcaseMaskColor, null))
+                    .target(fabAddLocation)
+                    .lineAnimDuration(400)
+                    .lineAndArcColor(ResourcesCompat.getColor(getResources(), R.color.colorPrimary, null))
+                    .dismissOnTouch(true)
+                    .dismissOnBackPress(true)
+                    .enableDismissAfterShown(true)
+                    .usageId("map_add_location_fab") //UNIQUE ID
+                    .show();
         }
     }
 

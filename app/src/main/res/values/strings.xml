@@ -136,6 +136,9 @@
     <string name="fragment_intro_preference_lang_spinner_prompt">Choose a language</string>
     <string name="fragment_intro_preference_location_spinner_prompt">Choose a location</string>
 
+    <string name="fragment_map_main_showcase_new_location_title">Submit Stadium</string>
+    <string name="fragment_map_main_showcase_new_location_description">Add new stadium location onto our map</string>
+
     <string name="fragment_profile_user_not_reg_message">Login to your account to get surprised</string>
     <string name="fragment_profile_user_not_reg_btn">Login to user account</string>
     <string name="fragment_profile_txt_name_default">FirstName and LastName</string>
