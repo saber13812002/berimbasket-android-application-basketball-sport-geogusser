@@ -244,5 +244,6 @@
     <string name="activity_home_showcase_btn_notification_description">سابقه ی اعلان ها، رویدادها و پیام های شما</string>
     <string name="fragment_map_main_showcase_new_location_title">ثبت ورزشگاه</string>
     <string name="fragment_map_main_showcase_new_location_description">ورزشگاه مورد نظر خود را به نقشه اضافه کنید</string>
+    <string name="activity_stadium_spec_telegram_group">گروه تلگرام</string>
 
 </resources>

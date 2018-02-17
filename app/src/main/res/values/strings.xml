@@ -90,6 +90,7 @@
     <string name="activity_stadium_spec_address">Address</string>
     <string name="activity_stadium_spec_work_time">Work Time</string>
     <string name="activity_stadium_spec_telegram_channel">Telegram Channel</string>
+    <string name="activity_stadium_spec_telegram_group">Telegram Group</string>
     <string name="activity_stadium_spec_instagram">Instagram</string>
     <string name="activity_stadium_spec_roof">Roof</string>
     <string name="activity_stadium_spec_distance_2_parking">Distance To Parking</string>

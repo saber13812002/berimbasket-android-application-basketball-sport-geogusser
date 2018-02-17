@@ -260,6 +260,7 @@ public class StadiumActivity extends BaseActivity implements StadiumGalleryAdapt
         stadiumSpecListKey.add(getString(R.string.activity_stadium_spec_phone));
         stadiumSpecListKey.add(getString(R.string.activity_stadium_spec_address));
         stadiumSpecListKey.add(getString(R.string.activity_stadium_spec_work_time));
+        stadiumSpecListKey.add(getString(R.string.activity_stadium_spec_telegram_group));
         stadiumSpecListKey.add(getString(R.string.activity_stadium_spec_telegram_channel));
         stadiumSpecListKey.add(getString(R.string.activity_stadium_spec_instagram));
         stadiumSpecListKey.add(getString(R.string.activity_stadium_spec_roof));
@@ -283,6 +284,7 @@ public class StadiumActivity extends BaseActivity implements StadiumGalleryAdapt
         stadiumSpecListValue.add("-");
         stadiumSpecListValue.add(stadium.getAddress());
         stadiumSpecListValue.add("-");
+        stadiumSpecListValue.add(stadium.getTelegramGroupId());
         stadiumSpecListValue.add(stadium.getTelegramChannelId());
         stadiumSpecListValue.add(stadium.getInstagramId());
         stadiumSpecListValue.add(stadium.getRoof());
