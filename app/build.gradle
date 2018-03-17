@@ -34,6 +34,9 @@ repositories {
 }
 
 android {
+    compileSdkVersion 26
+    buildToolsVersion '26.0.2'
+    flavorDimensions "BerimBasket"
     signingConfigs {
         production {
             keyAlias keystoreProperties['keyAlias']
@@ -42,8 +45,6 @@ android {
             storePassword keystoreProperties['storePassword']
         }
     }
-    compileSdkVersion 26
-    buildToolsVersion '26.0.2'
     defaultConfig {
         applicationId "ir.berimbasket.app"
         minSdkVersion 17
@@ -51,21 +52,33 @@ android {
         versionCode 15
         versionName "0.9.28"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        // icon substitute
         vectorDrawables.useSupportLibrary = true
-        // used in blurredView lib
         renderscriptTargetApi 26
         renderscriptSupportModeEnabled true
     }
     buildTypes {
-//        debug {
-//            applicationIdSuffix '.debug'
-//            versionNameSuffix '-DEBUG'
-//        }
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.production
+        }
+    }
+    productFlavors {
+        dev {
+            versionNameSuffix "-Developer"
+            dimension "BerimBasket"
+        }
+        bazaar {
+            versionNameSuffix "-Bazaar"
+            dimension "BerimBasket"
+        }
+        beta {
+            versionNameSuffix "-Beta"
+            dimension "BerimBasket"
+        }
+        myket {
+            versionNameSuffix "-Myket"
+            dimension "BerimBasket"
         }
     }
 }

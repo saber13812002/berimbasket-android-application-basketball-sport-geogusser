@@ -62,6 +62,15 @@
         <Preference android:layout="@layout/item_preference_divider" />
 
         <ir.berimbasket.app.ui.settings.preference.PreferenceCustom
+            android:key="@string/key_pref_comment_on_store"
+            android:layout="@layout/item_preference_intent"
+            android:title="@string/pref_comment_bazaar_title">
+
+        </ir.berimbasket.app.ui.settings.preference.PreferenceCustom>
+
+        <Preference android:layout="@layout/item_preference_divider" />
+
+        <ir.berimbasket.app.ui.settings.preference.PreferenceCustom
             android:key="@string/key_pref_contact_developer"
             android:layout="@layout/item_preference_intent"
             android:title="@string/pref_contact_developer_title">
