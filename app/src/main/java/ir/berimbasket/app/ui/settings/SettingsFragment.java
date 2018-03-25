@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.v7.preference.ListPreference;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
-import android.widget.Toast;
 
 import ir.berimbasket.app.BuildConfig;
 import ir.berimbasket.app.R;
@@ -85,10 +84,10 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
         } else if (key.equals(commentOnStore.getKey())) {
             if (BuildConfig.FLAVOR.equals("myket")) {
                 AnalyticsHelper.getInstance().trackEvent(getString(R.string.analytics_category_settings), getString(R.string.analytics_action_comment_myket), "");
-                Redirect.sendToMyketForComment(getActivity());
+                Redirect.sendToMyketForComment(getContext());
             } else if (BuildConfig.FLAVOR.equals("bazaar")) {
-                Toast.makeText(getContext(), "Implement this", Toast.LENGTH_SHORT).show();
-                // TODO: 3/17/2018 implement this suit with bazaar intents
+                AnalyticsHelper.getInstance().trackEvent(getString(R.string.analytics_category_settings), getString(R.string.analytics_action_comment_bazaar), "");
+                Redirect.sendToBazaarForComment(getContext());
             }
         } else if (key.equals(contactUs.getKey())) {
             Redirect.sendToCustomTab(getActivity(), URL_PREFERENCE_CONTACT_US);

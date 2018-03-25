@@ -200,4 +200,16 @@ public class Redirect {
         intent.setData(Uri.parse(url));
         context.startActivity(intent);
     }
+
+    public static void sendToBazaarForComment(Context context) {
+        String bazaarPackage = "com.farsitel.bazaar";
+        try {
+            Intent intent = new Intent(Intent.ACTION_EDIT);
+            intent.setData(Uri.parse("bazaar://details?id=ir.berimbasket.app"));
+            intent.setPackage(bazaarPackage);
+            context.startActivity(intent);
+        } catch (Exception e) {
+            sendToMarketToInstallApp(bazaarPackage, context.getString(R.string.general_dialog_title_bazaar_not_found), context);
+        }
+    }
 }

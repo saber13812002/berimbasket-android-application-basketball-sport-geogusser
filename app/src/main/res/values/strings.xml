@@ -377,6 +377,7 @@
     <string name="analytics_action_terms" translatable="false">Click TermsAndServices</string>
     <string name="analytics_action_change_log" translatable="false">Click ChangeLog</string>
     <string name="analytics_action_comment_myket" translatable="false">Click Comment Myket</string>
+    <string name="analytics_action_comment_bazaar" translatable="false">Click Comment Bazaar</string>
 
     <!-- menu -->
     <string name="menu_fragment_profile_team">My Team</string>
