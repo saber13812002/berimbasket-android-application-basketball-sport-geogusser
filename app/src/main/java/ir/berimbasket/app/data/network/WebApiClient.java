@@ -19,6 +19,7 @@ import ir.berimbasket.app.data.network.endpoint.PlayerApi;
 import ir.berimbasket.app.data.network.endpoint.QuestionApi;
 import ir.berimbasket.app.data.network.endpoint.RegisterApi;
 import ir.berimbasket.app.data.network.endpoint.StadiumApi;
+import ir.berimbasket.app.data.network.endpoint.TokenApi;
 import ir.berimbasket.app.data.network.endpoint.UpdateApi;
 import ir.berimbasket.app.data.network.gson.BooleanDefaultAdapter;
 import ir.berimbasket.app.data.network.gson.IntegerDefaultAdapter;
@@ -33,6 +34,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public class WebApiClient {
+
+    public static TokenApi getTokenApi() {
+        return buildSimpleClient(BerimBasket.AUTH_URL)
+                .create(TokenApi.class);
+    }
 
     public static MissionApi getMissionApi() {
         return buildSimpleClient(BerimBasket.BBAL_BASE_URL)

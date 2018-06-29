@@ -82,6 +82,34 @@ public class LoginActivity extends BaseActivity {
                 .show();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // TODO: 6/29/2018 use this snippet to AutoLogin user
+//        Uri uri = getIntent().getData();
+//        if (uri != null) {
+//            String token = uri.getQueryParameter("token");
+//            String bearerToken = "Bearer " + token;
+//            WebApiClient.getTokenApi().validateToken(bearerToken).enqueue(new Callback<ValidateResponse>() {
+//                @Override
+//                public void onResponse(Call<ValidateResponse> call, Response<ValidateResponse> response) {
+//                    if (response.code() == HttpURLConnection.HTTP_OK) {
+//                        ValidateResponse body = response.body();
+//                        if (body != null) {
+//                            int status = body.getData().getStatus();
+//                            Toast.makeText(LoginActivity.this, "Status is: " + status, Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//                }
+//
+//                @Override
+//                public void onFailure(Call<ValidateResponse> call, Throwable t) {
+//
+//                }
+//            });
+//        }
+    }
+
     private MaterialIntroListener btnRegisterShowcaseListener = new MaterialIntroListener() {
         @Override
         public void onUserClicked(String s) {
