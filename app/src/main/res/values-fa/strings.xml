@@ -7,6 +7,8 @@
     <string name="activity_login_edt_username_hint">نام کاربری</string>
     <string name="activity_login_edt_password_hint">رمز عبور</string>
     <string name="activity_login_btn_sign_in">ورود به حساب کاربری</string>
+    <string name="activity_login_btn_sign_up_telegram">ثبت نام با شماره تلفن</string>
+    <string name="activity_login_btn_sign_up_email">ثبت نام با ایمیل</string>
     <string name="activity_login_toast_fill_all_fields">لطفا تمامی فیلد ها را پرکنید</string>
     <string name="activity_login_toast_successful">ورود شما با موفقیت انجام شد</string>
     <string name="activity_login_edt_username_error">نام کاربری یا رمز عبور اشتباه است</string>

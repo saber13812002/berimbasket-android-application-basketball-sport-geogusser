@@ -10,6 +10,8 @@ import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.AppCompatButton;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,7 +45,9 @@ import retrofit2.Response;
  */
 public class LoginActivity extends BaseActivity {
 
-    AppCompatButton btnLogin;
+    private static final String WORDPRESS_REGISTER_URL = "http://berimbasket.ir/bball/www/register.php";
+
+    AppCompatButton btnLogin, btnSignUpTelegram, btnSignUpEmail;
     TextView btnRegisterPage, btnTelegramTut;
     ProgressDialog pDialog;
     // UI references.
@@ -103,6 +107,8 @@ public class LoginActivity extends BaseActivity {
         inputUsername = findViewById(R.id.inputUsername);
         inputPassword = findViewById(R.id.inputPassword);
         btnLogin = findViewById(R.id.btnLogin);
+        btnSignUpTelegram = findViewById(R.id.btnSignUpTelegram);
+        btnSignUpEmail = findViewById(R.id.btnSignUpEmail);
         btnRegisterPage = findViewById(R.id.btnRegActivity);
         btnTelegramTut = findViewById(R.id.btnTelegramTut);
         pDialog = new ProgressDialog(LoginActivity.this);
@@ -133,12 +139,30 @@ public class LoginActivity extends BaseActivity {
                 }
             }
         });
-        btnRegisterPage.setOnClickListener(new OnClickListener() {
+        btnSignUpTelegram.setOnClickListener(new OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
                 Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
                 startActivity(intent);
                 LoginActivity.this.finish();
+            }
+        });
+        btnSignUpEmail.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Redirect.sendToCustomTab(LoginActivity.this, WORDPRESS_REGISTER_URL);
+            }
+        });
+        btnRegisterPage.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                btnRegisterPage.setVisibility(View.GONE);
+                Animation in = AnimationUtils.loadAnimation(getApplicationContext(), android.R.anim.fade_in);
+                in.setDuration(1000);
+                btnSignUpTelegram.startAnimation(in);
+                btnSignUpTelegram.setVisibility(View.VISIBLE);
+                btnSignUpEmail.startAnimation(in);
+                btnSignUpEmail.setVisibility(View.VISIBLE);
             }
         });
         btnTelegramTut.setOnClickListener(new OnClickListener() {
