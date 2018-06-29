@@ -176,7 +176,7 @@ public class RegisterActivity extends BaseActivity {
         final String pusheId = Pushe.getPusheId(getApplicationContext());
         final String deviceId = pref.getDeviceID();
         final String lang = LocaleManager.getLocale(getApplicationContext()).getLanguage();
-        WebApiClient.getRegisterApi().checkUsername(deviceId, username, pusheId, lang).enqueue(new Callback<List<CheckUsername>>() {
+        WebApiClient.getRegisterApi(getApplicationContext()).checkUsername(deviceId, username, pusheId, lang).enqueue(new Callback<List<CheckUsername>>() {
             @Override
             public void onResponse(Call<List<CheckUsername>> call, Response<List<CheckUsername>> response) {
                 if (response.code() == HttpURLConnection.HTTP_OK) {
@@ -186,7 +186,7 @@ public class RegisterActivity extends BaseActivity {
                             edtUsername.setError(getString(R.string.activity_register_edt_username_error));
                             pDialog.cancel();
                         } else {
-                            WebApiClient.getRegisterApi().verifyBotCode(deviceId, code, pusheId, username, lang).enqueue(new Callback<List<VerifyBot>>() {
+                            WebApiClient.getRegisterApi(getApplicationContext()).verifyBotCode(deviceId, code, pusheId, username, lang).enqueue(new Callback<List<VerifyBot>>() {
                                 @Override
                                 public void onResponse(Call<List<VerifyBot>> call, Response<List<VerifyBot>> response) {
                                     if (response.code() == HttpURLConnection.HTTP_OK) {
@@ -196,7 +196,7 @@ public class RegisterActivity extends BaseActivity {
                                                 edtVerifyCode.setError(getString(R.string.activity_register_edt_verify_error));
                                                 pDialog.cancel();
                                             } else {
-                                                WebApiClient.getRegisterApi().register(deviceId, username, password, pusheId, lang)
+                                                WebApiClient.getRegisterApi(getApplicationContext()).register(deviceId, username, password, pusheId, lang)
                                                         .enqueue(new Callback<List<Register>>() {
                                                     @Override
                                                     public void onResponse(Call<List<Register>> call, Response<List<Register>> response) {

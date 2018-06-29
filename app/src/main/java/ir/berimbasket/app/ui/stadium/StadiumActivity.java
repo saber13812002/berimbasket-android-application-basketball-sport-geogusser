@@ -221,7 +221,7 @@ public class StadiumActivity extends BaseActivity implements StadiumGalleryAdapt
         String pusheId = Pushe.getPusheId(context);
         String userName = new PrefManager(context).getUserName();
         String lang = LocaleManager.getLocale(context).getLanguage();
-        WebApiClient.getStadiumApi().getStadium(stadiumId, pusheId, userName, lang).enqueue(new Callback<List<Stadium>>() {
+        WebApiClient.getStadiumApi(context).getStadium(stadiumId, pusheId, userName, lang).enqueue(new Callback<List<Stadium>>() {
             @Override
             public void onResponse(Call<List<Stadium>> call, Response<List<Stadium>> response) {
                 if (response.code() == HttpURLConnection.HTTP_OK) {

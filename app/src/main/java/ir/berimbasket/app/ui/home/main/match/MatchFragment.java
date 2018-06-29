@@ -103,7 +103,7 @@ public class MatchFragment extends Fragment implements MatchAdapter.MatchListLis
         String pusheId = Pushe.getPusheId(getContext());
         String userName = new PrefManager(getContext()).getUserName();
         String lang = LocaleManager.getLocale(getContext()).getLanguage();
-        WebApiClient.getMatchApi().getMatchesV2(from, num, "json", pusheId, userName, lang).enqueue(new Callback<List<Match>>() {
+        WebApiClient.getMatchApi(getContext()).getMatchesV2(from, num, "json", pusheId, userName, lang).enqueue(new Callback<List<Match>>() {
             @Override
             public void onResponse(Call<List<Match>> call, Response<List<Match>> response) {
                 loading = false;

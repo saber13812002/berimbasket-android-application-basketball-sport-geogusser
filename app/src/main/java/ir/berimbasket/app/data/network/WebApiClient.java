@@ -1,8 +1,11 @@
 package ir.berimbasket.app.data.network;
 
+import android.content.Context;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import ir.berimbasket.app.data.network.endpoint.AnswerApi;
@@ -24,7 +27,11 @@ import ir.berimbasket.app.data.network.endpoint.UpdateApi;
 import ir.berimbasket.app.data.network.gson.BooleanDefaultAdapter;
 import ir.berimbasket.app.data.network.gson.IntegerDefaultAdapter;
 import ir.berimbasket.app.data.network.gson.StringDefaultAdapter;
+import ir.berimbasket.app.data.pref.PrefManager;
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -35,85 +42,100 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class WebApiClient {
 
-    public static TokenApi getTokenApi() {
-        return buildSimpleClient(BerimBasket.AUTH_URL)
+    public static TokenApi getTokenApi(Context context) {
+        return buildApiClient(BerimBasket.AUTH_URL, context)
                 .create(TokenApi.class);
     }
 
-    public static MissionApi getMissionApi() {
-        return buildSimpleClient(BerimBasket.BBAL_BASE_URL)
+    public static MissionApi getMissionApi(Context context) {
+        return buildApiClient(BerimBasket.BBAL_BASE_URL, context)
                 .create(MissionApi.class);
     }
 
-    public static QuestionApi getQuestionApi() {
-        return buildSimpleClient(BerimBasket.BBAL_BASE_URL)
+    public static QuestionApi getQuestionApi(Context context) {
+        return buildApiClient(BerimBasket.BBAL_BASE_URL, context)
                 .create(QuestionApi.class);
     }
 
-    public static AnswerApi sendAnswerApi() {
-        return buildSimpleClient(BerimBasket.BBAL_BASE_URL)
+    public static AnswerApi sendAnswerApi(Context context) {
+        return buildApiClient(BerimBasket.BBAL_BASE_URL, context)
                 .create(AnswerApi.class);
     }
 
-    public static FeedbackApi postFeedbackApi() {
-        return buildSimpleClient(BerimBasket.BBAL_BASE_URL)
+    public static FeedbackApi postFeedbackApi(Context context) {
+        return buildApiClient(BerimBasket.BBAL_BASE_URL, context)
                 .create(FeedbackApi.class);
     }
 
-    public static GeneralIntentApi getGeneralIntentApi() {
-        return buildSimpleClient(BerimBasket.BBAL_BASE_URL)
+    public static GeneralIntentApi getGeneralIntentApi(Context context) {
+        return buildApiClient(BerimBasket.BBAL_BASE_URL, context)
                 .create(GeneralIntentApi.class);
     }
 
-    public static LoginApi getLoginApi() {
-        return buildSimpleClient(BerimBasket.BBAL_BASE_URL)
+    public static LoginApi getLoginApi(Context context) {
+        return buildApiClient(BerimBasket.BBAL_BASE_URL, context)
                 .create(LoginApi.class);
     }
 
-    public static PlayerApi getPlayerApi() {
-        return buildSimpleClient(BerimBasket.BBAL_BASE_URL)
+    public static PlayerApi getPlayerApi(Context context) {
+        return buildApiClient(BerimBasket.BBAL_BASE_URL, context)
                 .create(PlayerApi.class);
     }
 
-    public static RegisterApi getRegisterApi() {
-        return buildSimpleClient(BerimBasket.BBAL_BASE_URL)
+    public static RegisterApi getRegisterApi(Context context) {
+        return buildApiClient(BerimBasket.BBAL_BASE_URL, context)
                 .create(RegisterApi.class);
     }
 
-    public static MapMarkerApi getSetMarkerApi() {
-        return buildSimpleClient(BerimBasket.BBAL_BASE_URL)
+    public static MapMarkerApi getSetMarkerApi(Context context) {
+        return buildApiClient(BerimBasket.BBAL_BASE_URL, context)
                 .create(MapMarkerApi.class);
     }
 
-    public static UpdateApi getUpdateApi() {
-        return buildSimpleClient(BerimBasket.APP_BASE_URL)
+    public static UpdateApi getUpdateApi(Context context) {
+        return buildApiClient(BerimBasket.APP_BASE_URL, context)
                 .create(UpdateApi.class);
     }
 
-    public static StadiumApi getStadiumApi() {
-        return buildSimpleClient(BerimBasket.BBAL_BASE_URL)
+    public static StadiumApi getStadiumApi(Context context) {
+        return buildApiClient(BerimBasket.BBAL_BASE_URL, context)
                 .create(StadiumApi.class);
     }
 
-    public static MatchApi getMatchApi() {
-        return buildSimpleClient(BerimBasket.BBAL_BASE_URL)
+    public static MatchApi getMatchApi(Context context) {
+        return buildApiClient(BerimBasket.BBAL_BASE_URL, context)
                 .create(MatchApi.class);
     }
 
-    public static LocationApi getLocationApi() {
-        return buildSimpleClient(BerimBasket.BBAL_BASE_URL)
+    public static LocationApi getLocationApi(Context context) {
+        return buildApiClient(BerimBasket.BBAL_BASE_URL, context)
                 .create(LocationApi.class);
     }
 
-    public static NotificationApi getNotificationApi() {
-        return buildSimpleClient(BerimBasket.BBAL_BASE_URL)
+    public static NotificationApi getNotificationApi(Context context) {
+        return buildApiClient(BerimBasket.BBAL_BASE_URL, context)
                 .create(NotificationApi.class);
     }
 
-    private static Retrofit buildSimpleClient(String baseUrl) {
+    private static Retrofit buildApiClient(String baseUrl, Context context) {
+        final PrefManager pref = new PrefManager(context);
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .readTimeout(60, TimeUnit.SECONDS)
                 .connectTimeout(60, TimeUnit.SECONDS)
+                .addInterceptor(new Interceptor() {
+                    @Override
+                    public Response intercept(Chain chain) throws IOException {
+                        Request original = chain.request();
+
+                        // Request customization: add request headers
+                        Request.Builder requestBuilder = original.newBuilder()
+                                .header("Authorization", "Bearer " + pref.getToken())
+                                .header("userType", pref.getIsLoggedIn()? "LoggedIn":"Visitor");
+
+                        Request request = requestBuilder.build();
+                        return chain.proceed(request);
+                    }
+                })
                 .build();
         Gson gsonAdapter = new GsonBuilder()
                 .registerTypeAdapter(Integer.class, new IntegerDefaultAdapter())

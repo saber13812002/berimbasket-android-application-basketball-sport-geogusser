@@ -84,7 +84,7 @@ public class NotificationActivity extends BaseActivity implements NotificationAd
         String pusheId = Pushe.getPusheId(getApplicationContext());
         String username = pref.getUserName();
         String lang = LocaleManager.getLocale(getApplicationContext()).getLanguage();
-        WebApiClient.getNotificationApi().getNotificationHistory(from, num, "json", pusheId, username, lang).enqueue(new Callback<List<Notification>>() {
+        WebApiClient.getNotificationApi(getApplicationContext()).getNotificationHistory(from, num, "json", pusheId, username, lang).enqueue(new Callback<List<Notification>>() {
             @Override
             public void onResponse(Call<List<Notification>> call, Response<List<Notification>> response) {
                 loading = false;

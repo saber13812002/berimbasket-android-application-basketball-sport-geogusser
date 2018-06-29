@@ -101,7 +101,7 @@ public class PlayerFragment extends Fragment implements PlayerAdapter.PlayerList
         String pusheId = Pushe.getPusheId(getContext());
         String userName = new PrefManager(getContext()).getUserName();
         String lang = LocaleManager.getLocale(getContext()).getLanguage();
-        WebApiClient.getPlayerApi().getPlayersV2(from, num, "json", pusheId, userName, lang).enqueue(new Callback<List<Player>>() {
+        WebApiClient.getPlayerApi(getContext()).getPlayersV2(from, num, "json", pusheId, userName, lang).enqueue(new Callback<List<Player>>() {
             @Override
             public void onResponse(Call<List<Player>> call, Response<List<Player>> response) {
                 loading = false;

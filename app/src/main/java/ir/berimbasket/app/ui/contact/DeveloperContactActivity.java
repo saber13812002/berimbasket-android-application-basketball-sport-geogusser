@@ -54,7 +54,7 @@ public class DeveloperContactActivity extends BaseActivity {
                     String pusheid = Pushe.getPusheId(getApplicationContext());
                     String username = new PrefManager(getApplicationContext()).getUserName();
                     String lang = LocaleManager.getLocale(getApplicationContext()).getLanguage();
-                    WebApiClient.postFeedbackApi().sendFeedback(pusheid, username, requestBody, lang).enqueue(new Callback<Void>() {
+                    WebApiClient.postFeedbackApi(getApplicationContext()).sendFeedback(pusheid, username, requestBody, lang).enqueue(new Callback<Void>() {
                         @Override
                         public void onResponse(Call<Void> call, Response<Void> response) {
                             if (response.code() == HttpURLConnection.HTTP_OK) {

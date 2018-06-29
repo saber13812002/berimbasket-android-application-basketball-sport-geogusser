@@ -228,7 +228,7 @@ public class ProfileFragment extends Fragment {
         int userId = pref.getUserId();
         String pusheId = Pushe.getPusheId(getContext());
         String lang = LocaleManager.getLocale(getContext()).getLanguage();
-        WebApiClient.getPlayerApi().getPlayers(userId, pusheId, userName, lang).enqueue(new Callback<List<Player>>() {
+        WebApiClient.getPlayerApi(getContext()).getPlayers(userId, pusheId, userName, lang).enqueue(new Callback<List<Player>>() {
             @Override
             public void onResponse(Call<List<Player>> call, Response<List<Player>> response) {
                 if (response.code() == HttpURLConnection.HTTP_OK) {

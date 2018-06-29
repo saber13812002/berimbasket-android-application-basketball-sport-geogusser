@@ -89,8 +89,9 @@ public class LoginActivity extends BaseActivity {
 //        Uri uri = getIntent().getData();
 //        if (uri != null) {
 //            String token = uri.getQueryParameter("token");
+//            new PrefManager(getApplicationContext()).putToken(token);
 //            String bearerToken = "Bearer " + token;
-//            WebApiClient.getTokenApi().validateToken(bearerToken).enqueue(new Callback<ValidateResponse>() {
+//            WebApiClient.getTokenApi(getApplicationContext()).validateToken(bearerToken).enqueue(new Callback<ValidateResponse>() {
 //                @Override
 //                public void onResponse(Call<ValidateResponse> call, Response<ValidateResponse> response) {
 //                    if (response.code() == HttpURLConnection.HTTP_OK) {
@@ -220,7 +221,7 @@ public class LoginActivity extends BaseActivity {
         String pusheId = Pushe.getPusheId(getApplicationContext());
         String deviceId = pref.getDeviceID();
         String lang = LocaleManager.getLocale(getApplicationContext()).getLanguage();
-        WebApiClient.getLoginApi().login(deviceId, username, password, pusheId, lang).enqueue(new Callback<List<Login>>() {
+        WebApiClient.getLoginApi(getApplicationContext()).login(deviceId, username, password, pusheId, lang).enqueue(new Callback<List<Login>>() {
             @Override
             public void onResponse(Call<List<Login>> call, Response<List<Login>> response) {
                 pDialog.cancel();

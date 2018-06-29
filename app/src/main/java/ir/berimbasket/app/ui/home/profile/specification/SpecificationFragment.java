@@ -4,7 +4,6 @@ package ir.berimbasket.app.ui.home.profile.specification;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -52,7 +51,7 @@ public class SpecificationFragment extends Fragment {
         String userName = pref.getUserName();
         int userId = pref.getUserId();
         String lang = LocaleManager.getLocale(getContext()).getLanguage();
-        WebApiClient.getPlayerApi().getPlayers(userId, pusheId, userName, lang).enqueue(new Callback<List<Player>>() {
+        WebApiClient.getPlayerApi(getContext()).getPlayers(userId, pusheId, userName, lang).enqueue(new Callback<List<Player>>() {
             @Override
             public void onResponse(Call<List<Player>> call, Response<List<Player>> response) {
                 if (response.code() == HttpURLConnection.HTTP_OK) {

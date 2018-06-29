@@ -83,7 +83,7 @@ public class SplashActivity extends BaseActivity {
             String userName = pref.getUserName();
             String pusheId = Pushe.getPusheId(getApplicationContext());
             String lang = LocaleManager.getLocale(getApplicationContext()).getLanguage();
-            WebApiClient.getUpdateApi().checkForUpdate(packageName, version, userName, pusheId, lang).enqueue(new Callback<Update>() {
+            WebApiClient.getUpdateApi(getApplicationContext()).checkForUpdate(packageName, version, userName, pusheId, lang).enqueue(new Callback<Update>() {
                 @Override
                 public void onResponse(Call<Update> call, Response<Update> response) {
                     if (response.code() == HttpURLConnection.HTTP_OK) {
