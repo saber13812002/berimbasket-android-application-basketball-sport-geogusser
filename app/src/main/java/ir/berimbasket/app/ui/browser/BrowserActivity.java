@@ -35,7 +35,7 @@ public class BrowserActivity extends BaseActivity {
         String userName = pref.getUserName();
         String pusheId = Pushe.getPusheId(context);
         String lang = LocaleManager.getLocale(context).getLanguage();
-        WebApiClient.getGeneralIntentApi().getGeneralIntent(userName, pusheId, lang).enqueue(new Callback<List<GeneralIntent>>() {
+        WebApiClient.getGeneralIntentApi(context).getGeneralIntent(userName, pusheId, lang).enqueue(new Callback<List<GeneralIntent>>() {
             @Override
             public void onResponse(Call<List<GeneralIntent>> call, Response<List<GeneralIntent>> response) {
                 if (response.code() == HttpURLConnection.HTTP_OK) {

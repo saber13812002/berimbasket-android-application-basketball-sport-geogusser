@@ -89,7 +89,7 @@ public class PlayerActivity extends BaseActivity implements SocialAccAdapter.Soc
         String userName = new PrefManager(context).getUserName();
         String lang = LocaleManager.getLocale(context).getLanguage();
         progress.setVisibility(View.VISIBLE);
-        WebApiClient.getPlayerApi().getPlayers(id, pusheId, userName, lang).enqueue(new Callback<List<Player>>() {
+        WebApiClient.getPlayerApi(context).getPlayers(id, pusheId, userName, lang).enqueue(new Callback<List<Player>>() {
             @Override
             public void onResponse(Call<List<Player>> call, Response<List<Player>> response) {
                 if (response.code() == HttpURLConnection.HTTP_OK) {

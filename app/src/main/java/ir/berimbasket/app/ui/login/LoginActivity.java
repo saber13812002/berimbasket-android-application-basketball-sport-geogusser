@@ -4,18 +4,20 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.AppCompatButton;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.net.HttpURLConnection;
-import java.util.List;
 
 import co.mobiwise.materialintro.animation.MaterialIntroListener;
 import co.mobiwise.materialintro.shape.Focus;
@@ -25,7 +27,8 @@ import co.mobiwise.materialintro.view.MaterialIntroView;
 import co.ronash.pushe.Pushe;
 import ir.berimbasket.app.R;
 import ir.berimbasket.app.data.network.WebApiClient;
-import ir.berimbasket.app.data.network.model.Login;
+import ir.berimbasket.app.data.network.model.TokenResponse;
+import ir.berimbasket.app.data.network.model.ValidateResponse;
 import ir.berimbasket.app.data.pref.PrefManager;
 import ir.berimbasket.app.ui.base.BaseActivity;
 import ir.berimbasket.app.ui.register.RegisterActivity;
@@ -43,7 +46,9 @@ import retrofit2.Response;
  */
 public class LoginActivity extends BaseActivity {
 
-    AppCompatButton btnLogin;
+    private static final String WORDPRESS_REGISTER_URL = "http://berimbasket.ir/bball/www/register.php";
+
+    AppCompatButton btnLogin, btnSignUpTelegram, btnSignUpEmail;
     TextView btnRegisterPage, btnTelegramTut;
     ProgressDialog pDialog;
     // UI references.
@@ -78,6 +83,47 @@ public class LoginActivity extends BaseActivity {
                 .show();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        /* Auto Login user */
+        Uri uri = getIntent().getData();
+        if (uri != null) {
+            final String token = uri.getQueryParameter("token");
+            String pusheId = Pushe.getPusheId(getApplicationContext());
+            String lang = LocaleManager.getLocale(getApplicationContext()).getLanguage();
+            String username = new PrefManager(getApplicationContext()).getUserName();
+            String bearerToken = "Bearer " + token;
+            WebApiClient.getTokenApi(getApplicationContext()).validateToken(pusheId, username, lang, bearerToken).enqueue(new Callback<ValidateResponse>() {
+                @Override
+                public void onResponse(Call<ValidateResponse> call, Response<ValidateResponse> response) {
+                    if (response.code() == HttpURLConnection.HTTP_OK) {
+                        ValidateResponse body = response.body();
+                        if (body != null) {
+                            int status = body.getData().getStatus();
+                            if (status == 200) {
+                                PrefManager pref = new PrefManager(getApplicationContext());
+                                Toast.makeText(LoginActivity.this, getString(R.string.activity_login_toast_successful), Toast.LENGTH_LONG).show();
+                                pref.putToken(token);
+                                pref.putIsLoggedIn(true);
+                                // Tracking Event (Analytics)
+                                AnalyticsHelper.getInstance().trackEvent(getString(R.string.analytics_category_login),
+                                        getString(R.string.analytics_action_log_on), "");
+                                LoginActivity.this.finish();
+                            }
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ValidateResponse> call, Throwable t) {
+
+                }
+            });
+        }
+    }
+
     private MaterialIntroListener btnRegisterShowcaseListener = new MaterialIntroListener() {
         @Override
         public void onUserClicked(String s) {
@@ -103,6 +149,8 @@ public class LoginActivity extends BaseActivity {
         inputUsername = findViewById(R.id.inputUsername);
         inputPassword = findViewById(R.id.inputPassword);
         btnLogin = findViewById(R.id.btnLogin);
+        btnSignUpTelegram = findViewById(R.id.btnSignUpTelegram);
+        btnSignUpEmail = findViewById(R.id.btnSignUpEmail);
         btnRegisterPage = findViewById(R.id.btnRegActivity);
         btnTelegramTut = findViewById(R.id.btnTelegramTut);
         pDialog = new ProgressDialog(LoginActivity.this);
@@ -133,12 +181,30 @@ public class LoginActivity extends BaseActivity {
                 }
             }
         });
-        btnRegisterPage.setOnClickListener(new OnClickListener() {
+        btnSignUpTelegram.setOnClickListener(new OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
                 Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
                 startActivity(intent);
                 LoginActivity.this.finish();
+            }
+        });
+        btnSignUpEmail.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Redirect.sendToCustomTab(LoginActivity.this, WORDPRESS_REGISTER_URL);
+            }
+        });
+        btnRegisterPage.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                btnRegisterPage.setVisibility(View.GONE);
+                Animation in = AnimationUtils.loadAnimation(getApplicationContext(), android.R.anim.fade_in);
+                in.setDuration(1000);
+                btnSignUpTelegram.startAnimation(in);
+                btnSignUpTelegram.setVisibility(View.VISIBLE);
+                btnSignUpEmail.startAnimation(in);
+                btnSignUpEmail.setVisibility(View.VISIBLE);
             }
         });
         btnTelegramTut.setOnClickListener(new OnClickListener() {
@@ -164,41 +230,34 @@ public class LoginActivity extends BaseActivity {
         pDialog.setMessage(getString(R.string.general_progress_dialog_logging_in));
         pDialog.setCancelable(false);
         pDialog.show();
-        PrefManager pref = new PrefManager(getApplicationContext());
         String pusheId = Pushe.getPusheId(getApplicationContext());
-        String deviceId = pref.getDeviceID();
         String lang = LocaleManager.getLocale(getApplicationContext()).getLanguage();
-        WebApiClient.getLoginApi().login(deviceId, username, password, pusheId, lang).enqueue(new Callback<List<Login>>() {
+        WebApiClient.getTokenApi(getApplicationContext()).getToken(pusheId, lang, username, password).enqueue(new Callback<TokenResponse>() {
             @Override
-            public void onResponse(Call<List<Login>> call, Response<List<Login>> response) {
+            public void onResponse(Call<TokenResponse> call, Response<TokenResponse> response) {
                 pDialog.cancel();
                 if (response.code() == HttpURLConnection.HTTP_OK) {
-                    List<Login> logins = response.body();
-                    if (logins != null) {
-                        Login login = logins.get(0);
+                    TokenResponse tokenResponse = response.body();
+                    if (tokenResponse != null) {
                         PrefManager pref = new PrefManager(getApplicationContext());
-                        pref.putUserID(login.getId());
-                        if (login.getLogin()) {
-                            Toast.makeText(LoginActivity.this, getString(R.string.activity_login_toast_successful), Toast.LENGTH_LONG).show();
-                            pref.putUserName(edtUsername.getText().toString());
-                            pref.putPassword(edtPassword.getText().toString());
-                            pref.putIsLoggedIn(true);
-                            // Tracking Event (Analytics)
-                            AnalyticsHelper.getInstance().trackEvent(getString(R.string.analytics_category_login),
-                                    getString(R.string.analytics_action_log_on), "");
-                            LoginActivity.this.finish();
-                        } else {
-                            edtUsername.setError(getString(R.string.activity_login_edt_username_error));
-                        }
+                        Toast.makeText(LoginActivity.this, getString(R.string.activity_login_toast_successful), Toast.LENGTH_LONG).show();
+                        pref.putToken(tokenResponse.getToken());
+                        pref.putUserName(edtUsername.getText().toString());
+                        pref.putPassword(edtPassword.getText().toString());
+                        pref.putIsLoggedIn(true);
+                        // Tracking Event (Analytics)
+                        AnalyticsHelper.getInstance().trackEvent(getString(R.string.analytics_category_login),
+                                getString(R.string.analytics_action_log_on), "");
+                        LoginActivity.this.finish();
                     }
-                } else {
-                    // http call with incorrect params or other network error
+                } else if (response.code() == HttpURLConnection.HTTP_FORBIDDEN) {
+                    edtUsername.setError(getString(R.string.activity_login_edt_username_error));
                 }
             }
 
             @Override
-            public void onFailure(Call<List<Login>> call, Throwable t) {
-                pDialog.cancel();
+            public void onFailure(Call<TokenResponse> call, Throwable t) {
+
             }
         });
     }

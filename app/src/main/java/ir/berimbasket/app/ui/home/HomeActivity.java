@@ -268,7 +268,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
         String pusheid = Pushe.getPusheId(getApplicationContext());
         String userName = new PrefManager(getApplicationContext()).getUserName();
         String lang = LocaleManager.getLocale(getApplicationContext()).getLanguage();
-        WebApiClient.getQuestionApi().getQuestion(pusheid, userName, lang).enqueue(new Callback<Question>() {
+        WebApiClient.getQuestionApi(getApplicationContext()).getQuestion(pusheid, userName, lang).enqueue(new Callback<Question>() {
             @Override
             public void onResponse(Call<Question> call, Response<Question> response) {
                 if (response.code() == HttpURLConnection.HTTP_OK) {
@@ -319,7 +319,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
         String pusheid = Pushe.getPusheId(HomeActivity.this);
         String username = new PrefManager(getApplicationContext()).getUserName();
         String lang = LocaleManager.getLocale(getApplicationContext()).getLanguage();
-        WebApiClient.sendAnswerApi().sendAnswer(pusheid, username, answerBody, lang).enqueue(new Callback<Void>() {
+        WebApiClient.sendAnswerApi(getApplicationContext()).sendAnswer(pusheid, username, answerBody, lang).enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.code() == HttpURLConnection.HTTP_OK) {

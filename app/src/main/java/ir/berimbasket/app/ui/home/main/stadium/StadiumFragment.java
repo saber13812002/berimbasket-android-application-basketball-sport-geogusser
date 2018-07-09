@@ -114,7 +114,7 @@ public class StadiumFragment extends Fragment implements StadiumAdapter.StadiumL
             longitude = String.valueOf(gps.getLongitude());
         }
 
-        WebApiClient.getStadiumApi().getStadiumsV2List(latitude, longitude, from, num, "json", pusheId, userName, lang).enqueue(new Callback<List<Stadium>>() {
+        WebApiClient.getStadiumApi(getContext()).getStadiumsV2List(latitude, longitude, from, num, "json", pusheId, userName, lang).enqueue(new Callback<List<Stadium>>() {
             @Override
             public void onResponse(Call<List<Stadium>> call, Response<List<Stadium>> response) {
                 loading = false;

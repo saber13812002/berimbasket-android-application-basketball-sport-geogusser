@@ -231,7 +231,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         String pusheId = Pushe.getPusheId(context);
         String userName = new PrefManager(context).getUserName();
         String lang = LocaleManager.getLocale(context).getLanguage();
-        WebApiClient.getStadiumApi().getStadiumsV2ForMap(String.valueOf(lat), String.valueOf(lng), WEB_SERVICE_RADIUS,
+        WebApiClient.getStadiumApi(context).getStadiumsV2ForMap(String.valueOf(lat), String.valueOf(lng), WEB_SERVICE_RADIUS,
                 "json", pusheId, userName, lang).enqueue(new Callback<List<Stadium>>() {
             @Override
             public void onResponse(Call<List<Stadium>> call, Response<List<Stadium>> response) {
@@ -269,7 +269,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         try {
             PackageInfo pInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
             int version = pInfo.versionCode;
-            WebApiClient.getLocationApi().setLocation("jkhfgkljhasfdlkh", String.valueOf(latitude),
+            WebApiClient.getLocationApi(context).setLocation("jkhfgkljhasfdlkh", String.valueOf(latitude),
                     String.valueOf(longitude), "title", userName, pusheId, String.valueOf(version), lang)
                     .enqueue(new Callback<Void>() {
                         @Override
