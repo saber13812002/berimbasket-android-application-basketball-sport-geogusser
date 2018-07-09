@@ -24,12 +24,11 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import java.net.HttpURLConnection;
-import java.util.List;
 
 import co.ronash.pushe.Pushe;
 import ir.berimbasket.app.R;
 import ir.berimbasket.app.data.network.WebApiClient;
-import ir.berimbasket.app.data.network.model.Player;
+import ir.berimbasket.app.data.network.model.Profile;
 import ir.berimbasket.app.data.pref.PrefManager;
 import ir.berimbasket.app.ui.login.LoginActivity;
 import ir.berimbasket.app.util.AnalyticsHelper;
@@ -225,33 +224,31 @@ public class ProfileFragment extends Fragment {
     private void initPlayer() {
         PrefManager pref = new PrefManager(getContext());
         String userName = pref.getUserName();
-        int userId = pref.getUserId();
         String pusheId = Pushe.getPusheId(getContext());
         String lang = LocaleManager.getLocale(getContext()).getLanguage();
-        WebApiClient.getPlayerApi(getContext()).getPlayers(userId, pusheId, userName, lang).enqueue(new Callback<List<Player>>() {
+        String token = "Bearer " + pref.getToken();
+        WebApiClient.getProfileApi(getContext()).getMe(pusheId, userName, lang, token).enqueue(new Callback<Profile>() {
             @Override
-            public void onResponse(Call<List<Player>> call, Response<List<Player>> response) {
+            public void onResponse(Call<Profile> call, Response<Profile> response) {
                 if (response.code() == HttpURLConnection.HTTP_OK) {
-                    List<Player> players = response.body();
-                    if (players != null) {
+                    Profile me = response.body();
+                    if (me != null) {
                         Picasso.with(getContext())
-                                .load("https://berimbasket.ir" + players.get(0).getProfileImage())
+                                .load("https://berimbasket.ir" + me.getAvatarUrl().get_96dips())
                                 .resize(120, 120)
                                 .centerInside()
                                 .placeholder(R.drawable.profile_default)
                                 .error(R.drawable.profile_default)
                                 .into(imgProfileImage);
-                        if (players.get(0).getPriority() > 6) {
-                            imgCoach.setVisibility(View.VISIBLE);
-                        }
+//                        if (me.getPriority() > 6) {
+//                            imgCoach.setVisibility(View.VISIBLE);
+//                        }
                     }
-                } else {
-                    // http call with incorrect params or other network error
                 }
             }
 
             @Override
-            public void onFailure(Call<List<Player>> call, Throwable t) {
+            public void onFailure(Call<Profile> call, Throwable t) {
 
             }
         });

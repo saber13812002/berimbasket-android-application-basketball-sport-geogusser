@@ -12,12 +12,11 @@ import android.view.ViewGroup;
 
 import java.net.HttpURLConnection;
 import java.util.ArrayList;
-import java.util.List;
 
 import co.ronash.pushe.Pushe;
 import ir.berimbasket.app.R;
 import ir.berimbasket.app.data.network.WebApiClient;
-import ir.berimbasket.app.data.network.model.Player;
+import ir.berimbasket.app.data.network.model.Profile;
 import ir.berimbasket.app.data.pref.PrefManager;
 import ir.berimbasket.app.ui.common.PlayerSpecificationAdapter;
 import ir.berimbasket.app.util.AnalyticsHelper;
@@ -49,15 +48,15 @@ public class SpecificationFragment extends Fragment {
         PrefManager pref = new PrefManager(getContext());
         String pusheId = Pushe.getPusheId(getContext());
         String userName = pref.getUserName();
-        int userId = pref.getUserId();
         String lang = LocaleManager.getLocale(getContext()).getLanguage();
-        WebApiClient.getPlayerApi(getContext()).getPlayers(userId, pusheId, userName, lang).enqueue(new Callback<List<Player>>() {
+        String token = "Bearer " + pref.getToken();
+        WebApiClient.getProfileApi(getContext()).getMe(pusheId, userName, lang, token).enqueue(new Callback<Profile>() {
             @Override
-            public void onResponse(Call<List<Player>> call, Response<List<Player>> response) {
+            public void onResponse(Call<Profile> call, Response<Profile> response) {
                 if (response.code() == HttpURLConnection.HTTP_OK) {
-                    List<Player> players = response.body();
-                    if (players != null && getView() != null) {
-                        initRecyclerPlayerSpec(getPlayerSpec(players.get(0)));
+                    Profile me = response.body();
+                    if (me != null && getView() != null) {
+                        initRecyclerPlayerSpec(getPlayerSpec(me));
                     }
                 } else {
                     // http call with incorrect params or other network error
@@ -65,7 +64,7 @@ public class SpecificationFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<List<Player>> call, Throwable t) {
+            public void onFailure(Call<Profile> call, Throwable t) {
 
             }
         });
@@ -86,25 +85,29 @@ public class SpecificationFragment extends Fragment {
 
     }
 
-    private ArrayList<String> getPlayerSpec(Player entityPlayer) {
+    private ArrayList<String> getPlayerSpec(Profile me) {
 
         ArrayList<String> playerSpecList = new ArrayList<>();
         String specSeparator = getString(R.string.fragment_player_spec_separator);
-        playerSpecList.add(entityPlayer.getName());
-        playerSpecList.add(String.valueOf(entityPlayer.getAge()));
-        playerSpecList.add(entityPlayer.getCity());
-        playerSpecList.add(String.valueOf(entityPlayer.getHeight()));
-        playerSpecList.add(String.valueOf(entityPlayer.getWeight()));
-        playerSpecList.add(entityPlayer.getAddress());
-        playerSpecList.add(entityPlayer.getExperience());
-        playerSpecList.add(entityPlayer.getCoachName());
-        playerSpecList.add(entityPlayer.getTeamName());
-        playerSpecList.add(entityPlayer.getUsername());
-        playerSpecList.add(String.valueOf(entityPlayer.getPost()));
+        playerSpecList.add(me.getName());
+        playerSpecList.add(String.valueOf(me.getAge()));
+        playerSpecList.add(me.getCity());
+        playerSpecList.add(String.valueOf(me.getHeight()));
+        playerSpecList.add(String.valueOf(me.getWeight()));
+        // TODO: 7/8/2018 add this parameter in api
+//        playerSpecList.add(me.getAddress());
+        playerSpecList.add("");
+        playerSpecList.add(me.getExperience());
+        // TODO: 7/8/2018 add this parameter in api
+//        playerSpecList.add(me.getCoachName());
+        playerSpecList.add("");
+        playerSpecList.add(me.getTeamName());
+        playerSpecList.add(me.getSlug());
+        playerSpecList.add(String.valueOf(me.getPost()));
         //playerSpecList.add("" + entityPlayer.getProfileImage());
-        playerSpecList.add(entityPlayer.getTelegramId());
-        playerSpecList.add(entityPlayer.getInstagramId());
-        playerSpecList.add(entityPlayer.getPhone());
+        playerSpecList.add(me.getTelegram());
+        playerSpecList.add(me.getInstagram());
+        playerSpecList.add(me.getTelegramPhone());
         return playerSpecList;
     }
 

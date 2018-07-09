@@ -19,6 +19,7 @@ import ir.berimbasket.app.data.network.endpoint.MatchApi;
 import ir.berimbasket.app.data.network.endpoint.MissionApi;
 import ir.berimbasket.app.data.network.endpoint.NotificationApi;
 import ir.berimbasket.app.data.network.endpoint.PlayerApi;
+import ir.berimbasket.app.data.network.endpoint.ProfileApi;
 import ir.berimbasket.app.data.network.endpoint.QuestionApi;
 import ir.berimbasket.app.data.network.endpoint.RegisterApi;
 import ir.berimbasket.app.data.network.endpoint.StadiumApi;
@@ -32,6 +33,7 @@ import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -41,6 +43,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public class WebApiClient {
+
+    public static ProfileApi getProfileApi(Context context) {
+        return buildApiClient(BerimBasket.JWT_URL, context)
+                .create(ProfileApi.class);
+    }
 
     public static TokenApi getTokenApi(Context context) {
         return buildApiClient(BerimBasket.AUTH_URL, context)
@@ -119,6 +126,9 @@ public class WebApiClient {
 
     private static Retrofit buildApiClient(String baseUrl, Context context) {
         final PrefManager pref = new PrefManager(context);
+        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .readTimeout(60, TimeUnit.SECONDS)
                 .connectTimeout(60, TimeUnit.SECONDS)
@@ -129,13 +139,13 @@ public class WebApiClient {
 
                         // Request customization: add request headers
                         Request.Builder requestBuilder = original.newBuilder()
-                                .header("Authorization", "Bearer " + pref.getToken())
-                                .header("userType", pref.getIsLoggedIn()? "LoggedIn":"Visitor");
+                                .header("UserType", pref.getIsLoggedIn()? "LoggedIn":"Visitor");
 
                         Request request = requestBuilder.build();
                         return chain.proceed(request);
                     }
                 })
+                .addInterceptor(logging)
                 .build();
         Gson gsonAdapter = new GsonBuilder()
                 .registerTypeAdapter(Integer.class, new IntegerDefaultAdapter())
