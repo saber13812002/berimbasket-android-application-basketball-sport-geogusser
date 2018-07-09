@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatDelegate;
@@ -27,6 +28,7 @@ import co.ronash.pushe.Pushe;
 import ir.berimbasket.app.R;
 import ir.berimbasket.app.data.network.WebApiClient;
 import ir.berimbasket.app.data.network.model.TokenResponse;
+import ir.berimbasket.app.data.network.model.ValidateResponse;
 import ir.berimbasket.app.data.pref.PrefManager;
 import ir.berimbasket.app.ui.base.BaseActivity;
 import ir.berimbasket.app.ui.register.RegisterActivity;
@@ -84,30 +86,42 @@ public class LoginActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        // TODO: 6/29/2018 use this snippet to AutoLogin user
-//        Uri uri = getIntent().getData();
-//        if (uri != null) {
-//            String token = uri.getQueryParameter("token");
-//            new PrefManager(getApplicationContext()).putToken(token);
-//            String bearerToken = "Bearer " + token;
-//            WebApiClient.getTokenApi(getApplicationContext()).validateToken(bearerToken).enqueue(new Callback<ValidateResponse>() {
-//                @Override
-//                public void onResponse(Call<ValidateResponse> call, Response<ValidateResponse> response) {
-//                    if (response.code() == HttpURLConnection.HTTP_OK) {
-//                        ValidateResponse body = response.body();
-//                        if (body != null) {
-//                            int status = body.getData().getStatus();
-//                            Toast.makeText(LoginActivity.this, "Status is: " + status, Toast.LENGTH_SHORT).show();
-//                        }
-//                    }
-//                }
-//
-//                @Override
-//                public void onFailure(Call<ValidateResponse> call, Throwable t) {
-//
-//                }
-//            });
-//        }
+
+        /* Auto Login user */
+        Uri uri = getIntent().getData();
+        if (uri != null) {
+            final String token = uri.getQueryParameter("token");
+            String pusheId = Pushe.getPusheId(getApplicationContext());
+            String lang = LocaleManager.getLocale(getApplicationContext()).getLanguage();
+            String username = new PrefManager(getApplicationContext()).getUserName();
+            String bearerToken = "Bearer " + token;
+            WebApiClient.getTokenApi(getApplicationContext()).validateToken(pusheId, username, lang, bearerToken).enqueue(new Callback<ValidateResponse>() {
+                @Override
+                public void onResponse(Call<ValidateResponse> call, Response<ValidateResponse> response) {
+                    if (response.code() == HttpURLConnection.HTTP_OK) {
+                        ValidateResponse body = response.body();
+                        if (body != null) {
+                            int status = body.getData().getStatus();
+                            if (status == 200) {
+                                PrefManager pref = new PrefManager(getApplicationContext());
+                                Toast.makeText(LoginActivity.this, getString(R.string.activity_login_toast_successful), Toast.LENGTH_LONG).show();
+                                pref.putToken(token);
+                                pref.putIsLoggedIn(true);
+                                // Tracking Event (Analytics)
+                                AnalyticsHelper.getInstance().trackEvent(getString(R.string.analytics_category_login),
+                                        getString(R.string.analytics_action_log_on), "");
+                                LoginActivity.this.finish();
+                            }
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ValidateResponse> call, Throwable t) {
+
+                }
+            });
+        }
     }
 
     private MaterialIntroListener btnRegisterShowcaseListener = new MaterialIntroListener() {

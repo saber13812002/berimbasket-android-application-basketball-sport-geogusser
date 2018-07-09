@@ -55,6 +55,7 @@ public class ProfileFragment extends Fragment {
     private TabLayout tabProfile;
     private ViewPager pagerProfile;
     private ImageView imgProfileImage, imgCoach;
+    private TextView txtProfileName;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -76,8 +77,8 @@ public class ProfileFragment extends Fragment {
 
             imgProfileImage = rootView.findViewById(R.id.imgPlayerProfile);
             imgCoach = rootView.findViewById(R.id.imgCoach);
-            TextView txtProfileName = rootView.findViewById(R.id.txtProfileName);
-            txtProfileName.setText(pref.getUserName());
+            txtProfileName = rootView.findViewById(R.id.txtProfileName);
+
             initPlayer();
         } else {
             //user not logged in
@@ -240,6 +241,7 @@ public class ProfileFragment extends Fragment {
                                 .placeholder(R.drawable.profile_default)
                                 .error(R.drawable.profile_default)
                                 .into(imgProfileImage);
+                        txtProfileName.setText(me.getSlug());
 //                        if (me.getPriority() > 6) {
 //                            imgCoach.setVisibility(View.VISIBLE);
 //                        }
