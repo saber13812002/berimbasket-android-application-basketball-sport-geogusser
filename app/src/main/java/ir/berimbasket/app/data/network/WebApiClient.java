@@ -8,8 +8,8 @@ import com.google.gson.GsonBuilder;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
+import ir.berimbasket.app.data.env.UrlConstants;
 import ir.berimbasket.app.data.network.endpoint.AnswerApi;
-import ir.berimbasket.app.data.network.endpoint.BerimBasket;
 import ir.berimbasket.app.data.network.endpoint.FeedbackApi;
 import ir.berimbasket.app.data.network.endpoint.GeneralIntentApi;
 import ir.berimbasket.app.data.network.endpoint.LocationApi;
@@ -45,82 +45,82 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class WebApiClient {
 
     public static ProfileApi getProfileApi(Context context) {
-        return buildApiClient(BerimBasket.JWT_URL, context)
+        return buildApiClient(UrlConstants.Base.JWT, context)
                 .create(ProfileApi.class);
     }
 
     public static TokenApi getTokenApi(Context context) {
-        return buildApiClient(BerimBasket.AUTH_URL, context)
+        return buildApiClient(UrlConstants.Base.AUTH, context)
                 .create(TokenApi.class);
     }
 
     public static MissionApi getMissionApi(Context context) {
-        return buildApiClient(BerimBasket.BBAL_BASE_URL, context)
+        return buildApiClient(UrlConstants.Base.BBAL, context)
                 .create(MissionApi.class);
     }
 
     public static QuestionApi getQuestionApi(Context context) {
-        return buildApiClient(BerimBasket.BBAL_BASE_URL, context)
+        return buildApiClient(UrlConstants.Base.BBAL, context)
                 .create(QuestionApi.class);
     }
 
     public static AnswerApi sendAnswerApi(Context context) {
-        return buildApiClient(BerimBasket.BBAL_BASE_URL, context)
+        return buildApiClient(UrlConstants.Base.BBAL, context)
                 .create(AnswerApi.class);
     }
 
     public static FeedbackApi postFeedbackApi(Context context) {
-        return buildApiClient(BerimBasket.BBAL_BASE_URL, context)
+        return buildApiClient(UrlConstants.Base.BBAL, context)
                 .create(FeedbackApi.class);
     }
 
     public static GeneralIntentApi getGeneralIntentApi(Context context) {
-        return buildApiClient(BerimBasket.BBAL_BASE_URL, context)
+        return buildApiClient(UrlConstants.Base.BBAL, context)
                 .create(GeneralIntentApi.class);
     }
 
     public static LoginApi getLoginApi(Context context) {
-        return buildApiClient(BerimBasket.BBAL_BASE_URL, context)
+        return buildApiClient(UrlConstants.Base.BBAL, context)
                 .create(LoginApi.class);
     }
 
     public static PlayerApi getPlayerApi(Context context) {
-        return buildApiClient(BerimBasket.BBAL_BASE_URL, context)
+        return buildApiClient(UrlConstants.Base.BBAL, context)
                 .create(PlayerApi.class);
     }
 
     public static RegisterApi getRegisterApi(Context context) {
-        return buildApiClient(BerimBasket.BBAL_BASE_URL, context)
+        return buildApiClient(UrlConstants.Base.BBAL, context)
                 .create(RegisterApi.class);
     }
 
     public static MapMarkerApi getSetMarkerApi(Context context) {
-        return buildApiClient(BerimBasket.BBAL_BASE_URL, context)
+        return buildApiClient(UrlConstants.Base.BBAL, context)
                 .create(MapMarkerApi.class);
     }
 
     public static UpdateApi getUpdateApi(Context context) {
-        return buildApiClient(BerimBasket.APP_BASE_URL, context)
+        return buildApiClient(UrlConstants.Base.APP, context)
                 .create(UpdateApi.class);
     }
 
     public static StadiumApi getStadiumApi(Context context) {
-        return buildApiClient(BerimBasket.BBAL_BASE_URL, context)
+        return buildApiClient(UrlConstants.Base.BBAL, context)
                 .create(StadiumApi.class);
     }
 
     public static MatchApi getMatchApi(Context context) {
-        return buildApiClient(BerimBasket.BBAL_BASE_URL, context)
+        return buildApiClient(UrlConstants.Base.BBAL, context)
                 .create(MatchApi.class);
     }
 
     public static LocationApi getLocationApi(Context context) {
-        return buildApiClient(BerimBasket.BBAL_BASE_URL, context)
+        return buildApiClient(UrlConstants.Base.BBAL, context)
                 .create(LocationApi.class);
     }
 
     public static NotificationApi getNotificationApi(Context context) {
-        return buildApiClient(BerimBasket.BBAL_BASE_URL, context)
+        return buildApiClient(UrlConstants.Base.BBAL, context)
                 .create(NotificationApi.class);
     }
 

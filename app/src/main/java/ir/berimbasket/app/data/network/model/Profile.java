@@ -15,7 +15,7 @@ public class Profile {
     @SerializedName("link")
     private String link;
     @SerializedName("slug")
-    private String slug;
+    private String username;
     @SerializedName("avatar_urls")
     private Avatar avatarUrl;
     @SerializedName("uinstagramid")
@@ -42,14 +42,18 @@ public class Profile {
     private String post;
     @SerializedName("telegramphone")
     private String telegramPhone;
+    @SerializedName("address")
+    private String address;
+    @SerializedName("priority")
+    private int priority;
 
-    public Profile(int id, String name, String url, String description, String link, String slug, Avatar avatarUrl, String instagram, String telegram, String height, String weight, String city, String age, String sex, String coach, String teamName, String experience, String post, String telegramPhone) {
+    public Profile(int id, String name, String url, String description, String link, String username, Avatar avatarUrl, String instagram, String telegram, String height, String weight, String city, String age, String sex, String coach, String teamName, String experience, String post, String telegramPhone, String address, int priority) {
         this.id = id;
         this.name = name;
         this.url = url;
         this.description = description;
         this.link = link;
-        this.slug = slug;
+        this.username = username;
         this.avatarUrl = avatarUrl;
         this.instagram = instagram;
         this.telegram = telegram;
@@ -63,6 +67,24 @@ public class Profile {
         this.experience = experience;
         this.post = post;
         this.telegramPhone = telegramPhone;
+        this.address = address;
+        this.priority = priority;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public int getPriority() {
+        return priority;
+    }
+
+    public void setPriority(int priority) {
+        this.priority = priority;
     }
 
     public class Avatar {
@@ -144,12 +166,12 @@ public class Profile {
         this.link = link;
     }
 
-    public String getSlug() {
-        return slug;
+    public String getUsername() {
+        return username;
     }
 
-    public void setSlug(String slug) {
-        this.slug = slug;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public Avatar getAvatarUrl() {

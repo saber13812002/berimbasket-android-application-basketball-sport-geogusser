@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ir.berimbasket.app.R;
+import ir.berimbasket.app.data.env.UrlConstants;
 import ir.berimbasket.app.data.network.model.Match;
 
 class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.ViewHolder> {
@@ -51,7 +52,7 @@ class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.ViewHolder> {
         holder.txtScoreDate.setText(entityMatchScore.getScoreDate());
         holder.txtMatchStatus.setText(entityMatchScore.getStatus());
         Picasso.with(holder.view.getContext())
-                .load("https://berimbasket.ir/" + entityMatchScore.getAwayLogo())
+                .load(UrlConstants.Base.Root + "/" + entityMatchScore.getAwayLogo())
                 .resize(50, 50)
                 .centerInside()
                 .placeholder(R.mipmap.ic_launcher)
@@ -59,7 +60,7 @@ class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.ViewHolder> {
                 .into(holder.imgAwayLogo);
 
         Picasso.with(holder.view.getContext())
-                .load("https://berimbasket.ir/" + entityMatchScore.getHomeLogo())
+                .load(UrlConstants.Base.Root + "/" + entityMatchScore.getHomeLogo())
                 .resize(50, 50)
                 .centerInside()
                 .placeholder(R.mipmap.ic_launcher)

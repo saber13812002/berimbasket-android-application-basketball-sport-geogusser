@@ -26,6 +26,7 @@ import co.mobiwise.materialintro.shape.ShapeType;
 import co.mobiwise.materialintro.view.MaterialIntroView;
 import co.ronash.pushe.Pushe;
 import ir.berimbasket.app.R;
+import ir.berimbasket.app.data.env.UrlConstants;
 import ir.berimbasket.app.data.network.WebApiClient;
 import ir.berimbasket.app.data.network.model.TokenResponse;
 import ir.berimbasket.app.data.network.model.ValidateResponse;
@@ -45,8 +46,6 @@ import retrofit2.Response;
  * A login screen that offers login via email/password.
  */
 public class LoginActivity extends BaseActivity {
-
-    private static final String WORDPRESS_REGISTER_URL = "http://berimbasket.ir/bball/www/register.php";
 
     AppCompatButton btnLogin, btnSignUpTelegram, btnSignUpEmail;
     TextView btnRegisterPage, btnTelegramTut;
@@ -192,7 +191,7 @@ public class LoginActivity extends BaseActivity {
         btnSignUpEmail.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Redirect.sendToCustomTab(LoginActivity.this, WORDPRESS_REGISTER_URL);
+                Redirect.sendToCustomTab(LoginActivity.this, UrlConstants.External.WP_REGISTER);
             }
         });
         btnRegisterPage.setOnClickListener(new OnClickListener() {
@@ -211,7 +210,7 @@ public class LoginActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 try {
-                    Redirect.sendToTelegram(LoginActivity.this, "https://t.me/berimbasket/263", Telegram.POST);
+                    Redirect.sendToTelegram(LoginActivity.this, UrlConstants.External.REGISTER_TUTORIAL, Telegram.POST);
                 } catch (IllegalArgumentException unknownTelegramURL) {
                     // do nothing yet
                 }

@@ -24,6 +24,7 @@ import java.util.List;
 import co.ronash.pushe.Pushe;
 import de.hdodenhof.circleimageview.CircleImageView;
 import ir.berimbasket.app.R;
+import ir.berimbasket.app.data.env.UrlConstants;
 import ir.berimbasket.app.data.network.WebApiClient;
 import ir.berimbasket.app.data.network.model.Stadium;
 import ir.berimbasket.app.data.pref.PrefManager;
@@ -38,12 +39,6 @@ import retrofit2.Response;
 
 public class StadiumActivity extends BaseActivity implements StadiumGalleryAdapter.StadiumGalleryListener {
 
-    private static final String UPDATE_STADIUM_INFO_BOT = "https://t.me/berimbasketmapbot?start=";
-    private static final String REPORT_STADIUM_BOT = "https://t.me/berimbasketreportbot?start=-";
-    private static final String RESERVE_STADIUM_BOT = "https://t.me/Berimbasketreservebot?start=";
-    private static final String STADIUM_IMAGE_BOT = "https://t.me/berimbasketuploadbot?start=";
-
-    private static final String EXTERNAL_WEB_STADIUM_URL = "http://berimbasket.ir/bball/www/instagram.php?id=";
     private int stadiumId;
 
     @Override
@@ -96,7 +91,7 @@ public class StadiumActivity extends BaseActivity implements StadiumGalleryAdapt
             @Override
             public void onClick(View v) {
                 String pusheId = Pushe.getPusheId(getApplicationContext());
-                Redirect.sendToCustomTab(StadiumActivity.this, EXTERNAL_WEB_STADIUM_URL + stadium.getId() + "&pusheid=" + pusheId);
+                Redirect.sendToCustomTab(StadiumActivity.this, UrlConstants.External.WP_STADIUM_PROFILE + "?id=" + stadium.getId() + "&pusheid=" + pusheId);
             }
         });
 
@@ -104,7 +99,7 @@ public class StadiumActivity extends BaseActivity implements StadiumGalleryAdapt
             @Override
             public void onClick(View v) {
                 String pusheId = Pushe.getPusheId(getApplicationContext());
-                Redirect.sendToCustomTab(StadiumActivity.this, EXTERNAL_WEB_STADIUM_URL + stadium.getId() + "&pusheid=" + pusheId);
+                Redirect.sendToCustomTab(StadiumActivity.this, UrlConstants.External.WP_STADIUM_PROFILE + "?id=" + stadium.getId() + "&pusheid=" + pusheId);
             }
         });
 
@@ -114,7 +109,7 @@ public class StadiumActivity extends BaseActivity implements StadiumGalleryAdapt
             @Override
             public void onClick(View v) {
                 try {
-                    Redirect.sendToTelegram(StadiumActivity.this, UPDATE_STADIUM_INFO_BOT + stadium.getId(),
+                    Redirect.sendToTelegram(StadiumActivity.this, UrlConstants.Bot.MAP + stadium.getId(),
                             Telegram.DEFAULT_BOT);
                 } catch (IllegalArgumentException unknownTelegramURL) {
                     // do nothing yet
@@ -126,7 +121,7 @@ public class StadiumActivity extends BaseActivity implements StadiumGalleryAdapt
             @Override
             public void onClick(View view) {
                 try {
-                    Redirect.sendToTelegram(StadiumActivity.this, REPORT_STADIUM_BOT + stadium.getId(),
+                    Redirect.sendToTelegram(StadiumActivity.this, UrlConstants.Bot.REPORT_STADIUM + stadium.getId(),
                             Telegram.DEFAULT_BOT);
                 } catch (IllegalArgumentException unknownTelegramURL) {
                     // do nothing yet
@@ -138,7 +133,7 @@ public class StadiumActivity extends BaseActivity implements StadiumGalleryAdapt
             @Override
             public void onClick(View view) {
                 try {
-                    Redirect.sendToTelegram(StadiumActivity.this, RESERVE_STADIUM_BOT + stadium.getId()
+                    Redirect.sendToTelegram(StadiumActivity.this, UrlConstants.Bot.RESERVE + stadium.getId()
                             , Telegram.DEFAULT_BOT);
                 } catch (IllegalArgumentException unknownTelegramURL) {
                     // do nothing yet
@@ -151,7 +146,7 @@ public class StadiumActivity extends BaseActivity implements StadiumGalleryAdapt
             @Override
             public void onClick(View view) {
                 try {
-                    Redirect.sendToTelegram(StadiumActivity.this, STADIUM_IMAGE_BOT + stadium.getId()
+                    Redirect.sendToTelegram(StadiumActivity.this, UrlConstants.Bot.UPLOAD + stadium.getId()
                             , Telegram.DEFAULT_BOT);
                 } catch (IllegalArgumentException unknownTelegramURL) {
                     // do nothing yet
@@ -162,9 +157,9 @@ public class StadiumActivity extends BaseActivity implements StadiumGalleryAdapt
         // stadium gallery
         List<String> galleryImages = stadium.getImages();
         if (galleryImages.size() == 0) {
-            galleryImages.add("http://berimbasket.ir/bball/bots/playgroundphoto/123423743522345.jpg");
-            galleryImages.add("http://berimbasket.ir/bball/bots/playgroundphoto/123423743522345.jpg");
-            galleryImages.add("http://berimbasket.ir/bball/bots/playgroundphoto/123423743522345.jpg");
+            galleryImages.add(UrlConstants.External.STADIUM_DEFAULT_PHOTO);
+            galleryImages.add(UrlConstants.External.STADIUM_DEFAULT_PHOTO);
+            galleryImages.add(UrlConstants.External.STADIUM_DEFAULT_PHOTO);
         }
         RecyclerView recyclerView = findViewById(R.id.recyclerStadiumGallery);
         StadiumGalleryAdapter stadiumGalleryAdapter = new StadiumGalleryAdapter(galleryImages, this);
@@ -250,7 +245,7 @@ public class StadiumActivity extends BaseActivity implements StadiumGalleryAdapt
     @Override
     public void onGalleryItemClick(String imageUrl) {
         String pusheId = Pushe.getPusheId(getApplicationContext());
-        Redirect.sendToCustomTab(StadiumActivity.this, EXTERNAL_WEB_STADIUM_URL + stadiumId + "&pusheid=" + pusheId);
+        Redirect.sendToCustomTab(StadiumActivity.this, UrlConstants.External.WP_STADIUM_PROFILE + "?id=" + stadiumId + "&pusheid=" + pusheId);
     }
 
     private ArrayList<String> getStadiumSpecListKey() {
