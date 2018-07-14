@@ -88,23 +88,17 @@ public class SpecificationFragment extends Fragment {
     private ArrayList<String> getPlayerSpec(Profile me) {
 
         ArrayList<String> playerSpecList = new ArrayList<>();
-        String specSeparator = getString(R.string.fragment_player_spec_separator);
         playerSpecList.add(me.getName());
         playerSpecList.add(String.valueOf(me.getAge()));
         playerSpecList.add(me.getCity());
         playerSpecList.add(String.valueOf(me.getHeight()));
         playerSpecList.add(String.valueOf(me.getWeight()));
-        // TODO: 7/8/2018 add this parameter in api
-//        playerSpecList.add(me.getAddress());
-        playerSpecList.add("");
+        playerSpecList.add(me.getAddress());
         playerSpecList.add(me.getExperience());
-        // TODO: 7/8/2018 add this parameter in api
-//        playerSpecList.add(me.getCoachName());
-        playerSpecList.add("");
+        playerSpecList.add(me.getCoach());
         playerSpecList.add(me.getTeamName());
-        playerSpecList.add(me.getSlug());
+        playerSpecList.add(me.getUsername());
         playerSpecList.add(String.valueOf(me.getPost()));
-        //playerSpecList.add("" + entityPlayer.getProfileImage());
         playerSpecList.add(me.getTelegram());
         playerSpecList.add(me.getInstagram());
         playerSpecList.add(me.getTelegramPhone());
@@ -114,7 +108,6 @@ public class SpecificationFragment extends Fragment {
     private ArrayList<String> getPlayerSpecKey() {
 
         ArrayList<String> playerSpecListKey = new ArrayList<>();
-        String specSeparator = getString(R.string.fragment_player_spec_separator);
         playerSpecListKey.add(getString(R.string.fragment_player_spec_name));
         playerSpecListKey.add(getString(R.string.fragment_player_spec_age));
         playerSpecListKey.add(getString(R.string.fragment_player_spec_city));
@@ -126,7 +119,6 @@ public class SpecificationFragment extends Fragment {
         playerSpecListKey.add(getString(R.string.fragment_player_spec_team));
         playerSpecListKey.add(getString(R.string.fragment_player_spec_user_name));
         playerSpecListKey.add(getString(R.string.fragment_player_spec_post));
-        //playerSpecListKey.add("" + entityPlayer.getProfileImage());
         playerSpecListKey.add(getString(R.string.fragment_player_spec_telegram));
         playerSpecListKey.add(getString(R.string.fragment_player_spec_instagram));
         playerSpecListKey.add(getString(R.string.fragment_player_spec_phone_number));

@@ -23,6 +23,7 @@ import java.util.List;
 
 import co.ronash.pushe.Pushe;
 import ir.berimbasket.app.R;
+import ir.berimbasket.app.data.env.UrlConstants;
 import ir.berimbasket.app.data.network.WebApiClient;
 import ir.berimbasket.app.data.network.model.Player;
 import ir.berimbasket.app.data.pref.PrefManager;
@@ -38,9 +39,6 @@ import retrofit2.Response;
 public class PlayerActivity extends BaseActivity implements SocialAccAdapter.SocialAccListener{
 
     // TODO: 12/13/2017 this class breaks oop rules (there are so many bound in fields and methods) 
-
-    private static final String REPORT_PLAYER_BOT = "https://t.me/berimbasketreportbot?start=";
-    private static final String EXTERNAL_WEB_PROFILE_URL = "http://berimbasket.ir/bball/www/player.php?id=";
 
     private ProgressBar progress;
     private TextView txtPlayerName;
@@ -116,7 +114,7 @@ public class PlayerActivity extends BaseActivity implements SocialAccAdapter.Soc
             public void onClick(View view) {
                 try {
                     if (player != null) {
-                        Redirect.sendToTelegram(PlayerActivity.this, REPORT_PLAYER_BOT + player.getId(),
+                        Redirect.sendToTelegram(PlayerActivity.this, UrlConstants.Bot.REPORT_PLAYER + player.getId(),
                                 Telegram.DEFAULT_BOT);
                     }
                 } catch (IllegalArgumentException unknownTelegramURL) {
@@ -125,7 +123,7 @@ public class PlayerActivity extends BaseActivity implements SocialAccAdapter.Soc
             }
         });
 
-        String profilePicUrl = "https://berimbasket.ir/" + player.getProfileImage();
+        String profilePicUrl = UrlConstants.Base.Root + "/" + player.getProfileImage();
         Picasso.with(PlayerActivity.this)
                 .load(profilePicUrl)
                 .resize(140, 140)
@@ -141,7 +139,7 @@ public class PlayerActivity extends BaseActivity implements SocialAccAdapter.Soc
             @Override
             public void onClick(View v) {
                 String pusheId = Pushe.getPusheId(getApplicationContext());
-                Redirect.sendToCustomTab(PlayerActivity.this, EXTERNAL_WEB_PROFILE_URL + player.getId() + "&pusheid=" + pusheId);
+                Redirect.sendToCustomTab(PlayerActivity.this, UrlConstants.External.WP_PLAYER_PROFILE + "?id=" + player.getId() + "&pusheid=" + pusheId);
             }
         });
 
@@ -184,7 +182,7 @@ public class PlayerActivity extends BaseActivity implements SocialAccAdapter.Soc
         entitySocialTelegram.setId(0);
         entitySocialTelegram.setImageResId(R.drawable.ic_social_telegram);
         entitySocialTelegram.setType(SocialAccEntity.SOCIAL_TYPE_TELEGRAM_USER);
-        entitySocialTelegram.setLink("https://t.me/" + player.getTelegramId());
+        entitySocialTelegram.setLink(UrlConstants.Base.TELEGRAM + player.getTelegramId());
         socialAccList.add(entitySocialTelegram);
 
         playerSpecList.add(player.getInstagramId());
@@ -192,7 +190,7 @@ public class PlayerActivity extends BaseActivity implements SocialAccAdapter.Soc
         entitySocialInstagram.setId(0);
         entitySocialInstagram.setImageResId(R.drawable.ic_social_instagram);
         entitySocialInstagram.setType(SocialAccEntity.SOCIAL_TYPE_INSTAGRAM);
-        entitySocialInstagram.setLink("https://instagram.com/_u/" + player.getInstagramId());
+        entitySocialInstagram.setLink(UrlConstants.Base.INSTAGRAM + player.getInstagramId());
         socialAccList.add(entitySocialInstagram);
 
         String pusheId = Pushe.getPusheId(getApplicationContext());
@@ -200,7 +198,7 @@ public class PlayerActivity extends BaseActivity implements SocialAccAdapter.Soc
         webExternalLink.setId(0);
         webExternalLink.setImageResId(R.drawable.ic_external_link_black);
         webExternalLink.setType(SocialAccEntity.SOCIAL_TYPE_WEB_PROFILE);
-        webExternalLink.setLink(EXTERNAL_WEB_PROFILE_URL + player.getId() + "&pusheid=" + pusheId);
+        webExternalLink.setLink(UrlConstants.External.WP_PLAYER_PROFILE + "?id=" + player.getId() + "&pusheid=" + pusheId);
         socialAccList.add(webExternalLink);
 
         playerSpecList.add(player.getPhone());

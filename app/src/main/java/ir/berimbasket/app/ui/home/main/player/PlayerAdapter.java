@@ -14,6 +14,7 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import ir.berimbasket.app.R;
+import ir.berimbasket.app.data.env.UrlConstants;
 import ir.berimbasket.app.data.network.model.Player;
 
 class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.ViewHolder> {
@@ -49,7 +50,7 @@ class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.ViewHolder> {
         holder.txtPost.setText(dataSource.get(position).getPost());
         String profilePic = dataSource.get(position).getProfileImage();
         Picasso.with(holder.view.getContext())
-                .load("https://berimbasket.ir/" + profilePic)
+                .load(UrlConstants.Base.Root + "/" + profilePic)
                 .resize(120, 120)
                 .centerInside()
                 .placeholder(R.drawable.profile_default)

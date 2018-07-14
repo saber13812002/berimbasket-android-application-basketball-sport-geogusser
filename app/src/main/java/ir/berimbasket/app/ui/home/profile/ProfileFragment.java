@@ -27,6 +27,7 @@ import java.net.HttpURLConnection;
 
 import co.ronash.pushe.Pushe;
 import ir.berimbasket.app.R;
+import ir.berimbasket.app.data.env.UrlConstants;
 import ir.berimbasket.app.data.network.WebApiClient;
 import ir.berimbasket.app.data.network.model.Profile;
 import ir.berimbasket.app.data.pref.PrefManager;
@@ -45,11 +46,6 @@ import retrofit2.Response;
  */
 
 public class ProfileFragment extends Fragment {
-
-    private static final String PROFILE_SCORE_INFO_BOT = "http://t.me/berimbasketScorebot";
-    private static final String PROFILE_TEAM_INFO_BOT = "http://t.me/berimbasketScorebot";
-    private static final String UPDATE_USER_INFO_BOT = "https://t.me/berimbasketprofilebot";
-    private static final String UPLOAD_PHOTO_BOT = "http://t.me/berimbasketProfilebot";
 
     private static boolean isLoggedIn;
     private TabLayout tabProfile;
@@ -115,7 +111,7 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 try {
-                    Redirect.sendToTelegram(getActivity(), UPLOAD_PHOTO_BOT, Telegram.DEFAULT_BOT);
+                    Redirect.sendToTelegram(getActivity(), UrlConstants.Bot.PROFILE, Telegram.DEFAULT_BOT);
                 } catch (IllegalArgumentException unknownTelegramURL) {
                     // do nothing yet
                 }
@@ -146,7 +142,7 @@ public class ProfileFragment extends Fragment {
                         break;
                     case R.id.menu_profile_info:
                         try {
-                            Redirect.sendToTelegram(getActivity(), UPDATE_USER_INFO_BOT, Telegram.DEFAULT_BOT);
+                            Redirect.sendToTelegram(getActivity(), UrlConstants.Bot.PROFILE, Telegram.DEFAULT_BOT);
                         } catch (IllegalArgumentException unknownTelegramURL) {
                             // do nothing yet
                         }
@@ -157,14 +153,14 @@ public class ProfileFragment extends Fragment {
 
                     case R.id.menu_profile_score:
                         try {
-                            Redirect.sendToTelegram(getActivity(), PROFILE_SCORE_INFO_BOT, Telegram.DEFAULT_BOT);
+                            Redirect.sendToTelegram(getActivity(), UrlConstants.Bot.SCORE, Telegram.DEFAULT_BOT);
                         } catch (IllegalArgumentException unknownTelegramURL) {
                             // do nothing yet
                         }
                         break;
                     case R.id.menu_profile_team:
                         try {
-                            Redirect.sendToTelegram(getActivity(), PROFILE_TEAM_INFO_BOT, Telegram.DEFAULT_BOT);
+                            Redirect.sendToTelegram(getActivity(), UrlConstants.Bot.SCORE, Telegram.DEFAULT_BOT);
                         } catch (IllegalArgumentException unknownTelegramURL) {
                             // do nothing yet
                         }
@@ -235,16 +231,16 @@ public class ProfileFragment extends Fragment {
                     Profile me = response.body();
                     if (me != null) {
                         Picasso.with(getContext())
-                                .load("https://berimbasket.ir" + me.getAvatarUrl().get_96dips())
+                                .load(me.getAvatarUrl().get_96dips())
                                 .resize(120, 120)
                                 .centerInside()
                                 .placeholder(R.drawable.profile_default)
                                 .error(R.drawable.profile_default)
                                 .into(imgProfileImage);
-                        txtProfileName.setText(me.getSlug());
-//                        if (me.getPriority() > 6) {
-//                            imgCoach.setVisibility(View.VISIBLE);
-//                        }
+                        txtProfileName.setText(me.getUsername());
+                        if (me.getPriority() > 6) {
+                            imgCoach.setVisibility(View.VISIBLE);
+                        }
                     }
                 }
             }
