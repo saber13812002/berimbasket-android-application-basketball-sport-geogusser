@@ -4,6 +4,8 @@ import android.app.Application;
 import android.content.Context;
 import android.content.res.Configuration;
 
+import com.anetwork.android.sdk.advertising.AnetworkAdvertising;
+
 import ir.berimbasket.app.util.AnalyticsHelper;
 import ir.berimbasket.app.util.LocaleManager;
 
@@ -24,8 +26,8 @@ public class BaseApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        AnetworkAdvertising.initialize(this, "937aa675-cbaa-41ae-b18d-d8f08595cde7");
         instance = this;
-
         AnalyticsHelper.initialize(this);
         registerActivityLifecycleCallbacks(new BaseActivityLifeCycle());
     }

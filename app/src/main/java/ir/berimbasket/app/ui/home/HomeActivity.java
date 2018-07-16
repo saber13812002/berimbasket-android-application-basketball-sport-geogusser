@@ -22,6 +22,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.anetwork.android.sdk.advertising.view.AnetworkBannerView;
 import com.crashlytics.android.Crashlytics;
 import com.github.florent37.tutoshowcase.TutoShowcase;
 import com.wooplr.spotlight.SpotlightView;
@@ -62,6 +63,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
     private ImageView btnSetting, btnNotification;
     private BottomNavigationView navigation;
     private MenuItem prevMenuItem;
+    private AnetworkBannerView anetworkBannerView;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -118,14 +120,15 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
         Pushe.initialize(this, true);
         initToolbar();
         checkQuestion();
-
         navigation = findViewById(R.id.navigation);
         homePager = findViewById(R.id.vpPager);
         btnSetting = findViewById(R.id.btnSetting);
         btnNotification = findViewById(R.id.btnNotification);
+        anetworkBannerView = findViewById(R.id.banner_1);
         btnSetting.setOnClickListener(this);
         btnNotification.setOnClickListener(this);
 
+        anetworkBannerView.show(this);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         HomePagerAdapter homePagerAdapter = new HomePagerAdapter(getSupportFragmentManager());
         homePager.setAdapter(homePagerAdapter);
