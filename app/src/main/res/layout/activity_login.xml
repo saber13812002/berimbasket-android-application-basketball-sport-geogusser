@@ -93,17 +93,30 @@
                 android:theme="@style/BrandButtonStyle" />
 
             <TextView
+                android:id="@+id/btnForgetPass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="24dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/yekan"
+                android:gravity="center_horizontal"
+                android:text="@string/activity_login_txt_forget_password"
+                android:textColor="@color/colorBlack"
+                android:textSize="14sp" />
+
+            <TextView
                 android:id="@+id/btnRegActivity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="24dp"
                 android:layout_marginStart="24dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="16dp"
                 android:fontFamily="@font/yekan"
                 android:gravity="center_horizontal"
                 android:text="@string/activity_login_txt_create_account"
-                android:textColor="@color/colorPrimary"
-                android:textSize="16sp" />
+                android:textColor="@color/colorBlack"
+                android:textSize="14sp" />
 
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/btnSignUpTelegram"
@@ -141,12 +154,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="24dp"
                 android:layout_marginStart="24dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="16dp"
                 android:fontFamily="@font/yekan"
                 android:gravity="center_horizontal"
                 android:text="@string/activity_login_txt_watch_video"
                 android:textColor="@color/colorPrimary"
-                android:textSize="16sp" />
+                android:textSize="14sp" />
 
         </LinearLayout>
     </ScrollView>

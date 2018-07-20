@@ -48,7 +48,7 @@ import retrofit2.Response;
 public class LoginActivity extends BaseActivity {
 
     AppCompatButton btnLogin, btnSignUpTelegram, btnSignUpEmail;
-    TextView btnRegisterPage, btnTelegramTut;
+    TextView btnRegisterPage, btnTelegramTut, btnForgetPassword;
     ProgressDialog pDialog;
     // UI references.
     private EditText edtUsername, edtPassword;
@@ -153,6 +153,7 @@ public class LoginActivity extends BaseActivity {
         btnRegisterPage = findViewById(R.id.btnRegActivity);
         btnTelegramTut = findViewById(R.id.btnTelegramTut);
         pDialog = new ProgressDialog(LoginActivity.this);
+        btnForgetPassword = findViewById(R.id.btnForgetPass);
 
         Drawable imgUser = getResources().getDrawable(R.drawable.ic_login_user);
         imgUser.setBounds(0, 0, 60, 60);
@@ -217,6 +218,13 @@ public class LoginActivity extends BaseActivity {
             }
         });
         edtUsername.requestFocus();
+
+        btnForgetPassword.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Redirect.sendToCustomTab(LoginActivity.this, UrlConstants.External.WP_FORGET_PASSWORD);
+            }
+        });
     }
 
     private void initFonts() {

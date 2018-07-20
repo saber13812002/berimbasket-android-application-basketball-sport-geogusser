@@ -35,5 +35,6 @@ public interface UrlConstants {
         String ABOUT = "http://berimbasket.ir/about";
         String CHANGE_LOG = "http://berimbasket.ir/changelog";
         String CONTACT_US = "http://berimbasket.ir/contact-us";
+        String WP_FORGET_PASSWORD = "http://berimbasket.ir/forget-password";
     }
 }

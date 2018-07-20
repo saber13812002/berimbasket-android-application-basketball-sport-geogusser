@@ -27,6 +27,7 @@
     <string name="activity_login_edt_username_error">Wrong username or password</string>
     <string name="activity_login_txt_create_account">Don\'t have an account? make one!!!</string>
     <string name="activity_login_txt_watch_video">How to create account? take a look at this</string>
+    <string name="activity_login_txt_forget_password">Forget Password?</string>
     <string name="activity_login_edt_username_hint">Username</string>
 
     <string name="activity_register_btn_sign_up">Register</string>
