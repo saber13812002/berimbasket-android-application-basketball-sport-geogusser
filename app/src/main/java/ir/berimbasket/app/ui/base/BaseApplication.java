@@ -6,6 +6,7 @@ import android.content.res.Configuration;
 
 import com.anetwork.android.sdk.advertising.AnetworkAdvertising;
 
+import ir.berimbasket.app.data.env.ConfigConstants;
 import ir.berimbasket.app.util.AnalyticsHelper;
 import ir.berimbasket.app.util.LocaleManager;
 
@@ -17,17 +18,10 @@ import ir.berimbasket.app.util.LocaleManager;
 
 public class BaseApplication extends Application {
 
-    private static BaseApplication instance;
-
-    public static synchronized BaseApplication getInstance() {
-        return instance;
-    }
-
     @Override
     public void onCreate() {
         super.onCreate();
-        AnetworkAdvertising.initialize(this, "937aa675-cbaa-41ae-b18d-d8f08595cde7");
-        instance = this;
+        AnetworkAdvertising.initialize(this, ConfigConstants.A_NETWORK_TOKEN);
         AnalyticsHelper.initialize(this);
         registerActivityLifecycleCallbacks(new BaseActivityLifeCycle());
     }
