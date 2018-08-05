@@ -246,5 +246,6 @@
     <string name="fragment_map_main_showcase_new_location_title">ثبت ورزشگاه</string>
     <string name="fragment_map_main_showcase_new_location_description">ورزشگاه مورد نظر خود را به نقشه اضافه کنید</string>
     <string name="activity_stadium_spec_telegram_group">گروه تلگرام</string>
+    <string name="activity_login_txt_forget_password">رمز عبورت رو فراموش کردی؟</string>
 
 </resources>
