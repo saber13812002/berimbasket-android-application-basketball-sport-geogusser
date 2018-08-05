@@ -21,8 +21,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
-
 import java.net.HttpURLConnection;
 
 import co.ronash.pushe.Pushe;
@@ -36,6 +34,7 @@ import ir.berimbasket.app.util.AnalyticsHelper;
 import ir.berimbasket.app.util.FontHelper;
 import ir.berimbasket.app.util.LocaleManager;
 import ir.berimbasket.app.util.Redirect;
+import ir.berimbasket.app.util.ScreenDensityHelper;
 import ir.berimbasket.app.util.Telegram;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -230,13 +229,7 @@ public class ProfileFragment extends Fragment {
                 if (response.code() == HttpURLConnection.HTTP_OK) {
                     Profile me = response.body();
                     if (me != null) {
-                        Picasso.with(getContext())
-                                .load(me.getAvatarUrl().get_96dips())
-                                .resize(120, 120)
-                                .centerInside()
-                                .placeholder(R.drawable.profile_default)
-                                .error(R.drawable.profile_default)
-                                .into(imgProfileImage);
+                        ScreenDensityHelper.loadAvatarBasedOnDensity(imgProfileImage, me.getAvatarUrl(), getContext());
                         txtProfileName.setText(me.getUsername());
                         if (me.getPriority() > 6) {
                             imgCoach.setVisibility(View.VISIBLE);
