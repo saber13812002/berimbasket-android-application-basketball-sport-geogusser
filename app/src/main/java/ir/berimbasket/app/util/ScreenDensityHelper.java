@@ -12,11 +12,11 @@ import ir.berimbasket.app.data.network.model.Profile;
 
 public class ScreenDensityHelper {
 
-    public static float SCREEN_DENSITY_MDPI = 1f;
-    public static float SCREEN_DENSITY_HDPI = 1.5f;
-    public static float SCREEN_DENSITY_XHDPI = 2f;
-    public static float SCREEN_DENSITY_XXHDPI = 3f;
-    public static float SCREEN_DENSITY_XXXHDPI = 4f;
+    private final static float SCREEN_DENSITY_MDPI = 1f;
+    private final static float SCREEN_DENSITY_HDPI = 1.5f;
+    private final static float SCREEN_DENSITY_XHDPI = 2f;
+    private final static float SCREEN_DENSITY_XXHDPI = 3f;
+    private final static float SCREEN_DENSITY_XXXHDPI = 4f;
 
     public static float getDisplayDensity(Context context) {
         DisplayMetrics metrics = new DisplayMetrics();
