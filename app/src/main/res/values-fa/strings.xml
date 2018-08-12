@@ -247,5 +247,14 @@
     <string name="fragment_map_main_showcase_new_location_description">ورزشگاه مورد نظر خود را به نقشه اضافه کنید</string>
     <string name="activity_stadium_spec_telegram_group">گروه تلگرام</string>
     <string name="activity_login_txt_forget_password">رمز عبورت رو فراموش کردی؟</string>
+    <string name="mobile_login_activity_phone_number_text">شماره تلفن</string>
+
+    <string name="fragment_mobile_login_country_text">کشور</string>
+    <string name="fragment_mobile_login_iran_fake_text">ایران</string>
+    <string name="fragment_mobile_login_mobile_number_hint_text">شماره موبایل</string>
+    <string name="fragment_mobile_login_sign_in_button_text">ورود</string>
+    <string name="fragment_mobile_login_Email_text">ایمیل</string>
+    <string name="fragment_mobile_login_telegram_text">تلگرام</string>
+    <string name="fragment_mobile_login_country_or_sign_in_with_text">یا ورود با</string>
 
 </resources>
