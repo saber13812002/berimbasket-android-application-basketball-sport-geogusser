@@ -11,6 +11,7 @@ public interface UrlConstants {
         String JWT = "https://berimbasket.ir/wp-json/wp/v2/";
         String TELEGRAM = "https://t.me/";
         String INSTAGRAM = "https://instagram.com/_u/";
+        String COUNTRY_LIST = "https://restcountries.eu/rest/v2/";
     }
 
     interface Bot {

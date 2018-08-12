@@ -17,6 +17,7 @@ keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 buildscript {
     repositories {
         maven { url 'https://maven.fabric.io/public' }
+        maven { url 'https://jitpack.io' }
     }
 
     dependencies {
@@ -123,6 +124,7 @@ dependencies {
     implementation 'com.github.wooplr:Spotlight:1.2.3'
     implementation 'com.github.iammert:MaterialIntroView:1.6.0'
     implementation 'com.github.florent37:tutoshowcase:1.0.1'
+    implementation 'com.github.ar-android:AndroidSvgLoader:1.0.1'
     implementation project(':anetwork-sdk-1.0.5')
     testImplementation 'junit:junit:4.12'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
