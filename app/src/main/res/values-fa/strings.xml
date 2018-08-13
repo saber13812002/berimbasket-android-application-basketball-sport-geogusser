@@ -258,4 +258,9 @@
     <string name="fragment_mobile_login_country_or_sign_in_with_text">یا ورود با</string>
     <string name="activity_country_list_search">جستجو</string>
 
+    <string name="fragment_mobile_verify_button_text">تایید</string>
+    <string name="fragment_mobile_verify_editet_text">کد پنج رقمی</string>
+    <string name="fragment_mobile_verify_tip">کد تایید برای ورود از طریق پیام کوتاه ارسال شد</string>
+    <string name="fragment_mobile_verify_problem_text">کد تایید را دریافت نکردید؟</string>
+
 </resources>

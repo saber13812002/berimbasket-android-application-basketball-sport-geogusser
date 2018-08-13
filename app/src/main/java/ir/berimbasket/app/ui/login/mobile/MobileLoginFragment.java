@@ -16,7 +16,7 @@ import ir.berimbasket.app.data.network.model.Country;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class MobileLoginActivityFragment extends Fragment {
+public class MobileLoginFragment extends Fragment {
 
     private final static int REQUEST_CODE = 100;
 
