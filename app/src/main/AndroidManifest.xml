@@ -179,6 +179,13 @@
         <activity
             android:name=".ui.notification.NotificationActivity"
             android:theme="@style/AppTheme" />
+
+        <activity
+            android:name=".ui.internet.NoInternetActivity"
+            android:label=""
+            android:excludeFromRecents="true"
+            android:theme="@style/Theme.Dialog">
+        </activity>
     </application>
 
 </manifest>

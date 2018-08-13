@@ -248,4 +248,8 @@
     <string name="activity_stadium_spec_telegram_group">گروه تلگرام</string>
     <string name="activity_login_txt_forget_password">رمز عبورت رو فراموش کردی؟</string>
 
+
+    <string name="activity_no_internet_connection_fail_text">خطا در اتصا به اینترنت</string>
+    <string name="activity_no_internet_try_again_button">دوباره تست کن</string>
+
 </resources>
