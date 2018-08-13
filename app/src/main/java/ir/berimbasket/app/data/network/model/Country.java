@@ -18,6 +18,11 @@ public class Country implements Serializable {
     @SerializedName("nativeName")
     private String nativeName;
 
+    @SerializedName("alpha2Code")
+    private String alpha2Code;
+
+    @SerializedName("alpha3Code")
+    private String alpha3Code;
 
     public String getName() {
         return name;
@@ -51,5 +56,21 @@ public class Country implements Serializable {
         String[] array = new String[1];
         array[0] = code;
         this.code = array;
+    }
+
+    public String getAlpha2Code() {
+        return alpha2Code;
+    }
+
+    public void setAlpha2Code(String alpha2Code) {
+        this.alpha2Code = alpha2Code;
+    }
+
+    public String getAlpha3Code() {
+        return alpha3Code;
+    }
+
+    public void setAlpha3Code(String alpha3Code) {
+        this.alpha3Code = alpha3Code;
     }
 }

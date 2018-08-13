@@ -411,6 +411,7 @@
     <string name="entity_match_score_data_default">End</string>
 
 
-    <string name="country_code_format">%1$s (%2$s)</string>
+    <string name="country_code_format" translatable="false">%1$s (%2$s)</string>
+    <string name="activity_country_list_search">search</string>
 
 </resources>

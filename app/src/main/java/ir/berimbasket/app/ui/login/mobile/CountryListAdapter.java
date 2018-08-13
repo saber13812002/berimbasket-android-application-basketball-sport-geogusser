@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.ahmadrosid.svgloader.SvgLoader;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -18,6 +19,7 @@ import ir.berimbasket.app.data.network.model.Country;
 public class CountryListAdapter extends RecyclerView.Adapter<CountryListAdapter.ViewHolder> {
 
     private List<Country> countryList;
+    private List<Country> countryListCopy;
     private Activity activity;
     private CountryListListener listener;
 
@@ -25,10 +27,12 @@ public class CountryListAdapter extends RecyclerView.Adapter<CountryListAdapter.
         void onCountryItemClick(Country country);
     }
 
-    CountryListAdapter(List<Country> CountryList, Activity activity, CountryListListener listener) {
-        this.countryList = CountryList;
+    CountryListAdapter(List<Country> countryList, Activity activity, CountryListListener listener) {
+        this.countryList = countryList;
         this.activity = activity;
         this.listener = listener;
+        countryListCopy = new ArrayList<>();
+        countryListCopy.addAll(countryList);
     }
 
     @Override
@@ -79,5 +83,29 @@ public class CountryListAdapter extends RecyclerView.Adapter<CountryListAdapter.
             this.txtCountryCode = view.findViewById(R.id.txtCountryCode);
             this.txtCountryName = view.findViewById(R.id.txtCountryName);
         }
+    }
+
+    public void filter(String text) {
+        countryList.clear();
+        if (text.isEmpty()) {
+            countryList.addAll(countryListCopy);
+        } else {
+            text = text.toLowerCase();
+            for (Country item : countryListCopy) {
+                if (item.getName().toLowerCase().contains(text)
+                        || item.getCode().toLowerCase().contains(text)
+                        || item.getAlpha2Code().toLowerCase().contains(text)
+                        || item.getAlpha3Code().toLowerCase().contains(text)
+                        || item.getNativeName().toLowerCase().contains(text)) {
+                    countryList.add(item);
+                }
+            }
+        }
+        notifyDataSetChanged();
+    }
+
+    public void resetList() {
+        countryList = countryListCopy;
+        notifyDataSetChanged();
     }
 }

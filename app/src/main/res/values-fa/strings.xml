@@ -256,5 +256,6 @@
     <string name="fragment_mobile_login_Email_text">ایمیل</string>
     <string name="fragment_mobile_login_telegram_text">تلگرام</string>
     <string name="fragment_mobile_login_country_or_sign_in_with_text">یا ورود با</string>
+    <string name="activity_country_list_search">جستجو</string>
 
 </resources>
