@@ -1,6 +1,8 @@
 package ir.berimbasket.app.ui.base;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -8,6 +10,8 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
+import ir.berimbasket.app.data.network.Connectivity;
+import ir.berimbasket.app.ui.internet.NoInternetActivity;
 import ir.berimbasket.app.util.LocaleManager;
 
 import static android.content.pm.PackageManager.GET_META_DATA;
@@ -36,6 +40,25 @@ public abstract class BaseActivity extends AppCompatActivity {
             }
         } catch (PackageManager.NameNotFoundException e) {
             // do nothing
+        }
+
+        if (!Connectivity.isConnected(getApplicationContext())) {
+            Intent intent = new Intent(getApplicationContext(), NoInternetActivity.class);
+            startActivityForResult(intent, 1);
+
+        }
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == 1) {
+            if (resultCode == Activity.RESULT_OK) {
+                recreate();
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+            }
         }
     }
 
