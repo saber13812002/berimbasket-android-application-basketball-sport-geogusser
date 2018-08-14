@@ -264,7 +264,7 @@
     <string name="fragment_mobile_verify_problem_text">کد تایید را دریافت نکردید؟</string>
 
 
-    <string name="activity_no_internet_connection_fail_text">خطا در اتصا به اینترنت</string>
+    <string name="activity_no_internet_connection_fail_text">خطا در اتصال به اینترنت</string>
     <string name="activity_no_internet_try_again_button">دوباره تست کن</string>
 
 </resources>

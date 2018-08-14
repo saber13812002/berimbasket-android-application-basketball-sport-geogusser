@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import ir.berimbasket.app.R;
-import ir.berimbasket.app.data.env.KeyConstants;
 import ir.berimbasket.app.data.network.model.Country;
 
 /**
@@ -47,16 +46,16 @@ public class MobileLoginFragment extends Fragment {
         country.setName("ایران");
         country.setCode("98");
         country.setNativeName("ایران");
-        edtCountry.setText(getString(R.string.country_code_format, country.getName(), country.getCode()));
+        edtCountry.setText(getString(R.string.general_country_code_format, country.getName(), country.getCode()));
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-            Country country = (Country) data.getSerializableExtra(KeyConstants.COUNTRY_OBJECT_KEY);
+            Country country = (Country) data.getSerializableExtra(CountryListActivity.INTENT_RESULT_KEY);
             this.country = country;
-            edtCountry.setText(getString(R.string.country_code_format, country.getName(), country.getCode()));
+            edtCountry.setText(getString(R.string.general_country_code_format, country.getName(), country.getCode()));
         }
     }
 }
