@@ -126,7 +126,7 @@
     <string name="activity_developer_contact_toast_message_successful_send">Your message has been sent successfully</string>
     <string name="activity_developer_contact_toast_message_try_again">Please try again</string>
     <string name="activity_developer_contact_toast_message_webservice_fail">Try again later</string>
-    
+
     <string name="activity_notification_toolbar_title">Notifications</string>
 
     <!-- fragment -->
@@ -164,6 +164,17 @@
     <string name="fragment_player_spec_telegram">Telegram</string>
     <string name="fragment_player_spec_instagram">Instagram</string>
     <string name="fragment_player_spec_phone_number">Phone Number</string>
+
+
+    <string name="title_activity_mobile_login" translatable="false">MobileLoginActivity</string>
+    <string name="fragment_mobile_login_country_text">Country</string>
+    <string name="fragment_mobile_login_iran_fake_text">Iran</string>
+    <string name="fragment_mobile_login_mobile_number_hint_text">Mobile Number</string>
+    <string name="fragment_mobile_login_sign_in_button_text">Sign In</string>
+    <string name="fragment_mobile_login_Email_text">Email</string>
+    <string name="fragment_mobile_login_telegram_text">Telegram</string>
+    <string name="fragment_mobile_login_country_or_sign_in_with_text">Or sign in with</string>
+
 
     <!-- adapter -->
     <string name="adapter_mission_point">Point</string>
@@ -398,5 +409,13 @@
     <string name="entity_match_score_away_default">Esteghlal</string>
     <string name="entity_match_score_home_default">Perspolis</string>
     <string name="entity_match_score_data_default">End</string>
+
+
+    <string name="country_code_format" translatable="false">%1$s (%2$s)</string>
+    <string name="activity_country_list_search">search</string>
+    <string name="fragment_mobile_verify_button_text">Verify</string>
+    <string name="fragment_mobile_verify_editet_text">Enter code</string>
+    <string name="fragment_mobile_verify_tip">We\'ve sent the code to your phone number</string>
+    <string name="fragment_mobile_verify_problem_text">Didn\'t get the code?</string>
 
 </resources>

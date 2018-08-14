@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#FFFF5722</color>
     <color name="colorPrimaryDark">#FFE64A19</color>
-    <color name="colorAccent">#3399FF</color>
+    <color name="colorAccent">#FFFF5722</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorBlack">#000000</color>
     <color name="colorDarkGrey">#434343</color>
@@ -14,5 +14,7 @@
     <color name="vectorPressPrimaryDark">#FFEAEAEA</color>
     <color name="showcaseSubHeadingTVColor">#ffffff</color>
     <color name="showcaseMaskColor">#dc000000</color>
+    <color name="colorTelegram">#dc1a6ca7</color>
+    <color name="colorEmail">#dc22ab29</color>
 
 </resources>

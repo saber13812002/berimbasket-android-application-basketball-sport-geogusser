@@ -10,6 +10,7 @@ import java.util.concurrent.TimeUnit;
 
 import ir.berimbasket.app.data.env.UrlConstants;
 import ir.berimbasket.app.data.network.endpoint.AnswerApi;
+import ir.berimbasket.app.data.network.endpoint.CountryApi;
 import ir.berimbasket.app.data.network.endpoint.FeedbackApi;
 import ir.berimbasket.app.data.network.endpoint.GeneralIntentApi;
 import ir.berimbasket.app.data.network.endpoint.LocationApi;
@@ -52,6 +53,11 @@ public class WebApiClient {
     public static TokenApi getTokenApi(Context context) {
         return buildApiClient(UrlConstants.Base.AUTH, context)
                 .create(TokenApi.class);
+    }
+
+    public static CountryApi getCountryApi(Context context) {
+        return buildApiClient(UrlConstants.Base.COUNTRY_LIST, context)
+                .create(CountryApi.class);
     }
 
     public static MissionApi getMissionApi(Context context) {
