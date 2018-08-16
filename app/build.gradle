@@ -36,7 +36,7 @@ repositories {
 
 android {
     compileSdkVersion 26
-    buildToolsVersion '26.0.2'
+    buildToolsVersion '27.0.3'
     flavorDimensions "BerimBasket"
     signingConfigs {
         production {
@@ -120,7 +120,7 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.0'
     implementation 'com.cleveroad:slidingtutorial:1.0.8'
     implementation 'com.android.support:percent:26.1.0'
-    compile 'com.google.android.gms:play-services-ads:10.0.1'
+    implementation 'com.google.android.gms:play-services-ads:10.0.1'
     implementation 'com.github.wooplr:Spotlight:1.2.3'
     implementation 'com.github.iammert:MaterialIntroView:1.6.0'
     implementation 'com.github.florent37:tutoshowcase:1.0.1'
