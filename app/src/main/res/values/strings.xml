@@ -20,7 +20,7 @@
 
     <string name="activity_login_edt_password_hint">Password</string>
     <string name="activity_login_btn_sign_in">Login</string>
-    <string name="activity_login_btn_sign_up_telegram">Sign up using Phone</string>
+    <string name="activity_login_btn_sign_up_telegram">Sign up using Telegram</string>
     <string name="activity_login_btn_sign_up_email">Sign up using Email</string>
     <string name="activity_login_toast_fill_all_fields">Please fill all fields</string>
     <string name="activity_login_toast_successful">Login successful</string>
