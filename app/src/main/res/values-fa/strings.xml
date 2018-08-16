@@ -261,8 +261,6 @@
     <string name="fragment_mobile_verify_button_text">تایید</string>
     <string name="fragment_mobile_verify_editet_text">کد پنج رقمی</string>
     <string name="fragment_mobile_verify_tip">کد تایید برای ورود از طریق پیام کوتاه ارسال شد</string>
-    <string name="fragment_mobile_verify_problem_text">کد تایید را دریافت نکردید؟</string>
-
 
     <string name="activity_no_internet_connection_fail_text">خطا در اتصال به اینترنت</string>
     <string name="activity_no_internet_try_again_button">دوباره تست کن</string>

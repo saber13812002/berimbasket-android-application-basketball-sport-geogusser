@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/colorWhite">
 
     <LinearLayout
@@ -49,7 +50,7 @@
 
 
             <android.support.v7.widget.AppCompatButton
-                android:id="@+id/appCompatButton"
+                android:id="@+id/btnVerify"
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
@@ -99,7 +100,7 @@
                 android:layout_margin="4dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                app:layout_constraintTop_toBottomOf="@+id/appCompatButton">
+                app:layout_constraintTop_toBottomOf="@+id/btnVerify">
 
                 <View
                     android:layout_width="0dp"
@@ -147,11 +148,11 @@
                 android:layout_marginBottom="8dp"
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/yekan"
-                android:text="@string/fragment_mobile_verify_problem_text"
                 android:textColor="@color/colorPrimary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
+                tools:text="60 Sec"/>
 
         </android.support.constraint.ConstraintLayout>
     </LinearLayout>

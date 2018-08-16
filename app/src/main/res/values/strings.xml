@@ -182,7 +182,6 @@
     <string name="fragment_mobile_verify_button_text">Verify</string>
     <string name="fragment_mobile_verify_editet_text">Enter code</string>
     <string name="fragment_mobile_verify_tip">We\'ve sent the code to your phone number</string>
-    <string name="fragment_mobile_verify_problem_text">Didn\'t get the code?</string>
 
     <!-- adapter -->
     <string name="adapter_mission_point">Point</string>

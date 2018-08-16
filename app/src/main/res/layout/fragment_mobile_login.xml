@@ -53,6 +53,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:hint="@string/fragment_mobile_login_mobile_number_hint_text"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/editText3">
@@ -63,14 +64,13 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/yekan"
                     android:gravity="left"
-                    android:hint="@string/fragment_mobile_login_mobile_number_hint_text"
                     android:inputType="number"
                     android:maxLength="11" />
             </android.support.design.widget.TextInputLayout>
 
 
             <android.support.v7.widget.AppCompatButton
-                android:id="@+id/appCompatButton"
+                android:id="@+id/btnMobileSignIn"
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
@@ -92,7 +92,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
 
                 <android.support.v7.widget.AppCompatButton
-                    android:id="@+id/button4"
+                    android:id="@+id/btnSignInEmail"
                     style="@style/Widget.AppCompat.Button.Colored"
                     android:layout_width="0dp"
                     android:layout_height="56dp"
@@ -103,7 +103,7 @@
                     app:backgroundTint="@color/colorEmail" />
 
                 <android.support.v7.widget.AppCompatButton
-                    android:id="@+id/button3"
+                    android:id="@+id/btnSignInTelegram"
                     style="@style/Widget.AppCompat.Button.Colored"
                     android:layout_width="0dp"
                     android:layout_height="56dp"
@@ -121,7 +121,7 @@
                 android:layout_margin="4dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                app:layout_constraintTop_toBottomOf="@+id/appCompatButton">
+                app:layout_constraintTop_toBottomOf="@+id/btnMobileSignIn">
 
                 <View
                     android:layout_width="0dp"

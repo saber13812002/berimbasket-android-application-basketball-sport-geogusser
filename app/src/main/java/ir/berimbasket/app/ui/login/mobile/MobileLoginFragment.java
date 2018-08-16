@@ -1,6 +1,7 @@
 package ir.berimbasket.app.ui.login.mobile;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
@@ -22,6 +23,21 @@ public class MobileLoginFragment extends Fragment {
     private TextInputEditText edtCountry;
     private Country country;
 
+    private MobileLoginListener listener;
+
+    public interface MobileLoginListener {
+        void onSignInTelegramClickListener();
+
+        void onSignInEmailClickListener();
+
+        void onSignInClickListener();
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.listener = (MobileLoginListener) context;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -30,14 +46,43 @@ public class MobileLoginFragment extends Fragment {
         edtCountry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), CountryListActivity.class);
-                startActivityForResult(intent, REQUEST_CODE);
+                // As seyed asked, no need to use this for now
+//                Intent intent = new Intent(getActivity(), CountryListActivity.class);
+//                startActivityForResult(intent, REQUEST_CODE);
             }
         });
 
         initCountry();
+        initListeners(view);
 
         return view;
+    }
+
+    private void initListeners(final View view) {
+        view.findViewById(R.id.btnSignInEmail).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (listener != null) {
+                    listener.onSignInEmailClickListener();
+                }
+            }
+        });
+        view.findViewById(R.id.btnSignInTelegram).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (listener != null) {
+                    listener.onSignInTelegramClickListener();
+                }
+            }
+        });
+        view.findViewById(R.id.btnMobileSignIn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (listener != null) {
+                    listener.onSignInClickListener();
+                }
+            }
+        });
     }
 
     private void initCountry() {
