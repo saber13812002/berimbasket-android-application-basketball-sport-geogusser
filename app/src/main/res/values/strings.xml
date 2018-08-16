@@ -133,6 +133,7 @@
     <string name="activity_no_internet_try_again_button">Try again</string>
 
     <string name="activity_mobile_login_api_error">Error occurred please try again later</string>
+    <string name="activity_mobile_login_phone_number_text">Phone number</string>
 
     <string name="activity_country_list_search">search</string>
 

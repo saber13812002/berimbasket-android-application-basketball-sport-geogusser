@@ -22,7 +22,7 @@ public class MobileLoginActivity extends BaseActivity implements MobileLoginFrag
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(R.string.mobile_login_activity_phone_number_text);
+        getSupportActionBar().setTitle(R.string.activity_mobile_login_phone_number_text);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         PermissionsRequest.checkReadSmsPermission(getApplicationContext(), MobileLoginActivity.this, 500);
         PermissionsRequest.checkReceiveSmsPermission(getApplicationContext(), MobileLoginActivity.this, 600);
