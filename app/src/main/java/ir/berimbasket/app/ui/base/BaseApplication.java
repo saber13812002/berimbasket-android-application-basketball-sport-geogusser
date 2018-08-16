@@ -1,8 +1,8 @@
 package ir.berimbasket.app.ui.base;
 
-import android.app.Application;
 import android.content.Context;
 import android.content.res.Configuration;
+import android.support.multidex.MultiDexApplication;
 
 import com.anetwork.android.sdk.advertising.AnetworkAdvertising;
 
@@ -16,7 +16,7 @@ import ir.berimbasket.app.util.LocaleManager;
  * singleton class
  */
 
-public class BaseApplication extends Application {
+public class BaseApplication extends MultiDexApplication {
 
     @Override
     public void onCreate() {

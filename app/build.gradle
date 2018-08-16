@@ -50,6 +50,7 @@ android {
         applicationId "ir.berimbasket.app"
         minSdkVersion 17
         targetSdkVersion 26
+        multiDexEnabled true
         versionCode 15
         versionName "0.9.28"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -125,6 +126,7 @@ dependencies {
     implementation 'com.github.iammert:MaterialIntroView:1.6.0'
     implementation 'com.github.florent37:tutoshowcase:1.0.1'
     implementation 'com.github.ar-android:AndroidSvgLoader:1.0.1'
+    implementation 'com.android.support:multidex:1.0.3'
     implementation project(':anetwork-sdk-1.0.5')
     testImplementation 'junit:junit:4.12'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
