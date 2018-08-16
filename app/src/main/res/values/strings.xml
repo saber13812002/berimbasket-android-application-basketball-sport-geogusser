@@ -132,6 +132,8 @@
     <string name="activity_no_internet_connection_fail_text">Internet connection problem</string>
     <string name="activity_no_internet_try_again_button">Try again</string>
 
+    <string name="activity_mobile_login_api_error">Error occurred please try again later</string>
+
     <string name="activity_country_list_search">search</string>
 
     <!-- fragment -->
@@ -178,10 +180,15 @@
     <string name="fragment_mobile_login_Email_text">Email</string>
     <string name="fragment_mobile_login_telegram_text">Telegram</string>
     <string name="fragment_mobile_login_country_or_sign_in_with_text">Or sign in with</string>
+    <string name="fragment_mobile_login_wrong_mobile">Wrong mobile number</string>
 
     <string name="fragment_mobile_verify_button_text">Verify</string>
     <string name="fragment_mobile_verify_editet_text">Enter code</string>
     <string name="fragment_mobile_verify_tip">We\'ve sent the code to your phone number</string>
+    <string name="fragment_mobile_verify_seconds_to_expire">Seconds to code expire</string>
+    <string name="fragment_mobile_verify_msg_timer_expire">OTP expired! try again</string>
+    <string name="fragment_mobile_verify_wrong_code">Wrong code</string>
+    <string name="fragment_mobile_verify_empty_code">Enter OTP code</string>
 
     <!-- adapter -->
     <string name="adapter_mission_point">Point</string>
@@ -349,6 +356,7 @@
     <string name="general_dialog_message_log_out">Are you sure you want to logout ?</string>
     <string name="general_dialog_message_gps_not_enabled">GPS is not enable, enable it using below button</string>
     <string name="general_dialog_message_location_permission">In order to show map we need the Location permission, enable it from button below</string>
+    <string name="general_dialog_message_sms_permission">In order to put otp code automatically we need to access sms permission, enable it from button below</string>
 
     <string name="general_dialog_option_bot_link">TelegramBot link</string>
     <string name="general_dialog_option_cancel">Cancel</string>
@@ -359,7 +367,9 @@
     <string name="general_dialog_option_settings">Settings</string>
 
     <string name="general_progress_dialog_logging_in">Logging in</string>
+    <string name="general_progress_dialog_sending_sms">Sending Sms</string>
     <string name="general_progress_dialog_checking_info">Processing info</string>
+    <string name="general_progress_dialog_verifying_otp">Verifying OTP</string>
 
     <string name="general_please_wait">Please wait</string>
     <string name="general_more">More</string>
@@ -393,6 +403,7 @@
     <string name="analytics_action_new_register" translatable="false">New User Register</string>
     <string name="analytics_action_telegram_bot" translatable="false">Go to TelegramBot</string>
     <string name="analytics_action_log_on" translatable="false">Log on</string>
+    <string name="analytics_action_login_mobile" translatable="false">Login Mobile</string>
     <string name="analytics_action_set_new_marker" translatable="false">SetNewMarker</string>
     <string name="analytics_action_log_out" translatable="false">Log out</string>
     <string name="analytics_action_help" translatable="false">Click Help</string>

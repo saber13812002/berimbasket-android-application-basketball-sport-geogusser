@@ -4,9 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorWhite"
-    tools:context=".ui.login.mobile.MobileLoginFragment"
-    tools:showIn="@layout/activity_mobile_login">
+    android:background="@color/colorWhite">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -59,7 +57,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/editText3">
 
                 <android.support.design.widget.TextInputEditText
-                    android:id="@+id/editText2"
+                    android:id="@+id/edtMobileInput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/yekan"
@@ -80,6 +78,16 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
+
+            <ProgressBar
+                android:id="@+id/progressMobileLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+                app:layout_constraintEnd_toEndOf="@+id/btnMobileSignIn"
+                app:layout_constraintStart_toStartOf="@+id/btnMobileSignIn"
                 app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
 
             <LinearLayout

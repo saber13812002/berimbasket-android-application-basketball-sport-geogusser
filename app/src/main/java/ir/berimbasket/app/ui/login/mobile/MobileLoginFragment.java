@@ -9,9 +9,21 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
+import co.ronash.pushe.Pushe;
 import ir.berimbasket.app.R;
+import ir.berimbasket.app.data.network.WebApiClient;
 import ir.berimbasket.app.data.network.model.Country;
+import ir.berimbasket.app.data.network.model.RequestOTP;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+import static java.net.HttpURLConnection.HTTP_OK;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -30,7 +42,7 @@ public class MobileLoginFragment extends Fragment {
 
         void onSignInEmailClickListener();
 
-        void onSignInClickListener();
+        void onOTPSent(String mobile);
     }
 
     @Override
@@ -46,7 +58,7 @@ public class MobileLoginFragment extends Fragment {
         edtCountry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // As seyed asked, no need to use this for now
+                // As saber asked, no need to use this for now
 //                Intent intent = new Intent(getActivity(), CountryListActivity.class);
 //                startActivityForResult(intent, REQUEST_CODE);
             }
@@ -75,11 +87,46 @@ public class MobileLoginFragment extends Fragment {
                 }
             }
         });
-        view.findViewById(R.id.btnMobileSignIn).setOnClickListener(new View.OnClickListener() {
+        final Button btnMobileSignIn = view.findViewById(R.id.btnMobileSignIn);
+        btnMobileSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (listener != null) {
-                    listener.onSignInClickListener();
+                    EditText mobileInput = view.findViewById(R.id.edtMobileInput);
+                    final ProgressBar progress = view.findViewById(R.id.progressMobileLogin);
+                    final String mobile = mobileInput.getText().toString();
+                    if (mobile.length() != 11) {
+                        mobileInput.setError(getString(R.string.fragment_mobile_login_wrong_mobile));
+                    } else {
+                        progress.setVisibility(View.VISIBLE);
+                        btnMobileSignIn.setVisibility(View.INVISIBLE);
+                        final String pusheId = Pushe.getPusheId(getContext());
+                        WebApiClient.getLoginApi(getContext()).requestOTP(mobile, pusheId).enqueue(new Callback<RequestOTP>() {
+                            @Override
+                            public void onResponse(Call<RequestOTP> call, Response<RequestOTP> response) {
+                                progress.setVisibility(View.INVISIBLE);
+                                btnMobileSignIn.setVisibility(View.VISIBLE);
+                                if (response.code() == HTTP_OK) {
+                                    RequestOTP requestOTP = response.body();
+                                    if (requestOTP != null) {
+                                        if (requestOTP.getStatus() != 200) {
+                                            Toast.makeText(getActivity(), R.string.activity_mobile_login_api_error, Toast.LENGTH_SHORT).show();
+                                        } else {
+                                            if (listener != null) {
+                                                listener.onOTPSent(mobile);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<RequestOTP> call, Throwable t) {
+                                progress.setVisibility(View.INVISIBLE);
+                                btnMobileSignIn.setVisibility(View.VISIBLE);
+                            }
+                        });
+                    }
                 }
             }
         });

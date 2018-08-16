@@ -9,9 +9,11 @@ import android.view.MenuItem;
 
 import ir.berimbasket.app.R;
 import ir.berimbasket.app.ui.base.BaseActivity;
+import ir.berimbasket.app.ui.common.PermissionsRequest;
 import ir.berimbasket.app.ui.login.LoginActivity;
 
-public class MobileLoginActivity extends BaseActivity implements MobileLoginFragment.MobileLoginListener {
+public class MobileLoginActivity extends BaseActivity implements MobileLoginFragment.MobileLoginListener,
+        MobileLoginVerifyFragment.MobileVerifyListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +24,9 @@ public class MobileLoginActivity extends BaseActivity implements MobileLoginFrag
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(R.string.mobile_login_activity_phone_number_text);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+        PermissionsRequest.checkReadSmsPermission(getApplicationContext(), MobileLoginActivity.this, 500);
+        PermissionsRequest.checkReceiveSmsPermission(getApplicationContext(), MobileLoginActivity.this, 600);
+
         swapFragment(new MobileLoginFragment(), false);
     }
 
@@ -38,8 +43,12 @@ public class MobileLoginActivity extends BaseActivity implements MobileLoginFrag
     }
 
     @Override
-    public void onSignInClickListener() {
-        swapFragment(new MobileLoginVerifyFragment(), true);
+    public void onOTPSent(final String mobile) {
+        Bundle b = new Bundle();
+        b.putString(MobileLoginVerifyFragment.INTENT_KEY_MOBILE, mobile);
+        Fragment fragment = new MobileLoginVerifyFragment();
+        fragment.setArguments(b);
+        swapFragment(fragment, true);
     }
 
     private void swapFragment(Fragment fragment, boolean addToBackStack) {
@@ -62,4 +71,12 @@ public class MobileLoginActivity extends BaseActivity implements MobileLoginFrag
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onTimerExpire() {
+        try {
+            getSupportFragmentManager().popBackStack();
+        } catch (IllegalStateException e) {
+            swapFragment(new MobileLoginFragment(), false);
+        }
+    }
 }

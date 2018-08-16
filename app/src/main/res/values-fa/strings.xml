@@ -264,5 +264,15 @@
 
     <string name="activity_no_internet_connection_fail_text">خطا در اتصال به اینترنت</string>
     <string name="activity_no_internet_try_again_button">دوباره تست کن</string>
+    <string name="fragment_mobile_login_wrong_mobile">شماره تلفن اشتباه است</string>
+
+    <string name="activity_mobile_login_api_error">خطایی رخ داد! لطفا بعدا امتحان کنید</string>
+    <string name="general_progress_dialog_sending_sms">در حال ارسال پیامک</string>
+    <string name="fragment_mobile_verify_seconds_to_expire">ثانیه تا انقضای کد</string>
+    <string name="fragment_mobile_verify_msg_timer_expire">کد فعال سازی منقضی شد! دوباره امتحان کنید</string>
+    <string name="general_dialog_message_sms_permission">به منظور فعالسازی خودکار نیاز به دسترسی به پیامک میباشد. از دکمه زیر فعال کنید</string>
+    <string name="fragment_mobile_verify_wrong_code">کد اشتباه است</string>
+    <string name="fragment_mobile_verify_empty_code">کد را وارد کنید</string>
+    <string name="general_progress_dialog_verifying_otp">در حال اعتبارسنجی</string>
 
 </resources>

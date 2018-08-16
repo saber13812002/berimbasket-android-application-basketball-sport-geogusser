@@ -25,6 +25,8 @@ import ir.berimbasket.app.ui.common.custom.AlertDialogCustom;
 public class PermissionsRequest {
 
     private static final String PERMISSION_ACCESS_FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;
+    private static final String PERMISSION_READ_SMS = Manifest.permission.READ_SMS;
+    private static final String PERMISSION_RECEIVE_SMS = Manifest.permission.RECEIVE_SMS;
 
     /**
      * @return True if permission granted , False if not and tries to get permission
@@ -32,6 +34,14 @@ public class PermissionsRequest {
     public static boolean checkAccessFineLocationPermission(Context context, final Fragment fragment, int key) {
         return checkPermission(context, fragment, PERMISSION_ACCESS_FINE_LOCATION,
                 context.getString(R.string.general_dialog_message_location_permission), key);
+    }
+
+    public static void checkReadSmsPermission(Context context, final Activity activity, int key) {
+        checkPermission(context, activity, PERMISSION_READ_SMS, context.getString(R.string.general_dialog_message_sms_permission), key);
+    }
+
+    public static void checkReceiveSmsPermission(Context context, final Activity activity, int key) {
+        checkPermission(context, activity, PERMISSION_RECEIVE_SMS, context.getString(R.string.general_dialog_message_sms_permission), key);
     }
 
     /**
