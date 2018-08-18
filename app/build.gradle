@@ -36,7 +36,7 @@ repositories {
 
 android {
     compileSdkVersion 26
-    buildToolsVersion '26.0.2'
+    buildToolsVersion '27.0.3'
     flavorDimensions "BerimBasket"
     signingConfigs {
         production {
@@ -50,6 +50,7 @@ android {
         applicationId "ir.berimbasket.app"
         minSdkVersion 17
         targetSdkVersion 26
+        multiDexEnabled true
         versionCode 15
         versionName "0.9.28"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -120,11 +121,12 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.0'
     implementation 'com.cleveroad:slidingtutorial:1.0.8'
     implementation 'com.android.support:percent:26.1.0'
-    compile 'com.google.android.gms:play-services-ads:10.0.1'
+    implementation 'com.google.android.gms:play-services-ads:10.0.1'
     implementation 'com.github.wooplr:Spotlight:1.2.3'
     implementation 'com.github.iammert:MaterialIntroView:1.6.0'
     implementation 'com.github.florent37:tutoshowcase:1.0.1'
     implementation 'com.github.ar-android:AndroidSvgLoader:1.0.1'
+    implementation 'com.android.support:multidex:1.0.3'
     implementation project(':anetwork-sdk-1.0.5')
     testImplementation 'junit:junit:4.12'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"

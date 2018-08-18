@@ -18,7 +18,6 @@ import com.ahmadrosid.svgloader.SvgLoader;
 import java.util.List;
 
 import ir.berimbasket.app.R;
-import ir.berimbasket.app.data.env.KeyConstants;
 import ir.berimbasket.app.data.network.WebApiClient;
 import ir.berimbasket.app.data.network.model.Country;
 import ir.berimbasket.app.ui.base.BaseActivity;
@@ -27,6 +26,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class CountryListActivity extends BaseActivity implements CountryListAdapter.CountryListListener {
+
+    public static final String INTENT_RESULT_KEY = "CountryIntentResultKey";
 
     private RecyclerView countryRecycler;
     private ProgressBar progress;
@@ -74,7 +75,7 @@ public class CountryListActivity extends BaseActivity implements CountryListAdap
     @Override
     public void onCountryItemClick(Country country) {
         Intent resultIntent = new Intent();
-        resultIntent.putExtra(KeyConstants.COUNTRY_OBJECT_KEY, country);
+        resultIntent.putExtra(INTENT_RESULT_KEY, country);
         setResult(Activity.RESULT_OK, resultIntent);
         finish();
     }

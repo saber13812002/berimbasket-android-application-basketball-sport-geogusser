@@ -4,9 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorWhite"
-    tools:context=".ui.login.mobile.MobileLoginFragment"
-    tools:showIn="@layout/activity_mobile_login">
+    android:background="@color/colorWhite">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -53,24 +51,24 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:hint="@string/fragment_mobile_login_mobile_number_hint_text"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/editText3">
 
                 <android.support.design.widget.TextInputEditText
-                    android:id="@+id/editText2"
+                    android:id="@+id/edtMobileInput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/yekan"
                     android:gravity="left"
-                    android:hint="@string/fragment_mobile_login_mobile_number_hint_text"
                     android:inputType="number"
                     android:maxLength="11" />
             </android.support.design.widget.TextInputLayout>
 
 
             <android.support.v7.widget.AppCompatButton
-                android:id="@+id/appCompatButton"
+                android:id="@+id/btnMobileSignIn"
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
@@ -80,6 +78,16 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
+
+            <ProgressBar
+                android:id="@+id/progressMobileLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+                app:layout_constraintEnd_toEndOf="@+id/btnMobileSignIn"
+                app:layout_constraintStart_toStartOf="@+id/btnMobileSignIn"
                 app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
 
             <LinearLayout
@@ -92,7 +100,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
 
                 <android.support.v7.widget.AppCompatButton
-                    android:id="@+id/button4"
+                    android:id="@+id/btnSignInEmail"
                     style="@style/Widget.AppCompat.Button.Colored"
                     android:layout_width="0dp"
                     android:layout_height="56dp"
@@ -103,7 +111,7 @@
                     app:backgroundTint="@color/colorEmail" />
 
                 <android.support.v7.widget.AppCompatButton
-                    android:id="@+id/button3"
+                    android:id="@+id/btnSignInTelegram"
                     style="@style/Widget.AppCompat.Button.Colored"
                     android:layout_width="0dp"
                     android:layout_height="56dp"
@@ -121,7 +129,7 @@
                 android:layout_margin="4dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                app:layout_constraintTop_toBottomOf="@+id/appCompatButton">
+                app:layout_constraintTop_toBottomOf="@+id/btnMobileSignIn">
 
                 <View
                     android:layout_width="0dp"

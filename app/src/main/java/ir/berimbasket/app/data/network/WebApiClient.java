@@ -18,6 +18,7 @@ import ir.berimbasket.app.data.network.endpoint.LoginApi;
 import ir.berimbasket.app.data.network.endpoint.MapMarkerApi;
 import ir.berimbasket.app.data.network.endpoint.MatchApi;
 import ir.berimbasket.app.data.network.endpoint.MissionApi;
+import ir.berimbasket.app.data.network.endpoint.MockoonApi;
 import ir.berimbasket.app.data.network.endpoint.NotificationApi;
 import ir.berimbasket.app.data.network.endpoint.PlayerApi;
 import ir.berimbasket.app.data.network.endpoint.ProfileApi;
@@ -44,6 +45,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public class WebApiClient {
+
+    public static MockoonApi getMockoonApi(Context context) {
+        return buildApiClient(UrlConstants.Base.MOCKOON, context)
+                .create(MockoonApi.class);
+    }
 
     public static ProfileApi getProfileApi(Context context) {
         return buildApiClient(UrlConstants.Base.JWT, context)

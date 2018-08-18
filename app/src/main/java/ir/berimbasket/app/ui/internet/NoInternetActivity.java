@@ -3,15 +3,15 @@ package ir.berimbasket.app.ui.internet;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.view.View;
 import android.view.WindowManager;
 
 import ir.berimbasket.app.R;
 import ir.berimbasket.app.data.network.Connectivity;
+import ir.berimbasket.app.ui.base.BaseActivity;
 
-public class NoInternetActivity extends AppCompatActivity {
+public class NoInternetActivity extends BaseActivity {
 
     AppCompatButton btnTryAgain;
 

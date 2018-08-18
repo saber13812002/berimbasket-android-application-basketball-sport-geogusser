@@ -46,7 +46,7 @@ public class CountryListAdapter extends RecyclerView.Adapter<CountryListAdapter.
         Country country = countryList.get(position);
         holder.txtCountryName.setText(country.getName());
         holder.txtCountryName.setText(country.getName());
-        holder.txtCountryCode.setText(activity.getString(R.string.country_code_format, "", country.getCode()));
+        holder.txtCountryCode.setText(activity.getString(R.string.general_country_code_format, "", country.getCode()));
         SvgLoader.pluck()
                 .with(activity)
                 .setPlaceHolder(R.drawable.ic_language, R.drawable.ic_language)

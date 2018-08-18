@@ -126,7 +126,7 @@
                 android:layout_marginEnd="24dp"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="16dp"
-                android:drawableStart="@drawable/ic_phone_android_white_24dp"
+                android:drawableStart="@drawable/ic_telegram_white_24dp"
                 android:fontFamily="@font/yekan"
                 android:text="@string/activity_login_btn_sign_up_telegram"
                 android:textStyle="bold"

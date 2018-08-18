@@ -6,6 +6,7 @@ public interface UrlConstants {
     interface Base {
         String Root = "https://berimbasket.ir";
         String BBAL = "http://berimbasket.ir/bball/";
+        String MOCKOON = "http://10.0.2.2:3000/";
         String APP = "https://berimbasket.ir/app/";
         String AUTH = "https://berimbasket.ir/wp-json/jwt-auth/v1/";
         String JWT = "https://berimbasket.ir/wp-json/wp/v2/";

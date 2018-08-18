@@ -42,10 +42,9 @@ public abstract class BaseActivity extends AppCompatActivity {
             // do nothing
         }
 
-        if (!Connectivity.isConnected(getApplicationContext())) {
+        if (!Connectivity.isConnected(getApplicationContext()) && !(this instanceof NoInternetActivity)) {
             Intent intent = new Intent(getApplicationContext(), NoInternetActivity.class);
             startActivityForResult(intent, 1);
-
         }
 
     }

@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/colorWhite">
 
     <LinearLayout
@@ -36,7 +37,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView">
 
                 <android.support.design.widget.TextInputEditText
-                    android:id="@+id/editText2"
+                    android:id="@+id/edtOTPVerifyCode"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/yekan"
@@ -49,7 +50,7 @@
 
 
             <android.support.v7.widget.AppCompatButton
-                android:id="@+id/appCompatButton"
+                android:id="@+id/btnVerify"
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
@@ -58,9 +59,20 @@
                 android:text="@string/fragment_mobile_verify_button_text"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textView1" />
+                app:layout_constraintTop_toBottomOf="@id/txtVerifyTimer" />
+
+            <ProgressBar
+                android:id="@+id/progressMobileVerify"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+                app:layout_constraintEnd_toEndOf="@+id/btnVerify"
+                app:layout_constraintStart_toStartOf="@+id/btnVerify"
+                app:layout_constraintTop_toTopOf="@+id/btnVerify" />
 
             <LinearLayout
+                android:id="@+id/linearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -99,7 +111,7 @@
                 android:layout_margin="4dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                app:layout_constraintTop_toBottomOf="@+id/appCompatButton">
+                app:layout_constraintTop_toBottomOf="@+id/btnVerify">
 
                 <View
                     android:layout_width="0dp"
@@ -141,17 +153,17 @@
                 app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
             <TextView
-                android:id="@+id/textView1"
+                android:id="@+id/txtVerifyTimer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/yekan"
-                android:text="@string/fragment_mobile_verify_problem_text"
                 android:textColor="@color/colorPrimary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
+                tools:text="60 Sec"/>
 
         </android.support.constraint.ConstraintLayout>
     </LinearLayout>

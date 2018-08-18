@@ -7,7 +7,7 @@
     <string name="activity_login_edt_username_hint">نام کاربری</string>
     <string name="activity_login_edt_password_hint">رمز عبور</string>
     <string name="activity_login_btn_sign_in">ورود به حساب کاربری</string>
-    <string name="activity_login_btn_sign_up_telegram">ثبت نام با شماره تلفن</string>
+    <string name="activity_login_btn_sign_up_telegram">ثبت نام با تلگرام</string>
     <string name="activity_login_btn_sign_up_email">ثبت نام با ایمیل</string>
     <string name="activity_login_toast_fill_all_fields">لطفا تمامی فیلد ها را پرکنید</string>
     <string name="activity_login_toast_successful">ورود شما با موفقیت انجام شد</string>
@@ -247,7 +247,7 @@
     <string name="fragment_map_main_showcase_new_location_description">ورزشگاه مورد نظر خود را به نقشه اضافه کنید</string>
     <string name="activity_stadium_spec_telegram_group">گروه تلگرام</string>
     <string name="activity_login_txt_forget_password">رمز عبورت رو فراموش کردی؟</string>
-    <string name="mobile_login_activity_phone_number_text">شماره تلفن</string>
+    <string name="activity_mobile_login_phone_number_text">شماره تلفن</string>
 
     <string name="fragment_mobile_login_country_text">کشور</string>
     <string name="fragment_mobile_login_iran_fake_text">ایران</string>
@@ -261,10 +261,18 @@
     <string name="fragment_mobile_verify_button_text">تایید</string>
     <string name="fragment_mobile_verify_editet_text">کد پنج رقمی</string>
     <string name="fragment_mobile_verify_tip">کد تایید برای ورود از طریق پیام کوتاه ارسال شد</string>
-    <string name="fragment_mobile_verify_problem_text">کد تایید را دریافت نکردید؟</string>
 
-
-    <string name="activity_no_internet_connection_fail_text">خطا در اتصا به اینترنت</string>
+    <string name="activity_no_internet_connection_fail_text">خطا در اتصال به اینترنت</string>
     <string name="activity_no_internet_try_again_button">دوباره تست کن</string>
+    <string name="fragment_mobile_login_wrong_mobile">شماره تلفن اشتباه است</string>
+
+    <string name="activity_mobile_login_api_error">خطایی رخ داد! لطفا بعدا امتحان کنید</string>
+    <string name="general_progress_dialog_sending_sms">در حال ارسال پیامک</string>
+    <string name="fragment_mobile_verify_seconds_to_expire">ثانیه تا انقضای کد</string>
+    <string name="fragment_mobile_verify_msg_timer_expire">کد فعال سازی منقضی شد! دوباره امتحان کنید</string>
+    <string name="general_dialog_message_sms_permission">به منظور فعالسازی خودکار نیاز به دسترسی به پیامک میباشد. از دکمه زیر فعال کنید</string>
+    <string name="fragment_mobile_verify_wrong_code">کد اشتباه است</string>
+    <string name="fragment_mobile_verify_empty_code">کد را وارد کنید</string>
+    <string name="general_progress_dialog_verifying_otp">در حال اعتبارسنجی</string>
 
 </resources>

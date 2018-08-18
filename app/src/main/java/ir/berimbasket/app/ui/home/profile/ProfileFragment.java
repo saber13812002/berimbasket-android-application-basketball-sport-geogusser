@@ -29,7 +29,7 @@ import ir.berimbasket.app.data.env.UrlConstants;
 import ir.berimbasket.app.data.network.WebApiClient;
 import ir.berimbasket.app.data.network.model.Profile;
 import ir.berimbasket.app.data.pref.PrefManager;
-import ir.berimbasket.app.ui.login.LoginActivity;
+import ir.berimbasket.app.ui.login.mobile.MobileLoginActivity;
 import ir.berimbasket.app.util.AnalyticsHelper;
 import ir.berimbasket.app.util.FontHelper;
 import ir.berimbasket.app.util.LocaleManager;
@@ -84,7 +84,7 @@ public class ProfileFragment extends Fragment {
             btnGoToLogin.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(context, LoginActivity.class);
+                    Intent intent = new Intent(context, MobileLoginActivity.class);
                     context.startActivity(intent);
                 }
             });
