@@ -39,6 +39,7 @@
 -dontwarn javax.annotation.**
 -dontwarn okio.**
 -dontwarn com.squareup.okhttp3.**
+-dontwarn com.caverock.androidsvg.**
 -keep class com.squareup.okhttp3.** { *; }
 -keep interface com.squareup.okhttp3.* { *; }
 -keep class com.wooplr.spotlight.** { *; }
