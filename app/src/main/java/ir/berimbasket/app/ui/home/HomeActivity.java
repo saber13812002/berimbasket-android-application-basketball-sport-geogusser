@@ -7,12 +7,14 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.content.res.ResourcesCompat;
+import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,27 +25,24 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.anetwork.android.sdk.advertising.view.AnetworkBannerView;
-import com.crashlytics.android.Crashlytics;
-import com.github.florent37.tutoshowcase.TutoShowcase;
 import com.wooplr.spotlight.SpotlightView;
-import com.wooplr.spotlight.utils.SpotlightListener;
 
 import java.net.HttpURLConnection;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
-import co.mobiwise.materialintro.animation.MaterialIntroListener;
 import co.mobiwise.materialintro.shape.Focus;
 import co.mobiwise.materialintro.shape.ShapeType;
 import co.mobiwise.materialintro.view.MaterialIntroView;
 import co.ronash.pushe.Pushe;
-import io.fabric.sdk.android.Fabric;
 import ir.berimbasket.app.R;
 import ir.berimbasket.app.data.network.WebApiClient;
 import ir.berimbasket.app.data.network.model.Question;
 import ir.berimbasket.app.data.pref.PrefManager;
 import ir.berimbasket.app.ui.base.BaseActivity;
 import ir.berimbasket.app.ui.common.custom.TypefaceSpanCustom;
+import ir.berimbasket.app.ui.common.swipe_showcase.SwipeShowcase;
 import ir.berimbasket.app.ui.notification.NotificationActivity;
 import ir.berimbasket.app.ui.settings.SettingsActivity;
 import ir.berimbasket.app.util.EditTextHelper;
@@ -114,7 +113,6 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_home);
         //Register for Push Notifications
         Pushe.initialize(this, true);
@@ -136,6 +134,12 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
         homePager.setOffscreenPageLimit(3);
         homePager.addOnPageChangeListener(pageChangeListener);
 
+        displayNavigationShowcase();
+
+        changeBottomNavFont(navigation);
+    }
+
+    private void displayNavigationShowcase() {
         new MaterialIntroView.Builder(this)
                 .enableDotAnimation(false)
                 .enableIcon(false)
@@ -148,76 +152,73 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
                 .setTarget(navigation)
                 .setUsageId("home_navigation_showcase") //THIS SHOULD BE UNIQUE ID
                 .dismissOnTouch(true)
-                .setListener(navigationShowcaseListener)
+                .setListener(s -> displayBtnSettingsShowcase())
                 .show();
-
-        changeBottomNavFont(navigation);
     }
 
-    private MaterialIntroListener navigationShowcaseListener = new MaterialIntroListener() {
-        @Override
-        public void onUserClicked(String s) {
-            new SpotlightView.Builder(HomeActivity.this)
-                    .introAnimationDuration(400)
-                    .enableRevealAnimation(false)
-                    .performClick(false)
-                    .fadeinTextDuration(400)
-                    .headingTvColor(ResourcesCompat.getColor(getResources(), R.color.colorPrimary, null))
-                    .headingTvSize(32)
-                    .headingTvText(getString(R.string.activity_home_showcase_btn_settings_title))
-                    .subHeadingTvColor(ResourcesCompat.getColor(getResources(), R.color.showcaseSubHeadingTVColor, null))
-                    .subHeadingTvSize(16)
-                    .subHeadingTvText(getString(R.string.activity_home_showcase_btn_settings_description))
-                    .maskColor(ResourcesCompat.getColor(getResources(), R.color.showcaseMaskColor, null))
-                    .target(btnSetting)
-                    .lineAnimDuration(400)
-                    .lineAndArcColor(ResourcesCompat.getColor(getResources(), R.color.colorPrimary, null))
-                    .dismissOnTouch(true)
-                    .dismissOnBackPress(true)
-                    .enableDismissAfterShown(true)
-                    .usageId("home_toolbar_settings") //UNIQUE ID
-                    .setListener(btnSettingsSpotlightListener)
-                    .show();
-        }
-    };
+    private void displayBtnSettingsShowcase() {
+        new SpotlightView.Builder(HomeActivity.this)
+                .introAnimationDuration(400)
+                .enableRevealAnimation(false)
+                .performClick(false)
+                .fadeinTextDuration(400)
+                .headingTvColor(ResourcesCompat.getColor(getResources(), R.color.colorPrimary, null))
+                .headingTvSize(32)
+                .headingTvText(getString(R.string.activity_home_showcase_btn_settings_title))
+                .subHeadingTvColor(ResourcesCompat.getColor(getResources(), R.color.showcaseSubHeadingTVColor, null))
+                .subHeadingTvSize(16)
+                .subHeadingTvText(getString(R.string.activity_home_showcase_btn_settings_description))
+                .maskColor(ResourcesCompat.getColor(getResources(), R.color.showcaseMaskColor, null))
+                .target(btnSetting)
+                .lineAnimDuration(400)
+                .lineAndArcColor(ResourcesCompat.getColor(getResources(), R.color.colorPrimary, null))
+                .dismissOnTouch(true)
+                .dismissOnBackPress(true)
+                .enableDismissAfterShown(true)
+                .usageId("home_toolbar_settings") //UNIQUE ID
+                .setListener(s -> displayBtnNotificationShowcase())
+                .show();
+    }
 
-    private SpotlightListener btnSettingsSpotlightListener = new SpotlightListener() {
-        @Override
-        public void onUserClicked(String s) {
-            new SpotlightView.Builder(HomeActivity.this)
-                    .introAnimationDuration(400)
-                    .enableRevealAnimation(false)
-                    .performClick(false)
-                    .fadeinTextDuration(400)
-                    .headingTvColor(ResourcesCompat.getColor(getResources(), R.color.colorPrimary, null))
-                    .headingTvSize(32)
-                    .headingTvText(getString(R.string.activity_home_showcase_btn_notification_title))
-                    .subHeadingTvColor(ResourcesCompat.getColor(getResources(), R.color.showcaseSubHeadingTVColor, null))
-                    .subHeadingTvSize(16)
-                    .subHeadingTvText(getString(R.string.activity_home_showcase_btn_notification_description))
-                    .maskColor(ResourcesCompat.getColor(getResources(), R.color.showcaseMaskColor, null))
-                    .target(btnNotification)
-                    .lineAnimDuration(400)
-                    .lineAndArcColor(ResourcesCompat.getColor(getResources(), R.color.colorPrimary, null))
-                    .dismissOnTouch(true)
-                    .dismissOnBackPress(true)
-                    .enableDismissAfterShown(true)
-                    .usageId("home_toolbar_notification") //UNIQUE ID
-                    .setListener(btnNotificationSpotlightListener)
-                    .show();
-        }
-    };
+    private void displayBtnNotificationShowcase() {
+        new SpotlightView.Builder(HomeActivity.this)
+                .introAnimationDuration(400)
+                .enableRevealAnimation(false)
+                .performClick(false)
+                .fadeinTextDuration(400)
+                .headingTvColor(ResourcesCompat.getColor(getResources(), R.color.colorPrimary, null))
+                .headingTvSize(32)
+                .headingTvText(getString(R.string.activity_home_showcase_btn_notification_title))
+                .subHeadingTvColor(ResourcesCompat.getColor(getResources(), R.color.showcaseSubHeadingTVColor, null))
+                .subHeadingTvSize(16)
+                .subHeadingTvText(getString(R.string.activity_home_showcase_btn_notification_description))
+                .maskColor(ResourcesCompat.getColor(getResources(), R.color.showcaseMaskColor, null))
+                .target(btnNotification)
+                .lineAnimDuration(400)
+                .lineAndArcColor(ResourcesCompat.getColor(getResources(), R.color.colorPrimary, null))
+                .dismissOnTouch(true)
+                .dismissOnBackPress(true)
+                .enableDismissAfterShown(true)
+                .usageId("home_toolbar_notification") //UNIQUE ID
+                .setListener(s -> displaySwipeHandShowcase())
+                .show();
+    }
 
-    private SpotlightListener btnNotificationSpotlightListener = new SpotlightListener() {
-        @Override
-        public void onUserClicked(String s) {
-            TutoShowcase.from(HomeActivity.this)
+    private void displaySwipeHandShowcase() {
+        if (TextUtils.getLayoutDirectionFromLocale(Locale.getDefault()) == ViewCompat.LAYOUT_DIRECTION_RTL) {
+            SwipeShowcase.from(HomeActivity.this)
+                    .setContentView(R.layout.activity_home)
+                    .on(R.id.vpPager)
+                    .displaySwipableRight()
+                    .show();
+        } else {
+            SwipeShowcase.from(HomeActivity.this)
                     .setContentView(R.layout.activity_home)
                     .on(R.id.vpPager)
                     .displaySwipableLeft()
                     .show();
         }
-    };
+    }
 
     private void changeBottomNavFont(BottomNavigationView navigation) {
         Menu m = navigation.getMenu();
