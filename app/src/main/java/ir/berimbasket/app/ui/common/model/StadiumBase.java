@@ -1,4 +1,4 @@
-package ir.berimbasket.app.ui.common.entity;
+package ir.berimbasket.app.ui.common.model;
 
 import java.io.Serializable;
 
@@ -6,7 +6,7 @@ import java.io.Serializable;
  * Created by Mahdi on 1/15/2018.
  */
 
-public class StadiumBaseEntity implements Serializable{
+public class StadiumBase implements Serializable{
 
     private int id;
     private String title;
@@ -14,7 +14,7 @@ public class StadiumBaseEntity implements Serializable{
     private String longitude;
 
 
-    public StadiumBaseEntity(int id, String title, String latitude, String longitude) {
+    public StadiumBase(int id, String title, String latitude, String longitude) {
         this.id = id;
         this.title = title;
         this.latitude = latitude;

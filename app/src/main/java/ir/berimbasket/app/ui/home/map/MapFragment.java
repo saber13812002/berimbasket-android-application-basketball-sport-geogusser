@@ -36,7 +36,7 @@ import ir.berimbasket.app.data.network.model.Stadium;
 import ir.berimbasket.app.data.pref.PrefManager;
 import ir.berimbasket.app.service.GPSTracker;
 import ir.berimbasket.app.ui.common.PermissionsRequest;
-import ir.berimbasket.app.ui.common.entity.StadiumBaseEntity;
+import ir.berimbasket.app.ui.common.model.StadiumBase;
 import ir.berimbasket.app.ui.landmark.LandmarkActivity;
 import ir.berimbasket.app.ui.stadium.StadiumActivity;
 import ir.berimbasket.app.util.AnalyticsHelper;
@@ -207,7 +207,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                         String longitude = String.valueOf(latLng.longitude);
                         String title = myClusterItem.getTitle();
                         int id = myClusterItem.getId();
-                        StadiumBaseEntity stadium = new StadiumBaseEntity(id, title, latitude, longitude);
+                        StadiumBase stadium = new StadiumBase(id, title, latitude, longitude);
                         Intent intent = new Intent(getActivity(), StadiumActivity.class);
                         intent.putExtra("stadiumDetail", stadium);
                         startActivity(intent);

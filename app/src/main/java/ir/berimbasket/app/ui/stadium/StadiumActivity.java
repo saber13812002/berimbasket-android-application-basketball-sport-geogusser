@@ -29,7 +29,7 @@ import ir.berimbasket.app.data.network.WebApiClient;
 import ir.berimbasket.app.data.network.model.Stadium;
 import ir.berimbasket.app.data.pref.PrefManager;
 import ir.berimbasket.app.ui.base.BaseActivity;
-import ir.berimbasket.app.ui.common.entity.StadiumBaseEntity;
+import ir.berimbasket.app.ui.common.model.StadiumBase;
 import ir.berimbasket.app.util.LocaleManager;
 import ir.berimbasket.app.util.Redirect;
 import ir.berimbasket.app.util.Telegram;
@@ -53,7 +53,7 @@ public class StadiumActivity extends BaseActivity implements StadiumGalleryAdapt
             initStadiumList(Integer.parseInt(pusheStadiumId), getApplicationContext(), true);
             // FIXME: 12/13/2017 send another param for logo
         } else {
-            StadiumBaseEntity stadiumBase = (StadiumBaseEntity) getIntent().getSerializableExtra("stadiumDetail");
+            StadiumBase stadiumBase = (StadiumBase) getIntent().getSerializableExtra("stadiumDetail");
             initStadiumBaseInfo(stadiumBase);
             initStadiumList(stadiumBase.getId(), getApplicationContext(), false);
         }
@@ -174,7 +174,7 @@ public class StadiumActivity extends BaseActivity implements StadiumGalleryAdapt
     }
 
 
-    private void initStadiumBaseInfo(StadiumBaseEntity stadiumBase) {
+    private void initStadiumBaseInfo(StadiumBase stadiumBase) {
         // stadium title
         TextView txtStadiumName = findViewById(R.id.txtStadiumName);
         txtStadiumName.setText(stadiumBase.getTitle());
@@ -224,7 +224,7 @@ public class StadiumActivity extends BaseActivity implements StadiumGalleryAdapt
                     if (stadiums != null) {
                         Stadium stadium = stadiums.get(0);
                         if (fromScratch) {
-                            StadiumBaseEntity entity = new StadiumBaseEntity(stadium.getId(), stadium.getTitle(),
+                            StadiumBase entity = new StadiumBase(stadium.getId(), stadium.getTitle(),
                                     stadium.getLatitude(), stadium.getLongitude());
                             initStadiumBaseInfo(entity);
                         }
