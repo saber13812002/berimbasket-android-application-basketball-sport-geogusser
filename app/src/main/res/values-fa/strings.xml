@@ -274,5 +274,9 @@
     <string name="fragment_mobile_verify_wrong_code">کد اشتباه است</string>
     <string name="fragment_mobile_verify_empty_code">کد را وارد کنید</string>
     <string name="general_progress_dialog_verifying_otp">در حال اعتبارسنجی</string>
+    <string name="general_dismissible_start_header">ما تازه شروع کرده ایم</string>
+    <string name="general_dismissible_start_message">لطفا اگر ایده یا اشکالی به نظرتون میرسه برای تیم توسعه برنامه بفرستید</string>
+    <string name="general_dismissible_start_action">ارسال پیام</string>
+    <string name="general_dismissible_start_skip">بعدا</string>
 
 </resources>

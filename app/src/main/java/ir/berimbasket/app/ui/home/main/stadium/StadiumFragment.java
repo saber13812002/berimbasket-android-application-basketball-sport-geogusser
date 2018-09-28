@@ -21,7 +21,9 @@ import ir.berimbasket.app.data.network.WebApiClient;
 import ir.berimbasket.app.data.network.model.Stadium;
 import ir.berimbasket.app.data.pref.PrefManager;
 import ir.berimbasket.app.service.GPSTracker;
-import ir.berimbasket.app.ui.common.entity.StadiumBaseEntity;
+import ir.berimbasket.app.ui.common.model.DismissibleInfo;
+import ir.berimbasket.app.ui.common.model.StadiumBase;
+import ir.berimbasket.app.ui.contact.DeveloperContactActivity;
 import ir.berimbasket.app.ui.stadium.StadiumActivity;
 import ir.berimbasket.app.util.AnalyticsHelper;
 import ir.berimbasket.app.util.LocaleManager;
@@ -95,10 +97,23 @@ public class StadiumFragment extends Fragment implements StadiumAdapter.StadiumL
     @Override
     public void onStadiumItemClick(Stadium stadium) {
         Intent intent = new Intent(getContext(), StadiumActivity.class);
-        StadiumBaseEntity stadiumBaseEntity = new StadiumBaseEntity(stadium.getId(), stadium.getTitle(),
+        StadiumBase stadiumBase = new StadiumBase(stadium.getId(), stadium.getTitle(),
                 stadium.getLatitude(), stadium.getLongitude());
-        intent.putExtra("stadiumDetail", stadiumBaseEntity);
+        intent.putExtra("stadiumDetail", stadiumBase);
         startActivity(intent);
+    }
+
+    @Override
+    public void onDismissibleActionClick(DismissibleInfo dismissibleInfo) {
+        Intent intent = new Intent(getContext(), DeveloperContactActivity.class);
+        adapter.removeTop();
+        startActivity(intent);
+    }
+
+    @Override
+    public void onDismissibleSkipClick(DismissibleInfo dismissibleInfo) {
+        new PrefManager(getContext()).putStartMessagePassed(true);
+        adapter.removeTop();
     }
 
     private void loadStadiumList(int from, int num) {
@@ -125,7 +140,8 @@ public class StadiumFragment extends Fragment implements StadiumAdapter.StadiumL
                 if (response.code() == HttpURLConnection.HTTP_OK) {
                     List<Stadium> stadiums = response.body();
                     if (stadiums != null && getView() != null && stadiums.size() != 0) {
-                        adapter.addItems(stadiums);
+                        adapter.addStadiums(stadiums);
+                        addDismissibleToList();
                     } else {
                         isLastPage = true;
                     }
@@ -141,5 +157,15 @@ public class StadiumFragment extends Fragment implements StadiumAdapter.StadiumL
                 horizontalProgressBar.setVisibility(View.INVISIBLE);
             }
         });
+    }
+
+    private void addDismissibleToList() {
+        if (!new PrefManager(getContext()).getStartMessagePassed()) {
+            DismissibleInfo info = new DismissibleInfo(getString(R.string.general_dismissible_start_header),
+                    getString(R.string.general_dismissible_start_message),
+                    getString(R.string.general_dismissible_start_action),
+                    getString(R.string.general_dismissible_start_skip));
+            adapter.addToTop(info);
+        }
     }
 }

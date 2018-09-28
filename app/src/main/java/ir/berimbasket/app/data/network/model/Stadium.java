@@ -7,8 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ir.berimbasket.app.data.env.UrlConstants;
+import ir.berimbasket.app.ui.base.BaseItem;
 
-public final class Stadium implements Serializable {
+public final class Stadium implements Serializable, BaseItem {
     @SerializedName("id")
     private int id;
     @SerializedName("title")
@@ -260,5 +261,10 @@ public final class Stadium implements Serializable {
 
     public final void setLines(String var1) {
         this.lines = var1;
+    }
+
+    @Override
+    public int getViewType() {
+        return BaseItem.STADIUM_ITEM;
     }
 }
