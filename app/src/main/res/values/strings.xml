@@ -367,6 +367,11 @@
     <string name="general_dialog_option_no">No</string>
     <string name="general_dialog_option_settings">Settings</string>
 
+    <string name="general_dismissible_start_header">We\'re at the starting point!</string>
+    <string name="general_dismissible_start_message">If you have any idea to improve the app let us know please</string>
+    <string name="general_dismissible_start_action">Send Feedback</string>
+    <string name="general_dismissible_start_skip">Later</string>
+
     <string name="general_progress_dialog_logging_in">Logging in</string>
     <string name="general_progress_dialog_sending_sms">Sending Sms</string>
     <string name="general_progress_dialog_checking_info">Processing info</string>
