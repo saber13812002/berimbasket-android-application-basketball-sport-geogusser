@@ -32,15 +32,15 @@
                     android:padding="16dp"
                     app:srcCompat="@drawable/ic_toolbar_flag_report" />
 
-                <ImageView
-                    android:id="@+id/btnReserveStadium"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_toStartOf="@id/btnReportStadium"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:padding="16dp"
-                    app:srcCompat="@drawable/ic_toolbar_reserve" />
+                <!--<ImageView-->
+                    <!--android:id="@+id/btnReserveStadium"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_centerVertical="true"-->
+                    <!--android:layout_toStartOf="@id/btnReportStadium"-->
+                    <!--android:background="?attr/selectableItemBackgroundBorderless"-->
+                    <!--android:padding="16dp"-->
+                    <!--app:srcCompat="@drawable/ic_toolbar_reserve" />-->
 
             </RelativeLayout>
 
@@ -50,14 +50,30 @@
 
     <include layout="@layout/content_activity_stadium" />
 
-    <android.support.design.widget.FloatingActionButton
+    <com.leinardi.android.speeddial.SpeedDialOverlayLayout
+        android:id="@+id/fabStadiumOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <com.leinardi.android.speeddial.SpeedDialView
         android:id="@+id/fabStadium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        app:backgroundTint="@android:color/white"
-        app:fabSize="mini"
-        app:srcCompat="@drawable/ic_add_24dp" />
+        app:sdOverlayLayout="@id/fabStadiumOverlay"
+        app:sdMainFabClosedSrc="@drawable/ic_add_24dp"
+        app:sdMainFabOpenedBackgroundColor="@android:color/white"
+        app:sdMainFabClosedBackgroundColor="@android:color/white"/>
+
+
+    <!--<android.support.design.widget.FloatingActionButton-->
+        <!--android:id="@+id/fabStadium"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="bottom|end"-->
+        <!--android:layout_margin="@dimen/fab_margin"-->
+        <!--app:backgroundTint="@android:color/white"-->
+        <!--app:fabSize="mini"-->
+        <!--app:srcCompat="@drawable/ic_add_24dp" />-->
 
 </android.support.design.widget.CoordinatorLayout>

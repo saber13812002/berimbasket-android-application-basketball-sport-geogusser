@@ -75,6 +75,9 @@
     <string name="activity_stadium_txt_lines_default">Lines: +</string>
     <string name="activity_stadium_txt_stadium_name_loading">Loading Stadium</string>
     <string name="activity_stadium_btn_more_pics">more pictures</string>
+    <string name="activity_stadium_fab_action_reserve">Reserve</string>
+    <string name="activity_stadium_fab_action_add_photo">Add Photo</string>
+    <string name="activity_stadium_fab_action_add_game">Create Game</string>
 
     <string name="activity_create_stadium_edt_address_hint">Stadium manual address</string>
     <string name="activity_create_stadium_btn_address">Stadium location on map</string>

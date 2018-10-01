@@ -1,9 +1,12 @@
 package ir.berimbasket.app.ui.stadium;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,10 +14,14 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.leinardi.android.speeddial.SpeedDialActionItem;
+import com.leinardi.android.speeddial.SpeedDialView;
 import com.squareup.picasso.Picasso;
 
 import java.net.HttpURLConnection;
@@ -40,6 +47,7 @@ import retrofit2.Response;
 public class StadiumActivity extends BaseActivity implements StadiumGalleryAdapter.StadiumGalleryListener {
 
     private int stadiumId;
+    private boolean isFabOpen;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,11 +80,12 @@ public class StadiumActivity extends BaseActivity implements StadiumGalleryAdapt
         this.stadiumId = stadium.getId();
 
         ImageView btnReportStadium = findViewById(R.id.btnReportStadium);
-        ImageView btnReserveStadium = findViewById(R.id.btnReserveStadium);
         AppCompatButton btnAddImage = findViewById(R.id.btnAddImage);
         AppCompatButton btnCompleteStadiumDetail = findViewById(R.id.btnCompleteStadiumDetail);
         Button btnGalleryMore = findViewById(R.id.btnGalleryMore);
+        SpeedDialView fab = findViewById(R.id.fabStadium);
         CircleImageView imgStadiumLogo = findViewById(R.id.imgStadiumLogo);
+
         if (stadium.getImages() != null && stadium.getImages().size() != 0) {
             Picasso.with(StadiumActivity.this)
                     .load(stadium.getImages().get(0))
@@ -86,6 +95,8 @@ public class StadiumActivity extends BaseActivity implements StadiumGalleryAdapt
                     .centerInside()
                     .into(imgStadiumLogo);
         }
+
+        initFab(fab, stadium.getId());
 
         imgStadiumLogo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -129,28 +140,10 @@ public class StadiumActivity extends BaseActivity implements StadiumGalleryAdapt
             }
         });
 
-        btnReserveStadium.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                try {
-                    Redirect.sendToTelegram(StadiumActivity.this, UrlConstants.Bot.RESERVE + stadium.getId()
-                            , Telegram.DEFAULT_BOT);
-                } catch (IllegalArgumentException unknownTelegramURL) {
-                    // do nothing yet
-                }
-            }
-        });
-
-
         btnAddImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                try {
-                    Redirect.sendToTelegram(StadiumActivity.this, UrlConstants.Bot.UPLOAD + stadium.getId()
-                            , Telegram.DEFAULT_BOT);
-                } catch (IllegalArgumentException unknownTelegramURL) {
-                    // do nothing yet
-                }
+                addPhotoToGallery(stadium.getId());
             }
         });
 
@@ -173,6 +166,86 @@ public class StadiumActivity extends BaseActivity implements StadiumGalleryAdapt
         recyclerView.setItemAnimator(new DefaultItemAnimator());
     }
 
+    private void initFab(SpeedDialView fab, int stadiumId) {
+        // setup menu and animation
+        fab.inflate(R.menu.menu_stadium_fab);
+        addInfiniteShakeAnimationToView(fab);
+
+        // on click listener
+        fab.setOnChangeListener(new SpeedDialView.OnChangeListener() {
+            @Override
+            public boolean onMainActionSelected() {
+                return false;
+            }
+
+            @Override
+            public void onToggleChanged(boolean isOpen) {
+                isFabOpen = isOpen;
+            }
+        });
+
+        // customize fab actions
+        int colorWhite = ResourcesCompat.getColor(getResources(), R.color.colorWhite, getTheme());
+        fab.addActionItem(new SpeedDialActionItem.Builder(R.id.action_add_game, R.drawable.ic_fab_action_add_game)
+                .setFabBackgroundColor(colorWhite)
+                .setLabel(getString(R.string.activity_stadium_fab_action_add_game))
+                .setLabelColor(Color.BLACK)
+                .create());
+        fab.addActionItem(new SpeedDialActionItem.Builder(R.id.action_add_photo, R.drawable.ic_fab_action_add_photo)
+                .setFabBackgroundColor(colorWhite)
+                .setLabel(getString(R.string.activity_stadium_fab_action_add_photo))
+                .setLabelColor(Color.BLACK)
+                .create());
+        fab.addActionItem(new SpeedDialActionItem.Builder(R.id.action_reserve, R.drawable.ic_toolbar_reserve)
+                .setFabBackgroundColor(colorWhite)
+                .setLabel(getString(R.string.activity_stadium_fab_action_reserve))
+                .setLabelColor(Color.BLACK)
+                .create());
+
+        fab.setOnActionSelectedListener(actionItem -> {
+            switch (actionItem.getId()) {
+                case R.id.action_add_game:
+                    //todo implement this
+                    return false;
+                case R.id.action_add_photo:
+                    addPhotoToGallery(stadiumId);
+                    return false;
+                case R.id.action_reserve:
+                    try {
+                        Redirect.sendToTelegram(StadiumActivity.this, UrlConstants.Bot.RESERVE + stadiumId
+                                , Telegram.DEFAULT_BOT);
+                    } catch (IllegalArgumentException unknownTelegramURL) {
+                        // do nothing yet
+                    }
+                    return false;
+            }
+            return false;
+        });
+    }
+
+    private void addInfiniteShakeAnimationToView(View view) {
+        final Animation animShake = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.shake_anim);
+        Handler handler = new Handler();
+        int delay = 5000;
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                if (!isFabOpen) {
+                    view.startAnimation(animShake);
+                }
+                handler.postDelayed(this, delay);
+            }
+        });
+    }
+
+    private void addPhotoToGallery(int stadiumId) {
+        try {
+            Redirect.sendToTelegram(StadiumActivity.this, UrlConstants.Bot.UPLOAD + stadiumId
+                    , Telegram.DEFAULT_BOT);
+        } catch (IllegalArgumentException unknownTelegramURL) {
+            // do nothing yet
+        }
+    }
 
     private void initStadiumBaseInfo(StadiumBase stadiumBase) {
         // stadium title
@@ -191,7 +264,7 @@ public class StadiumActivity extends BaseActivity implements StadiumGalleryAdapt
     }
 
 
-    private void initStadiumSpecRecycler(final Stadium stadium){
+    private void initStadiumSpecRecycler(final Stadium stadium) {
         RecyclerView recyclerView = findViewById(R.id.recyclerStadiumSpec);
         StadiumSpecificationAdapter stadiumSpecificationAdapter = new StadiumSpecificationAdapter(getStadiumSpecListValue(stadium), getStadiumSpecListKey(), this);
         recyclerView.setNestedScrollingEnabled(false);

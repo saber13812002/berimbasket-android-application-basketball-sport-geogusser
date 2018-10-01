@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/action_reserve"
+        android:icon="@drawable/ic_toolbar_reserve"
+        android:title="@string/activity_stadium_fab_action_reserve"/>
+
+    <item
+        android:id="@+id/action_add_photo"
+        android:icon="@drawable/ic_fab_action_add_photo"
+        android:title="@string/activity_stadium_fab_action_add_photo"/>
+
+    <item
+        android:id="@+id/action_add_game"
+        android:icon="@drawable/ic_fab_action_add_game"
+        android:title="@string/activity_stadium_fab_action_add_game"/>
+
+</menu>

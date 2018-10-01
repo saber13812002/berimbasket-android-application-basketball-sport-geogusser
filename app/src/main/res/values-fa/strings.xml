@@ -278,5 +278,8 @@
     <string name="general_dismissible_start_message">لطفا اگر ایده یا اشکالی به نظرتون میرسه برای تیم توسعه برنامه بفرستید</string>
     <string name="general_dismissible_start_action">ارسال پیام</string>
     <string name="general_dismissible_start_skip">بعدا</string>
+    <string name="activity_stadium_fab_action_reserve">رزرو ورزشگاه</string>
+    <string name="activity_stadium_fab_action_add_photo">افزودن عکس</string>
+    <string name="activity_stadium_fab_action_add_game">ایجاد مسابقه</string>
 
 </resources>
