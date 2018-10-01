@@ -179,7 +179,8 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".ui.contact.DeveloperContactActivity" />
+        <activity android:name=".ui.contact.DeveloperContactActivity"
+            android:windowSoftInputMode="stateHidden"/>
         <activity
             android:name=".ui.notification.NotificationActivity"
             android:theme="@style/AppTheme" />

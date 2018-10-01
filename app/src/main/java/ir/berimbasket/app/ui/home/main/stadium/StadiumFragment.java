@@ -107,6 +107,7 @@ public class StadiumFragment extends Fragment implements StadiumAdapter.StadiumL
     public void onDismissibleActionClick(DismissibleInfo dismissibleInfo) {
         Intent intent = new Intent(getContext(), DeveloperContactActivity.class);
         adapter.removeTop();
+        new PrefManager(getContext()).putStartMessagePassed(true);
         startActivity(intent);
     }
 
