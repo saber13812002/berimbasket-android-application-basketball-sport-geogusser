@@ -3,7 +3,6 @@
     <string name="app_name">Berim Basket</string>
 
     <!-- activity -->
-    <string name="activity_home_navigation_home">Home</string>
     <string name="activity_home_navigation_profile">Profile</string>
     <string name="activity_home_navigation_map">Map</string>
     <string name="activity_home_get_answer_dialog_title">Your today Question!</string>
@@ -16,7 +15,9 @@
     <string name="activity_home_showcase_btn_settings_description">Default city, Language, Update, Support, &#8230;</string>
     <string name="activity_home_showcase_btn_notification_title">Notifications</string>
     <string name="activity_home_showcase_btn_notification_description">Notifications, events and messages history </string>
-
+    <string name="activity_home_navigation_matches">Matches</string>
+    <string name="activity_home_navigation_players">Players</string>
+    <string name="activity_home_navigation_stadiums">Stadiums</string>
 
     <string name="activity_login_edt_password_hint">Password</string>
     <string name="activity_login_btn_sign_in">Login</string>

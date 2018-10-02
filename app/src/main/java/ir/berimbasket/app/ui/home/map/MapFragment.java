@@ -10,7 +10,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.res.ResourcesCompat;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,7 +22,6 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.maps.android.clustering.ClusterManager;
-import com.wooplr.spotlight.SpotlightView;
 
 import java.net.HttpURLConnection;
 import java.util.ArrayList;
@@ -120,7 +118,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser) {
-            new SpotlightView.Builder(getActivity())
+            /*new SpotlightView.Builder(getActivity())
                     .introAnimationDuration(400)
                     .enableRevealAnimation(false)
                     .performClick(false)
@@ -139,7 +137,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                     .dismissOnBackPress(true)
                     .enableDismissAfterShown(true)
                     .usageId("map_add_location_fab") //UNIQUE ID
-                    .show();
+                    .show();*/
         }
     }
 
