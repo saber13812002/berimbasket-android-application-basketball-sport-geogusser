@@ -4,9 +4,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import ir.berimbasket.app.ui.home.main.match.MatchFragment;
-import ir.berimbasket.app.ui.home.main.player.PlayerFragment;
-import ir.berimbasket.app.ui.home.main.stadium.StadiumFragment;
+import ir.berimbasket.app.ui.home.match.MatchFragment;
+import ir.berimbasket.app.ui.home.player.PlayerFragment;
+import ir.berimbasket.app.ui.home.stadium.StadiumFragment;
 import ir.berimbasket.app.ui.home.map.MapFragment;
 import ir.berimbasket.app.ui.home.profile.ProfileFragment;
 

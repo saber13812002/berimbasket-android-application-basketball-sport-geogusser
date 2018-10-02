@@ -1,4 +1,4 @@
-package ir.berimbasket.app.ui.home.main.player;
+package ir.berimbasket.app.ui.home.player;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;

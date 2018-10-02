@@ -1,4 +1,4 @@
-package ir.berimbasket.app.ui.home.main.stadium;
+package ir.berimbasket.app.ui.home.stadium;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
