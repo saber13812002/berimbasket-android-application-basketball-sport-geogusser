@@ -4,14 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ir.berimbasket.app.ui.home.main.player.PlayerFragment">
+    tools:context=".ui.home.player.PlayerFragment">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerPlayer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
         app:layoutManager="LinearLayoutManager"
         tools:listitem="@layout/item_player" />
 

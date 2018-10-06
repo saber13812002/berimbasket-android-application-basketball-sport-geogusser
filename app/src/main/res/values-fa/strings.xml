@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">بریم بسکت</string>
-    <string name="activity_home_navigation_home">خانه</string>
     <string name="activity_home_navigation_profile">پروفایل</string>
     <string name="activity_home_navigation_map">نقشه</string>
+    <string name="activity_home_navigation_matches">مسابقات</string>
+    <string name="activity_home_navigation_players">بازیکنان</string>
+    <string name="activity_home_navigation_stadiums">ورزشگاهها</string>
     <string name="activity_login_edt_username_hint">نام کاربری</string>
     <string name="activity_login_edt_password_hint">رمز عبور</string>
     <string name="activity_login_btn_sign_in">ورود به حساب کاربری</string>

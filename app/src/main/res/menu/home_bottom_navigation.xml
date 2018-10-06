@@ -2,21 +2,34 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/navigation_home"
-        android:icon="@drawable/ic_bottom_nav_home"
-        android:orderInCategory="1"
-        android:title="@string/activity_home_navigation_home" />
-
-    <item
         android:id="@+id/navigation_map"
-        android:icon="@drawable/ic_bottom_nav_map"
-        android:orderInCategory="2"
+        android:icon="@drawable/bottom_navigation_placeholder"
+        android:orderInCategory="1"
         android:title="@string/activity_home_navigation_map" />
 
     <item
-        android:id="@+id/navigation_profile"
-        android:icon="@drawable/ic_bottom_nav_profile"
+        android:id="@+id/navigation_stadium"
+        android:icon="@drawable/bottom_navigation_basketball"
+        android:orderInCategory="2"
+        android:title="@string/activity_home_navigation_stadiums" />
+
+    <item
+        android:id="@+id/navigation_player"
+        android:icon="@drawable/bottom_navigation_basketball_player"
         android:orderInCategory="3"
+        android:title="@string/activity_home_navigation_players" />
+
+
+    <item
+        android:id="@+id/navigation_matches"
+        android:icon="@drawable/bottom_navigation_referee"
+        android:orderInCategory="4"
+        android:title="@string/activity_home_navigation_matches" />
+
+    <item
+        android:id="@+id/navigation_profile"
+        android:icon="@drawable/bottom_navigation_user"
+        android:orderInCategory="5"
         android:title="@string/activity_home_navigation_profile" />
 
 </menu>

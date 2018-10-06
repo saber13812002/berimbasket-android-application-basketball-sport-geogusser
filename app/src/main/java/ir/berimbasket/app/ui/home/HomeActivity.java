@@ -70,14 +70,22 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
-                case R.id.navigation_home:
+                case R.id.navigation_map:
                     homePager.setCurrentItem(0);
                     return true;
-                case R.id.navigation_map:
+                case R.id.navigation_stadium:
                     homePager.setCurrentItem(1);
                     return true;
-                case R.id.navigation_profile:
+                case R.id.navigation_player:
                     homePager.setCurrentItem(2);
+                    return true;
+
+                case R.id.navigation_matches:
+                    homePager.setCurrentItem(3);
+                    return true;
+
+                case R.id.navigation_profile:
+                    homePager.setCurrentItem(4);
                     return true;
             }
             return false;
