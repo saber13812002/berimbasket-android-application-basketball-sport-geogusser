@@ -4,11 +4,9 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.support.multidex.MultiDexApplication;
 
-import com.anetwork.android.sdk.advertising.AnetworkAdvertising;
-
 import com.crashlytics.android.Crashlytics;
+
 import io.fabric.sdk.android.Fabric;
-import ir.berimbasket.app.data.env.ConfigConstants;
 import ir.berimbasket.app.util.AnalyticsHelper;
 import ir.berimbasket.app.util.LocaleManager;
 
@@ -24,7 +22,6 @@ public class BaseApplication extends MultiDexApplication {
     public void onCreate() {
         super.onCreate();
         Fabric.with(this, new Crashlytics());
-        AnetworkAdvertising.initialize(this, ConfigConstants.A_NETWORK_TOKEN);
         AnalyticsHelper.initialize(this);
         registerActivityLifecycleCallbacks(new BaseActivityLifeCycle());
     }

@@ -137,7 +137,6 @@ dependencies {
     implementation 'com.github.florent37:tutoshowcase:1.0.1'
     implementation 'com.github.ar-android:AndroidSvgLoader:1.0.1'
     implementation 'com.android.support:multidex:1.0.3'
-    implementation project(':anetwork-sdk-1.0.5')
     implementation "com.leinardi.android:speed-dial:2.0.0"
     testImplementation 'junit:junit:4.12'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"

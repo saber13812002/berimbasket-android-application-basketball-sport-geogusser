@@ -1,1 +1,1 @@
-include ':app', ':anetwork-sdk-1.0.5'
+include ':app'
