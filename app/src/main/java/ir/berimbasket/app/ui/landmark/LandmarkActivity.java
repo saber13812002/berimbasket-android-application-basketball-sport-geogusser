@@ -89,7 +89,7 @@ public class LandmarkActivity extends BaseActivity {
         String pusheId = Pushe.getPusheId(getApplicationContext());
         String userName = pref.getUserName();
         String lang = LocaleManager.getLocale(getApplicationContext()).getLanguage();
-        WebApiClient.getSetMarkerApi().setMarker("jkhfgkljhasfdlkh", latitude, longitude, title, userName, pusheId, lang)
+        WebApiClient.getSetMarkerApi(getApplicationContext()).setMarker("jkhfgkljhasfdlkh", latitude, longitude, title, userName, pusheId, lang)
                 .enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {

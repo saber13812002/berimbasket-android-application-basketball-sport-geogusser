@@ -1,9 +1,12 @@
 package ir.berimbasket.app.ui.base;
 
-import android.app.Application;
 import android.content.Context;
 import android.content.res.Configuration;
+import android.support.multidex.MultiDexApplication;
 
+import com.crashlytics.android.Crashlytics;
+
+import io.fabric.sdk.android.Fabric;
 import ir.berimbasket.app.util.AnalyticsHelper;
 import ir.berimbasket.app.util.LocaleManager;
 
@@ -13,19 +16,12 @@ import ir.berimbasket.app.util.LocaleManager;
  * singleton class
  */
 
-public class BaseApplication extends Application {
-
-    private static BaseApplication instance;
-
-    public static synchronized BaseApplication getInstance() {
-        return instance;
-    }
+public class BaseApplication extends MultiDexApplication {
 
     @Override
     public void onCreate() {
         super.onCreate();
-        instance = this;
-
+        Fabric.with(this, new Crashlytics());
         AnalyticsHelper.initialize(this);
         registerActivityLifecycleCallbacks(new BaseActivityLifeCycle());
     }

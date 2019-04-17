@@ -10,6 +10,7 @@ import android.support.v7.preference.PreferenceFragmentCompat;
 
 import ir.berimbasket.app.BuildConfig;
 import ir.berimbasket.app.R;
+import ir.berimbasket.app.data.env.UrlConstants;
 import ir.berimbasket.app.data.pref.PrefManager;
 import ir.berimbasket.app.ui.contact.DeveloperContactActivity;
 import ir.berimbasket.app.ui.splash.SplashActivity;
@@ -19,11 +20,6 @@ import ir.berimbasket.app.util.Redirect;
 
 public class SettingsFragment extends PreferenceFragmentCompat implements Preference.OnPreferenceClickListener, SharedPreferences.OnSharedPreferenceChangeListener {
 
-    private final static String URL_PREFERENCE_HELP = "http://berimbasket.ir/help";
-    private final static String URL_PREFERENCE_TERMS_AND_SERVICES = "http://berimbasket.ir/terms";
-    private final static String URL_PREFERENCE_ABOUT_US = "http://berimbasket.ir/about";
-    private final static String URL_PREFERENCE_CHANGE_LOG = "http://berimbasket.ir/changelog";
-    private final static String URL_PREFERENCE_CONTACT_US = "http://berimbasket.ir/contact-us";
     private Preference help, aboutUs, terms, changeLog, commentOnStore, contactUs, contactDeveloper;
 
     @Override
@@ -64,22 +60,22 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
         if (key.equals(help.getKey())) {
             // Tracking Event (Analytics)
             AnalyticsHelper.getInstance().trackEvent(getString(R.string.analytics_category_settings), getString(R.string.analytics_action_help), "");
-            Redirect.sendToCustomTab(getActivity(), URL_PREFERENCE_HELP);
+            Redirect.sendToCustomTab(getActivity(), UrlConstants.External.HELP);
             return true;
         } else if (key.equals(aboutUs.getKey())) {
             // Tracking Event (Analytics)
             AnalyticsHelper.getInstance().trackEvent(getString(R.string.analytics_category_settings), getString(R.string.analytics_action_about), "");
-            Redirect.sendToCustomTab(getActivity(), URL_PREFERENCE_ABOUT_US);
+            Redirect.sendToCustomTab(getActivity(), UrlConstants.External.ABOUT);
             return true;
         } else if (key.equals(terms.getKey())) {
             // Tracking Event (Analytics)
             AnalyticsHelper.getInstance().trackEvent(getString(R.string.analytics_category_settings), getString(R.string.analytics_action_terms), "");
-            Redirect.sendToCustomTab(getActivity(), URL_PREFERENCE_TERMS_AND_SERVICES);
+            Redirect.sendToCustomTab(getActivity(), UrlConstants.External.TERMS);
             return true;
         } else if (key.equals(changeLog.getKey())) {
             // Tracking Event (Analytics)
             AnalyticsHelper.getInstance().trackEvent(getString(R.string.analytics_category_settings), getString(R.string.analytics_action_change_log), "");
-            Redirect.sendToCustomTab(getActivity(), URL_PREFERENCE_CHANGE_LOG);
+            Redirect.sendToCustomTab(getActivity(), UrlConstants.External.CHANGE_LOG);
             return true;
         } else if (key.equals(commentOnStore.getKey())) {
             if (BuildConfig.FLAVOR.equals("myket")) {
@@ -90,7 +86,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
                 Redirect.sendToBazaarForComment(getContext());
             }
         } else if (key.equals(contactUs.getKey())) {
-            Redirect.sendToCustomTab(getActivity(), URL_PREFERENCE_CONTACT_US);
+            Redirect.sendToCustomTab(getActivity(), UrlConstants.External.CONTACT_US);
         } else if (key.equals(contactDeveloper.getKey())) {
             Intent intent = new Intent(getActivity(), DeveloperContactActivity.class);
             startActivity(intent);

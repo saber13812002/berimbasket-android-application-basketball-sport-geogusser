@@ -58,7 +58,7 @@ public class MissionFragment extends Fragment {
         String pusheId = Pushe.getPusheId(getContext());
         String userName = new PrefManager(getContext()).getUserName();
         String lang = LocaleManager.getLocale(getContext()).getLanguage();
-        WebApiClient.getMissionApi().getMissions(userName, userName, pusheId, lang).enqueue(new Callback<List<Mission>>() {
+        WebApiClient.getMissionApi(getContext()).getMissions(userName, userName, pusheId, lang).enqueue(new Callback<List<Mission>>() {
             @Override
             public void onResponse(Call<List<Mission>> call, Response<List<Mission>> response) {
                 if (response.code() == HttpURLConnection.HTTP_OK) {

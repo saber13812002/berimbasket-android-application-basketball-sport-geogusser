@@ -21,21 +21,20 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
-
 import java.net.HttpURLConnection;
-import java.util.List;
 
 import co.ronash.pushe.Pushe;
 import ir.berimbasket.app.R;
+import ir.berimbasket.app.data.env.UrlConstants;
 import ir.berimbasket.app.data.network.WebApiClient;
-import ir.berimbasket.app.data.network.model.Player;
+import ir.berimbasket.app.data.network.model.Profile;
 import ir.berimbasket.app.data.pref.PrefManager;
-import ir.berimbasket.app.ui.login.LoginActivity;
+import ir.berimbasket.app.ui.login.mobile.MobileLoginActivity;
 import ir.berimbasket.app.util.AnalyticsHelper;
 import ir.berimbasket.app.util.FontHelper;
 import ir.berimbasket.app.util.LocaleManager;
 import ir.berimbasket.app.util.Redirect;
+import ir.berimbasket.app.util.ScreenDensityHelper;
 import ir.berimbasket.app.util.Telegram;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -47,15 +46,11 @@ import retrofit2.Response;
 
 public class ProfileFragment extends Fragment {
 
-    private static final String PROFILE_SCORE_INFO_BOT = "http://t.me/berimbasketScorebot";
-    private static final String PROFILE_TEAM_INFO_BOT = "http://t.me/berimbasketScorebot";
-    private static final String UPDATE_USER_INFO_BOT = "https://t.me/berimbasketprofilebot";
-    private static final String UPLOAD_PHOTO_BOT = "http://t.me/berimbasketProfilebot";
-
     private static boolean isLoggedIn;
     private TabLayout tabProfile;
     private ViewPager pagerProfile;
     private ImageView imgProfileImage, imgCoach;
+    private TextView txtProfileName;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -77,8 +72,8 @@ public class ProfileFragment extends Fragment {
 
             imgProfileImage = rootView.findViewById(R.id.imgPlayerProfile);
             imgCoach = rootView.findViewById(R.id.imgCoach);
-            TextView txtProfileName = rootView.findViewById(R.id.txtProfileName);
-            txtProfileName.setText(pref.getUserName());
+            txtProfileName = rootView.findViewById(R.id.txtProfileName);
+
             initPlayer();
         } else {
             //user not logged in
@@ -89,7 +84,7 @@ public class ProfileFragment extends Fragment {
             btnGoToLogin.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(context, LoginActivity.class);
+                    Intent intent = new Intent(context, MobileLoginActivity.class);
                     context.startActivity(intent);
                 }
             });
@@ -115,7 +110,7 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 try {
-                    Redirect.sendToTelegram(getActivity(), UPLOAD_PHOTO_BOT, Telegram.DEFAULT_BOT);
+                    Redirect.sendToTelegram(getActivity(), UrlConstants.Bot.PROFILE, Telegram.DEFAULT_BOT);
                 } catch (IllegalArgumentException unknownTelegramURL) {
                     // do nothing yet
                 }
@@ -146,7 +141,7 @@ public class ProfileFragment extends Fragment {
                         break;
                     case R.id.menu_profile_info:
                         try {
-                            Redirect.sendToTelegram(getActivity(), UPDATE_USER_INFO_BOT, Telegram.DEFAULT_BOT);
+                            Redirect.sendToTelegram(getActivity(), UrlConstants.Bot.PROFILE, Telegram.DEFAULT_BOT);
                         } catch (IllegalArgumentException unknownTelegramURL) {
                             // do nothing yet
                         }
@@ -157,14 +152,14 @@ public class ProfileFragment extends Fragment {
 
                     case R.id.menu_profile_score:
                         try {
-                            Redirect.sendToTelegram(getActivity(), PROFILE_SCORE_INFO_BOT, Telegram.DEFAULT_BOT);
+                            Redirect.sendToTelegram(getActivity(), UrlConstants.Bot.SCORE, Telegram.DEFAULT_BOT);
                         } catch (IllegalArgumentException unknownTelegramURL) {
                             // do nothing yet
                         }
                         break;
                     case R.id.menu_profile_team:
                         try {
-                            Redirect.sendToTelegram(getActivity(), PROFILE_TEAM_INFO_BOT, Telegram.DEFAULT_BOT);
+                            Redirect.sendToTelegram(getActivity(), UrlConstants.Bot.SCORE, Telegram.DEFAULT_BOT);
                         } catch (IllegalArgumentException unknownTelegramURL) {
                             // do nothing yet
                         }
@@ -225,33 +220,26 @@ public class ProfileFragment extends Fragment {
     private void initPlayer() {
         PrefManager pref = new PrefManager(getContext());
         String userName = pref.getUserName();
-        int userId = pref.getUserId();
         String pusheId = Pushe.getPusheId(getContext());
         String lang = LocaleManager.getLocale(getContext()).getLanguage();
-        WebApiClient.getPlayerApi().getPlayers(userId, pusheId, userName, lang).enqueue(new Callback<List<Player>>() {
+        String token = "Bearer " + pref.getToken();
+        WebApiClient.getProfileApi(getContext()).getMe(pusheId, userName, lang, token).enqueue(new Callback<Profile>() {
             @Override
-            public void onResponse(Call<List<Player>> call, Response<List<Player>> response) {
+            public void onResponse(Call<Profile> call, Response<Profile> response) {
                 if (response.code() == HttpURLConnection.HTTP_OK) {
-                    List<Player> players = response.body();
-                    if (players != null) {
-                        Picasso.with(getContext())
-                                .load("https://berimbasket.ir" + players.get(0).getProfileImage())
-                                .resize(120, 120)
-                                .centerInside()
-                                .placeholder(R.drawable.profile_default)
-                                .error(R.drawable.profile_default)
-                                .into(imgProfileImage);
-                        if (players.get(0).getPriority() > 6) {
+                    Profile me = response.body();
+                    if (me != null) {
+                        ScreenDensityHelper.loadAvatarBasedOnDensity(imgProfileImage, me.getAvatarUrl(), getContext());
+                        txtProfileName.setText(me.getUsername());
+                        if (me.getPriority() > 6) {
                             imgCoach.setVisibility(View.VISIBLE);
                         }
                     }
-                } else {
-                    // http call with incorrect params or other network error
                 }
             }
 
             @Override
-            public void onFailure(Call<List<Player>> call, Throwable t) {
+            public void onFailure(Call<Profile> call, Throwable t) {
 
             }
         });

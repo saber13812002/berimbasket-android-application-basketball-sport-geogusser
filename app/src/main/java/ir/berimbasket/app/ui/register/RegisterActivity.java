@@ -21,6 +21,7 @@ import java.util.List;
 
 import co.ronash.pushe.Pushe;
 import ir.berimbasket.app.R;
+import ir.berimbasket.app.data.env.UrlConstants;
 import ir.berimbasket.app.data.network.WebApiClient;
 import ir.berimbasket.app.data.network.model.CheckUsername;
 import ir.berimbasket.app.data.network.model.Register;
@@ -40,7 +41,6 @@ import retrofit2.Response;
 
 public class RegisterActivity extends BaseActivity {
 
-    private static final String REGISTER_BOT = "https://telegram.me/berimbasketbot";
     EditText edtUsername, edtVerifyCode, edtPassword, edtPasswordRepeat;
     TextInputLayout inputUsername, inputVerifyCode, inputPassword, inputPasswordRepeat;
     ProgressDialog pDialog;
@@ -153,7 +153,7 @@ public class RegisterActivity extends BaseActivity {
                 .setMessage(getString(R.string.general_dialog_message_bot_register))
                 .setPositiveButton(getString(R.string.general_dialog_option_bot_link), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        Redirect.sendToTelegram(getApplicationContext(), REGISTER_BOT, Telegram.PUSHEID_BOT);
+                        Redirect.sendToTelegram(getApplicationContext(), UrlConstants.Bot.REGISTER, Telegram.PUSHEID_BOT);
                         // Tracking Event (Analytics)
                         AnalyticsHelper.getInstance().trackEvent(getString(R.string.analytics_category_registration)
                                 , getString(R.string.analytics_action_telegram_bot), "");
@@ -176,7 +176,7 @@ public class RegisterActivity extends BaseActivity {
         final String pusheId = Pushe.getPusheId(getApplicationContext());
         final String deviceId = pref.getDeviceID();
         final String lang = LocaleManager.getLocale(getApplicationContext()).getLanguage();
-        WebApiClient.getRegisterApi().checkUsername(deviceId, username, pusheId, lang).enqueue(new Callback<List<CheckUsername>>() {
+        WebApiClient.getRegisterApi(getApplicationContext()).checkUsername(deviceId, username, pusheId, lang).enqueue(new Callback<List<CheckUsername>>() {
             @Override
             public void onResponse(Call<List<CheckUsername>> call, Response<List<CheckUsername>> response) {
                 if (response.code() == HttpURLConnection.HTTP_OK) {
@@ -186,7 +186,7 @@ public class RegisterActivity extends BaseActivity {
                             edtUsername.setError(getString(R.string.activity_register_edt_username_error));
                             pDialog.cancel();
                         } else {
-                            WebApiClient.getRegisterApi().verifyBotCode(deviceId, code, pusheId, username, lang).enqueue(new Callback<List<VerifyBot>>() {
+                            WebApiClient.getRegisterApi(getApplicationContext()).verifyBotCode(deviceId, code, pusheId, username, lang).enqueue(new Callback<List<VerifyBot>>() {
                                 @Override
                                 public void onResponse(Call<List<VerifyBot>> call, Response<List<VerifyBot>> response) {
                                     if (response.code() == HttpURLConnection.HTTP_OK) {
@@ -196,7 +196,7 @@ public class RegisterActivity extends BaseActivity {
                                                 edtVerifyCode.setError(getString(R.string.activity_register_edt_verify_error));
                                                 pDialog.cancel();
                                             } else {
-                                                WebApiClient.getRegisterApi().register(deviceId, username, password, pusheId, lang)
+                                                WebApiClient.getRegisterApi(getApplicationContext()).register(deviceId, username, password, pusheId, lang)
                                                         .enqueue(new Callback<List<Register>>() {
                                                     @Override
                                                     public void onResponse(Call<List<Register>> call, Response<List<Register>> response) {

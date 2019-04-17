@@ -20,6 +20,8 @@ public class PrefManager extends SecureSharedPreferences {
     private static final String KEY_USER_ID = "userId";
     private static final String KEY_PASSWORD = "password";
     private static final String KEY_INTRO_PASSED = "introPassed";
+    private static final String KEY_TOKEN = "token";
+    private static final String KEY_START_MESSAGE_PASSED = "startMessagePassed";
     private Context context;
 
     public PrefManager(Context context) {
@@ -62,6 +64,14 @@ public class PrefManager extends SecureSharedPreferences {
 
     public void putUserID(long id) {
         edit().putLong(KEY_USER_ID, id).apply();
+    }
+
+    public void putToken(String token) {
+        edit().putString(KEY_TOKEN, token).apply();
+    }
+
+    public String getToken() {
+        return getString(KEY_TOKEN, "null");
     }
 
     public long getDownloadApkID() {
@@ -154,5 +164,13 @@ public class PrefManager extends SecureSharedPreferences {
 
     public void putIntroPassed(boolean value) {
         edit().putBoolean(KEY_INTRO_PASSED, value).apply();
+    }
+
+    public boolean getStartMessagePassed() {
+        return getBoolean(KEY_START_MESSAGE_PASSED, false);
+    }
+
+    public void putStartMessagePassed(boolean value) {
+        edit().putBoolean(KEY_START_MESSAGE_PASSED, value).apply();
     }
 }

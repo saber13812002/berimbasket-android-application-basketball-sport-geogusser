@@ -6,7 +6,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class Stadium implements Serializable {
+import ir.berimbasket.app.data.env.UrlConstants;
+import ir.berimbasket.app.ui.base.BaseItem;
+
+public final class Stadium implements Serializable, BaseItem {
     @SerializedName("id")
     private int id;
     @SerializedName("title")
@@ -51,8 +54,6 @@ public final class Stadium implements Serializable {
     private String scoreline;
     @SerializedName("lines")
     private String lines;
-
-    private static final String STADIUM_PHOTO_BASE_URL = "https://berimbasket.ir";
 
     public Stadium(int id, String title, String latitude, String longitude, String type, Integer zoomLevel, String address,
                    List<String> images, String instagramId, String telegramChannelId, String telegramGroupId,
@@ -141,7 +142,7 @@ public final class Stadium implements Serializable {
     public final List<String> getImages() {
         List<String> images = new ArrayList<>();
         for (int i = 0; i < this.images.size(); i++) {
-            images.add(STADIUM_PHOTO_BASE_URL + this.images.get(i));
+            images.add(UrlConstants.Base.Root + this.images.get(i));
         }
         return images;
     }
@@ -260,5 +261,10 @@ public final class Stadium implements Serializable {
 
     public final void setLines(String var1) {
         this.lines = var1;
+    }
+
+    @Override
+    public int getViewType() {
+        return BaseItem.STADIUM_ITEM;
     }
 }

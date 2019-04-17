@@ -26,7 +26,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.maps.android.ui.IconGenerator;
 
 import ir.berimbasket.app.R;
-import ir.berimbasket.app.ui.common.entity.StadiumBaseEntity;
+import ir.berimbasket.app.ui.common.model.StadiumBase;
 
 /**
  * Created by mohammad hosein on 21/09/2017.
@@ -45,7 +45,7 @@ public class StadiumMapFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public void setArguments(Bundle args) {
         super.setArguments(args);
-        StadiumBaseEntity entityStadium = (StadiumBaseEntity) args.getSerializable("stadiumDetail");
+        StadiumBase entityStadium = (StadiumBase) args.getSerializable("stadiumDetail");
         latitude = Double.parseDouble(entityStadium.getLatitude());
         longitude = Double.parseDouble(entityStadium.getLongitude());
         title = entityStadium.getTitle();

@@ -1,9 +1,12 @@
 package ir.berimbasket.app.ui.stadium;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,10 +14,14 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.leinardi.android.speeddial.SpeedDialActionItem;
+import com.leinardi.android.speeddial.SpeedDialView;
 import com.squareup.picasso.Picasso;
 
 import java.net.HttpURLConnection;
@@ -24,11 +31,12 @@ import java.util.List;
 import co.ronash.pushe.Pushe;
 import de.hdodenhof.circleimageview.CircleImageView;
 import ir.berimbasket.app.R;
+import ir.berimbasket.app.data.env.UrlConstants;
 import ir.berimbasket.app.data.network.WebApiClient;
 import ir.berimbasket.app.data.network.model.Stadium;
 import ir.berimbasket.app.data.pref.PrefManager;
 import ir.berimbasket.app.ui.base.BaseActivity;
-import ir.berimbasket.app.ui.common.entity.StadiumBaseEntity;
+import ir.berimbasket.app.ui.common.model.StadiumBase;
 import ir.berimbasket.app.util.LocaleManager;
 import ir.berimbasket.app.util.Redirect;
 import ir.berimbasket.app.util.Telegram;
@@ -38,13 +46,8 @@ import retrofit2.Response;
 
 public class StadiumActivity extends BaseActivity implements StadiumGalleryAdapter.StadiumGalleryListener {
 
-    private static final String UPDATE_STADIUM_INFO_BOT = "https://t.me/berimbasketmapbot?start=";
-    private static final String REPORT_STADIUM_BOT = "https://t.me/berimbasketreportbot?start=-";
-    private static final String RESERVE_STADIUM_BOT = "https://t.me/Berimbasketreservebot?start=";
-    private static final String STADIUM_IMAGE_BOT = "https://t.me/berimbasketuploadbot?start=";
-
-    private static final String EXTERNAL_WEB_STADIUM_URL = "http://berimbasket.ir/bball/www/instagram.php?id=";
     private int stadiumId;
+    private boolean isFabOpen;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +61,7 @@ public class StadiumActivity extends BaseActivity implements StadiumGalleryAdapt
             initStadiumList(Integer.parseInt(pusheStadiumId), getApplicationContext(), true);
             // FIXME: 12/13/2017 send another param for logo
         } else {
-            StadiumBaseEntity stadiumBase = (StadiumBaseEntity) getIntent().getSerializableExtra("stadiumDetail");
+            StadiumBase stadiumBase = (StadiumBase) getIntent().getSerializableExtra("stadiumDetail");
             initStadiumBaseInfo(stadiumBase);
             initStadiumList(stadiumBase.getId(), getApplicationContext(), false);
         }
@@ -77,11 +80,12 @@ public class StadiumActivity extends BaseActivity implements StadiumGalleryAdapt
         this.stadiumId = stadium.getId();
 
         ImageView btnReportStadium = findViewById(R.id.btnReportStadium);
-        ImageView btnReserveStadium = findViewById(R.id.btnReserveStadium);
         AppCompatButton btnAddImage = findViewById(R.id.btnAddImage);
         AppCompatButton btnCompleteStadiumDetail = findViewById(R.id.btnCompleteStadiumDetail);
         Button btnGalleryMore = findViewById(R.id.btnGalleryMore);
+        SpeedDialView fab = findViewById(R.id.fabStadium);
         CircleImageView imgStadiumLogo = findViewById(R.id.imgStadiumLogo);
+
         if (stadium.getImages() != null && stadium.getImages().size() != 0) {
             Picasso.with(StadiumActivity.this)
                     .load(stadium.getImages().get(0))
@@ -92,11 +96,13 @@ public class StadiumActivity extends BaseActivity implements StadiumGalleryAdapt
                     .into(imgStadiumLogo);
         }
 
+        initFab(fab, stadium.getId());
+
         imgStadiumLogo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String pusheId = Pushe.getPusheId(getApplicationContext());
-                Redirect.sendToCustomTab(StadiumActivity.this, EXTERNAL_WEB_STADIUM_URL + stadium.getId() + "&pusheid=" + pusheId);
+                Redirect.sendToCustomTab(StadiumActivity.this, UrlConstants.External.WP_STADIUM_PROFILE + "?id=" + stadium.getId() + "&pusheid=" + pusheId);
             }
         });
 
@@ -104,7 +110,7 @@ public class StadiumActivity extends BaseActivity implements StadiumGalleryAdapt
             @Override
             public void onClick(View v) {
                 String pusheId = Pushe.getPusheId(getApplicationContext());
-                Redirect.sendToCustomTab(StadiumActivity.this, EXTERNAL_WEB_STADIUM_URL + stadium.getId() + "&pusheid=" + pusheId);
+                Redirect.sendToCustomTab(StadiumActivity.this, UrlConstants.External.WP_STADIUM_PROFILE + "?id=" + stadium.getId() + "&pusheid=" + pusheId);
             }
         });
 
@@ -114,7 +120,7 @@ public class StadiumActivity extends BaseActivity implements StadiumGalleryAdapt
             @Override
             public void onClick(View v) {
                 try {
-                    Redirect.sendToTelegram(StadiumActivity.this, UPDATE_STADIUM_INFO_BOT + stadium.getId(),
+                    Redirect.sendToTelegram(StadiumActivity.this, UrlConstants.Bot.MAP + stadium.getId(),
                             Telegram.DEFAULT_BOT);
                 } catch (IllegalArgumentException unknownTelegramURL) {
                     // do nothing yet
@@ -126,7 +132,7 @@ public class StadiumActivity extends BaseActivity implements StadiumGalleryAdapt
             @Override
             public void onClick(View view) {
                 try {
-                    Redirect.sendToTelegram(StadiumActivity.this, REPORT_STADIUM_BOT + stadium.getId(),
+                    Redirect.sendToTelegram(StadiumActivity.this, UrlConstants.Bot.REPORT_STADIUM + stadium.getId(),
                             Telegram.DEFAULT_BOT);
                 } catch (IllegalArgumentException unknownTelegramURL) {
                     // do nothing yet
@@ -134,37 +140,19 @@ public class StadiumActivity extends BaseActivity implements StadiumGalleryAdapt
             }
         });
 
-        btnReserveStadium.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                try {
-                    Redirect.sendToTelegram(StadiumActivity.this, RESERVE_STADIUM_BOT + stadium.getId()
-                            , Telegram.DEFAULT_BOT);
-                } catch (IllegalArgumentException unknownTelegramURL) {
-                    // do nothing yet
-                }
-            }
-        });
-
-
         btnAddImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                try {
-                    Redirect.sendToTelegram(StadiumActivity.this, STADIUM_IMAGE_BOT + stadium.getId()
-                            , Telegram.DEFAULT_BOT);
-                } catch (IllegalArgumentException unknownTelegramURL) {
-                    // do nothing yet
-                }
+                addPhotoToGallery(stadium.getId());
             }
         });
 
         // stadium gallery
         List<String> galleryImages = stadium.getImages();
         if (galleryImages.size() == 0) {
-            galleryImages.add("http://berimbasket.ir/bball/bots/playgroundphoto/123423743522345.jpg");
-            galleryImages.add("http://berimbasket.ir/bball/bots/playgroundphoto/123423743522345.jpg");
-            galleryImages.add("http://berimbasket.ir/bball/bots/playgroundphoto/123423743522345.jpg");
+            galleryImages.add(UrlConstants.External.STADIUM_DEFAULT_PHOTO);
+            galleryImages.add(UrlConstants.External.STADIUM_DEFAULT_PHOTO);
+            galleryImages.add(UrlConstants.External.STADIUM_DEFAULT_PHOTO);
         }
         RecyclerView recyclerView = findViewById(R.id.recyclerStadiumGallery);
         StadiumGalleryAdapter stadiumGalleryAdapter = new StadiumGalleryAdapter(galleryImages, this);
@@ -178,8 +166,88 @@ public class StadiumActivity extends BaseActivity implements StadiumGalleryAdapt
         recyclerView.setItemAnimator(new DefaultItemAnimator());
     }
 
+    private void initFab(SpeedDialView fab, int stadiumId) {
+        // setup menu and animation
+        fab.inflate(R.menu.menu_stadium_fab);
+        addInfiniteShakeAnimationToView(fab);
 
-    private void initStadiumBaseInfo(StadiumBaseEntity stadiumBase) {
+        // on click listener
+        fab.setOnChangeListener(new SpeedDialView.OnChangeListener() {
+            @Override
+            public boolean onMainActionSelected() {
+                return false;
+            }
+
+            @Override
+            public void onToggleChanged(boolean isOpen) {
+                isFabOpen = isOpen;
+            }
+        });
+
+        // customize fab actions
+        int colorWhite = ResourcesCompat.getColor(getResources(), R.color.colorWhite, getTheme());
+        fab.addActionItem(new SpeedDialActionItem.Builder(R.id.action_add_game, R.drawable.ic_fab_action_add_game)
+                .setFabBackgroundColor(colorWhite)
+                .setLabel(getString(R.string.activity_stadium_fab_action_add_game))
+                .setLabelColor(Color.BLACK)
+                .create());
+        fab.addActionItem(new SpeedDialActionItem.Builder(R.id.action_add_photo, R.drawable.ic_fab_action_add_photo)
+                .setFabBackgroundColor(colorWhite)
+                .setLabel(getString(R.string.activity_stadium_fab_action_add_photo))
+                .setLabelColor(Color.BLACK)
+                .create());
+        fab.addActionItem(new SpeedDialActionItem.Builder(R.id.action_reserve, R.drawable.ic_toolbar_reserve)
+                .setFabBackgroundColor(colorWhite)
+                .setLabel(getString(R.string.activity_stadium_fab_action_reserve))
+                .setLabelColor(Color.BLACK)
+                .create());
+
+        fab.setOnActionSelectedListener(actionItem -> {
+            switch (actionItem.getId()) {
+                case R.id.action_add_game:
+                    //todo implement this
+                    return false;
+                case R.id.action_add_photo:
+                    addPhotoToGallery(stadiumId);
+                    return false;
+                case R.id.action_reserve:
+                    try {
+                        Redirect.sendToTelegram(StadiumActivity.this, UrlConstants.Bot.RESERVE + stadiumId
+                                , Telegram.DEFAULT_BOT);
+                    } catch (IllegalArgumentException unknownTelegramURL) {
+                        // do nothing yet
+                    }
+                    return false;
+            }
+            return false;
+        });
+    }
+
+    private void addInfiniteShakeAnimationToView(View view) {
+        final Animation animShake = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.shake_anim);
+        Handler handler = new Handler();
+        int delay = 5000;
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                if (!isFabOpen) {
+                    view.startAnimation(animShake);
+                }
+                handler.postDelayed(this, delay);
+            }
+        });
+    }
+
+    private void addPhotoToGallery(int stadiumId) {
+        try {
+            Redirect.sendToTelegram(StadiumActivity.this, UrlConstants.Bot.UPLOAD + stadiumId
+                    , Telegram.DEFAULT_BOT);
+        } catch (IllegalArgumentException unknownTelegramURL) {
+            // do nothing yet
+        }
+    }
+
+    private void initStadiumBaseInfo(StadiumBase stadiumBase) {
         // stadium title
         TextView txtStadiumName = findViewById(R.id.txtStadiumName);
         txtStadiumName.setText(stadiumBase.getTitle());
@@ -196,7 +264,7 @@ public class StadiumActivity extends BaseActivity implements StadiumGalleryAdapt
     }
 
 
-    private void initStadiumSpecRecycler(final Stadium stadium){
+    private void initStadiumSpecRecycler(final Stadium stadium) {
         RecyclerView recyclerView = findViewById(R.id.recyclerStadiumSpec);
         StadiumSpecificationAdapter stadiumSpecificationAdapter = new StadiumSpecificationAdapter(getStadiumSpecListValue(stadium), getStadiumSpecListKey(), this);
         recyclerView.setNestedScrollingEnabled(false);
@@ -221,7 +289,7 @@ public class StadiumActivity extends BaseActivity implements StadiumGalleryAdapt
         String pusheId = Pushe.getPusheId(context);
         String userName = new PrefManager(context).getUserName();
         String lang = LocaleManager.getLocale(context).getLanguage();
-        WebApiClient.getStadiumApi().getStadium(stadiumId, pusheId, userName, lang).enqueue(new Callback<List<Stadium>>() {
+        WebApiClient.getStadiumApi(context).getStadium(stadiumId, pusheId, userName, lang).enqueue(new Callback<List<Stadium>>() {
             @Override
             public void onResponse(Call<List<Stadium>> call, Response<List<Stadium>> response) {
                 if (response.code() == HttpURLConnection.HTTP_OK) {
@@ -229,7 +297,7 @@ public class StadiumActivity extends BaseActivity implements StadiumGalleryAdapt
                     if (stadiums != null) {
                         Stadium stadium = stadiums.get(0);
                         if (fromScratch) {
-                            StadiumBaseEntity entity = new StadiumBaseEntity(stadium.getId(), stadium.getTitle(),
+                            StadiumBase entity = new StadiumBase(stadium.getId(), stadium.getTitle(),
                                     stadium.getLatitude(), stadium.getLongitude());
                             initStadiumBaseInfo(entity);
                         }
@@ -250,7 +318,7 @@ public class StadiumActivity extends BaseActivity implements StadiumGalleryAdapt
     @Override
     public void onGalleryItemClick(String imageUrl) {
         String pusheId = Pushe.getPusheId(getApplicationContext());
-        Redirect.sendToCustomTab(StadiumActivity.this, EXTERNAL_WEB_STADIUM_URL + stadiumId + "&pusheid=" + pusheId);
+        Redirect.sendToCustomTab(StadiumActivity.this, UrlConstants.External.WP_STADIUM_PROFILE + "?id=" + stadiumId + "&pusheid=" + pusheId);
     }
 
     private ArrayList<String> getStadiumSpecListKey() {

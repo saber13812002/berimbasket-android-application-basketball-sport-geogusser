@@ -10,7 +10,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.res.ResourcesCompat;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,7 +22,6 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.maps.android.clustering.ClusterManager;
-import com.wooplr.spotlight.SpotlightView;
 
 import java.net.HttpURLConnection;
 import java.util.ArrayList;
@@ -36,7 +34,7 @@ import ir.berimbasket.app.data.network.model.Stadium;
 import ir.berimbasket.app.data.pref.PrefManager;
 import ir.berimbasket.app.service.GPSTracker;
 import ir.berimbasket.app.ui.common.PermissionsRequest;
-import ir.berimbasket.app.ui.common.entity.StadiumBaseEntity;
+import ir.berimbasket.app.ui.common.model.StadiumBase;
 import ir.berimbasket.app.ui.landmark.LandmarkActivity;
 import ir.berimbasket.app.ui.stadium.StadiumActivity;
 import ir.berimbasket.app.util.AnalyticsHelper;
@@ -120,7 +118,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser) {
-            new SpotlightView.Builder(getActivity())
+            /*new SpotlightView.Builder(getActivity())
                     .introAnimationDuration(400)
                     .enableRevealAnimation(false)
                     .performClick(false)
@@ -139,7 +137,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                     .dismissOnBackPress(true)
                     .enableDismissAfterShown(true)
                     .usageId("map_add_location_fab") //UNIQUE ID
-                    .show();
+                    .show();*/
         }
     }
 
@@ -207,7 +205,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                         String longitude = String.valueOf(latLng.longitude);
                         String title = myClusterItem.getTitle();
                         int id = myClusterItem.getId();
-                        StadiumBaseEntity stadium = new StadiumBaseEntity(id, title, latitude, longitude);
+                        StadiumBase stadium = new StadiumBase(id, title, latitude, longitude);
                         Intent intent = new Intent(getActivity(), StadiumActivity.class);
                         intent.putExtra("stadiumDetail", stadium);
                         startActivity(intent);
@@ -231,7 +229,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         String pusheId = Pushe.getPusheId(context);
         String userName = new PrefManager(context).getUserName();
         String lang = LocaleManager.getLocale(context).getLanguage();
-        WebApiClient.getStadiumApi().getStadiumsV2ForMap(String.valueOf(lat), String.valueOf(lng), WEB_SERVICE_RADIUS,
+        WebApiClient.getStadiumApi(context).getStadiumsV2ForMap(String.valueOf(lat), String.valueOf(lng), WEB_SERVICE_RADIUS,
                 "json", pusheId, userName, lang).enqueue(new Callback<List<Stadium>>() {
             @Override
             public void onResponse(Call<List<Stadium>> call, Response<List<Stadium>> response) {
@@ -269,7 +267,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         try {
             PackageInfo pInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
             int version = pInfo.versionCode;
-            WebApiClient.getLocationApi().setLocation("jkhfgkljhasfdlkh", String.valueOf(latitude),
+            WebApiClient.getLocationApi(context).setLocation("jkhfgkljhasfdlkh", String.valueOf(latitude),
                     String.valueOf(longitude), "title", userName, pusheId, String.valueOf(version), lang)
                     .enqueue(new Callback<Void>() {
                         @Override
