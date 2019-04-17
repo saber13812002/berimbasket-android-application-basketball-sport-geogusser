@@ -1,8 +1,5 @@
 package ir.berimbasket.app.data.network.endpoint;
 
-import java.util.List;
-
-import ir.berimbasket.app.data.network.model.Login;
 import ir.berimbasket.app.data.network.model.RequestOTP;
 import ir.berimbasket.app.data.network.model.VerifyOTP;
 import retrofit2.Call;
@@ -16,10 +13,10 @@ import retrofit2.http.Query;
 
 public interface LoginApi {
 
-    @GET("getStatusLoginByUsernamePassword.php")
-    Call<List<Login>> login(@Query("mac") String mac, @Query("username") String username, @Query("password") String password,
-                            @Query("pusheid") String pusheId,
-                            @Query("lang") String lang);
+//    @GET("getStatusLoginByUsernamePassword.php")
+//    Call<List<Login>> login(@Query("mac") String mac, @Query("username") String username, @Query("password") String password,
+//                            @Query("pusheid") String pusheId,
+//                            @Query("lang") String lang);
 
     @GET("otp1.php")
     Call<RequestOTP> requestOTP(@Query("phone") String phone,

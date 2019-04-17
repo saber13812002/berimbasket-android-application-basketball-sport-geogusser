@@ -133,7 +133,7 @@ dependencies {
     implementation 'com.cleveroad:slidingtutorial:1.0.8'
     implementation 'com.google.android.gms:play-services-ads:10.0.1'
     implementation 'com.github.wooplr:Spotlight:1.2.3'
-    implementation 'com.github.iammert:MaterialIntroView:1.6.0'
+    implementation 'com.github.iammert:MaterialIntroView:5e0c6b6'
     implementation 'com.github.florent37:tutoshowcase:1.0.1'
     implementation 'com.github.ar-android:AndroidSvgLoader:1.0.1'
     implementation 'com.android.support:multidex:1.0.3'

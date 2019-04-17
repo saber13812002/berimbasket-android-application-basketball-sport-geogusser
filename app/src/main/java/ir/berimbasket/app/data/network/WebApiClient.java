@@ -92,7 +92,7 @@ public class WebApiClient {
     }
 
     public static LoginApi getLoginApi(Context context) {
-        return buildApiClient(UrlConstants.Base.BBAL, context)
+        return buildApiClient(UrlConstants.Base.OTP2_PLUGIN, context)
                 .create(LoginApi.class);
     }
 
