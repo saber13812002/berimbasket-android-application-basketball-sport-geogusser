@@ -66,6 +66,8 @@ public class StadiumFragment extends Fragment implements StadiumAdapter.StadiumL
         recyclerView.setNestedScrollingEnabled(false);
         recyclerView.addOnScrollListener(scrollListener);
 
+        // initialize first page
+        addDismissibleToList();
         loadStadiumList(0, PAGE_COUNT);
         from += PAGE_COUNT;
 
@@ -142,7 +144,6 @@ public class StadiumFragment extends Fragment implements StadiumAdapter.StadiumL
                     List<Stadium> stadiums = response.body();
                     if (stadiums != null && getView() != null && stadiums.size() != 0) {
                         adapter.addStadiums(stadiums);
-                        addDismissibleToList();
                     } else {
                         isLastPage = true;
                     }
