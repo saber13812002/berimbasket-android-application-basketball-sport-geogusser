@@ -388,6 +388,8 @@
 
     <string name="general_country_code_format" translatable="false">%1$s (%2$s)</string>
 
+    <string name="general_dialog_title_bazaar_not_found">Bazaar not found, install now?</string>
+
     <!-- permission explain -->
     <string name="permission_explain_write_external_storage_en_phones">Saving update file require Storage permission, choose option below and enable it from permissions page</string>
     <string name="permission_explain_write_external_storage_fa_phones">Saving update file require Storage permission, choose option below and enable it from permissions page</string>
