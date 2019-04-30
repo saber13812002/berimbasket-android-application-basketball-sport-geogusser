@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import co.ronash.pushe.Pushe;
+import ir.berimbasket.app.BuildConfig;
 import ir.berimbasket.app.R;
 import ir.berimbasket.app.data.env.UrlConstants;
 import ir.berimbasket.app.data.network.WebApiClient;
@@ -114,8 +115,10 @@ public class PlayerActivity extends BaseActivity implements SocialAccAdapter.Soc
             public void onClick(View view) {
                 try {
                     if (player != null) {
-                        Redirect.sendToTelegram(PlayerActivity.this, UrlConstants.Bot.REPORT_PLAYER + player.getId(),
-                                Telegram.DEFAULT_BOT);
+                        if (!BuildConfig.FLAVOR.equals("bazaar")) {
+                            Redirect.sendToTelegram(PlayerActivity.this, UrlConstants.Bot.REPORT_PLAYER + player.getId(),
+                                    Telegram.DEFAULT_BOT);
+                        }
                     }
                 } catch (IllegalArgumentException unknownTelegramURL) {
                     // to nothing yet
