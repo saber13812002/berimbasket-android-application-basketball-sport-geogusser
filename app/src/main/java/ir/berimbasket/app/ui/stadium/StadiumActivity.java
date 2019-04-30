@@ -135,8 +135,10 @@ public class StadiumActivity extends BaseActivity implements StadiumGalleryAdapt
             @Override
             public void onClick(View view) {
                 try {
-                    Redirect.sendToTelegram(StadiumActivity.this, UrlConstants.Bot.REPORT_STADIUM + stadium.getId(),
-                            Telegram.DEFAULT_BOT);
+                    if (!BuildConfig.FLAVOR.equals("bazaar")) {
+                        Redirect.sendToTelegram(StadiumActivity.this, UrlConstants.Bot.REPORT_STADIUM + stadium.getId(),
+                                Telegram.DEFAULT_BOT);
+                    }
                 } catch (IllegalArgumentException unknownTelegramURL) {
                     // do nothing yet
                 }
