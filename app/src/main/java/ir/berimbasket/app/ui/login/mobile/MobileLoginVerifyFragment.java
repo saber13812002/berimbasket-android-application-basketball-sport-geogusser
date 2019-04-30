@@ -3,7 +3,6 @@ package ir.berimbasket.app.ui.login.mobile;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -126,7 +125,8 @@ public class MobileLoginVerifyFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        getActivity().registerReceiver(localReceiver, new IntentFilter(LOCAL_RECEIVER_ACTION));
+        // TODO: 4/30/2019 fix this sms receiver asap (it's not listening to sms now, maybe android 8.0+ API has breaking change
+//        getActivity().registerReceiver(localReceiver, new IntentFilter(LOCAL_RECEIVER_ACTION));
     }
 
     @Override
@@ -138,7 +138,8 @@ public class MobileLoginVerifyFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        getActivity().unregisterReceiver(localReceiver);
+        // TODO: 4/30/2019 fix this sms receiver asap (it's not listening to sms now, maybe android 8.0+ API has breaking change
+//        getActivity().unregisterReceiver(localReceiver);
     }
 
     private void runTimer() {
