@@ -50,8 +50,8 @@ android {
         minSdkVersion 17
         targetSdkVersion 28
         multiDexEnabled true
-        versionCode 17
-        versionName "1.0.1"
+        versionCode 18
+        versionName "1.0.2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
         renderscriptTargetApi 28
@@ -65,16 +65,8 @@ android {
         }
     }
     productFlavors {
-        dev {
-            versionNameSuffix "-Developer"
-            dimension "BerimBasket"
-        }
         bazaar {
             versionNameSuffix "-Bazaar"
-            dimension "BerimBasket"
-        }
-        beta {
-            versionNameSuffix "-Beta"
             dimension "BerimBasket"
         }
         myket {

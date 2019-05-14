@@ -21,6 +21,7 @@ import ir.berimbasket.app.data.network.WebApiClient;
 import ir.berimbasket.app.data.network.model.Stadium;
 import ir.berimbasket.app.data.pref.PrefManager;
 import ir.berimbasket.app.service.GPSTracker;
+import ir.berimbasket.app.ui.common.DismissableCallback;
 import ir.berimbasket.app.ui.common.model.DismissibleInfo;
 import ir.berimbasket.app.ui.common.model.StadiumBase;
 import ir.berimbasket.app.ui.contact.DeveloperContactActivity;
@@ -31,7 +32,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class StadiumFragment extends Fragment implements StadiumAdapter.StadiumListListener {
+public class StadiumFragment extends Fragment implements StadiumAdapter.StadiumListListener, DismissableCallback {
 
     private static final int PAGE_COUNT = 20;
     private boolean loading;
@@ -61,7 +62,7 @@ public class StadiumFragment extends Fragment implements StadiumAdapter.StadiumL
         Context context = view.getContext();
         layoutManager = new LinearLayoutManager(context);
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new StadiumAdapter(this);
+        adapter = new StadiumAdapter(this, this);
         recyclerView.setAdapter(adapter);
         recyclerView.setNestedScrollingEnabled(false);
         recyclerView.addOnScrollListener(scrollListener);

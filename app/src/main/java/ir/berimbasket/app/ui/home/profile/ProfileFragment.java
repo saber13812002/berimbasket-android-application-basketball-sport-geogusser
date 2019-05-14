@@ -24,6 +24,7 @@ import android.widget.TextView;
 import java.net.HttpURLConnection;
 
 import co.ronash.pushe.Pushe;
+import ir.berimbasket.app.BuildConfig;
 import ir.berimbasket.app.R;
 import ir.berimbasket.app.data.env.UrlConstants;
 import ir.berimbasket.app.data.network.WebApiClient;
@@ -110,7 +111,9 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 try {
-                    Redirect.sendToTelegram(getActivity(), UrlConstants.Bot.PROFILE, Telegram.DEFAULT_BOT);
+                    if (!BuildConfig.FLAVOR.equals("bazaar")) {
+                        Redirect.sendToTelegram(getActivity(), UrlConstants.Bot.PROFILE, Telegram.DEFAULT_BOT);
+                    }
                 } catch (IllegalArgumentException unknownTelegramURL) {
                     // do nothing yet
                 }
@@ -141,7 +144,9 @@ public class ProfileFragment extends Fragment {
                         break;
                     case R.id.menu_profile_info:
                         try {
-                            Redirect.sendToTelegram(getActivity(), UrlConstants.Bot.PROFILE, Telegram.DEFAULT_BOT);
+                            if (!BuildConfig.FLAVOR.equals("bazaar")) {
+                                Redirect.sendToTelegram(getActivity(), UrlConstants.Bot.PROFILE, Telegram.DEFAULT_BOT);
+                            }
                         } catch (IllegalArgumentException unknownTelegramURL) {
                             // do nothing yet
                         }
@@ -152,14 +157,18 @@ public class ProfileFragment extends Fragment {
 
                     case R.id.menu_profile_score:
                         try {
-                            Redirect.sendToTelegram(getActivity(), UrlConstants.Bot.SCORE, Telegram.DEFAULT_BOT);
+                            if (!BuildConfig.FLAVOR.equals("bazaar")) {
+                                Redirect.sendToTelegram(getActivity(), UrlConstants.Bot.SCORE, Telegram.DEFAULT_BOT);
+                            }
                         } catch (IllegalArgumentException unknownTelegramURL) {
                             // do nothing yet
                         }
                         break;
                     case R.id.menu_profile_team:
                         try {
-                            Redirect.sendToTelegram(getActivity(), UrlConstants.Bot.SCORE, Telegram.DEFAULT_BOT);
+                            if (!BuildConfig.FLAVOR.equals("bazaar")) {
+                                Redirect.sendToTelegram(getActivity(), UrlConstants.Bot.SCORE, Telegram.DEFAULT_BOT);
+                            }
                         } catch (IllegalArgumentException unknownTelegramURL) {
                             // do nothing yet
                         }

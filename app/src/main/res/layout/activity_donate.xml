@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.donate.DonateActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar_activity_donate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:elevation="0dp">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar_activity_donate"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:theme="@style/ToolbarStyle">
+
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/textview_activity_donate_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="128dp"
+            android:text="@string/activity_donate_buy_me_a_coffee"
+            android:textColor="@color/colorBlack"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <RadioGroup
+            android:id="@+id/radiogroup_activity_donate_prices"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textview_activity_donate_description">
+
+            <RadioButton
+                android:id="@+id/radiobutton_activity_donate_one"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:fontFamily="@font/yekan"
+                android:text="@string/activity_donate_one_thousand_toman"
+                android:textColor="@color/colorDarkGrey" />
+
+            <RadioButton
+                android:id="@+id/radiobutton_activity_donate_two"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:fontFamily="@font/yekan"
+                android:text="@string/activity_donate_two_thousands_toman"
+                android:textColor="@color/colorDarkGrey" />
+
+            <RadioButton
+                android:id="@+id/radiobutton_activity_donate_five"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:fontFamily="@font/yekan"
+                android:text="@string/activity_donate_five_thousands_toman"
+                android:textColor="@color/colorDarkGrey" />
+
+            <RadioButton
+                android:id="@+id/radiobutton_activity_donate_ten"
+                android:layout_width="match_parent"
+                android:padding="16dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:fontFamily="@font/yekan"
+                android:text="@string/activity_donate_ten_thousands_toman"
+                android:textColor="@color/colorDarkGrey" />
+        </RadioGroup>
+
+        <ProgressBar
+            android:id="@+id/progressbar_activity_donate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@+id/button_activityDonate_pay"
+            app:layout_constraintEnd_toEndOf="@+id/button_activityDonate_pay"
+            app:layout_constraintStart_toStartOf="@+id/button_activityDonate_pay"
+            app:layout_constraintTop_toBottomOf="@+id/button_activityDonate_pay" />
+
+        <Button
+            android:id="@+id/button_activityDonate_pay"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="56dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:fontFamily="@font/yekan"
+            android:text="@string/activity_donate_button_pay"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/radiogroup_activity_donate_prices" />
+
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.design.widget.CoordinatorLayout>

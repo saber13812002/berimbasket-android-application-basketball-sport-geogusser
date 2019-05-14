@@ -13,6 +13,7 @@ import ir.berimbasket.app.R;
 import ir.berimbasket.app.data.env.UrlConstants;
 import ir.berimbasket.app.data.pref.PrefManager;
 import ir.berimbasket.app.ui.contact.DeveloperContactActivity;
+import ir.berimbasket.app.ui.donate.DonateActivity;
 import ir.berimbasket.app.ui.splash.SplashActivity;
 import ir.berimbasket.app.util.AnalyticsHelper;
 import ir.berimbasket.app.util.LocaleManager;
@@ -20,7 +21,7 @@ import ir.berimbasket.app.util.Redirect;
 
 public class SettingsFragment extends PreferenceFragmentCompat implements Preference.OnPreferenceClickListener, SharedPreferences.OnSharedPreferenceChangeListener {
 
-    private Preference help, aboutUs, terms, changeLog, commentOnStore, contactUs, contactDeveloper;
+    private Preference help, aboutUs, terms, changeLog, commentOnStore, contactUs, contactDeveloper, donate;
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
@@ -34,6 +35,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
         for (int i = 0; i < langList.length; i++) if (langList[i].equals(deviceLanguage)) index = i;
         langSwitch.setValueIndex(index);
 
+        donate = findPreference(getString(R.string.key_pref_donate));
         help = findPreference(getString(R.string.key_pref_help));
         aboutUs = findPreference(getString(R.string.key_pref_about_us));
         terms = findPreference(getString(R.string.key_pref_terms_and_services));
@@ -42,6 +44,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
         contactUs = findPreference(getString(R.string.key_pref_contact_us));
         contactDeveloper = findPreference(getString(R.string.key_pref_contact_developer));
 
+        donate.setOnPreferenceClickListener(this);
         help.setOnPreferenceClickListener(this);
         aboutUs.setOnPreferenceClickListener(this);
         terms.setOnPreferenceClickListener(this);
@@ -57,7 +60,11 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
     @Override
     public boolean onPreferenceClick(Preference preference) {
         String key = preference.getKey();
-        if (key.equals(help.getKey())) {
+        if (key.equals(donate.getKey())) {
+            // Tracking Event (Analytics)
+            AnalyticsHelper.getInstance().trackEvent(getString(R.string.analytics_category_settings), getString(R.string.analytics_action_donate), "");
+            startActivity(new Intent(getActivity(), DonateActivity.class));
+        } else if (key.equals(help.getKey())) {
             // Tracking Event (Analytics)
             AnalyticsHelper.getInstance().trackEvent(getString(R.string.analytics_category_settings), getString(R.string.analytics_action_help), "");
             Redirect.sendToCustomTab(getActivity(), UrlConstants.External.HELP);

@@ -21,7 +21,8 @@ public class PrefManager extends SecureSharedPreferences {
     private static final String KEY_PASSWORD = "password";
     private static final String KEY_INTRO_PASSED = "introPassed";
     private static final String KEY_TOKEN = "token";
-    private static final String KEY_START_MESSAGE_PASSED = "startMessagePassed";
+    private static final String KEY_START_MESSAGE_DISMISSED = "startMessageDismissed";
+    private static final String KEY_DONATE_MESSAGE_DISMISSED = "donateMessageDismissed";
     private Context context;
 
     public PrefManager(Context context) {
@@ -167,10 +168,18 @@ public class PrefManager extends SecureSharedPreferences {
     }
 
     public boolean getStartMessagePassed() {
-        return getBoolean(KEY_START_MESSAGE_PASSED, false);
+        return getBoolean(KEY_START_MESSAGE_DISMISSED, false);
     }
 
     public void putStartMessagePassed(boolean value) {
-        edit().putBoolean(KEY_START_MESSAGE_PASSED, value).apply();
+        edit().putBoolean(KEY_START_MESSAGE_DISMISSED, value).apply();
+    }
+
+    public boolean getDonateMessageDismissed() {
+        return getBoolean(KEY_DONATE_MESSAGE_DISMISSED, false);
+    }
+
+    public void putDonateMessageDismissed(boolean value) {
+        edit().putBoolean(KEY_DONATE_MESSAGE_DISMISSED, value).apply();
     }
 }

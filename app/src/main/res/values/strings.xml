@@ -141,6 +141,16 @@
 
     <string name="activity_country_list_search">search</string>
 
+    <string name="activity_donate_buy_me_a_coffee">Buy me a coffee</string>
+    <string name="activity_donate_one_thousand_toman">1 thousand toman</string>
+    <string name="activity_donate_two_thousands_toman">2 thousands toman</string>
+    <string name="activity_donate_five_thousands_toman">5 thousands toman</string>
+    <string name="activity_donate_ten_thousands_toman">10 thousands toman</string>
+    <string name="activity_donate_button_pay">Donate</string>
+    <string name="activity_donate_select_one_item_first">Please select one item first</string>
+    <string name="activity_donate_payment_successful">Payment successful, Thank you for your donate</string>
+    <string name="activity_donate_payment_failed">Payment failed!, please try again later</string>
+
     <!-- fragment -->
     <string name="fragment_main_tab_match">Matches</string>
     <string name="fragment_main_tab_player">Players</string>
@@ -233,6 +243,7 @@
 
     <string name="pref_update_notification_title">Enable update notifications</string>
     <string name="pref_message_notification_title">Display app\'s notifications</string>
+    <string name="pref_donate_title">Donate</string>
     <string name="pref_help_title">Help</string>
     <string name="pref_state_list_title">Default city location on map</string>
     <string name="pref_terms_and_services_title">Terms And Services</string>
@@ -244,6 +255,7 @@
 
     <string name="key_pref_update_notification" translatable="false">pref_update_notification</string>
     <string name="key_pref_message_notification" translatable="false">pref_message_notification</string>
+    <string name="key_pref_donate" translatable="false">pref_donate</string>
     <string name="key_pref_help" translatable="false">pref_help</string>
     <string name="key_pref_terms_and_services" translatable="false">pref_terms_and_services</string>
     <string name="key_pref_change_log" translatable="false">pref_change_log</string>
@@ -346,6 +358,7 @@
     <string name="general_dialog_title_change_log">Change Log</string>
     <string name="general_dialog_title_settings">Settings</string>
     <string name="general_dialog_title_guide">Guide</string>
+    <string name="general_dialog_title_notice">Notice</string>
 
     <string name="general_dialog_message_browser_not_found">Browser not found! Install now?</string>
     <string name="general_dialog_message_google_play_not_found">GooglePlayServices not found</string>
@@ -388,7 +401,13 @@
 
     <string name="general_country_code_format" translatable="false">%1$s (%2$s)</string>
 
-    <string name="general_dialog_title_bazaar_not_found">Bazaar not found, install now?</string>
+    <string name="general_dialog_message_bazaar_not_found">Bazaar not found, install now?</string>
+    <string name="general_dialog_message_myket_not_found">Myket not found, install now?</string>
+
+    <string name="general_flavor_name_myket" translatable="false">myket</string>
+    <string name="general_flavor_name_bazaar" translatable="false">bazaar</string>
+    <string name="general_myket_download_apk" translatable="false">https://myket.ir/download</string>
+    <string name="general_bazaar_download_apk" translatable="false">https://cafebazaar.ir/install/</string>
 
     <!-- permission explain -->
     <string name="permission_explain_write_external_storage_en_phones">Saving update file require Storage permission, choose option below and enable it from permissions page</string>
@@ -418,6 +437,7 @@
     <string name="analytics_action_login_mobile" translatable="false">Login Mobile</string>
     <string name="analytics_action_set_new_marker" translatable="false">SetNewMarker</string>
     <string name="analytics_action_log_out" translatable="false">Log out</string>
+    <string name="analytics_action_donate" translatable="false">Click donate</string>
     <string name="analytics_action_help" translatable="false">Click Help</string>
     <string name="analytics_action_about" translatable="false">Click About</string>
     <string name="analytics_action_terms" translatable="false">Click TermsAndServices</string>
@@ -441,5 +461,8 @@
     <string name="entity_match_score_away_default">Esteghlal</string>
     <string name="entity_match_score_home_default">Perspolis</string>
     <string name="entity_match_score_data_default">End</string>
+    <string name="general_dismissable_donate_header">Buy me a coffee</string>
+    <string name="general_dismissable_donate_message">To support app donate us</string>
+    <string name="general_dismissable_donate_action">donate</string>
 
 </resources>

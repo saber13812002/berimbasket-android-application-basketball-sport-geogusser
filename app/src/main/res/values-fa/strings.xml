@@ -122,6 +122,7 @@
     <string name="pref_category_support">پشتیبانی</string>
     <string name="pref_update_notification_title">فعالسازی اعلان آپدیت برنامه</string>
     <string name="pref_message_notification_title">نمایش اعلان های برنامه</string>
+    <string name="pref_donate_title">حمایت از برنامه</string>
     <string name="pref_help_title">راهنمای برنامه</string>
     <string name="pref_terms_and_services_title">شرایط استفاده</string>
     <string name="pref_change_log_title">تغییرات اخیر</string>
@@ -280,9 +281,23 @@
     <string name="general_dismissible_start_message">لطفا اگر ایده یا اشکالی به نظرتون میرسه برای تیم توسعه برنامه بفرستید</string>
     <string name="general_dismissible_start_action">ارسال پیام</string>
     <string name="general_dismissible_start_skip">بعدا</string>
-    <string name="general_dialog_title_bazaar_not_found">بازار یافت نشد، اکنون نصب میکنید؟</string>
+    <string name="general_dialog_message_bazaar_not_found">بازار یافت نشد، اکنون نصب میکنید؟</string>
     <string name="activity_stadium_fab_action_reserve">رزرو ورزشگاه</string>
     <string name="activity_stadium_fab_action_add_photo">افزودن عکس</string>
     <string name="activity_stadium_fab_action_add_game">ایجاد مسابقه</string>
+    <string name="activity_donate_buy_me_a_coffee">حمایت از برنامه</string>
+    <string name="activity_donate_one_thousand_toman">هزار تومان</string>
+    <string name="activity_donate_two_thousands_toman">دو هزار تومان</string>
+    <string name="activity_donate_five_thousands_toman">پنج هزار تومان</string>
+    <string name="activity_donate_ten_thousands_toman">ده هزار تومان</string>
+    <string name="activity_donate_button_pay">پرداخت</string>
+    <string name="activity_donate_select_one_item_first">لطفا یکی از گزینه ها را انتخاب کنید</string>
+    <string name="activity_donate_payment_successful">پرداخت با موفقیت انجام شد، از حمایت شما متشکریم</string>
+    <string name="activity_donate_payment_failed">خطایی رخ داد!، لطفا بعدا دوباره امتحان کنید</string>
+    <string name="general_dialog_title_notice">توجه</string>
+    <string name="general_dialog_message_myket_not_found">مایکت نصب نشده است، اکنون نصب میکنید؟</string>
+    <string name="general_dismissable_donate_header">حمایت از برنامه</string>
+    <string name="general_dismissable_donate_message">برای توسعه برنامه از ما حمایت کنید</string>
+    <string name="general_dismissable_donate_action">حمایت میکنم</string>
 
 </resources>

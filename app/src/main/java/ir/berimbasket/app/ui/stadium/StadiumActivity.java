@@ -30,6 +30,7 @@ import java.util.List;
 
 import co.ronash.pushe.Pushe;
 import de.hdodenhof.circleimageview.CircleImageView;
+import ir.berimbasket.app.BuildConfig;
 import ir.berimbasket.app.R;
 import ir.berimbasket.app.data.env.UrlConstants;
 import ir.berimbasket.app.data.network.WebApiClient;
@@ -120,8 +121,10 @@ public class StadiumActivity extends BaseActivity implements StadiumGalleryAdapt
             @Override
             public void onClick(View v) {
                 try {
-                    Redirect.sendToTelegram(StadiumActivity.this, UrlConstants.Bot.MAP + stadium.getId(),
-                            Telegram.DEFAULT_BOT);
+                    if (!BuildConfig.FLAVOR.equals("bazaar")) {
+                        Redirect.sendToTelegram(StadiumActivity.this, UrlConstants.Bot.MAP + stadium.getId(),
+                                Telegram.DEFAULT_BOT);
+                    }
                 } catch (IllegalArgumentException unknownTelegramURL) {
                     // do nothing yet
                 }
@@ -132,8 +135,10 @@ public class StadiumActivity extends BaseActivity implements StadiumGalleryAdapt
             @Override
             public void onClick(View view) {
                 try {
-                    Redirect.sendToTelegram(StadiumActivity.this, UrlConstants.Bot.REPORT_STADIUM + stadium.getId(),
-                            Telegram.DEFAULT_BOT);
+                    if (!BuildConfig.FLAVOR.equals("bazaar")) {
+                        Redirect.sendToTelegram(StadiumActivity.this, UrlConstants.Bot.REPORT_STADIUM + stadium.getId(),
+                                Telegram.DEFAULT_BOT);
+                    }
                 } catch (IllegalArgumentException unknownTelegramURL) {
                     // do nothing yet
                 }
@@ -212,8 +217,10 @@ public class StadiumActivity extends BaseActivity implements StadiumGalleryAdapt
                     return false;
                 case R.id.action_reserve:
                     try {
-                        Redirect.sendToTelegram(StadiumActivity.this, UrlConstants.Bot.RESERVE + stadiumId
-                                , Telegram.DEFAULT_BOT);
+                        if (!BuildConfig.FLAVOR.equals("bazaar")) {
+                            Redirect.sendToTelegram(StadiumActivity.this, UrlConstants.Bot.RESERVE + stadiumId
+                                    , Telegram.DEFAULT_BOT);
+                        }
                     } catch (IllegalArgumentException unknownTelegramURL) {
                         // do nothing yet
                     }
@@ -240,8 +247,10 @@ public class StadiumActivity extends BaseActivity implements StadiumGalleryAdapt
 
     private void addPhotoToGallery(int stadiumId) {
         try {
-            Redirect.sendToTelegram(StadiumActivity.this, UrlConstants.Bot.UPLOAD + stadiumId
-                    , Telegram.DEFAULT_BOT);
+            if (!BuildConfig.FLAVOR.equals("bazaar")) {
+                Redirect.sendToTelegram(StadiumActivity.this, UrlConstants.Bot.UPLOAD + stadiumId
+                        , Telegram.DEFAULT_BOT);
+            }
         } catch (IllegalArgumentException unknownTelegramURL) {
             // do nothing yet
         }

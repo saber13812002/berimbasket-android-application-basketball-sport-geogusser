@@ -25,6 +25,7 @@ import co.mobiwise.materialintro.shape.FocusGravity;
 import co.mobiwise.materialintro.shape.ShapeType;
 import co.mobiwise.materialintro.view.MaterialIntroView;
 import co.ronash.pushe.Pushe;
+import ir.berimbasket.app.BuildConfig;
 import ir.berimbasket.app.R;
 import ir.berimbasket.app.data.env.UrlConstants;
 import ir.berimbasket.app.data.network.WebApiClient;
@@ -211,7 +212,9 @@ public class LoginActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 try {
-                    Redirect.sendToTelegram(LoginActivity.this, UrlConstants.External.REGISTER_TUTORIAL, Telegram.POST);
+                    if (!BuildConfig.FLAVOR.equals("bazaar")) {
+                        Redirect.sendToTelegram(LoginActivity.this, UrlConstants.External.REGISTER_TUTORIAL, Telegram.POST);
+                    }
                 } catch (IllegalArgumentException unknownTelegramURL) {
                     // do nothing yet
                 }
