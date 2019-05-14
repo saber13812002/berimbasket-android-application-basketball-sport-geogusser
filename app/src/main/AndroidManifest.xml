@@ -22,8 +22,12 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
-    <uses-permission android:name="android.permission.RECEIVE_SMS" />
-    <uses-permission android:name="android.permission.READ_SMS" />
+
+    <!--
+    TODO: 4/30/2019 fix this sms receiver asap (it's not listening to sms now, maybe android 8.0+ API has breaking change
+    -->
+    <!--<uses-permission android:name="android.permission.RECEIVE_SMS" />-->
+    <!--<uses-permission android:name="android.permission.READ_SMS" />-->
 
     <application
         android:name=".ui.base.BaseApplication"
@@ -179,8 +183,9 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".ui.contact.DeveloperContactActivity"
-            android:windowSoftInputMode="stateHidden"/>
+        <activity
+            android:name=".ui.contact.DeveloperContactActivity"
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".ui.notification.NotificationActivity"
             android:theme="@style/AppTheme" />
@@ -188,21 +193,26 @@
             android:name=".ui.internet.NoInternetActivity"
             android:excludeFromRecents="true"
             android:label=""
-            android:theme="@style/Theme.Dialog"/>
+            android:theme="@style/Theme.Dialog" />
         <activity
             android:name=".ui.login.mobile.MobileLoginActivity"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateUnchanged" />
         <activity android:name=".ui.login.mobile.CountryListActivity" />
 
-        <receiver android:name=".broadcast.SmsReceivedBroadcast"
-            android:enabled="true"
-            android:exported="true"
-            android:permission="android.permission.BROADCAST_SMS">
-            <intent-filter android:priority="1000">
-                <action android:name="android.provider.Telephony.SMS_RECEIVED"/>
-            </intent-filter>
-        </receiver>
+        <activity android:name=".ui.donate.DonateActivity"/>
+
+        <!--
+        TODO: 4/30/2019 fix this sms receiver asap (it's not listening to sms now, maybe android 8.0+ API has breaking change
+        -->
+        <!--<receiver android:name=".broadcast.SmsReceivedBroadcast"-->
+        <!--android:enabled="true"-->
+        <!--android:exported="true"-->
+        <!--android:permission="android.permission.BROADCAST_SMS">-->
+        <!--<intent-filter android:priority="1000">-->
+        <!--<action android:name="android.provider.Telephony.SMS_RECEIVED"/>-->
+        <!--</intent-filter>-->
+        <!--</receiver>-->
     </application>
 
 </manifest>

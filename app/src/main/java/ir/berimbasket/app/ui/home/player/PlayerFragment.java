@@ -20,6 +20,9 @@ import ir.berimbasket.app.R;
 import ir.berimbasket.app.data.network.WebApiClient;
 import ir.berimbasket.app.data.network.model.Player;
 import ir.berimbasket.app.data.pref.PrefManager;
+import ir.berimbasket.app.ui.common.DismissableCallback;
+import ir.berimbasket.app.ui.common.model.DismissibleInfo;
+import ir.berimbasket.app.ui.donate.DonateActivity;
 import ir.berimbasket.app.ui.player.PlayerActivity;
 import ir.berimbasket.app.util.AnalyticsHelper;
 import ir.berimbasket.app.util.LocaleManager;
@@ -27,7 +30,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class PlayerFragment extends Fragment implements PlayerAdapter.PlayerListListener {
+public class PlayerFragment extends Fragment implements PlayerAdapter.PlayerListListener, DismissableCallback {
 
     private static final int PAGE_COUNT = 20;
     private boolean loading;
@@ -57,11 +60,13 @@ public class PlayerFragment extends Fragment implements PlayerAdapter.PlayerList
         Context context = view.getContext();
         layoutManager = new LinearLayoutManager(context);
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new PlayerAdapter(this);
+        adapter = new PlayerAdapter(this, this);
         recyclerView.setAdapter(adapter);
         recyclerView.setNestedScrollingEnabled(false);
         recyclerView.addOnScrollListener(scrollListener);
 
+        // initialize first page
+        addDismissibleToList();
         loadPlayerList(0, PAGE_COUNT);
         from += PAGE_COUNT;
 
@@ -97,6 +102,20 @@ public class PlayerFragment extends Fragment implements PlayerAdapter.PlayerList
         startActivity(intent);
     }
 
+    @Override
+    public void onDismissibleActionClick(DismissibleInfo dismissibleInfo) {
+        Intent intent = new Intent(getContext(), DonateActivity.class);
+        adapter.removeTop();
+        new PrefManager(getContext()).putDonateMessageDismissed(true);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onDismissibleSkipClick(DismissibleInfo dismissibleInfo) {
+        new PrefManager(getContext()).putDonateMessageDismissed(true);
+        adapter.removeTop();
+    }
+
     private void loadPlayerList(int from, int num) {
         String pusheId = Pushe.getPusheId(getContext());
         String userName = new PrefManager(getContext()).getUserName();
@@ -125,5 +144,15 @@ public class PlayerFragment extends Fragment implements PlayerAdapter.PlayerList
                 circularProgressBar.setVisibility(View.INVISIBLE);
                 horizontalProgressBar.setVisibility(View.INVISIBLE);            }
         });
+    }
+
+    private void addDismissibleToList() {
+        if (!new PrefManager(getContext()).getDonateMessageDismissed()) {
+            DismissibleInfo info = new DismissibleInfo(getString(R.string.general_dismissable_donate_header),
+                    getString(R.string.general_dismissable_donate_message),
+                    getString(R.string.general_dismissable_donate_action),
+                    getString(R.string.general_dismissible_start_skip));
+            adapter.addToTop(info);
+        }
     }
 }

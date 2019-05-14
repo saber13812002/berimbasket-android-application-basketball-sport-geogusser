@@ -20,6 +20,7 @@ import java.net.HttpURLConnection;
 import java.util.List;
 
 import co.ronash.pushe.Pushe;
+import ir.berimbasket.app.BuildConfig;
 import ir.berimbasket.app.R;
 import ir.berimbasket.app.data.env.UrlConstants;
 import ir.berimbasket.app.data.network.WebApiClient;
@@ -153,7 +154,9 @@ public class RegisterActivity extends BaseActivity {
                 .setMessage(getString(R.string.general_dialog_message_bot_register))
                 .setPositiveButton(getString(R.string.general_dialog_option_bot_link), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        Redirect.sendToTelegram(getApplicationContext(), UrlConstants.Bot.REGISTER, Telegram.PUSHEID_BOT);
+                        if (!BuildConfig.FLAVOR.equals("bazaar")) {
+                            Redirect.sendToTelegram(getApplicationContext(), UrlConstants.Bot.REGISTER, Telegram.PUSHEID_BOT);
+                        }
                         // Tracking Event (Analytics)
                         AnalyticsHelper.getInstance().trackEvent(getString(R.string.analytics_category_registration)
                                 , getString(R.string.analytics_action_telegram_bot), "");

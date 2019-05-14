@@ -15,26 +15,28 @@ import java.util.List;
 import ir.berimbasket.app.R;
 import ir.berimbasket.app.data.network.model.Stadium;
 import ir.berimbasket.app.ui.base.BaseItem;
-import ir.berimbasket.app.ui.common.model.DismissibleInfo;
+import ir.berimbasket.app.ui.base.BaseViewHolder;
+import ir.berimbasket.app.ui.common.DismissableCallback;
+import ir.berimbasket.app.ui.common.DismissibleHolder;
 
-class StadiumAdapter extends RecyclerView.Adapter<StadiumAdapter.BaseViewHolder> {
+class StadiumAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     private List<BaseItem> dataSource;
     private StadiumListListener listener;
+    private DismissableCallback dismissableCallback;
 
     interface StadiumListListener {
         void onStadiumItemClick(Stadium stadium);
-        void onDismissibleActionClick(DismissibleInfo dismissibleInfo);
-        void onDismissibleSkipClick(DismissibleInfo dismissibleInfo);
     }
 
-    StadiumAdapter(List<BaseItem> items, StadiumListListener listener) {
+    StadiumAdapter(List<BaseItem> items, StadiumListListener listener, DismissableCallback dismissableCallback) {
         dataSource = items;
         this.listener = listener;
+        this.dismissableCallback = dismissableCallback;
     }
 
-    StadiumAdapter(StadiumListListener listener) {
-        this(new ArrayList<>(), listener);
+    StadiumAdapter(StadiumListListener adapterListener, DismissableCallback dismissableCallback) {
+        this(new ArrayList<>(), adapterListener, dismissableCallback);
     }
 
     @Override
@@ -45,7 +47,9 @@ class StadiumAdapter extends RecyclerView.Adapter<StadiumAdapter.BaseViewHolder>
                 return new StadiumHolder(major);
             case BaseItem.DISMISSIBLE_INFO:
                 View info = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_dismissible_info, parent, false);
-                return new DismissibleHolder(info);
+                DismissibleHolder dismissibleHolder = new DismissibleHolder(info);
+                dismissibleHolder.setCallback(dismissableCallback);
+                return dismissibleHolder;
         }
         return null;
     }
@@ -63,14 +67,6 @@ class StadiumAdapter extends RecyclerView.Adapter<StadiumAdapter.BaseViewHolder>
     @Override
     public int getItemViewType(int position) {
         return dataSource.get(position).getViewType();
-    }
-
-    abstract class BaseViewHolder extends RecyclerView.ViewHolder {
-        BaseViewHolder(View v) {
-            super(v);
-        }
-
-        public abstract void bind(BaseItem item, int position);
     }
 
     class StadiumHolder extends BaseViewHolder {
@@ -113,38 +109,6 @@ class StadiumAdapter extends RecyclerView.Adapter<StadiumAdapter.BaseViewHolder>
         }
     }
 
-    class DismissibleHolder extends BaseViewHolder {
-        View view;
-        TextView header, message, action, skip;
-
-        DismissibleHolder(View view) {
-            super(view);
-            this.view = view;
-            this.header = view.findViewById(R.id.txtDismissibleHeader);
-            this.message = view.findViewById(R.id.txtDismissibleMessage);
-            this.action = view.findViewById(R.id.txtDismissibleAction);
-            this.skip = view.findViewById(R.id.txtDismissibleSkip);
-        }
-
-        @Override
-        public void bind(BaseItem item, int position) {
-            DismissibleInfo dismissible = (DismissibleInfo) item;
-            header.setText(dismissible.getHeader());
-            message.setText(dismissible.getMessage());
-            action.setText(dismissible.getAction());
-            skip.setText(dismissible.getSkip());
-            action.setOnClickListener( v -> {
-                if (listener != null) {
-                    listener.onDismissibleActionClick(dismissible);
-                }
-            });
-            skip.setOnClickListener( v -> {
-                if (listener != null) {
-                    listener.onDismissibleSkipClick(dismissible);
-                }
-            });
-        }
-    }
 
     void swapDataSource(List<BaseItem> list) {
         this.dataSource = list;
