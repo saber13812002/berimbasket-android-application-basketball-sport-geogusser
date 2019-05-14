@@ -16,59 +16,50 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import ir.berimbasket.app.R;
 import ir.berimbasket.app.data.env.UrlConstants;
 import ir.berimbasket.app.data.network.model.Player;
+import ir.berimbasket.app.ui.base.BaseItem;
+import ir.berimbasket.app.ui.base.BaseViewHolder;
+import ir.berimbasket.app.ui.common.DismissableCallback;
+import ir.berimbasket.app.ui.common.DismissibleHolder;
 
-class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.ViewHolder> {
+class PlayerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
-    private List<Player> dataSource;
+    private List<BaseItem> dataSource;
     private PlayerListListener listener;
+    private DismissableCallback dismissableCallback;
 
     interface PlayerListListener {
         void onPlayerItemClick(Player player);
     }
 
-    PlayerAdapter(List<Player> items, PlayerListListener listener) {
+    PlayerAdapter(List<BaseItem> items, PlayerListListener listener, DismissableCallback dismissableCallback) {
         dataSource = items;
         this.listener = listener;
+        this.dismissableCallback = dismissableCallback;
     }
 
-    PlayerAdapter(PlayerListListener listener) {
-        this(new ArrayList<Player>(), listener);
-    }
-
-    @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_player, parent, false);
-        return new ViewHolder(view);
+    PlayerAdapter(PlayerListListener listener, DismissableCallback dismissableCallback) {
+        this(new ArrayList<>(), listener, dismissableCallback);
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.imgPlayerProfile.setImageResource(R.drawable.profile_default);
-        holder.txtPlayerName.setText(dataSource.get(position).getName());
-        holder.txtTeam.setText(dataSource.get(position).getTeamName());
-        holder.txtPost.setText(dataSource.get(position).getPost());
-        String profilePic = dataSource.get(position).getProfileImage();
-        Picasso.with(holder.view.getContext())
-                .load(UrlConstants.Base.Root + "/" + profilePic)
-                .resize(120, 120)
-                .centerInside()
-                .placeholder(R.drawable.profile_default)
-                .error(R.drawable.profile_default)
-                .into(holder.imgPlayerProfile);
-        if (dataSource.get(position).getPriority() > 6) {
-            holder.imgCoach.setVisibility(View.VISIBLE);
+    public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        switch (viewType) {
+            case BaseItem.PLAYER_ITEM:
+                View view = LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.item_player, parent, false);
+                return new PlayerHolder(view);
+            case BaseItem.DISMISSIBLE_INFO:
+                View info = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_dismissible_info, parent, false);
+                DismissibleHolder dismissibleHolder = new DismissibleHolder(info);
+                dismissibleHolder.setCallback(dismissableCallback);
+                return dismissibleHolder;
         }
-        holder.view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (null != listener) {
-                    // Notify the active callbacks interface (the activity, if the
-                    // fragment is attached to one) that an item has been selected.
-                    listener.onPlayerItemClick(dataSource.get(holder.getAdapterPosition()));
-                }
-            }
-        });
+        return null;
+    }
+
+    @Override
+    public void onBindViewHolder(final BaseViewHolder holder, int position) {
+        holder.bind(dataSource.get(position), position);
     }
 
     @Override
@@ -76,13 +67,18 @@ class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.ViewHolder> {
         return dataSource.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    @Override
+    public int getItemViewType(int position) {
+        return dataSource.get(position).getViewType();
+    }
+
+    class PlayerHolder extends BaseViewHolder {
         View view;
         TextView txtPlayerName, txtPost, txtTeam;
         ImageView imgCoach;
         CircleImageView imgPlayerProfile;
 
-        ViewHolder(View view) {
+        PlayerHolder(View view) {
             super(view);
             this.view = view;
             this.txtPlayerName = view.findViewById(R.id.txtPlayerName);
@@ -91,11 +87,48 @@ class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.ViewHolder> {
             this.imgPlayerProfile = view.findViewById(R.id.imgPlayerProfile);
             this.imgCoach = view.findViewById(R.id.imgCoach);
         }
+
+        @Override
+        public void bind(BaseItem item, int position) {
+            Player player = (Player) item;
+            imgPlayerProfile.setImageResource(R.drawable.profile_default);
+            txtPlayerName.setText(player.getName());
+            txtTeam.setText(player.getTeamName());
+            txtPost.setText(player.getPost());
+            String profilePic = player.getProfileImage();
+            Picasso.with(view.getContext())
+                    .load(UrlConstants.Base.Root + "/" + profilePic)
+                    .resize(120, 120)
+                    .centerInside()
+                    .placeholder(R.drawable.profile_default)
+                    .error(R.drawable.profile_default)
+                    .into(imgPlayerProfile);
+            if (player.getPriority() > 6) {
+                imgCoach.setVisibility(View.VISIBLE);
+            }
+            view.setOnClickListener(v -> {
+                if (null != listener) {
+                    // Notify the active callbacks interface (the activity, if the
+                    // fragment is attached to one) that an item has been selected.
+                    listener.onPlayerItemClick((Player) dataSource.get(this.getLayoutPosition()));
+                }
+            });
+        }
     }
 
-    void swapDataSource(List<Player> list) {
+    void swapDataSource(List<BaseItem> list) {
         this.dataSource = list;
         notifyDataSetChanged();
+    }
+
+    void removeTop() {
+        dataSource.remove(0);
+        notifyItemRemoved(0);
+    }
+
+    void addToTop(BaseItem item) {
+        dataSource.add(0, item);
+        notifyItemInserted(0);
     }
 
     void addItems(List<Player> list) {

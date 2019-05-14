@@ -1,6 +1,7 @@
 package ir.berimbasket.app.data.network.model
 
 import com.google.gson.annotations.SerializedName
+import ir.berimbasket.app.ui.base.BaseItem
 import java.io.Serializable
 
 class Player (@field:SerializedName("id")
@@ -38,4 +39,7 @@ class Player (@field:SerializedName("id")
               @field:SerializedName("post")
               var post: String?,
               @field:SerializedName("telegramphone")
-              var phone: String?) : Serializable
+              var phone: String?) : Serializable , BaseItem {
+
+    override fun getViewType(): Int = BaseItem.PLAYER_ITEM
+}

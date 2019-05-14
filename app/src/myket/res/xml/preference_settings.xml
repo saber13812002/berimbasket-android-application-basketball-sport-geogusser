@@ -55,6 +55,13 @@
     <ir.berimbasket.app.ui.settings.preference.PreferenceCategoryCustom android:title="@string/pref_category_support">
 
         <ir.berimbasket.app.ui.settings.preference.PreferenceCustom
+            android:key="@string/key_pref_donate"
+            android:layout="@layout/item_preference_intent"
+            android:title="@string/pref_donate_title" />
+
+        <Preference android:layout="@layout/item_preference_divider" />
+
+        <ir.berimbasket.app.ui.settings.preference.PreferenceCustom
             android:key="@string/key_pref_help"
             android:layout="@layout/item_preference_intent"
             android:title="@string/pref_help_title" />

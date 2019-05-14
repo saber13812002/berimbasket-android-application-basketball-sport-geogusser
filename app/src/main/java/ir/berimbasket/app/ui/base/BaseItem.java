@@ -6,6 +6,7 @@ package ir.berimbasket.app.ui.base;
 public interface BaseItem {
     int DISMISSIBLE_INFO = 1;
     int STADIUM_ITEM = 2;
+    int PLAYER_ITEM = 3;
 
     int getViewType();
 }

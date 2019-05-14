@@ -41,15 +41,15 @@ public class Redirect {
         if (telegramUrl.matches(regex)) {
 //            final String packageName = "org.telegram.messenger";
 //            if (Redirect.isAppAvailable(context, packageName)) {
-                try {
-                    Intent i = new Intent(Intent.ACTION_VIEW);
-                    i.setData(Uri.parse(telegramUrl));
+            try {
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(telegramUrl));
 //                    i.setPackage(packageName);
-                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    context.startActivity(i);
-                } catch (ActivityNotFoundException e) {
-                    // do nothing
-                }
+                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(i);
+            } catch (ActivityNotFoundException e) {
+                // do nothing
+            }
 //            } else {
 //                sendToMarketToInstallApp(packageName, context.getString(R.string.general_dialog_message_telegram_not_found), context);
 //            }
@@ -63,15 +63,15 @@ public class Redirect {
         if (instagramUrl.matches(regex)) {
 //            String packageName = "com.instagram.android";
 //            if (Redirect.isAppAvailable(context, packageName)) {
-                try {
-                    Intent i = new Intent(Intent.ACTION_VIEW);
-                    i.setData(Uri.parse(instagramUrl));
+            try {
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(instagramUrl));
 //                    i.setPackage(packageName);
-                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    context.startActivity(i);
-                } catch (ActivityNotFoundException e) {
-                    // do nothing
-                }
+                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(i);
+            } catch (ActivityNotFoundException e) {
+                // do nothing
+            }
 //            } else {
 //                sendToMarketToInstallApp(packageName, context.getString(R.string.general_dialog_message_instagram_not_found), context);
 //            }
@@ -111,6 +111,17 @@ public class Redirect {
                         }
                     }
                 });
+    }
+
+    public static void sendToCustomTab(final Activity activity, final String url, final String message, final Context context) {
+        AlertDialogCustom alertDialogCustom = new AlertDialogCustom(context);
+        AlertDialog dialog = new AlertDialog.Builder(context)
+                .setCustomTitle(alertDialogCustom.getTitleText(context.getString(R.string.general_dialog_title_notice)))
+                .setMessage(message)
+                .setCancelable(false)
+                .setPositiveButton(context.getString(R.string.general_dialog_option_yes), (dialog1, which) -> sendToCustomTab(activity, url))
+                .setNegativeButton(context.getString(R.string.general_dialog_option_no), (dialog1, which) -> dialog1.dismiss()).show();
+        alertDialogCustom.setDialogStyle(dialog);
     }
 
     public static void sendToMarketToInstallApp(final String packageName, final String message, final Context context) {
@@ -193,8 +204,8 @@ public class Redirect {
         }
     }
 
-    public static void sendToMyketForComment(final Context  context) {
-        String url= "http://myket.ir/app/ir.berimbasket.app";
+    public static void sendToMyketForComment(final Context context) {
+        String url = "http://myket.ir/app/ir.berimbasket.app";
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_VIEW);
         intent.setData(Uri.parse(url));
@@ -209,7 +220,7 @@ public class Redirect {
             intent.setPackage(bazaarPackage);
             context.startActivity(intent);
         } catch (Exception e) {
-            sendToMarketToInstallApp(bazaarPackage, context.getString(R.string.general_dialog_title_bazaar_not_found), context);
+            sendToMarketToInstallApp(bazaarPackage, context.getString(R.string.general_dialog_message_bazaar_not_found), context);
         }
     }
 }
