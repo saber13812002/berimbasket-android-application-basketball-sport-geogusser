@@ -200,6 +200,8 @@
             android:windowSoftInputMode="stateUnchanged" />
         <activity android:name=".ui.login.mobile.CountryListActivity" />
 
+        <activity android:name=".ui.donate.DonateActivity"/>
+
         <!--
         TODO: 4/30/2019 fix this sms receiver asap (it's not listening to sms now, maybe android 8.0+ API has breaking change
         -->
