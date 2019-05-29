@@ -50,11 +50,29 @@ public class StadiumActivity extends BaseActivity implements StadiumGalleryAdapt
     private int stadiumId;
     private boolean isFabOpen;
 
+    private SpeedDialView fab;
+    private AppCompatButton btnAddImage;
+    private ImageView btnReportStadium;
+    private AppCompatButton btnCompleteStadiumDetail;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stadium);
         initToolbar();
+
+        btnReportStadium = findViewById(R.id.btnReportStadium);
+        btnAddImage = findViewById(R.id.btnAddImage);
+        btnCompleteStadiumDetail = findViewById(R.id.btnCompleteStadiumDetail);
+        fab = findViewById(R.id.fabStadium);
+
+        if (BuildConfig.FLAVOR.equals("bazaar")) {
+            fab.setVisibility(View.GONE);
+            btnAddImage.setVisibility(View.GONE);
+            btnCompleteStadiumDetail.setVisibility(View.GONE);
+            btnReportStadium.setVisibility(View.GONE);
+        }
+
         String pusheStadiumId = getIntent().getStringExtra("pushe_activity_extra");
         if (pusheStadiumId != null) {
             TextView txtStadiumName = findViewById(R.id.txtStadiumName);
@@ -80,11 +98,7 @@ public class StadiumActivity extends BaseActivity implements StadiumGalleryAdapt
 
         this.stadiumId = stadium.getId();
 
-        ImageView btnReportStadium = findViewById(R.id.btnReportStadium);
-        AppCompatButton btnAddImage = findViewById(R.id.btnAddImage);
-        AppCompatButton btnCompleteStadiumDetail = findViewById(R.id.btnCompleteStadiumDetail);
         Button btnGalleryMore = findViewById(R.id.btnGalleryMore);
-        SpeedDialView fab = findViewById(R.id.fabStadium);
         CircleImageView imgStadiumLogo = findViewById(R.id.imgStadiumLogo);
 
         if (stadium.getImages() != null && stadium.getImages().size() != 0) {
@@ -97,7 +111,9 @@ public class StadiumActivity extends BaseActivity implements StadiumGalleryAdapt
                     .into(imgStadiumLogo);
         }
 
-        initFab(fab, stadium.getId());
+        if (!BuildConfig.FLAVOR.equals("bazaar")) {
+            initFab(fab, stadium.getId());
+        }
 
         imgStadiumLogo.setOnClickListener(new View.OnClickListener() {
             @Override
