@@ -66,6 +66,10 @@ public class PlayerActivity extends BaseActivity implements SocialAccAdapter.Soc
             txtPlayerName.setTransitionName("name");
         }
 
+        if (BuildConfig.FLAVOR.equals("bazaar")) {
+            btnReportPlayer.setVisibility(View.GONE);
+        }
+
         // init toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
