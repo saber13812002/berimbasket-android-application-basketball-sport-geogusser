@@ -1,5 +1,6 @@
 package ir.berimbasket.app.ui.home.profile;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -94,11 +95,17 @@ public class ProfileFragment extends Fragment {
         return rootView;
     }
 
+    @SuppressLint("RestrictedApi")
     private void initViews(View view) {
         pagerProfile = view.findViewById(R.id.pagerProfile);
         tabProfile = view.findViewById(R.id.tabProfile);
         final FloatingActionButton fabProfileMenu = view.findViewById(R.id.fabProfileMenu);
         FloatingActionButton fabChangeAvatar = view.findViewById(R.id.fabChangeAvatar);
+
+        if (BuildConfig.FLAVOR.equals("bazaar")) {
+            fabProfileMenu.setVisibility(View.GONE);
+            fabChangeAvatar.setVisibility(View.GONE);
+        }
 
         fabProfileMenu.setOnClickListener(new View.OnClickListener() {
             @Override
