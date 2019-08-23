@@ -2,19 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="ir.berimbasket.app">
-    <!--
-         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
-         Google Maps Android API v2, but you must specify either coarse or fine
-         location permissions for the 'MyLocation' functionality.
-    -->
-    <uses-sdk tools:overrideLibrary="co.ronash.pushe" />
-
-    <permission
-        android:name="ir.berimbasket.app.permission.C2D_MESSAGE"
-        android:protectionLevel="signature" />
-
-    <uses-permission android:name="ir.berimbasket.app.permission.C2D_MESSAGE" />
-    <!-- Optional permissions -->
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -37,43 +24,108 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
+        android:usesCleartextTraffic="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:replace="android:fullBackupContent">
-        <receiver android:name="co.ronash.pushe.receiver.UpdateReceiver">
-            <intent-filter>
-                <action android:name="android.intent.action.PACKAGE_REPLACED" />
+        tools:replace="android:fullBackupContent"
+        tools:ignore="UnusedAttribute">
 
-                <data
-                    android:path="ir.berimbasket.app"
-                    android:scheme="package" />
-            </intent-filter>
-        </receiver>
-        <receiver
-            android:name="com.google.android.gms.gcm.GcmReceiver"
-            android:exported="true"
-            android:permission="com.google.android.c2dm.permission.SEND">
-            <intent-filter>
-                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-                <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
-
-                <category android:name="ir.berimbasket.app" />
-            </intent-filter>
-        </receiver>
-
+        <!-- meta -->
         <meta-data
             android:name="co.ronash.pushe.token"
             android:value="PUSHE_642362267038" />
-        <meta-data
-            android:name="co.ronash.pushe.cr"
-            android:value="aHR0cDovLzNkOWJkMThjNDc0YjQ4Y2M5NWNlNzc5Nzk1NTM2NDQ3Ojc2ZmQ4MWVmZGI1OTQ3NWY5NDQ4OTFjMmJlODUyODEwQGNhLnB1c2hlLmlyLzExNjE2" />
 
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="b657b55f3cd6f6df9c0a3dc03209c7f7243bfd85" />
+        <!-- End of meta -->
+
+        <!-- Used by Google Maps -->
+        <!-- library -->
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
+        <!-- End of library -->
+
+        <!-- receiver -->
+        <!--
+        TODO: 4/30/2019 fix this sms receiver asap (it's not listening to sms now, maybe android 8.0+ API has breaking change
+        -->
+        <!--<receiver android:name=".broadcast.SmsReceivedBroadcast"-->
+        <!--android:enabled="true"-->
+        <!--android:exported="true"-->
+        <!--android:permission="android.permission.BROADCAST_SMS">-->
+        <!--<intent-filter android:priority="1000">-->
+        <!--<action android:name="android.provider.Telephony.SMS_RECEIVED"/>-->
+        <!--</intent-filter>-->
+        <!--</receiver>-->
+
+        <!--
+             Optionally, register CampaignTrackingReceiver and CampaignTrackingService to enable
+             installation campaign reporting
+        -->
+        <receiver
+            android:name="com.google.android.gms.analytics.CampaignTrackingReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.android.vending.INSTALL_REFERRER" />
+            </intent-filter>
+        </receiver>
+        <!--
+          Optionally, register AnalyticsReceiver and AnalyticsService to support background
+          dispatching on non-Google Play devices
+        -->
+        <receiver
+            android:name="com.google.android.gms.analytics.AnalyticsReceiver"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="com.google.android.gms.analytics.ANALYTICS_DISPATCH" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".update.DownloadBroadCast">
+            <intent-filter>
+                <action android:name="android.intent.action.DOWNLOAD_COMPLETE" />
+            </intent-filter>
+        </receiver>
+        <!-- End of receiver -->
+
+        <!-- service -->
+        <service
+            android:name="com.google.android.gms.analytics.AnalyticsService"
+            android:enabled="true"
+            android:exported="false" />
+
+        <service android:name="com.google.android.gms.analytics.CampaignTrackingService" />
+        <!-- End of service -->
+
+        <!-- provider -->
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_provider_paths" />
+        </provider>
+        <!-- End of provider -->
+
+        <!-- activity -->
         <activity
             android:name=".ui.home.HomeActivity"
+            android:screenOrientation="portrait"
+            android:hardwareAccelerated="true"
+            android:configChanges="orientation|screenSize"
             android:label="@string/app_name" />
         <activity
             android:name=".ui.login.LoginActivity"
             android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|screenSize"
             android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -89,130 +141,80 @@
         </activity>
         <activity
             android:name=".ui.register.RegisterActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|screenSize"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".ui.landmark.LandmarkActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|screenSize"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".ui.settings.SettingsActivity" />
+        <activity
+            android:name=".ui.settings.SettingsActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|screenSize" />
         <activity
             android:name=".ui.player.PlayerActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|screenSize"
             android:theme="@style/StatusTransparent" />
-        <!--
-             The API key for Google Maps-based APIs is defined as a string resource.
-             (See the file "res/values/google_maps_api.xml").
-             Note that the API key is linked to the encryption key used to sign the APK.
-             You need a different API key for each encryption key, including the release key that is used to
-             sign the APK for publishing.
-             You can define the keys for the debug and release targets in src/debug/ and src/release/.
-        -->
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key" />
-
         <activity
             android:name=".ui.stadium.StadiumActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|screenSize"
             android:theme="@style/AppTheme.NoActionBar" />
 
-        <meta-data
-            android:name="io.fabric.ApiKey"
-            android:value="b657b55f3cd6f6df9c0a3dc03209c7f7243bfd85" />
-
-        <!--
-          Optionally, register AnalyticsReceiver and AnalyticsService to support background
-          dispatching on non-Google Play devices
-        -->
-        <receiver
-            android:name="com.google.android.gms.analytics.AnalyticsReceiver"
-            android:enabled="true">
-            <intent-filter>
-                <action android:name="com.google.android.gms.analytics.ANALYTICS_DISPATCH" />
-            </intent-filter>
-        </receiver>
-
-        <service
-            android:name="com.google.android.gms.analytics.AnalyticsService"
-            android:enabled="true"
-            android:exported="false" />
-
-        <!--
-             Optionally, register CampaignTrackingReceiver and CampaignTrackingService to enable
-             installation campaign reporting
-        -->
-        <receiver
-            android:name="com.google.android.gms.analytics.CampaignTrackingReceiver"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="com.android.vending.INSTALL_REFERRER" />
-            </intent-filter>
-        </receiver>
-
-        <service android:name="com.google.android.gms.analytics.CampaignTrackingService" />
-
-        <activity android:name=".ui.splash.SplashActivity">
+        <activity
+            android:name=".ui.splash.SplashActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <provider
-            android:name="android.support.v4.content.FileProvider"
-            android:authorities="${applicationId}.provider"
-            android:exported="false"
-            android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_provider_paths" />
-        </provider>
-
-        <receiver android:name=".update.DownloadBroadCast">
-            <intent-filter>
-                <action android:name="android.intent.action.DOWNLOAD_COMPLETE" />
-            </intent-filter>
-        </receiver>
-
-        <activity android:name=".ui.intro.IntroActivity" />
-        <activity android:name=".ui.browser.BrowserActivity" />
-
-        <service
-            android:name=".util.PusheListener"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="co.ronash.pushe.RECEIVE" />
-            </intent-filter>
-        </service>
+        <activity
+            android:name=".ui.intro.IntroActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|screenSize" />
+        <activity
+            android:name=".ui.browser.BrowserActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|screenSize" />
 
         <activity
             android:name=".ui.contact.DeveloperContactActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|screenSize"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".ui.notification.NotificationActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|screenSize"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".ui.internet.NoInternetActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|screenSize"
             android:excludeFromRecents="true"
             android:label=""
             android:theme="@style/Theme.Dialog" />
         <activity
             android:name=".ui.login.mobile.MobileLoginActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|screenSize"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateUnchanged" />
-        <activity android:name=".ui.login.mobile.CountryListActivity" />
-
-        <activity android:name=".ui.donate.DonateActivity"/>
-
-        <!--
-        TODO: 4/30/2019 fix this sms receiver asap (it's not listening to sms now, maybe android 8.0+ API has breaking change
-        -->
-        <!--<receiver android:name=".broadcast.SmsReceivedBroadcast"-->
-        <!--android:enabled="true"-->
-        <!--android:exported="true"-->
-        <!--android:permission="android.permission.BROADCAST_SMS">-->
-        <!--<intent-filter android:priority="1000">-->
-        <!--<action android:name="android.provider.Telephony.SMS_RECEIVED"/>-->
-        <!--</intent-filter>-->
-        <!--</receiver>-->
+        <activity
+            android:name=".ui.login.mobile.CountryListActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|screenSize" />
+        <activity
+            android:name=".ui.donate.DonateActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|screenSize"/>
+        <!-- End of activity -->
     </application>
 
 </manifest>
