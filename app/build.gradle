@@ -35,7 +35,7 @@ repositories {
 }
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 30
     flavorDimensions "BerimBasket"
     signingConfigs {
         production {
@@ -48,13 +48,13 @@ android {
     defaultConfig {
         applicationId "ir.berimbasket.app"
         minSdkVersion 17
-        targetSdkVersion 28
+        targetSdkVersion 30
         multiDexEnabled true
         versionCode 19
         versionName "1.0.3"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
-        renderscriptTargetApi 28
+        renderscriptTargetApi 30
         renderscriptSupportModeEnabled true
     }
     buildTypes {
@@ -81,7 +81,7 @@ android {
 }
 
 ext {
-    supportVersion = '28.0.0'
+    supportVersion = '30.0.0'
 }
 
 dependencies {
