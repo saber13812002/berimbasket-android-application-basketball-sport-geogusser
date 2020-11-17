@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#7ee3ba"
+    android:background="#dddddd"
     android:gravity="center"
     android:orientation="vertical"
     tools:context="ir.berimbasket.app.ui.splash.SplashActivity">
@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:layout_gravity="center"
-        android:src="@raw/animated_ball" />
+        android:src="@raw/animated_loading" />
 
     <TextView
         android:id="@+id/txtSplash_loading"
