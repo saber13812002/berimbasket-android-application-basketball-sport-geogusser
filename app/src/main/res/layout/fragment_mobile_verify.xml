@@ -21,7 +21,7 @@
                 android:id="@+id/imageView"
                 android:layout_width="128dp"
                 android:layout_height="128dp"
-                android:src="@drawable/intro_stadium_3"
+                android:src="@drawable/ic_ojman"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
