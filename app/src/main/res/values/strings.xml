@@ -1,6 +1,6 @@
 <resources>
     <!-- app specific -->
-    <string name="app_name">Najm</string>
+    <string name="app_name">Owjeman.ir</string>
 
     <!-- activity -->
     <string name="activity_home_navigation_profile">Profile</string>

@@ -48,7 +48,7 @@ public class SplashActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         PrefManager pref = new PrefManager(getApplicationContext());
-        if (!pref.getIntroPassed()) {
+        if (false) { //!pref.getIntroPassed()
             Intent intent = new Intent(this, IntroActivity.class);
             startActivity(intent);
         } else {
