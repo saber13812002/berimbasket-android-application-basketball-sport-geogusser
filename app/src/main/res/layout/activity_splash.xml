@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#dddddd"
+    android:background="#eeeeee"
     android:gravity="center"
     android:orientation="vertical"
     tools:context="ir.berimbasket.app.ui.splash.SplashActivity">
@@ -22,7 +22,7 @@
         android:fontFamily="@font/yekan"
         android:text="@string/activity_splash_loading_message"
         android:textAppearance="@android:style/TextAppearance.Large"
-        android:textColor="@android:color/white"
+        android:textColor="@android:color/black"
         android:textStyle="bold" />
 
 </LinearLayout>

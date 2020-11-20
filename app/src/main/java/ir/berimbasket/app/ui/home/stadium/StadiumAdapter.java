@@ -86,7 +86,7 @@ class StadiumAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         @Override
         public void bind(BaseItem item, int position) {
             Stadium stadium = (Stadium) item;
-            imgStadiumImage.setImageResource(R.drawable.stadium1);
+            imgStadiumImage.setImageResource(R.drawable.room);
             txtStadiumName.setText(String.valueOf(stadium.getTitle()));
             txtStadiumPhone.setText("-");
             txtStadiumAddress.setText(stadium.getAddress());
@@ -94,8 +94,8 @@ class StadiumAdapter extends RecyclerView.Adapter<BaseViewHolder> {
                 Picasso.with(view.getContext())
                         .load(stadium.getImages().get(0))
                         .resize(130, 130)
-                        .placeholder(R.drawable.stadium1)
-                        .error(R.drawable.stadium1)
+                        .placeholder(R.drawable.room)
+                        .error(R.drawable.room)
                         .centerInside()
                         .into(imgStadiumImage);
             }

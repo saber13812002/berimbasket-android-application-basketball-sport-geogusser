@@ -105,8 +105,8 @@ public class StadiumActivity extends BaseActivity implements StadiumGalleryAdapt
             Picasso.with(StadiumActivity.this)
                     .load(stadium.getImages().get(0))
                     .resize(100, 100)
-                    .placeholder(R.drawable.stadium1)
-                    .error(R.drawable.stadium1)
+                    .placeholder(R.drawable.room)
+                    .error(R.drawable.room)
                     .centerInside()
                     .into(imgStadiumLogo);
         }
