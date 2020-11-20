@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">نجم</string>
+    <string name="app_name">اوجمان دات آی آر</string>
     <string name="activity_home_navigation_profile">پروفایل</string>
     <string name="activity_home_navigation_map">نقشه</string>
     <string name="activity_home_navigation_matches">فعالیت</string>
@@ -41,7 +41,7 @@
     <string name="activity_player_spec_instagram">اینستاگرام</string>
     <string name="activity_player_spec_phone_number">شماره تلفن</string>
     <string name="activity_player_default_name">نام مشاور</string>
-    <string name="activity_splash_loading_message">نجم</string>
+    <string name="activity_splash_loading_message">اوجمان دات آی آر</string>
     <string name="activity_intro_next_text">بعدی</string>
     <string name="activity_set_marker_toast_stadium_name_error">لطفا نام دفتر مشاوره را وارد کنید</string>
     <string name="activity_set_marker_toast_marker_successful">نقطه مد نظر شما با موفقیت ثبت شد</string>
@@ -53,13 +53,13 @@
     <string name="activity_stadium_spec_instagram">اینستاگرام</string>
     <string name="activity_stadium_spec_roof">طبقه</string>
     <string name="activity_stadium_spec_distance_2_parking">فاصله تا پارکینگ</string>
-    <string name="activity_stadium_spec_rim_height">ارتفاع </string>
+    <string name="activity_stadium_spec_rim_height">رتبه </string>
     <string name="activity_stadium_spec_rim_number">تعداد </string>
     <string name="activity_stadium_spec_spotlight">تست</string>
     <string name="activity_stadium_spec_fence">نوبت دهی</string>
     <string name="activity_stadium_spec_parking">پارکینگ</string>
     <string name="activity_stadium_spec_basket_net">منشی</string>
-    <string name="activity_stadium_spec_score_line">خط امتیاز</string>
+    <string name="activity_stadium_spec_score_line"> امتیاز</string>
     <string name="activity_stadium_spec_lines">تعداد مشاور</string>
     <string name="activity_stadium_txt_phone_default">تلفن : +98218943264</string>
     <string name="activity_stadium_txt_detail">جزئیات مرکز مشاوره</string>
@@ -90,9 +90,9 @@
     <string name="fragment_profile_user_not_reg_message">وارد حساب کاربریت شو تا غافلگیر شی</string>
     <string name="fragment_profile_user_not_reg_btn">ورود به حساب کاربری</string>
     <string name="fragment_profile_txt_name_default">نام و نام خانوادگی</string>
-    <string name="fragment_intro_player_text">بازیکن شو</string>
+    <string name="fragment_intro_player_text">استعدادت پیدا کن</string>
     <string name="fragment_intro_stadium_text">مرکز مشاوره پیدا کن</string>
-    <string name="fragment_intro_match_text">مسابقه بده</string>
+    <string name="fragment_intro_match_text">در آزمون ها شرکت کنید</string>
     <string name="fragment_set_marker_your_location">مکان انتخابی شما</string>
     <string name="fragment_player_spec_name">نام</string>
     <string name="fragment_player_spec_age">سن</string>
@@ -227,9 +227,9 @@
     <string name="activity_developer_contact_edt_subject_hint">عنوان پیام</string>
     <string name="activity_developer_contact_edt_content_hint">متن پیام</string>
     <string name="activity_developer_contact_btn_send">ارسال پیام</string>
-    <string name="activity_developer_contact_txt_developer_name">توسعه دهنده : مهندس صابر طباطبایی</string>
+    <string name="activity_developer_contact_txt_developer_name">توسعه دهنده : تیم نرم افزاری اوجمان دات آی آر</string>
     <string name="activity_developer_contact_btn_send_email">ارسال پیام به توسعه دهنده از طریق ایمیل
-    \n berimbasket@gmail.com</string>
+    \n info@owjeman.ir</string>
     <string name="activity_developer_contact_toast_message_fill_edittext">لطفا تمامی موارد را پر کنید</string>
     <string name="activity_developer_contact_toast_message_successful_send">پیام شما با موفقیت ارسال شد.</string>
     <string name="activity_developer_contact_toast_message_try_again">مشکلی در ارسال پیام شما به وجود آمده، لطفا دوباره امتحان کنید.</string>
