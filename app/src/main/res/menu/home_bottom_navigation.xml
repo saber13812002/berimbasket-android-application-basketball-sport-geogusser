@@ -24,6 +24,7 @@
         android:id="@+id/navigation_matches"
         android:icon="@drawable/calendar"
         android:orderInCategory="4"
+        android:visible="false"
         android:title="@string/activity_home_navigation_matches" />
 
     <item
