@@ -50,8 +50,8 @@ android {
         minSdkVersion 17
         targetSdkVersion 28
         multiDexEnabled true
-        versionCode 19
-        versionName "1.0.3"
+        versionCode 20
+        versionName "1.0.4"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
         renderscriptTargetApi 28
@@ -105,8 +105,8 @@ dependencies {
     implementation "com.android.support:percent:$supportVersion"
 
     implementation 'de.hdodenhof:circleimageview:2.1.0'
-    implementation 'com.google.android.gms:play-services-maps:10.0.1'
-    implementation 'com.google.android.gms:play-services-analytics:10.0.1'
+    implementation 'com.google.android.gms:play-services-maps:16.0.0'
+    implementation 'com.google.android.gms:play-services-analytics:16.0.8'
     implementation 'com.google.maps.android:android-maps-utils:0.5+'
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     implementation 'de.hdodenhof:circleimageview:2.1.0'
@@ -115,7 +115,7 @@ dependencies {
     implementation 'com.daimajia.slider:library:1.1.5@aar'
     implementation 'jp.wasabeef:blurry:2.1.1'
     implementation 'ru.egslava:blurredview:1.0'
-    implementation 'co.ronash.android:pushe-base:1.3.1'
+    implementation 'co.ronash.android:pushe-base:1.6.3'
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.8'
     implementation 'com.squareup.retrofit2:retrofit:2.3.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
@@ -123,7 +123,6 @@ dependencies {
     implementation 'com.squareup.okhttp3:logging-interceptor:3.8.0'
     implementation 'com.google.code.gson:gson:2.8.0'
     implementation 'com.cleveroad:slidingtutorial:1.0.8'
-    implementation 'com.google.android.gms:play-services-ads:10.0.1'
     implementation 'com.github.wooplr:Spotlight:1.2.3'
     implementation 'com.github.iammert:MaterialIntroView:5e0c6b6'
     implementation 'com.github.florent37:tutoshowcase:1.0.1'
